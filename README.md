@@ -12,7 +12,7 @@ This software enables the high-performance operation of AMD GPUs for computation
 - [New features and enhancements in ROCm 1.9.0](#new-features-and-enhancements-in-rocm-190)
 - [The latest ROCm platform - ROCm 1.9.0](#the-latest-rocm-platform---rocm-190)
 - [Installing from AMD ROCm repositories](#installing-from-amd-rocm-repositories)
-  * [Ubuntu Support - Installing from a Debian repository](#ubunutu-support---installing-from-a-debian-repository)
+  * [Ubuntu Support - Installing from a Debian repository](#ubuntu-support---installing-from-a-debian-repository)
   * [CentOS/RHEL 7 (both 7.4 and 7.5) Support](#centosrhel-7-both-74-and-75-support)
 - [Known Issues / Workarounds](#known-issues--workarounds)
 - [Closed source components](#closed-source-components)
