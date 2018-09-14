@@ -111,7 +111,7 @@ To try ROCm with an upstream kernel, install ROCm as normal, but do not install 
 
 #### New distribution support 
 
- * Binary package support for Ubuntu 16.04
+ * Binary package support for Ubuntu 16.04 and 18.04
  * Binary package support for CentOS 7.4 and 7.5
  * Binary package support for RHEL 7.4 and 7.5
  
@@ -298,6 +298,7 @@ sudo apt install rocm-dev
 >ROCm driver stack installed
 
 ##### Removing pre-release packages
+It is recommended to [remove previous rocm installations](https://github.com/RadeonOpenCompute/ROCm#how-to-un-install-from-ubuntu-1604) before installing the latest version to ensure a smooth installation.
 
 If you installed any of the ROCm pre-release packages from github, they will
 need to be manually un-installed:
@@ -360,9 +361,10 @@ sudo yum install -y dkms kernel-headers-`uname -r` kernel-devel-`uname -r`
 ```
 
 
-At this point they system can install ROCm using the DKMS drivers.
+#### Installing ROCm on the system
 
-Installing ROCm on the system
+It is recommended to [remove previous rocm installations](https://github.com/RadeonOpenCompute/ROCm#how-to-un-install-rocm-from-centosrhel-74) before installing the latest version to ensure a smooth installation.
+
 At this point ROCm can be installed on the target system. Create a /etc/yum.repos.d/rocm.repo file with the following contents:
 
 ```shell
