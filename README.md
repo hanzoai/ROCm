@@ -5,6 +5,19 @@ This software enables the high-performance operation of AMD GPUs for computation
 
 ### Current ROCm Version: 1.9.0
 
+- [Hardware Support](#hardware-support)
+  * [Supported GPUs](#supported-gpus)
+  * [Supported CPUs](#supported-cpus)
+  * [Not supported or very limited support under ROCm](#not-supported-or-very-limited-support-under-rocm)
+- [New features and enhancements in ROCm 1.9.0](#new-features-and-enhancements-in-rocm-190)
+- [The latest ROCm platform - ROCm 1.9.0](#the-latest-rocm-platform---rocm-190)
+- [Installing from AMD ROCm repositories](#installing-from-amd-rocm-repositories)
+  * [Ubuntu Support - Installing from a Debian repository](#ubunutu-support---installing-from-a-debian-repository)
+  * [CentOS/RHEL 7 (both 7.4 and 7.5) Support](#centosrhel-7-both-74-and-75-support)
+- [Known Issues / Workarounds](#known-issues--workarounds)
+- [Closed source components](#closed-source-components)
+- [Getting ROCm source code](#getting-rocm-source-code)
+
 ### Hardware Support
 ROCm is focused on using AMD GPUs to accelerate computational tasks, such as machine learning, engineering workloads, and scientific computing. In order to focus our development efforts on these domains of interest, ROCm 
 
@@ -198,7 +211,7 @@ AMD is hosting both Debian and RPM repositories for the ROCm 1.9.0 packages at t
 
 The packages in the Debian repository have been signed to ensure package integrity.
 
-#### Installing from a Debian repository
+#### Ubuntu Support - installing from a Debian repository
 
 ##### First make sure your system is up to date 
 
@@ -353,13 +366,13 @@ sudo apt purge $(dpkg -l | grep 'kfd\|rocm' | grep linux | grep -v libc | awk '{
 
 If possible, we would recommend starting with a fresh OS install.
 
-### CentOS/RHEL 7 (both 7.4 and 7.5) Support
+#### CentOS/RHEL 7 (both 7.4 and 7.5) Support
 
 Support for CentOS/RHEL 7 has been added in ROCm 1.8, but requires a special 
 runtime environment provided by the RHEL Software Collections and additional
 dkms support packages to properly install in run.
 
-#### Preparing RHEL 7 for installation
+##### Preparing RHEL 7 for installation
 
 RHEL is a subscription based operating system, and must enable several external
 repositories to enable installation of the devtoolset-7 environment and the DKMS
@@ -384,7 +397,7 @@ Third, enable additional repositories by downloading and installing the epel-rel
 sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 ```
 
-#### Install and setup Devtoolset-7
+##### Install and setup Devtoolset-7
 
 To setup the Devtoolset-7 environment, follow the instructions on this page:
 
@@ -392,7 +405,7 @@ https://www.softwarecollections.org/en/scls/rhscl/devtoolset-7/
 
 Note that devtoolset-7 is a Software Collections package, and is not supported by AMD.
 
-#### Prepare CentOS/RHEL 7.4 or 7.5 for DKMS Install
+##### Prepare CentOS/RHEL 7.4 or 7.5 for DKMS Install
 
 Installing kernel drivers on CentOS/RHEL 7.4/7.5 requires dkms tool being installed:
 
@@ -402,7 +415,7 @@ sudo yum install -y dkms kernel-headers-`uname -r` kernel-devel-`uname -r`
 ```
 
 
-#### Installing ROCm on the system
+##### Installing ROCm on the system
 
 It is recommended to [remove previous rocm installations](https://github.com/RadeonOpenCompute/ROCm#how-to-un-install-rocm-from-centosrhel-74) before installing the latest version to ensure a smooth installation.
 
@@ -459,7 +472,7 @@ Some users may want to install a subset of the full ROCm installation. In partic
 sudo yum install rock-dkms rocm-opencl
 ```
 
-#### Compiling applications using hcc, hip, etc.
+##### Compiling applications using hcc, hip, etc.
 
 To compile applications or samples, please use gcc-7.2 provided by the devtoolset-7 environment.
 To do this, compile all applications after running this command: 
@@ -467,7 +480,7 @@ To do this, compile all applications after running this command:
 ```shell
 scl enable devtoolset-7 bash
 ```
-#### How to un-install ROCm from CentOS/RHEL 7.4 and 7.5
+##### How to un-install ROCm from CentOS/RHEL 7.4 and 7.5
 
 To un-install the entire rocm development package execute:
 
@@ -475,19 +488,19 @@ To un-install the entire rocm development package execute:
 sudo yum autoremove rocm-dkms
 ```
 
-#### Known Issues / Workarounds
+### Known Issues / Workarounds
 
-##### Radeon Compute Profiler does not run
+#### Radeon Compute Profiler does not run
 
 rcprof -A <HSA_application> fails with error message: Radeon Compute Profiler could not be enabled. Version mismatch between HSA runtime and libhsa-runtime-tools64.so.1.
 
-##### Running OCLPerfCounters test results in LLVM ERROR: out of memory
+#### Running OCLPerfCounters test results in LLVM ERROR: out of memory
 
-##### HipCaffe is supported on single GPU configurations
+#### HipCaffe is supported on single GPU configurations
 
-##### The ROCm SMI library calls to rsmi_dev_power_cap_set() and rsmi_dev_power_profile_set() will not work for all but the first gpu in multi-gpu set ups.
+#### The ROCm SMI library calls to rsmi_dev_power_cap_set() and rsmi_dev_power_profile_set() will not work for all but the first gpu in multi-gpu set ups.
 
-##### Vega10 users who want to run ROCm on a system that does not support PCIe atomics must set HSA_ENABLE_SDMA=0
+#### Vega10 users who want to run ROCm on a system that does not support PCIe atomics must set HSA_ENABLE_SDMA=0
 
 Currently, if you want to run ROCm on a Vega10 GPU (GFX9) on a system without PCIe atomics, you must turn off SDMA functionality.
 
@@ -495,7 +508,7 @@ Currently, if you want to run ROCm on a Vega10 GPU (GFX9) on a system without PC
 export HSA_ENABLE_SDMA=0
 ```
 
-#### Closed source components
+### Closed source components
 
 The ROCm platform relies on a few closed source components to provide legacy
 functionality like HSAIL finalization and debugging/profiling support. These
