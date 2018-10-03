@@ -199,7 +199,7 @@ are also available on GitHub, and frozen for the rocm-1.9.0 release:
 #### Supported Operating Systems - New operating systems available
 
 The ROCm 1.9.0 platform has been tested on the following operating systems:
- * Ubuntu 16.04 &. 18.04
+ * Ubuntu 16.04 &. 18.04 (With 4.13.x kernels and newer)
  * CentOS 7.4 &. 7.5 (Using devetoolset-7 runtime support)
  * RHEL 7.4. &. 7.5  (Using devetoolset-7 runtime support)
 
@@ -441,11 +441,7 @@ following command:
 sudo usermod -a -G video $LOGNAME 
 ```
 
-Current release supports up to CentOS/RHEL 7.4 and 7.5. Users should update to the latest version of the OS:
-
-```shell
-sudo yum update
-```
+Current release supports up to CentOS/RHEL 7.4 and 7.5. Users should completely remove ROCm packages before updating to the latest version of the OS, to avoid DKMS related issues.
 
 ###### Performing an OpenCL-only Installation of ROCm
 
