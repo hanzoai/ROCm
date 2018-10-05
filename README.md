@@ -206,6 +206,7 @@ are also available on GitHub, and frozen for the rocm-1.9.x release:
 #### Supported Operating Systems - New operating systems available
 
 The ROCm 1.9.x platform has been tested on the following operating systems:
+ * Ubuntu 16.04 &. 18.04 (Version 16.04.3 and newer or kernels 4.13 and newer)
  * CentOS 7.4 &. 7.5 (Using devetoolset-7 runtime support)
  * RHEL 7.4. &. 7.5  (Using devetoolset-7 runtime support)
 
