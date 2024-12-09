@@ -1,0 +1,27 @@
+From 342133a5cb404beae4d7e1994338120ff99a76d2 Mon Sep 17 00:00:00 2001
+From: Jatin Chaudhary <JatinJaikishan.Chaudhary@amd.com>
+Date: Mon, 09 Dec 2024 11:24:29 +0000
+Subject: [PATCH] SWDEV-503299 - Do not use operator to check for nan
+
+Some libs use __HIP_NO_HALF_OPERATORS__ and __HIP_NO_HALF_CONVERSIONS__
+which results in operators being hidden and can cause errors.
+
+Change-Id: I83c194d7d727cba30b46d7c296f7d396549f5fca
+---
+
+diff --git a/hipamd/include/hip/amd_detail/amd_hip_fp16.h b/hipamd/include/hip/amd_detail/amd_hip_fp16.h
+index c8117b1..1a08bb8 100644
+--- a/hipamd/include/hip/amd_detail/amd_hip_fp16.h
++++ b/hipamd/include/hip/amd_detail/amd_hip_fp16.h
+@@ -1679,8 +1679,9 @@
+             __HOST_DEVICE__
+             bool __hisinf(__half x)
+             {
+-                // +Inf/-Inf
+-                return x == HIPRT_INF_FP16 || x == __ushort_as_half((unsigned short)0xFC00U);
++                __half_raw hr = x;
++                // +/-Inf
++                return hr.x == 0x7C00U || hr.x == 0xFC00U;
+             }
+             inline
+             __HOST_DEVICE__
