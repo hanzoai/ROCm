@@ -9,10 +9,10 @@ which results in operators being hidden and can cause errors.
 Change-Id: I83c194d7d727cba30b46d7c296f7d396549f5fca
 ---
 
-diff --git a/hipamd/include/hip/amd_detail/amd_hip_fp16.h b/hipamd/include/hip/amd_detail/amd_hip_fp16.h
+diff --git a/include/hip/amd_detail/amd_hip_fp16.h b/include/hip/amd_detail/amd_hip_fp16.h
 index c8117b1..1a08bb8 100644
---- a/hipamd/include/hip/amd_detail/amd_hip_fp16.h
-+++ b/hipamd/include/hip/amd_detail/amd_hip_fp16.h
+--- a/include/hip/amd_detail/amd_hip_fp16.h
++++ b/include/hip/amd_detail/amd_hip_fp16.h
 @@ -1679,8 +1679,9 @@
              __HOST_DEVICE__
              bool __hisinf(__half x)
