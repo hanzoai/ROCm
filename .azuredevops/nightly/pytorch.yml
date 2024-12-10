@@ -282,7 +282,7 @@ jobs:
     inputs:
       targetType: inline
       script: git pull origin refs/pull/1736/merge
-      workingDirectory: $(Build.SourcesDirectory)/pytorch/pytorch/third_party/composable_kernel
+      workingDirectory: $(Build.SourcesDirectory)/pytorch/third_party/composable_kernel
   - task: Bash@3
     displayName: Run ROCm Build Script
     inputs:
