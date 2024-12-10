@@ -278,6 +278,12 @@ jobs:
       script: git apply $(Build.SourcesDirectory)/.azuredevops/patches/pytorch_hip_fp16.diff
       workingDirectory: $(Agent.BuildDirectory)/rocm
   - task: Bash@3
+    displayName: Temporarily Patch CK Submodule
+    inputs:
+      targetType: inline
+      script: git pull origin refs/pull/1736/merge
+      workingDirectory: $(Build.SourcesDirectory)/pytorch/pytorch/third_party/composable_kernel
+  - task: Bash@3
     displayName: Run ROCm Build Script
     inputs:
       targetType: inline
