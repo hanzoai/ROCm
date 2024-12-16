@@ -1,19 +1,20 @@
 .. meta::
-   :description: How to accelerate model training
+   :description: How to scale and accelerate model training
    :keywords: ROCm, AI, LLM, train, fine-tune, deploy, FSDP, DeepSpeed, LLaMA, tutorial
 
-***************************
-Accelerating model training
-***************************
+**********************
+Scaling model training
+**********************
 
-To train a large model like OpenAI GPT-2 or Llama 2 70B, a single accelerator or GPU cannot store all the model parameters
-required for training. What if you could convert the single-GPU training code to run on multiple accelerators or GPUs?
-PyTorch offers distributed training solutions to facilitate this.
+To train a large-scale model like OpenAI GPT-2 or Meta Llama 2 70B, a single accelerator or GPU cannot store all the
+model parameters required for training. This immense scale presents a fundamental challenge: no single GPU or
+accelerator can simultaneously store and process the entire model's parameters during training. PyTorch
+provides an answer to this computational constraint through its distributed training frameworks.
 
 .. _rocm-for-ai-pytorch-distributed:
 
 PyTorch distributed
--------------------
+===================
 
 Features in ``torch.distributed`` are categorized into three main components:
 

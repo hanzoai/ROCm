@@ -84,8 +84,8 @@ Complete the following system validation and optimization steps to set up your s
 Disable NUMA auto-balancing
 ---------------------------
 
-Generally, application performance can benefit from disabling NUMA auto-balancing. However, 
-it might be detrimental to performance with certain types of worklaods.
+Generally, application performance can benefit from disabling NUMA auto-balancing. However,
+it might be detrimental to performance with certain types of workloads.
 
 Run the command ``cat /proc/sys/kernel/numa_balancing`` to check your current NUMA (Non-Uniform
 Memory Access) settings. Output ``0`` indicates this setting is disabled. If there is no output or
