@@ -1,6 +1,6 @@
 .. meta::
-   :description: How to use ROCm for AI
-   :keywords: ROCm, AI, LLM, train, fine-tune, FSDP, DeepSpeed, LLaMA, tutorial
+   :description: How to train a model using ROCm Megatron-LM
+   :keywords: ROCm, AI, LLM, train, Megatron-LM, megatron, Llama, tutorial, docker, torch
 
 **************************************
 Training a model with ROCm Megatron-LM
@@ -12,11 +12,11 @@ The ROCm Megatron-LM framework is a specialized fork of the robust Megatron-LM, 
 enable efficient training of large-scale language models on AMD GPUs. By leveraging AMD Instinct™ MI300X
 accelerators, AMD Megatron-LM delivers enhanced scalability, performance, and resource utilization for AI
 workloads. It is purpose-built to :ref:`support models <amd-megatron-lm-model-support>`
-like Llama 2, Llama 3, and Llama 3.1, enabling developers to train next-generation AI models with greater
+like Meta's Llama 2, Llama 3, and Llama 3.1, enabling developers to train next-generation AI models with greater
 efficiency. See the GitHub repository at `<https://github.com/ROCm/Megatron-LM>`__.
 
 For ease of use, AMD provides a ready-to-use Docker image for MI300X accelerators containing essential
-components including PyTorch, PyTorch Lightning, ROCm libraries, and Megatron-LM utilities. It contains the
+components, including PyTorch, PyTorch Lightning, ROCm libraries, and Megatron-LM utilities. It contains the
 following software to accelerate training workloads:
 
 +--------------------------+--------------------------------+
@@ -84,8 +84,8 @@ Complete the following system validation and optimization steps to set up your s
 Disable NUMA auto-balancing
 ---------------------------
 
-Generally, application performance can benefit from disabling NUMA auto-balancing; however, there are
-certain types of workloads where doing so might be detrimental to performance.
+Generally, application performance can benefit from disabling NUMA auto-balancing. However, 
+it might be detrimental to performance with certain types of worklaods.
 
 Run the command ``cat /proc/sys/kernel/numa_balancing`` to check your current NUMA (Non-Uniform
 Memory Access) settings. Output ``0`` indicates this setting is disabled. If there is no output or
@@ -128,8 +128,7 @@ Running the RCCL bandwidth test helps verify that:
 - The interconnect (such as InfiniBand, Ethernet, or Infinite fabric) is functioning as expected and
   provides adequate bandwidth for communication.
 
-- There are no hardware setup or cabling issues that could affect the
-  communication between GPUs.
+- No hardware setup or cabling issues could affect the communication between GPUs
 
 Tuning and optimizing hyperparameters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
