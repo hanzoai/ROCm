@@ -217,6 +217,7 @@ jobs:
       dependencyList: ${{ parameters.rocmDependencies }}
       dependencySource: staging
       gpuTarget: $(JOB_GPU_TARGET)
+      setupHIPLibrarySymlinks: true
   - task: Bash@3
     displayName: ROCm symbolic link
     inputs:
