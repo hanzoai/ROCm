@@ -99,7 +99,7 @@ parameters:
   default:
     - rocminfo
     - MIOpen
-    - clr
+  #  - clr
     - hipBLAS
     - hipFFT
     - hipRAND
@@ -212,6 +212,30 @@ jobs:
       script: |
         sudo mkdir -p /opt/python/cp310-cp310/lib/python3.10
         sudo ln -s /usr/local/lib/python3.10/dist-packages /opt/python/cp310-cp310/lib/python3.10/site-packages
+  - task: DownloadPipelineArtifact@2
+    displayName: Download Specific HIP
+    inputs:
+      buildType: 'specific'
+      project: ROCm-CI
+      definition: 145
+      specificBuildWithTriggering: true
+      itemPattern: '**/*'
+      buildVersionToDownload: specific
+      targetPath: '$(Pipeline.Workspace)/d'
+      pipelineId: 16410
+  - task: ExtractFiles@1
+    displayName: Extract clr
+    inputs:
+      archiveFilePatterns: '$(Pipeline.Workspace)/d/**/*.tar.gz'
+      destinationFolder: '$(Agent.BuildDirectory)/rocm'
+      cleanDestinationFolder: false
+      overwriteExistingFiles: true
+  - task: DeleteFiles@1
+    displayName: Cleanup Compressed clr
+    inputs:
+      SourceFolder: '$(Pipeline.Workspace)/d'
+      Contents: '**/*.tar.gz'
+      RemoveDotFiles: true
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/dependencies-rocm.yml
     parameters:
       dependencyList: ${{ parameters.rocmDependencies }}
