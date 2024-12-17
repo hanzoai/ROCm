@@ -120,10 +120,11 @@ parameters:
     - rocm-core
     - rocPRIM
     # below are additional dependencies not called out by build script, but throw errors during cmake
-    - hipCUB
-    - rocThrust
-    - hipBLAS-common
     - composable_kernel
+    - hipBLAS-common
+    - hipCUB
+    - rocminfo
+    - rocThrust
 - name: rocmTestDependencies
   type: object
   default:
@@ -324,8 +325,14 @@ jobs:
     displayName: git clone pytorch vision
     inputs:
       targetType: inline
-      script: git clone https://github.com/pytorch/vision.git --depth=1 --recurse-submodules
+      script: git clone https://github.com/pytorch/vision.git --recurse-submodules
       workingDirectory: $(Build.SourcesDirectory)
+  - task: Bash@3
+    displayName: git checkout specific vision commit
+    inputs:
+      targetType: inline
+      script: git checkout 6279faa88a3fe7de49bf58284d31e3941b768522
+      workingDirectory: $(Build.SourcesDirectory)/vision
   - task: Bash@3
     displayName: Build vision
     inputs:
