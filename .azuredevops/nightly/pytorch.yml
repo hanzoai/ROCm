@@ -329,12 +329,6 @@ jobs:
       script: git clone https://github.com/pytorch/vision.git --recurse-submodules
       workingDirectory: $(Build.SourcesDirectory)
   - task: Bash@3
-    displayName: git checkout specific vision commit
-    inputs:
-      targetType: inline
-      script: git checkout 6279faa88a3fe7de49bf58284d31e3941b768522
-      workingDirectory: $(Build.SourcesDirectory)/vision
-  - task: Bash@3
     displayName: Build vision
     inputs:
       targetType: inline
