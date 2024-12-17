@@ -189,6 +189,7 @@ Jupyter
 KFD
 KFDTest
 KiB
+KMD
 KV
 KVM
 Keras
@@ -314,6 +315,7 @@ RDMA
 RDNA
 README
 RHEL
+RMW
 RNN
 RNNs
 ROC
@@ -591,6 +593,7 @@ hpp
 hsa
 hsakmt
 hyperparameter
+hyperparameters
 iDRAC
 ib_core
 inband
