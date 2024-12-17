@@ -11,34 +11,36 @@ deep learning. PyTorch on ROCm provides mixed-precision and large-scale training
 using `MIOpen <https://github.com/ROCm/MIOpen>`_ and
 `RCCL <https://github.com/ROCm/rccl>`_ libraries.
 
-PyTorch already upstreamed to official repository and the PyTorch team also
-releases PyTorch with ROCm support, which means the PyTorch has two different
-release cycle with ROCm support:
-
-- Official PyTorch release:
-
-  - Support the latest stable PyTorch releases with the latest or one minor
-    version behind ROCm.
-
-  - `Official PyTorch repository <https://github.com/pytorch/pytorch>`_
-
-  - `Nightly and latest stable version installation guide <https://pytorch.org/get-started/locally/>`_.
-
-  - `Previous versions <https://pytorch.org/get-started/previous-versions/>`_
+ROCm support for PyTorch is upstreamed into the official PyTorch repository. Due to independent
+compatibility considerations, this results in two distinct release cycles for PyTorch on ROCm:
 
 - ROCm PyTorch release:
 
-  - Support the one or two minor version behind PyTorch releases with the latest
-    ROCm.
+  - Provides the latest version of ROCm but doesn't immediately support the latest stable PyTorch
+    version.
 
-  - `Docker images <https://hub.docker.com/r/rocm/pytorch>`_ with preinstalled
-    PyTorch and ROCm.
+  - Offers `Docker images <https://hub.docker.com/r/rocm/pytorch>`_ with ROCm and PyTorch
+    pre-installed.
 
-  - `ROCm PyTorch repository <https://github.com/rocm/pytorch>`_
+  - ROCm PyTorch repository: `<https://github.com/rocm/pytorch>`__
 
-  - :doc:`ROCm PyTorch installation guide <rocm-install-on-linux:install/3rd-party/pytorch-install>`
+  - See the :doc:`ROCm PyTorch installation guide <rocm-install-on-linux:install/3rd-party/pytorch-install>` to get started.
 
-PyTorch features an automatic hipification solution that generates HIP source code automatically from the CUDA backend. While support for new features might be readily introduced, optimized solutions take longer to reach the official release. For this reason, to ensure stability and performance, the ROCm PyTorch release can lag behind by one or two minor versions.
+- Official PyTorch release:
+
+  - Provides the latest stable version of PyTorch but doesn't immediately support the latest ROCm version.
+
+  - Official PyTorch repository: `<https://github.com/pytorch/pytorch>`__
+
+  - See the `Nightly and latest stable version installation guide <https://pytorch.org/get-started/locally/>`_
+    or `Previous versions <https://pytorch.org/get-started/previous-versions/>`_ to get started.
+
+The upstream PyTorch includes an automatic hipification solution that automatically generates HIP
+source code from the CUDA backend. This approach allows PyTorch to support ROCm without requiring
+manual code modifications.
+
+ROCm's development is aligned with the stable release of PyTorch while upstream PyTorch testing uses
+the stable release of ROCm to maintain consistency.
 
 Docker image compatibility
 ================================================================================
@@ -47,12 +49,13 @@ AMD validates and publishes ready-made `PyTorch <https://hub.docker.com/r/rocm/p
 images with ROCm backends on Docker Hub. The following Docker image tags and
 associated inventories are validated for `ROCm 6.3.0 <https://repo.radeon.com/rocm/apt/6.3/>`_.
 
-.. list-table:: PyTorch docker image components
+.. list-table:: PyTorch on ROCm Docker image inventories
     :header-rows: 1
+    :class: docker-image-compatibility
 
-    * - Docker image
+    * - Docker
       - PyTorch
-      - Linux
+      - Ubuntu
       - Python
       - Apex
       - torchvision
@@ -62,9 +65,12 @@ associated inventories are validated for `ROCm 6.3.0 <https://repo.radeon.com/ro
       - OMPI
       - OFED
 
-    * - `tag link <https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu24.04_py3.12_pytorch_release_2.4.0/images/sha256-98ddf20333bd01ff749b8092b1190ee369a75d3b8c71c2fac80ffdcb1a98d529?context=explore>`_
+    * - .. raw:: html
+
+           <a href="https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu24.04_py3.12_pytorch_release_2.4.0/images/sha256-98ddf20333bd01ff749b8092b1190ee369a75d3b8c71c2fac80ffdcb1a98d529?context=explore"><i class="fab fa-docker fa-lg"></i></a>
+
       - `2.4.0 <https://github.com/ROCm/pytorch/tree/release/2.4>`_
-      - **Ubuntu 24.04**
+      - 24.04
       - `3.12 <https://www.python.org/downloads/release/python-3128/>`_
       - `1.4.0 <https://github.com/ROCm/apex/tree/release/1.4.0>`_
       - `0.19.0 <https://github.com/pytorch/vision/tree/v0.19.0>`_
@@ -74,9 +80,12 @@ associated inventories are validated for `ROCm 6.3.0 <https://repo.radeon.com/ro
       - `4.0.7 <https://github.com/open-mpi/ompi/tree/v4.0.7>`_
       - `5.3-1.0.5.0 <https://content.mellanox.com/ofed/MLNX_OFED-5.3-1.0.5.0/MLNX_OFED_LINUX-5.3-1.0.5.0-ubuntu20.04-x86_64.tgz>`_
 
-    * - `tag link <https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu22.04_py3.10_pytorch_release_2.4.0/images/sha256-402c9b4f1a6b5a81c634a1932b56cbe01abb699cfcc7463d226276997c6cf8ea?context=explore>`_
+    * - .. raw:: html
+
+           <a href="https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu22.04_py3.10_pytorch_release_2.4.0/images/sha256-402c9b4f1a6b5a81c634a1932b56cbe01abb699cfcc7463d226276997c6cf8ea?context=explore"><i class="fab fa-docker fa-lg"></i></a>
+
       - `2.4.0 <https://github.com/ROCm/pytorch/tree/release/2.4>`_
-      - **Ubuntu 22.04**
+      - 22.04
       - `3.10 <https://www.python.org/downloads/release/python-31016/>`_
       - `1.4.0 <https://github.com/ROCm/apex/tree/release/1.4.0>`_
       - `0.19.0 <https://github.com/pytorch/vision/tree/v0.19.0>`_
@@ -86,9 +95,12 @@ associated inventories are validated for `ROCm 6.3.0 <https://repo.radeon.com/ro
       - `4.0.7 <https://github.com/open-mpi/ompi/tree/v4.0.7>`_
       - `5.3-1.0.5.0 <https://content.mellanox.com/ofed/MLNX_OFED-5.3-1.0.5.0/MLNX_OFED_LINUX-5.3-1.0.5.0-ubuntu20.04-x86_64.tgz>`_
 
-    * - `tag link <https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu22.04_py3.9_pytorch_release_2.4.0/images/sha256-e0608b55d408c3bfe5c19fdd57a4ced3e0eb3a495b74c309980b60b156c526dd?context=explore>`_
+    * - .. raw:: html
+
+           <a href="https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu22.04_py3.9_pytorch_release_2.4.0/images/sha256-e0608b55d408c3bfe5c19fdd57a4ced3e0eb3a495b74c309980b60b156c526dd?context=explore"><i class="fab fa-docker fa-lg"></i></a>
+
       - `2.4.0 <https://github.com/ROCm/pytorch/tree/release/2.4>`_
-      - **Ubuntu 22.04**
+      - 22.04
       - `3.9 <https://www.python.org/downloads/release/python-3918/>`_
       - `1.4.0 <https://github.com/ROCm/apex/tree/release/1.4.0>`_
       - `0.19.0 <https://github.com/pytorch/vision/tree/v0.19.0>`_
@@ -98,9 +110,12 @@ associated inventories are validated for `ROCm 6.3.0 <https://repo.radeon.com/ro
       - `4.0.7 <https://github.com/open-mpi/ompi/tree/v4.0.7>`_
       - `5.3-1.0.5.0 <https://content.mellanox.com/ofed/MLNX_OFED-5.3-1.0.5.0/MLNX_OFED_LINUX-5.3-1.0.5.0-ubuntu20.04-x86_64.tgz>`_
 
-    * - `tag link <https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu22.04_py3.10_pytorch_release_2.3.0/images/sha256-652cf25263d05b1de548222970aeb76e60b12de101de66751264709c0d0ff9d8?context=explore>`_
+    * - .. raw:: html
+
+           <a href="https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu22.04_py3.10_pytorch_release_2.3.0/images/sha256-652cf25263d05b1de548222970aeb76e60b12de101de66751264709c0d0ff9d8?context=explore"><i class="fab fa-docker fa-lg"></i></a>
+
       - `2.3.0 <https://github.com/ROCm/pytorch/tree/release/2.3>`_
-      - **Ubuntu 22.04**
+      - 22.04
       - `3.10 <https://www.python.org/downloads/release/python-31016/>`_
       - `1.3.0 <https://github.com/ROCm/apex/tree/release/1.3.0>`_
       - `0.18.0 <https://github.com/pytorch/vision/tree/v0.18.0>`_
@@ -110,9 +125,12 @@ associated inventories are validated for `ROCm 6.3.0 <https://repo.radeon.com/ro
       - `4.1.5 <https://github.com/open-mpi/ompi/tree/v4.1.5>`_
       - `5.3-1.0.5.0 <https://content.mellanox.com/ofed/MLNX_OFED-5.3-1.0.5.0/MLNX_OFED_LINUX-5.3-1.0.5.0-ubuntu20.04-x86_64.tgz>`_
 
-    * - `tag link <https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu22.04_py3.10_pytorch_release_2.2.1/images/sha256-051976f26beab8f9aa65d999e3ad546c027b39240a0cc3ee81b114a9024f2912?context=explore>`_
+    * - .. raw:: html
+
+           <a href="https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu22.04_py3.10_pytorch_release_2.2.1/images/sha256-051976f26beab8f9aa65d999e3ad546c027b39240a0cc3ee81b114a9024f2912?context=explore"><i class="fab fa-docker fa-lg"></i></a>
+
       - `2.2.1 <https://github.com/ROCm/pytorch/tree/release/2.2>`_
-      - **Ubuntu 22.04**
+      - 22.04
       - `3.10 <https://www.python.org/downloads/release/python-31016/>`_
       - `1.2.0 <https://github.com/ROCm/apex/tree/release/1.2.0>`_
       - `0.17.1 <https://github.com/pytorch/vision/tree/v0.17.1>`_
@@ -122,9 +140,12 @@ associated inventories are validated for `ROCm 6.3.0 <https://repo.radeon.com/ro
       - `4.1.5 <https://github.com/open-mpi/ompi/tree/v4.1.5>`_
       - `5.3-1.0.5.0 <https://content.mellanox.com/ofed/MLNX_OFED-5.3-1.0.5.0/MLNX_OFED_LINUX-5.3-1.0.5.0-ubuntu20.04-x86_64.tgz>`_
 
-    * - `tag link <https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu20.04_py3.9_pytorch_release_2.2.1/images/sha256-88c839a364d109d3748c100385bfa100d28090d25118cc723fd0406390ab2f7e?context=explore>`_
+    * - .. raw:: html
+
+           <a href="https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu20.04_py3.9_pytorch_release_2.2.1/images/sha256-88c839a364d109d3748c100385bfa100d28090d25118cc723fd0406390ab2f7e?context=explore"><i class="fab fa-docker fa-lg"></i></a>
+
       - `2.2.1 <https://github.com/ROCm/pytorch/tree/release/2.2>`_
-      - **Ubuntu 20.04**
+      - 20.04
       - `3.9 <https://www.python.org/downloads/release/python-3921/>`_
       - `1.2.0 <https://github.com/ROCm/apex/tree/release/1.2.0>`_
       - `0.17.1 <https://github.com/pytorch/vision/tree/v0.17.1>`_
@@ -134,9 +155,12 @@ associated inventories are validated for `ROCm 6.3.0 <https://repo.radeon.com/ro
       - `4.0.3 <https://github.com/open-mpi/ompi/tree/v4.0.3>`_
       - `5.3-1.0.5.0 <https://content.mellanox.com/ofed/MLNX_OFED-5.3-1.0.5.0/MLNX_OFED_LINUX-5.3-1.0.5.0-ubuntu20.04-x86_64.tgz>`_
 
-    * - `tag link <https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu22.04_py3.9_pytorch_release_1.13.1/images/sha256-994424ed07a63113f79dd9aa72159124c00f5fbfe18127151e6658f7d0b6f821?context=explore>`_
+    * - .. raw:: html
+
+           <a href="https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu22.04_py3.9_pytorch_release_1.13.1/images/sha256-994424ed07a63113f79dd9aa72159124c00f5fbfe18127151e6658f7d0b6f821?context=explore"><i class="fab fa-docker fa-lg"></i></a>
+
       - `1.13.1 <https://github.com/ROCm/pytorch/tree/release/1.13>`_
-      - **Ubuntu 22.04**
+      - 22.04
       - `3.9 <https://www.python.org/downloads/release/python-3921/>`_
       - `1.0.0 <https://github.com/ROCm/apex/tree/release/1.0.0>`_
       - `0.14.0 <https://github.com/pytorch/vision/tree/v0.14.0>`_
@@ -146,9 +170,12 @@ associated inventories are validated for `ROCm 6.3.0 <https://repo.radeon.com/ro
       - `4.1.5 <https://github.com/open-mpi/ompi/tree/v4.1.5>`_
       - `5.3-1.0.5.0 <https://content.mellanox.com/ofed/MLNX_OFED-5.3-1.0.5.0/MLNX_OFED_LINUX-5.3-1.0.5.0-ubuntu20.04-x86_64.tgz>`_
 
-    * - `tag link <https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu20.04_py3.9_pytorch_release_1.13.1/images/sha256-7b8139fe40a9aeb4bca3aecd15c22c1fa96e867d93479fa3a24fdeeeeafa1219?context=explore>`_
+    * - .. raw:: html
+
+           <a href="https://hub.docker.com/layers/rocm/pytorch/rocm6.3_ubuntu20.04_py3.9_pytorch_release_1.13.1/images/sha256-7b8139fe40a9aeb4bca3aecd15c22c1fa96e867d93479fa3a24fdeeeeafa1219?context=explore"><i class="fab fa-docker fa-lg"></i></a>
+
       - `1.13.1 <https://github.com/ROCm/pytorch/tree/release/1.13>`_
-      - **Ubuntu 20.04**
+      - 20.04
       - `3.9 <https://www.python.org/downloads/release/python-3921/>`_
       - `1.0.0 <https://github.com/ROCm/apex/tree/release/1.0.0>`_
       - `0.14.0 <https://github.com/pytorch/vision/tree/v0.14.0>`_
@@ -189,7 +216,7 @@ performance, and feature set available to developers.
         algebra operations.
     * - `hipBLASLt <https://github.com/ROCm/hipBLASLt>`_
       - 0.10.0
-      - hipBLASLt is an extension of hipBLAS library, providing additional
+      - hipBLASLt is an extension of the hipBLAS library, providing additional
         features like epilogues fused into the matrix multiplication kernel or
         use of integer tensor cores.
       - It accelerates operations like ``torch.matmul``, ``torch.mm``, and the
@@ -205,7 +232,7 @@ performance, and feature set available to developers.
     * - `hipFFT <https://github.com/ROCm/hipFFT>`_
       - 1.0.17
       - Provides GPU-accelerated Fast Fourier Transform (FFT) operations.
-      - Used in functions like ``torch.fft`` module.
+      - Used in functions like the ``torch.fft`` module.
     * - `hipRAND <https://github.com/ROCm/hipRAND>`_
       - 2.11.0
       - Provides fast random number generation for GPUs.
@@ -229,12 +256,12 @@ performance, and feature set available to developers.
       - Sparse tensor operations ``torch.sparse``.
     * - `hipTensor <https://github.com/ROCm/hipTensor>`_
       - 1.4.0
-      - Optimized for high-performance tensor operations, such as contractions.
+      - Optimizes for high-performance tensor operations, such as contractions.
       - Accelerates tensor algebra, especially in deep learning and scientific
         computing.
     * - `MIOpen <https://github.com/ROCm/MIOpen>`_
       - 3.3.0
-      - Optimized for deep learning primitives such as convolutions, pooling,
+      - Optimizes deep learning primitives such as convolutions, pooling,
         normalization, and activation functions.
       - Speeds up convolutional neural networks (CNNs), recurrent neural
         networks (RNNs), and other layers. Used in operations like
@@ -248,7 +275,7 @@ performance, and feature set available to developers.
         ``torch.nn.Conv2d``, ``torch.nn.ReLU``, and ``torch.nn.LSTM``.
     * - `MIVisionX <https://github.com/ROCm/MIVisionX>`_
       - 3.1.0
-      - Optimized acceleration for computer vision and AI workloads like
+      - Optimizes acceleration for computer vision and AI workloads like
         preprocessing, augmentation, and inferencing.
       - Faster data preprocessing and augmentation pipelines for datasets like
         ImageNet or COCO and easy to integrate into PyTorch's ``torch.utils.data``
@@ -261,7 +288,7 @@ performance, and feature set available to developers.
         ``torchvision`` data load workloads.
     * - `RCCL <https://github.com/ROCm/rccl>`_
       - 2.21.5
-      - Optimized for multi-GPU communication for operations like AllReduce and
+      - Optimizes for multi-GPU communication for operations like AllReduce and
         Broadcast.
       - Distributed data parallel training (``torch.nn.parallel.DistributedDataParallel``).
         Handles communication in multi-GPU setups.
@@ -290,8 +317,8 @@ performance, and feature set available to developers.
         parallel processing.
     * - `rocWMMA <https://github.com/ROCm/rocWMMA>`_
       - 1.6.0
-      - Warp-level matrix multiply and accumulate speeds up matrix
-        multiplication (GEMM) and accumulation operation with mixed precision
+      - Accelerates warp-level matrix-multiply and matrix-accumulate to speed up matrix
+        multiplication (GEMM) and accumulation operations with mixed precision
         support.
       - Linear layers (``torch.nn.Linear``), convolutional layers
         (``torch.nn.Conv2d``), attention layers, general tensor operations that
@@ -303,7 +330,7 @@ Supported and unsupported features
 
 The following section maps GPU-accelerated PyTorch features to their supported ROCm and PyTorch versions.
 
-Torch
+torch
 --------------------------------------------------------------------------------
 
 `torch <https://pytorch.org/docs/stable/index.html>`_ is the central module of
@@ -315,134 +342,134 @@ other tools.
 Tensor data types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The data type of a tensor is specified using the dtype attribute or argument, and PyTorch supports a wide range of data types for different use cases.
+The data type of a tensor is specified using the ``dtype`` attribute or argument, and PyTorch supports a wide range of data types for different use cases.
 
 The single data types of `torch.Tensor <https://pytorch.org/docs/stable/tensors.html>`_
 
 .. list-table::
     :header-rows: 1
 
-    * - Data Type
+    * - Data type
       - Description
       - Since PyTorch
       - Since ROCm
-    * - torch.float8_e4m3fn
+    * - ``torch.float8_e4m3fn``
       - 8-bit floating point, e4m3
       - 2.3
       - 5.5
-    * - torch.float8_e5m2
+    * - ``torch.float8_e5m2``
       - 8-bit floating point, e5m2
       - 2.3
       - 5.5
-    * - torch.float16 or torch.half
+    * - ``torch.float16`` or ``torch.half``
       - 16-bit floating point
       - 0.1.6
       - 2.0
-    * - torch.bfloat16
+    * - ``torch.bfloat16``
       - 16-bit floating point
       - 1.6
       - 2.6
-    * - torch.float32 or torch.float
+    * - ``torch.float32`` or ``torch.float``
       - 32-bit floating point
       - 0.1.12_2
       - 2.0
-    * - torch.float64 or torch.double
+    * - ``torch.float64`` or ``torch.double``
       - 64-bit floating point
       - 0.1.12_2
       - 2.0
-    * - torch.complex32 or torch.chalf
+    * - ``torch.complex32`` or ``torch.chalf``
       - PyTorch provides native support for 32-bit complex numbers
       - 1.6
       - 2.0
-    * - torch.complex64 or torch.cfloat
+    * - ``torch.complex64`` or ``torch.cfloat``
       - PyTorch provides native support for 64-bit complex numbers
       - 1.6
       - 2.0
-    * - torch.complex128 or torch.cdouble
+    * - ``torch.complex128`` or ``torch.cdouble``
       - PyTorch provides native support for 128-bit complex numbers
       - 1.6
       - 2.0
-    * - torch.uint8
+    * - ``torch.uint8``
       - 8-bit integer (unsigned)
       - 0.1.12_2
       - 2.0
-    * - torch.uint16
+    * - ``torch.uint16``
       - 16-bit integer (unsigned)
       - 2.3
-      - **Not natively supported**
-    * - torch.uint32
+      - Not natively supported
+    * - ``torch.uint32``
       - 32-bit integer (unsigned)
       - 2.3
-      - **Not natively supported**
-    * - torch.uint64
+      - Not natively supported
+    * - ``torch.uint64``
       - 32-bit integer (unsigned)
       - 2.3
-      - **Not natively supported**
-    * - torch.int8
+      - Not natively supported
+    * - ``torch.int8``
       - 8-bit integer (signed)
       - 1.12
       - 5.0
-    * - torch.int16 or torch.short
+    * - ``torch.int16`` or ``torch.short``
       - 16-bit integer (signed)
       - 0.1.12_2
       - 2.0
-    * - torch.int32 or torch.int
+    * - ``torch.int32`` or ``torch.int``
       - 32-bit integer (signed)
       - 0.1.12_2
       - 2.0
-    * - torch.int64 or torch.long
+    * - ``torch.int64`` or ``torch.long``
       - 64-bit integer (signed)
       - 0.1.12_2
       - 2.0
-    * - torch.bool
+    * - ``torch.bool``
       - Boolean
       - 1.2
       - 2.0
-    * - torch.quint8
+    * - ``torch.quint8``
       - quantized 8-bit integer (unsigned)
       - 1.8
       - 5.0
-    * - torch.qint8
+    * - ``torch.qint8``
       - quantized 8-bit integer (signed)
       - 1.8
       - 5.0
-    * - torch.qint32
+    * - ``torch.qint32``
       - quantized 32-bit integer (signed)
       - 1.8
       - 5.0
-    * - torch.quint4x2
+    * - ``torch.quint4x2``
       - quantized 4-bit integer (unsigned)
       - 1.8
       - 5.0
 
 .. note::
 
-  Unsigned types asides from uint8 are currently only have limited support in
-  eager mode (they primarily exist to assist usage with torch.compile).
+  Unsigned types aside from ``uint8`` are currently only have limited support in
+  eager mode (they primarily exist to assist usage with ``torch.compile``).
 
   The :doc:`ROCm precision support page <rocm:reference/precision-support>`
   collected the native HW support of different data types.
 
-Torch CUDA
+torch.cuda
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``torch.cuda`` in PyTorch is a module that provides utilities and functions for
-managing and utilizing NVIDIA and AMD GPUs. It enables GPU-accelerated
+managing and utilizing AMD and NVIDIA GPUs. It enables GPU-accelerated
 computations, memory management, and efficient execution of tensor operations,
-leveraging CUDA and ROCm as the underlying frameworks.
+leveraging ROCm and CUDA as the underlying frameworks.
 
 .. list-table::
     :header-rows: 1
 
-    * - Data Type
+    * - Data type
       - Description
       - Since PyTorch
       - Since ROCm
-    * - Device Management
+    * - Device management
       - Utilities for managing and interacting with GPUs.
       - 0.4.0
       - 3.8
-    * - Tensor Operations on GPU
+    * - Tensor operations on GPU
       - Perform tensor operations such as addition and matrix multiplications on
         the GPU.
       - 0.4.0
@@ -452,7 +479,7 @@ leveraging CUDA and ROCm as the underlying frameworks.
         performance, events enable synchronization.
       - 1.6.0
       - 3.8
-    * - Running process lists of Memory management
+    * - Running process lists of memory management
       - Return a human-readable printout of the running processes and their GPU
         memory use for a given device.
       - 1.8.0
@@ -462,7 +489,7 @@ leveraging CUDA and ROCm as the underlying frameworks.
         allowing for distributed computing and data parallelism.
       - 1.9.0
       - 2.5?
-    * - Custom CUDA Kernels with PyTorch Extensions
+    * - Custom CUDA kernels with PyTorch extensions
       - Allows writing and using custom CUDA kernels directly with PyTorch.
       - 1.0.0
       - 3.8
@@ -488,7 +515,7 @@ leveraging CUDA and ROCm as the underlying frameworks.
 
 .. Need to validate and extend.
 
-Torch backends CUDA
+torch.backends.cuda
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``torch.backends.cuda`` is a PyTorch module that provides configuration options
@@ -496,26 +523,24 @@ and flags to control the behavior of CUDA or ROCm operations. It is part of the
 PyTorch backend configuration system, which allows users to fine-tune how
 PyTorch interacts with the CUDA or ROCm environment.
 
-Below is a detailed list of key features available in torch.backends.cuda
-
 .. list-table::
     :header-rows: 1
 
-    * - Data Type
+    * - Data type
       - Description
       - Since PyTorch
       - Since ROCm
-    * - matmul.allow_tf32
+    * - ``matmul.allow_tf32``
       - Enables or disables the use of TensorFloat-32 (TF32) precision for
         faster matrix multiplications on NVIDIA GPUs with Tensor Cores.
       -
       - ❌
-    * - matmul.allow_fp16_reduced_precision_reduction
+    * - ``matmul.allow_fp16_reduced_precision_reduction``
       - Reduced precision reductions (e.g., with fp16 accumulation type) are
         allowed with fp16 GEMMs.
       -
       -
-    * - matmul.allow_bf16_reduced_precision_reduction
+    * - ``matmul.allow_bf16_reduced_precision_reduction``
       - Reduced precision reductions are allowed with bf16 GEMMs.
       -
       -
@@ -523,37 +548,37 @@ Below is a detailed list of key features available in torch.backends.cuda
       -
       -
       -
-    * - cufft_plan_cache
+    * - ``cufft_plan_cache``
       - Manages caching of GPU FFT plans to optimize repeated FFT computations.
       - 1.7.0
       - 5.0
 
 .. Need to validate and extend.
 
-Torch backends cuDNN
+torch.backends.cudnn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The supported torch options.
+Supported ``torch`` options:
 
 .. list-table::
     :header-rows: 1
 
-    * - Data Type
+    * - Data type
       - Description
       - Since PyTorch
       - Since ROCm
-    * - allow_tf32
+    * - ``allow_tf32``
       - TensorFloat-32 tensor cores may be used in cuDNN convolutions on NVIDIA
         Ampere or newer GPUs.
       - 1.10.0
       - ❌
-    * - deterministic
+    * - ``deterministic``
       - A bool that, if True, causes cuDNN to only use deterministic
         convolution algorithms.
       -
       -
 
-torch AMP (Automatic Mixed Precision)
+Automatic mixed precision: torch.amp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 PyTorch that automates the process of using both 16-bit (half-precision,
@@ -563,7 +588,7 @@ training and inference.
 .. list-table::
     :header-rows: 1
 
-    * - Data Type
+    * - Data type
       - Description
       - Since PyTorch
       - Since ROCm
@@ -572,7 +597,7 @@ training and inference.
         regions of your script to run in mixed precision.
       - 1.9
       - 2.5
-    * - Gradient Scaling
+    * - Gradient scaling
       - To prevent underflow, “gradient scaling” multiplies the network’s
         loss(es) by a scale factor and invokes a backward pass on the scaled
         loss(es). Gradients flowing backward through the network are then
@@ -580,9 +605,9 @@ training and inference.
         larger magnitude, so they don’t flush to zero.
       - 1.9
       - 2.5
-    * - CUDA Op-Specific Behavior
+    * - CUDA op-specific behavior
       - These ops always go through autocasting whether they are invoked as part
-        of a torch.nn.Module, as a function, or as a torch.Tensor method. If
+        of a ``torch.nn.Module``, as a function, or as a ``torch.Tensor`` method. If
         functions are exposed in multiple namespaces, they go through
         autocasting regardless of the namespace.
       - 1.9
@@ -593,7 +618,7 @@ Distributed library features
 
 The PyTorch distributed library includes a collective of parallelism modules, a
 communications layer, and infrastructure for launching and debugging large
-training jobs.
+training jobs. See :ref:`rocm-for-ai-pytorch-distributed` for more information.
 
 The Distributed Library feature in PyTorch provides tools and APIs for building
 and running distributed machine learning workflows. It allows training models
@@ -632,7 +657,7 @@ of computational resources and scalability for large-scale tasks.
       - 2.0
     * - MPI
       - MPI (Message Passing Interface) in PyTorch refers to the use of the MPI
-        backend for distributed communication in the torch.distributed module.
+        backend for distributed communication in the ``torch.distributed`` module.
         It enables inter-process communication, primarily in distributed
         training settings, using the widely adopted MPI standard.
       - 1.9
@@ -646,7 +671,7 @@ of computational resources and scalability for large-scale tasks.
       - 1.9
       -
 
-Torch compiler features on ROCm.
+torch.compiler
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
@@ -656,21 +681,21 @@ Torch compiler features on ROCm.
       - Description
       - Since PyTorch
       - Since ROCm
-    * - torch.compiler (AOT Autograd)
+    * - ``torch.compiler`` (AOT Autograd)
       - Autograd captures not only the user-level code, but also backpropagation,
         which results in capturing the backwards pass “ahead-of-time”. This
         enables acceleration of both forwards and backwards pass using
         ``TorchInductor``.
       - 2.0
       - 5.3
-    * - torch.compiler (TorchInductor)
-      - The default torch.compile deep learning compiler that generates fast
+    * - ``torch.compiler`` (TorchInductor)
+      - The default ``torch.compile`` deep learning compiler that generates fast
         code for multiple accelerators and backends. You need to use a backend
-        compiler to make speedups through torch.compile possible. For NVIDIA,
-        AMD and Intel GPUs, it leverages OpenAI Triton as the key building block.
+        compiler to make speedups through ``torch.compile`` possible. For AMD,
+        NVIDIA, and Intel GPUs, it leverages OpenAI Triton as the key building block.
       - 2.0
       - 5.3
-    * - torch.compiler (TorchDynamo)
+    * - ``torch.compiler`` (TorchDynamo)
       - An internal API that uses a CPython feature called the Frame Evaluation
         API to safely capture PyTorch graphs. Methods that are available
         externally for PyTorch users are surfaced through the ``torch.compiler``
@@ -680,15 +705,15 @@ Torch compiler features on ROCm.
 
 .. torch compiler backends?
 
-Torch audio
+torchaudio
 --------------------------------------------------------------------------------
 
-The `torchaudio <https://pytorch.org/audio/stable/index.html>_` library provides
+The `torchaudio <https://pytorch.org/audio/stable/index.html>`_ library provides
 utilities for processing audio data in PyTorch, such as audioloading,
 transformations, and feature extraction.
 
-To ensure GPU-acceleration with torchaudio.transforms, you need to move audio
-data (waveform tensor) explicitly to GPU using .to('cuda').
+To ensure GPU-acceleration with ``torchaudio.transforms``, you need to move audio
+data (waveform tensor) explicitly to GPU using ``.to('cuda')``.
 
 The following ``torchaudio`` features are GPU-accelerated.
 
@@ -716,7 +741,7 @@ The following ``torchaudio`` features are GPU-accelerated.
       - 0.9.0
       - 4.5
 
-Torch vision
+torchvision
 --------------------------------------------------------------------------------
 
 The `torchvision <https://pytorch.org/vision/stable/index.html>`_ library
@@ -755,7 +780,7 @@ The following ``torchvision`` features are GPU-accelerated.
       - 0.4.0
       - 6.3
 
-Torch text
+torchtext
 --------------------------------------------------------------------------------
 
 The `torchtext <https://pytorch.org/text/stable/index.html>`_ library provides
@@ -765,62 +790,57 @@ preprocessing pipelines and integration with PyTorch models, simplifying the
 implementation of natural language processing (NLP) tasks.
 
 To leverage GPU acceleration in torchtext, you need to move tensors
-explicitly to the GPU using .to('cuda').
+explicitly to the GPU using ``.to('cuda')``.
 
-* It does not has it's own kernels, ROCm support added simple just linking 
-  against ROCm libraries.
+* torchtext does not implement its own kernels. ROCm support is enabled by linking against ROCm libraries.
 
 * Only official release exists.
 
-Torch tune
+torchtune
 --------------------------------------------------------------------------------
 
 The `torchtune <https://pytorch.org/torchtune/stable/index.html>`_ library for
 authoring, finetuning and experimenting with LLMs.
 
-* It should work out of box and developer should be able to tune ROCm PyTorch
-  solutions.
+* Usage: It works out-of-the-box, enabling developers to fine-tune ROCm PyTorch solutions.
 
 * Only official release exists.
 
-Torch serve
+torchserve
 --------------------------------------------------------------------------------
 
 The `torchserve <https://pytorch.org/torchserve/>`_ is a PyTorch domain library
 for common sparsity and parallelism primitives needed for large-scale recomender
 systems.
 
-* It does not has it's own kernels, ROCm support added simple just linking 
-  against ROCm libraries.
+* torchtext does not implement its own kernels. ROCm support is enabled by linking against ROCm libraries.
 
 * Only official release exists.
 
 .. Should I share the build command?
 
-Torch rec
+torchrec
 --------------------------------------------------------------------------------
 
 The `torchrec <https://pytorch.org/torchrec/>`_ is a PyTorch domain library for
 common sparsity and parallelism primitives needed for large-scale recomender
 systems.
 
-* It does not has it's own kernels, ROCm support added simple just linking 
-  against ROCm libraries.
+* torchrec does not implement its own kernels. ROCm support is enabled by linking against ROCm libraries.
 
 * Only official release exists.
 
 .. Should I share the build command?
 
 Unsupported PyTorch features
-================================================================================
+----------------------------
 
-The GPU accelerated PyTorch features, which are not supported by ROCm collected
-in the next sections.
+The following are GPU-acclerated PyTorch features not currently supported by ROCm.
 
 .. list-table::
     :header-rows: 1
 
-    * - Data Type
+    * - Data type
       - Description
       - Since PyTorch
     * - ``torch.cuda`` / Lazy loading NVRTC
@@ -841,30 +861,27 @@ in the next sections.
 Use cases and recommendations
 ================================================================================
 
-The page `ROCm for AI: Train a Model <https://rocm.docs.amd.com/en/latest/how-to/rocm-for-ai/train-a-model.html>`_ 
-provides guidance on how to leverage the ROCm platform for training AI models.
-It covers the steps, tools, and best practices for optimizing training workflows
-on AMD GPUs using PyTorch features.
+* :doc:`Using ROCm for AI: training a model </how-to/rocm-for-ai/train-a-model>` provides
+  guidance on how to leverage the ROCm platform for training AI models. It covers the steps, tools, and best practices
+  for optimizing training workflows on AMD GPUs using PyTorch features.
 
-The `Single-GPU Fine-Tuning and Inference page <https://rocm.docs.amd.com/en/latest/how-to/llm-fine-tuning-optimization/single-gpu-fine-tuning-and-inference.html>`_
-describes how to use the ROCm platform for fine-tuning and inference of machine
-learning models, particularly Large Language Models (LLMs), on systems with a
-single AMD GPU. The page provides a detailed guide for setting up, optimizing,
-and executing fine-tuning and inference workflows in such environments.
+* :doc:`Single-GPU fine-tuning and inference
+  </how-to/llm-fine-tuning-optimization/single-gpu-fine-tuning-and-inference>` describes and demonstrates how to use
+  the ROCm platform for the fine-tuning and inference of machine learning models, particularly large language models
+  (LLMs), on systems with a single AMD Instinct MI300X accelerator. This page provides a detailed guide for setting up,
+  optimizing, and executing fine-tuning and inference workflows in such environments.
 
-The `Multi-GPU Fine-Tuning and Inference page <https://rocm.docs.amd.com/en/latest/how-to/llm-fine-tuning-optimization/single-gpu-fine-tuning-and-inference.html>`_
-describe fine-tuning and inference of machine learning models on system with
-multi GPU cases.
+* :doc:`Multi-GPU fine-tuning and inference optimization
+  </how-to/llm-fine-tuning-optimization/multi-gpu-fine-tuning-and-inference>` describes and demonstrates the
+  fine-tuning and inference of machine learning models on systems with multi MI300X accelerators.
 
-The `MI300X Workload Optimization page <https://rocm.docs.amd.com/en/latest/how-to/tuning-guides/mi300x/workload.html>`_
-provides detailed guidance on optimizing workloads for the AMD Instinct MI300X
-accelerator using ROCm. The page is aimed at helping users achieve optimal
-performance for deep learning and other high-performance computing tasks on the
-MI300X GPU.
+* The :doc:`Instinct MI300X workload optimization guide </how-to/tuning-guides/mi300x/workload>` provides detailed
+  guidance on optimizing workloads for the AMD Instinct MI300X accelerator using ROCm. This guide is aimed at helping
+  users achieve optimal performance for deep learning and other high-performance computing tasks on the MI300X
+  accelerator.
 
-The `AI PyTorch Inception page <https://rocm.docs.amd.com/en/latest/conceptual/ai-pytorch-inception.html>`_ 
-describes how PyTorch integrates with ROCm for AI workloads It outlines the use
-of PyTorch on the ROCm platform and focuses on how to efficiently leverage AMD's
-GPU hardware for training and inference tasks in AI applications.
+* The :doc:`Inception with PyTorch documentation </conceptual/ai-pytorch-inception>`
+  describes how PyTorch integrates with ROCm for AI workloads It outlines the use of PyTorch on the ROCm platform and
+  focuses on how to efficiently leverage AMD GPU hardware for training and inference tasks in AI applications.
 
-For more use cases and recommendations, please check `ROCm PyTorch blog posts <https://rocm.blogs.amd.com/blog/tag/pytorch.html>`_
+For more use cases and recommendations, see `ROCm PyTorch blog posts <https://rocm.blogs.amd.com/blog/tag/pytorch.html>`_
