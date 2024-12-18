@@ -328,7 +328,8 @@ performance, and feature set available to developers.
 Supported and unsupported features
 ================================================================================
 
-The following section maps GPU-accelerated PyTorch features to their supported ROCm and PyTorch versions.
+The following section maps GPU-accelerated PyTorch features to their supported
+ROCm and PyTorch versions.
 
 torch
 --------------------------------------------------------------------------------
@@ -479,37 +480,46 @@ leveraging ROCm and CUDA as the underlying frameworks.
         performance, events enable synchronization.
       - 1.6.0
       - 3.8
+    * - Memory management
+      - Functions to manage and inspect memory usage like
+        ``torch.cuda.memory_allocated()``, ``torch.cuda.max_memory_allocated()``,
+        ``torch.cuda.memory_reserved()`` and ``torch.cuda.empty_cache()``.
+      - 1.0.0
     * - Running process lists of memory management
       - Return a human-readable printout of the running processes and their GPU
-        memory use for a given device.
+        memory use for a given device with functions like 
+        ``torch.cuda.memory_stats()`` and ``torch.cuda.memory_summary()``.
       - 1.8.0
       - 4.0
     * - Communication collectives
       - A set of APIs that enable efficient communication between multiple GPUs,
         allowing for distributed computing and data parallelism.
       - 1.9.0
-      - 2.5?
-    * - Custom CUDA kernels with PyTorch extensions
-      - Allows writing and using custom CUDA kernels directly with PyTorch.
-      - 1.0.0
-      - 3.8
-    * - Graphs (beta)
+      - 5.0
+    * - ``torch.cuda.CUDAGraph``
       - Graphs capture sequences of GPU operations to minimize kernel launch
         overhead and improve performance.
       - 1.10.0
       - 4.0
+    * - TunableOp
+      - A mechanism that allows certain operations to be more flexible and
+        optimized for performance. It enables automatic tuning of kernel
+        configurations and other settings to achieve the best possible
+        performance based on the specific hardware (GPU) and workload.
+      - 2.0
+      - 5.4
     * - NVIDIA Tools Extension (NVTX)
       - Integration with NVTX for profiling and debugging GPU performance using
         NVIDIA's Nsight tools.
       - 1.7.0
-      - 4.0
+      - ❌
     * - Lazy loading NVRTC
       - Delays JIT compilation with NVRTC until the code is explicitly needed.
       - 1.8.0
       - ❌
     * - Jiterator (beta)
-      - | Jiterator allows asynchronous data streaming into computation
-        | streams during training loops.
+      - Jiterator allows asynchronous data streaming into computation streams
+        during training loops.
       - 1.9.0
       - ❌
 
@@ -530,28 +540,45 @@ PyTorch interacts with the CUDA or ROCm environment.
       - Description
       - Since PyTorch
       - Since ROCm
-    * - ``matmul.allow_tf32``
-      - Enables or disables the use of TensorFloat-32 (TF32) precision for
-        faster matrix multiplications on NVIDIA GPUs with Tensor Cores.
-      -
-      - ❌
-    * - ``matmul.allow_fp16_reduced_precision_reduction``
-      - Reduced precision reductions (e.g., with fp16 accumulation type) are
-        allowed with fp16 GEMMs.
-      -
-      -
-    * - ``matmul.allow_bf16_reduced_precision_reduction``
-      - Reduced precision reductions are allowed with bf16 GEMMs.
-      -
-      -
-    * - SDPAParams class
-      -
-      -
-      -
     * - ``cufft_plan_cache``
       - Manages caching of GPU FFT plans to optimize repeated FFT computations.
       - 1.7.0
       - 5.0
+    * - ``matmul.allow_tf32``
+      - Enables or disables the use of TensorFloat-32 (TF32) precision for
+        faster matrix multiplications on GPUs with Tensor Cores.
+      - 1.10.0
+      - ❌
+    * - ``matmul.allow_fp16_reduced_precision_reduction``
+      - Reduced precision reductions (e.g., with fp16 accumulation type) are
+        allowed with fp16 GEMMs.
+      - 2.0
+      - ❌
+    * - ``matmul.allow_bf16_reduced_precision_reduction``
+      - Reduced precision reductions are allowed with bf16 GEMMs.
+      - 2.0
+      - ❌
+    * - ``enable_cudnn_sdp``
+      - Globally enables cuDNN SDPA's kernels within SDPA.
+      - 2.0
+      - ❌
+    * - ``enable_flash_sdp``
+      - Globally enables or disables FlashAttention for SDPA.
+      - 2.1
+      - ❌
+    * - ``enable_mem_efficient_sdp``
+      - Globally enables or disables Memory-Efficient Attention for SDPA.
+      - 2.1
+      - ❌
+    * - ``enable_math_sdp``
+      - Globally enables or disables the PyTorch C++ implementation within SDPA.
+      - 2.1
+      - ❌
+    * - ``allow_fp16_bf16_reduction_math_sdp``
+      - Globally enables FP16 and BF16 precision for reduction operations within
+        SDPA.
+      - 2.1
+      - Partial?
 
 .. Need to validate and extend.
 
@@ -575,8 +602,8 @@ Supported ``torch`` options:
     * - ``deterministic``
       - A bool that, if True, causes cuDNN to only use deterministic
         convolution algorithms.
-      -
-      -
+      - 1.0
+      - ?
 
 Automatic mixed precision: torch.amp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -758,25 +785,25 @@ The following ``torchvision`` features are GPU-accelerated.
       - Since torchvision version
       - Since ROCm
     * - ``torchvision.transforms.functional``
-      - | Provides GPU-compatible transformations for image preprocessing
-        | like resize, normalize, rotate and crop.
+      - Provides GPU-compatible transformations for image preprocessing like
+        resize, normalize, rotate and crop.
       - 0.2.0
       - 4.0
     * - ``torchvision.ops``
-      - | GPU-accelerated operations for object detection and
-        | segmentation tasks. ``torchvision.ops.roi_align``,
-        | ``torchvision.ops.nms`` and ``box_convert``.
+      - GPU-accelerated operations for object detection and segmentation tasks.
+        ``torchvision.ops.roi_align``, ``torchvision.ops.nms`` and
+        ``box_convert``.
       - 0.6.0
       - 3.3
     * - ``torchvision.models`` with ``.to('cuda')``
-      - | ``torchvision`` provides several pre-trained models (ResNet, Faster
-        | R-CNN, Mask R-CNN, ...) that can run on CUDA for faster inference
-        | and training.
+      - ``torchvision`` provides several pre-trained models (ResNet, Faster
+        R-CNN, Mask R-CNN, ...) that can run on CUDA for faster inference and
+        training.
       - 0.1.6
       - 2.x
     * - ``torchvision.io``
-      - | Video decoding and frame extraction using GPU acceleration with
-        | NVIDIA’s NVDEC and nvJPEG (rocJPEG) on CUDA-enabled GPUs.
+      - Video decoding and frame extraction using GPU acceleration with NVIDIA’s
+        NVDEC and nvJPEG (rocJPEG) on CUDA-enabled GPUs.
       - 0.4.0
       - 6.3
 
@@ -843,20 +870,72 @@ The following are GPU-acclerated PyTorch features not currently supported by ROC
     * - Data type
       - Description
       - Since PyTorch
-    * - ``torch.cuda`` / Lazy loading NVRTC
-      - Delays JIT compilation with NVRTC until the code is explicitly needed.
-      - 1.8.0
-    * - ``torch.cuda`` / Jiterator (beta)
-      - | Jiterator allows asynchronous data streaming into computation
-        | streams during training loops.
-      - 1.9.0
+    * - APEX batch norm
+      - Use APEX batch norm instead of PyTorch batch norm.
+      - 1.6.0
     * - ``torch.backends.cuda.matmul.allow_tf32``
       - A bool that controls whether TensorFloat-32 tensor cores may be used in
         matrix multiplications.
       - 1.7
+    * - ``torc.cuda`` / NVIDIA Tools Extension (NVTX)
+      - Integration with NVTX for profiling and debugging GPU performance using
+        NVIDIA's Nsight tools.
+      - 1.7.0
+    * - ``torch.cuda`` / Lazy loading NVRTC
+      - Delays JIT compilation with NVRTC until the code is explicitly needed.
+      - 1.8.0
+    * - ``torch.cuda`` / Jiterator (beta)
+      - Jiterator allows asynchronous data streaming into computation streams
+        during training loops.
+      - 1.9.0
+    * - ``torch-tensorrt``
+      - Integrate TensorRT library for optimizing and deploying PyTorch models.
+        ROCm does not have equialent library for TensorRT.
+      - 1.9.0
     * - ``torch.backends.cudnn.allow_tf32``
       - TensorFloat-32 tensor cores may be used in cuDNN convolutions.
       - 1.10.0
+    * - ``torch.cuda.CUDAGraph``
+      - Graph support in PyTorch capture and execute sequences of GPU operations
+        efficiently by minimizing the overhead associated with kernel launches
+        and stream synchronization. This is beneficial in scenarios where the
+        same sequence of operations is executed repeatedly, such as during
+        training or inference loops in machine learning models.
+      - 1.10.0
+    * - ``torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction``
+      - Reduced precision reductions with fp16 accumulation type are
+        allowed with fp16 GEMMs.
+      - 2.0
+    * - ``torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction``
+      - Reduced precision reductions are allowed with bf16 GEMMs.
+      - 2.0
+    * - ``torch.nn.functional.scaled_dot_product_attention`` 
+      - Flash attention backend for SDPA to accelerate attention computation in
+        transformer-based models.
+      - 2.0
+    * - ``torch.backends.cuda.enable_cudnn_sdp``
+      - Globally enables cuDNN SDPA's kernels within SDPA.
+      - 2.0
+    * - ``torch.backends.cuda.enable_flash_sdp``
+      - Globally enables or disables FlashAttention for SDPA.
+      - 2.1
+    * - ``torch.backends.cuda.enable_mem_efficient_sdp``
+      - Globally enables or disables Memory-Efficient Attention for SDPA.
+      - 2.1
+    * - ``torch.backends.cuda.enable_math_sdp``
+      - Globally enables or disables the PyTorch C++ implementation within SDPA.
+      - 2.1
+    * - Dynamic parallelism
+      - PyTorch itself does not directly expose dynamic parallelism as a core
+        feature. Dynamic parallelism allow GPU threads to launch additional
+        threads which can be reached using custom operations via the
+        ``torch.utils.cpp_extension`` module.
+      - Not a core feature
+    * - Unified memory support in PyTorch
+      - Unified Memory is not directly exposed in PyTorch's core API, it can be
+        utilized effectively through custom CUDA extensions or advanced
+        workflows.
+      - Not a core feature
 
 Use cases and recommendations
 ================================================================================
