@@ -255,10 +255,10 @@ jobs:
       script: git clone https://github.com/pytorch/pytorch.git --recurse-submodules
       workingDirectory: $(Build.SourcesDirectory)
   - task: Bash@3
-    displayName: git clone upstream pytorch
+    displayName: checkout pytorch 2.5
     inputs:
       targetType: inline
-      script: git chgeckout release/2.5
+      script: git checkout release/2.5
       workingDirectory: $(Build.SourcesDirectory)/pytorch
 # builder clone still needed due to run_tests.sh at end of build_common.sh call
   - task: Bash@3
