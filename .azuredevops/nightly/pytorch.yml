@@ -222,7 +222,7 @@ jobs:
       itemPattern: '**/*'
       buildVersionToDownload: specific
       targetPath: '$(Pipeline.Workspace)/d'
-      pipelineId: 16410
+      pipelineId: 16515
   - task: ExtractFiles@1
     displayName: Extract clr
     inputs:
@@ -297,18 +297,18 @@ jobs:
       targetType: inline
       script: sudo bash ./common/install_aotriton.sh /opt/rocm
       workingDirectory: $(Build.SourcesDirectory)/pytorch/.ci/docker
-  - task: Bash@3
-    displayName: Temporarily Patch HIP
-    inputs:
-      targetType: inline
-      script: git apply $(Build.SourcesDirectory)/.azuredevops/patches/pytorch_hip_fp16.diff
-      workingDirectory: $(Agent.BuildDirectory)/rocm
-  - task: Bash@3
-    displayName: Temporarily Patch CK Submodule
-    inputs:
-      targetType: inline
-      script: git pull origin develop
-      workingDirectory: $(Build.SourcesDirectory)/pytorch/third_party/composable_kernel
+ # - task: Bash@3
+ #   displayName: Temporarily Patch HIP
+ #   inputs:
+ #     targetType: inline
+ #     script: git apply $(Build.SourcesDirectory)/.azuredevops/patches/pytorch_hip_fp16.diff
+ #     workingDirectory: $(Agent.BuildDirectory)/rocm
+ # - task: Bash@3
+ #   displayName: Temporarily Patch CK Submodule
+ #   inputs:
+ #     targetType: inline
+ #     script: git pull origin develop
+ #     workingDirectory: $(Build.SourcesDirectory)/pytorch/third_party/composable_kernel
   - task: Bash@3
     displayName: Run ROCm Build Script
     inputs:
