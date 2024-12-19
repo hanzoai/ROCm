@@ -148,6 +148,7 @@ HCA
 HGX
 HIPCC
 HIPExtension
+HIPification
 HIPIFY
 HPC
 HPCG
@@ -401,9 +402,13 @@ TensorFlow
 TensorParallel
 ToC
 TorchAudio
+torchaudio
 TorchMIGraphX
+torchrec
 TorchScript
 TorchServe
+torchserve
+torchtext
 TorchVision
 TransferBench
 TrapStatus
@@ -510,6 +515,9 @@ copyable
 cpp
 csn
 cuBLAS
+cuda
+cuDNN
+cudnn
 cuFFT
 cuLIB
 cuRAND
@@ -690,6 +698,7 @@ profilers
 protobuf
 pseudorandom
 py
+recommender
 quantile
 quantizer
 quasirandom

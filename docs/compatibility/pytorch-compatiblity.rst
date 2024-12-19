@@ -19,7 +19,7 @@ compatibility considerations, this results in two distinct release cycles for Py
   - Provides the latest version of ROCm but doesn't immediately support the latest stable PyTorch
     version.
 
-  - Offers `Docker images <https://hub.docker.com/r/rocm/pytorch>`_ with ROCm and PyTorch
+  - Offers :ref:`Docker images <pytorch-docker-compat>` with ROCm and PyTorch
     pre-installed.
 
   - ROCm PyTorch repository: `<https://github.com/rocm/pytorch>`__
@@ -35,12 +35,14 @@ compatibility considerations, this results in two distinct release cycles for Py
   - See the `Nightly and latest stable version installation guide <https://pytorch.org/get-started/locally/>`_
     or `Previous versions <https://pytorch.org/get-started/previous-versions/>`_ to get started.
 
-The upstream PyTorch includes an automatic hipification solution that automatically generates HIP
+The upstream PyTorch includes an automatic HIPification solution that automatically generates HIP
 source code from the CUDA backend. This approach allows PyTorch to support ROCm without requiring
 manual code modifications.
 
 ROCm's development is aligned with the stable release of PyTorch while upstream PyTorch testing uses
 the stable release of ROCm to maintain consistency.
+
+.. _pytorch-docker-compat:
 
 Docker image compatibility
 ================================================================================
@@ -49,7 +51,7 @@ AMD validates and publishes ready-made `PyTorch <https://hub.docker.com/r/rocm/p
 images with ROCm backends on Docker Hub. The following Docker image tags and
 associated inventories are validated for `ROCm 6.3.0 <https://repo.radeon.com/rocm/apt/6.3/>`_.
 
-.. list-table:: PyTorch on ROCm Docker image inventories
+.. list-table:: PyTorch Docker image components
     :header-rows: 1
     :class: docker-image-compatibility
 
@@ -485,6 +487,7 @@ leveraging ROCm and CUDA as the underlying frameworks.
         ``torch.cuda.memory_allocated()``, ``torch.cuda.max_memory_allocated()``,
         ``torch.cuda.memory_reserved()`` and ``torch.cuda.empty_cache()``.
       - 1.0.0
+      -
     * - Running process lists of memory management
       - Return a human-readable printout of the running processes and their GPU
         memory use for a given device with functions like 
@@ -736,7 +739,7 @@ torchaudio
 --------------------------------------------------------------------------------
 
 The `torchaudio <https://pytorch.org/audio/stable/index.html>`_ library provides
-utilities for processing audio data in PyTorch, such as audioloading,
+utilities for processing audio data in PyTorch, such as audio loading,
 transformations, and feature extraction.
 
 To ensure GPU-acceleration with ``torchaudio.transforms``, you need to move audio
@@ -812,7 +815,7 @@ torchtext
 
 The `torchtext <https://pytorch.org/text/stable/index.html>`_ library provides
 utilities for processing and working with text data in PyTorch, including
-tokenization, vocabulary management, and text embeddings. TorchText supports
+tokenization, vocabulary management, and text embeddings. torchtext supports
 preprocessing pipelines and integration with PyTorch models, simplifying the
 implementation of natural language processing (NLP) tasks.
 
@@ -827,7 +830,7 @@ torchtune
 --------------------------------------------------------------------------------
 
 The `torchtune <https://pytorch.org/torchtune/stable/index.html>`_ library for
-authoring, finetuning and experimenting with LLMs.
+authoring, fine-tuning and experimenting with LLMs.
 
 * Usage: It works out-of-the-box, enabling developers to fine-tune ROCm PyTorch solutions.
 
@@ -837,7 +840,7 @@ torchserve
 --------------------------------------------------------------------------------
 
 The `torchserve <https://pytorch.org/torchserve/>`_ is a PyTorch domain library
-for common sparsity and parallelism primitives needed for large-scale recomender
+for common sparsity and parallelism primitives needed for large-scale recommender
 systems.
 
 * torchtext does not implement its own kernels. ROCm support is enabled by linking against ROCm libraries.
@@ -850,7 +853,7 @@ torchrec
 --------------------------------------------------------------------------------
 
 The `torchrec <https://pytorch.org/torchrec/>`_ is a PyTorch domain library for
-common sparsity and parallelism primitives needed for large-scale recomender
+common sparsity and parallelism primitives needed for large-scale recommender
 systems.
 
 * torchrec does not implement its own kernels. ROCm support is enabled by linking against ROCm libraries.
@@ -862,7 +865,7 @@ systems.
 Unsupported PyTorch features
 ----------------------------
 
-The following are GPU-acclerated PyTorch features not currently supported by ROCm.
+The following are GPU-accelerated PyTorch features not currently supported by ROCm.
 
 .. list-table::
     :header-rows: 1
@@ -944,15 +947,15 @@ Use cases and recommendations
   guidance on how to leverage the ROCm platform for training AI models. It covers the steps, tools, and best practices
   for optimizing training workflows on AMD GPUs using PyTorch features.
 
-* :doc:`Single-GPU fine-tuning and inference
-  </how-to/llm-fine-tuning-optimization/single-gpu-fine-tuning-and-inference>` describes and demonstrates how to use
-  the ROCm platform for the fine-tuning and inference of machine learning models, particularly large language models
-  (LLMs), on systems with a single AMD Instinct MI300X accelerator. This page provides a detailed guide for setting up,
-  optimizing, and executing fine-tuning and inference workflows in such environments.
+* :doc:`Single-GPU fine-tuning and inference </how-to/llm-fine-tuning-optimization/single-gpu-fine-tuning-and-inference>`
+  describes and demonstrates how to use the ROCm platform for the fine-tuning and inference of
+  machine learning models, particularly large language models (LLMs), on systems with a single AMD
+  Instinct MI300X accelerator. This page provides a detailed guide for setting up, optimizing, and
+  executing fine-tuning and inference workflows in such environments.
 
-* :doc:`Multi-GPU fine-tuning and inference optimization
-  </how-to/llm-fine-tuning-optimization/multi-gpu-fine-tuning-and-inference>` describes and demonstrates the
-  fine-tuning and inference of machine learning models on systems with multi MI300X accelerators.
+* :doc:`Multi-GPU fine-tuning and inference optimization </how-to/llm-fine-tuning-optimization/multi-gpu-fine-tuning-and-inference>`
+  describes and demonstrates the fine-tuning and inference of machine learning models on systems
+  with multi MI300X accelerators.
 
 * The :doc:`Instinct MI300X workload optimization guide </how-to/tuning-guides/mi300x/workload>` provides detailed
   guidance on optimizing workloads for the AMD Instinct MI300X accelerator using ROCm. This guide is aimed at helping
