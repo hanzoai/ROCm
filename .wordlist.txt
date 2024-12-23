@@ -107,6 +107,7 @@ FFT
 FFTs
 FFmpeg
 FHS
+FIXME
 FMA
 FP
 FX
@@ -131,6 +132,7 @@ GiB
 GIM
 GL
 GLXT
+Gloo
 GMI
 GPG
 GPR
@@ -244,6 +246,7 @@ MyEnvironment
 MyST
 NBIO
 NBIOs
+NCCL
 NIC
 NICs
 NLI
@@ -403,6 +406,7 @@ TensorParallel
 ToC
 TorchAudio
 torchaudio
+TorchElastic
 TorchMIGraphX
 torchrec
 TorchScript
@@ -682,6 +686,7 @@ prebuilt
 precompiled
 preconditioner
 preconfigured
+preemptible
 prefetch
 prefetchable
 prefill
