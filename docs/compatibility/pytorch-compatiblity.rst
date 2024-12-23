@@ -680,10 +680,6 @@ of computational resources and scalability for large-scale tasks.
         scenarios.
       - 1.9
       - 
-..
-   FIXME:
-      - ?
-
     * - Gloo
       - Gloo is designed for multi-machine and multi-GPU setups, enabling
         efficient communication and synchronization between processes. Gloo is
@@ -706,6 +702,9 @@ of computational resources and scalability for large-scale tasks.
         environments.
       - 1.9
       -
+
+.. 
+   FIXME: RPC Device Map Passing "Since ROCm version"
 
 torch.compiler
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
