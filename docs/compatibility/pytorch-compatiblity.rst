@@ -346,7 +346,7 @@ Tensor data types
 
 The data type of a tensor is specified using the ``dtype`` attribute or argument, and PyTorch supports a wide range of data types for different use cases.
 
-The single data types of `torch.Tensor <https://pytorch.org/docs/stable/tensors.html>`_
+The following table lists `torch.Tensor <https://pytorch.org/docs/stable/tensors.html>`_'s single data types:
 
 .. list-table::
     :header-rows: 1
@@ -428,19 +428,19 @@ The single data types of `torch.Tensor <https://pytorch.org/docs/stable/tensors.
       - 1.2
       - 2.0
     * - ``torch.quint8``
-      - quantized 8-bit integer (unsigned)
+      - Quantized 8-bit integer (unsigned)
       - 1.8
       - 5.0
     * - ``torch.qint8``
-      - quantized 8-bit integer (signed)
+      - Quantized 8-bit integer (signed)
       - 1.8
       - 5.0
     * - ``torch.qint32``
-      - quantized 32-bit integer (signed)
+      - Quantized 32-bit integer (signed)
       - 1.8
       - 5.0
     * - ``torch.quint4x2``
-      - quantized 4-bit integer (unsigned)
+      - Quantized 4-bit integer (unsigned)
       - 1.8
       - 5.0
 
