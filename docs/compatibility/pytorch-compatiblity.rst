@@ -195,7 +195,6 @@ dependencies. These critical ROCm components affect the capabilities,
 performance, and feature set available to developers.
 
 .. list-table::
-    :widths: 25, 10, 35, 30
     :header-rows: 1
 
     * - ROCm library
@@ -486,8 +485,8 @@ leveraging ROCm and CUDA as the underlying frameworks.
       - Functions to manage and inspect memory usage like
         ``torch.cuda.memory_allocated()``, ``torch.cuda.max_memory_allocated()``,
         ``torch.cuda.memory_reserved()`` and ``torch.cuda.empty_cache()``.
-      - 1.0.0
-      -
+      - 0.3.0
+      - 1.9.2
     * - Running process lists of memory management
       - Return a human-readable printout of the running processes and their GPU
         memory use for a given device with functions like 
@@ -503,7 +502,7 @@ leveraging ROCm and CUDA as the underlying frameworks.
       - Graphs capture sequences of GPU operations to minimize kernel launch
         overhead and improve performance.
       - 1.10.0
-      - 4.0
+      - 5.3
     * - TunableOp
       - A mechanism that allows certain operations to be more flexible and
         optimized for performance. It enables automatic tuning of kernel
@@ -514,17 +513,17 @@ leveraging ROCm and CUDA as the underlying frameworks.
     * - NVIDIA Tools Extension (NVTX)
       - Integration with NVTX for profiling and debugging GPU performance using
         NVIDIA's Nsight tools.
-      - 1.7.0
+      - 1.8.0
       - ❌
     * - Lazy loading NVRTC
       - Delays JIT compilation with NVRTC until the code is explicitly needed.
-      - 1.8.0
+      - 1.13.0
       - ❌
     * - Jiterator (beta)
       - Jiterator allows asynchronous data streaming into computation streams
         during training loops.
-      - 1.9.0
-      - ❌
+      - 1.13.0
+      - 5.2
 
 .. Need to validate and extend.
 
@@ -600,13 +599,13 @@ Supported ``torch`` options:
     * - ``allow_tf32``
       - TensorFloat-32 tensor cores may be used in cuDNN convolutions on NVIDIA
         Ampere or newer GPUs.
-      - 1.10.0
+      - 1.12.0
       - ❌
     * - ``deterministic``
       - A bool that, if True, causes cuDNN to only use deterministic
         convolution algorithms.
-      - 1.0
-      - ?
+      - 1.12.0
+      - 6.0
 
 Automatic mixed precision: torch.amp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -725,15 +724,6 @@ torch.compiler
         NVIDIA, and Intel GPUs, it leverages OpenAI Triton as the key building block.
       - 2.0
       - 5.3
-    * - ``torch.compiler`` (TorchDynamo)
-      - An internal API that uses a CPython feature called the Frame Evaluation
-        API to safely capture PyTorch graphs. Methods that are available
-        externally for PyTorch users are surfaced through the ``torch.compiler``
-        namespace.
-      - 2.0
-      - ❌
-
-.. torch compiler backends?
 
 torchaudio
 --------------------------------------------------------------------------------
@@ -847,8 +837,6 @@ systems.
 
 * Only official release exists.
 
-.. Should I share the build command?
-
 torchrec
 --------------------------------------------------------------------------------
 
@@ -860,14 +848,13 @@ systems.
 
 * Only official release exists.
 
-.. Should I share the build command?
-
 Unsupported PyTorch features
 ----------------------------
 
 The following are GPU-accelerated PyTorch features not currently supported by ROCm.
 
 .. list-table::
+    :widths: 30, 60, 10
     :header-rows: 1
 
     * - Data type
@@ -876,56 +863,45 @@ The following are GPU-accelerated PyTorch features not currently supported by RO
     * - APEX batch norm
       - Use APEX batch norm instead of PyTorch batch norm.
       - 1.6.0
-    * - ``torch.backends.cuda.matmul.allow_tf32``
+    * - ``torch.backends.cuda`` / ``matmul.allow_tf32``
       - A bool that controls whether TensorFloat-32 tensor cores may be used in
         matrix multiplications.
       - 1.7
-    * - ``torc.cuda`` / NVIDIA Tools Extension (NVTX)
+    * - ``torch.cuda`` / NVIDIA Tools Extension (NVTX)
       - Integration with NVTX for profiling and debugging GPU performance using
         NVIDIA's Nsight tools.
       - 1.7.0
     * - ``torch.cuda`` / Lazy loading NVRTC
       - Delays JIT compilation with NVRTC until the code is explicitly needed.
       - 1.8.0
-    * - ``torch.cuda`` / Jiterator (beta)
-      - Jiterator allows asynchronous data streaming into computation streams
-        during training loops.
-      - 1.9.0
     * - ``torch-tensorrt``
       - Integrate TensorRT library for optimizing and deploying PyTorch models.
         ROCm does not have equialent library for TensorRT.
       - 1.9.0
-    * - ``torch.backends.cudnn.allow_tf32``
+    * - ``torch.backends`` / ``cudnn.allow_tf32``
       - TensorFloat-32 tensor cores may be used in cuDNN convolutions.
       - 1.10.0
-    * - ``torch.cuda.CUDAGraph``
-      - Graph support in PyTorch capture and execute sequences of GPU operations
-        efficiently by minimizing the overhead associated with kernel launches
-        and stream synchronization. This is beneficial in scenarios where the
-        same sequence of operations is executed repeatedly, such as during
-        training or inference loops in machine learning models.
-      - 1.10.0
-    * - ``torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction``
+    * - ``torch.backends.cuda`` / ``matmul.allow_fp16_reduced_precision_reduction``
       - Reduced precision reductions with fp16 accumulation type are
         allowed with fp16 GEMMs.
       - 2.0
-    * - ``torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction``
+    * - ``torch.backends.cuda`` / ``matmul.allow_bf16_reduced_precision_reduction``
       - Reduced precision reductions are allowed with bf16 GEMMs.
       - 2.0
-    * - ``torch.nn.functional.scaled_dot_product_attention`` 
+    * - ``torch.nn.functional`` / ``scaled_dot_product_attention`` 
       - Flash attention backend for SDPA to accelerate attention computation in
         transformer-based models.
       - 2.0
-    * - ``torch.backends.cuda.enable_cudnn_sdp``
+    * - ``torch.backends.cuda`` / ``enable_cudnn_sdp``
       - Globally enables cuDNN SDPA's kernels within SDPA.
       - 2.0
-    * - ``torch.backends.cuda.enable_flash_sdp``
+    * - ``torch.backends.cuda`` / ``enable_flash_sdp``
       - Globally enables or disables FlashAttention for SDPA.
       - 2.1
-    * - ``torch.backends.cuda.enable_mem_efficient_sdp``
+    * - ``torch.backends.cuda`` / ``enable_mem_efficient_sdp``
       - Globally enables or disables Memory-Efficient Attention for SDPA.
       - 2.1
-    * - ``torch.backends.cuda.enable_math_sdp``
+    * - ``torch.backends.cuda`` / ``enable_math_sdp``
       - Globally enables or disables the PyTorch C++ implementation within SDPA.
       - 2.1
     * - Dynamic parallelism
