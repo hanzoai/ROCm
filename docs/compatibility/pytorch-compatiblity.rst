@@ -580,6 +580,9 @@ PyTorch interacts with the CUDA or ROCm environment.
       - Globally enables FP16 and BF16 precision for reduction operations within
         SDPA.
       - 2.1
+      - 
+..
+   FIXME:
       - Partial?
 
 .. Need to validate and extend.
@@ -676,7 +679,11 @@ of computational resources and scalability for large-scale tasks.
         sending tensors across nodes in distributed training or execution
         scenarios.
       - 1.9
+      - 
+..
+   FIXME:
       - ?
+
     * - Gloo
       - Gloo is designed for multi-machine and multi-GPU setups, enabling
         efficient communication and synchronization between processes. Gloo is
