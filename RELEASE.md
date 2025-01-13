@@ -42,13 +42,13 @@ The following are notable new features and improvements in ROCm 6.3.2. For chang
 
 ROCm documentation continues to be updated to provide clearer and more comprehensive guidance for a wider variety of user needs and use cases.
 
-* Documentation about ROCm compatibility with deep learning frameworks has been added. These topics outline ROCm-enabled features for each deep learning framework, key ROCm libraries that can influence the capabilities, docker image tags validated, and features supported across the available ROCm and framework versions. For more information, see:
+* Documentation about ROCm compatibility with deep learning frameworks has been added. These topics outline ROCm-enabled features for each deep learning framework, key ROCm libraries that can influence the capabilities, Docker image tags validated, and features supported across the available ROCm and framework versions. For more information, see:
 
     * [PyTorch compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/pytorch-compatibility.html)
 
-    * [JAX compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/jax-compatibility.html)
-
     * [TensorFlow compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/tensorflow-compatibility.html)
+
+    * [JAX compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/jax-compatibility.html)
 
 * The [HIP C++ language extensions](https://rocm.docs.amd.com/projects/HIP/en/latest/how-to/hip_cpp_language_extensions.html) and [Kernel language C++ support](https://rocm.docs.amd.com/projects/HIP/en/latest/how-to/kernel_language_cpp_support.html) topics have been reorganized to make them easier to find and review. The topics have also been enhanced with new content.
 
