@@ -38,13 +38,6 @@ documentation to verify compatibility and system requirements.
 The following are notable new features and improvements in ROCm 6.3.2. For changes to individual components, see
 [Detailed component changes](#detailed-component-changes).
 
-### ROCm Offline Installer Creator updates
-The ROCm Offline Installer Creator 6.3.2 introduces new feature [add-content]. For more information, see the [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-on-linux/en/docs-6.3.1/install/rocm-offline-installer.html) documentation.
- 
-### ROCm Runfile Installer updates
-The ROCm Runfile Installer 6.3.2 introduces new feature [add-content]. For more information, see the [ROCm Runfile Installer](https://rocm.docs.amd.com/projects/install-on-linux/en/docs-6.3.1/install/rocm-runfile-installer.html) documentation.
-
-
 ### ROCm documentation updates
 
 ROCm documentation continues to be updated to provide clearer and more comprehensive guidance for a wider variety of user needs and use cases.
@@ -313,7 +306,7 @@ Click {fab}`github` to go to the component's source code on GitHub.
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/docs-6.3.1/index.html">ROCprofiler-SDK</a></td>
-                <td>0.5.0</td>
+                <td>0.5.0&nbsp;&Rightarrow;&nbsp;<a href="#rocprofiler-sdk-0-5-0">0.5.0</a></td>
                 <td><a href="https://github.com/ROCm/rocprofiler-sdk/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
@@ -447,6 +440,12 @@ The following sections describe key changes to ROCm components.
 #### Changed
 
 * Activity metrics.
+
+### **ROCprofiler-SDK** (0.5.0)
+
+#### Added
+
+* Support for device counter collection ioctl.
 
 ## ROCm known issues
 
