@@ -423,7 +423,7 @@ The following sections describe key changes to ROCm components.
 
 #### Resolved issues
 
-* Fixed the hipSPARSE CMake target.
+* Fixed the exported `hipfort::hipsparse` CMake target.
 
 ### **ROCm Systems Profiler** (0.1.1)
 
