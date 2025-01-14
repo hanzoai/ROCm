@@ -408,12 +408,14 @@ The following sections describe key changes to ROCm components.
 * Multi-threaded dispatches for performance improvement.
 * Command submissions and processing between CPU and GPU by introducing a way to limit the software batch size.
 * Switch to `std::shared_mutex` in book/keep logic in streams from multiple threads simultaneously, for performance improvement in specific customer applications.
+* `std::shared_mutex` is used in memory object mapping, for performance improvement.
 
 #### Resolved issues
 
 * Race condition in multi-threaded producer/consumer scenario with `hipMallocFromPoolAsync`.
 * Segmentation fault with `hipStreamLegacy` while using the API `hipStreamWaitEvent`.
 * Usage of `hipStreamLegacy` in HIP event record.
+* A soft hang in graph execution process from HIP user object. The fix handles the release of graph execution object properly considering synchronization on the device/stream. The user application now behaves the same with `hipUserObject` on both the AMD ROCm and NVIDIA CUDA platforms.
 
 ### **hipfort** (0.5.1)
 
