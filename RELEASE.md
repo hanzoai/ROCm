@@ -54,7 +54,7 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
 
 ## Operating system and hardware support changes
 
-Operating system and hardware support remains unchanged in this release.
+ROCm 6.3.2 adds support for Azure Linux 3.0 (kernel: 6.6). Azure Linux is supported only on AMD Instinct accelerators. See the installation instructions at [Azure Linux installation](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/install/native-install/).
 
 See the [Compatibility
 matrix](https://rocm-stg.amd.com/en/latest/compatibility/compatibility-matrix.html)
