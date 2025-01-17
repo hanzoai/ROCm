@@ -42,7 +42,7 @@ The following are notable new features and improvements in ROCm 6.3.2. For chang
 
 ROCm documentation continues to be updated to provide clearer and more comprehensive guidance for a wider variety of user needs and use cases.
 
-* Documentation about ROCm compatibility with deep learning frameworks has been added. These topics outline ROCm-enabled features for each deep learning framework, key ROCm libraries that can influence the capabilities, Docker image tags validated, and features supported across the available ROCm and framework versions. For more information, see:
+* Documentation about ROCm compatibility with deep learning frameworks has been added. These topics outline ROCm-enabled features for each deep learning framework, key ROCm libraries that can influence the capabilities, validated Docker image tags, and features supported across the available ROCm and framework versions. For more information, see:
 
     * [PyTorch compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/pytorch-compatibility.html)
 
@@ -448,6 +448,10 @@ The following sections describe key changes to ROCm components.
 #### Added
 
 * Support for device counter collection ioctl.
+
+#### Changed
+
+* `rocprofiler_sample_device_counting_service` API updated to return counter output immediately, when called in synchronous mode. 
 
 ## ROCm known issues
 
