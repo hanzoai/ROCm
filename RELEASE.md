@@ -35,7 +35,7 @@ documentation to verify compatibility and system requirements.
 ```
 ## Release highlights
 
-The following are notable new features and improvements in ROCm 6.3.2. For changes to individual components, see
+The following are notable improvements in ROCm 6.3.2. For changes to individual components, see
 [Detailed component changes](#detailed-component-changes).
 
 ### ROCm documentation updates
@@ -54,7 +54,7 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
 
 ## Operating system and hardware support changes
 
-ROCm 6.3.2 adds support for Azure Linux 3.0 (kernel: 6.6). Azure Linux is supported only on AMD Instinct accelerators. See the installation instructions at [Azure Linux installation](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/install/native-install/).
+ROCm 6.3.2 adds support for Azure Linux 3.0 (kernel: 6.6). Azure Linux is supported only on AMD Instinct accelerators. <!--See the installation instructions at [Azure Linux installation](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/install/native-install/). -->
 
 See the [Compatibility
 matrix](https://rocm-stg.amd.com/en/latest/compatibility/compatibility-matrix.html)
@@ -457,11 +457,6 @@ The following sections describe key changes to ROCm components.
 
 ROCm known issues are noted on {fab}`github` [GitHub](https://github.com/ROCm/ROCm/labels/Verified%20Issue). For known
 issues related to individual components, review the [Detailed component changes](#detailed-component-changes).
-
-## ROCm resolved issues
-
-The following are previously known issues resolved in this release. For resolved issues related to
-individual components, review the [Detailed component changes](#detailed-component-changes).
 
 ## ROCm upcoming changes
 
