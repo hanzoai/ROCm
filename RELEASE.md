@@ -435,19 +435,19 @@ The following sections describe key changes to ROCm components.
 
 ### **ROCProfiler** (2.0.0)
 
-#### Added
-
-* SIMD_UTILIZATION metric.
-
 #### Changed
 
-* Activity metrics.
+* Replaced `CU_UTILIZATION` metric with `SIMD_UTILIZATION` for better accuracy.
+
+#### Resolved issues
+
+* Fixed the `VALUBusy` and `SALUBusy` activity metrics for accuracy on MI300.
 
 ### **ROCprofiler-SDK** (0.5.0)
 
 #### Added
 
-* Support for device counter collection ioctl.
+* Support for system-wide collection of SQ counters across all HSA processes.
 
 #### Changed
 
@@ -457,6 +457,34 @@ The following sections describe key changes to ROCm components.
 
 ROCm known issues are noted on {fab}`github` [GitHub](https://github.com/ROCm/ROCm/labels/Verified%20Issue). For known
 issues related to individual components, review the [Detailed component changes](#detailed-component-changes).
+
+## ROCm resolved issues
+
+The following are previously known issues resolved in this release. For resolved issues related to
+individual components, review the [Detailed component changes](#detailed-component-changes).
+
+### TransferBench packages not functional
+
+TransferBench packages included in ROCm 6.3.0 were not compiled properly and were not functional for GPU targets except for gfx906. This issue has been fixed, and full functionality is now available in the ROCm 6.3.2 release. See [GitHub issue #4081](https://github.com/ROCm/ROCm/issues/4081).
+
+TransferBench is a utility for benchmarking simultaneous transfers between user-specified devices
+(CPUs or GPUs). For more information, see [TransferBench
+documentation](https://rocm.docs.amd.com/projects/TransferBench/en/latest/). To use TransferBench, access the properly compiled packages at
+[https://github.com/ROCm/TransferBench/releases](https://github.com/ROCm/TransferBench/releases).
+
+### ROCm Compute Profiler CTest failure in CI
+
+When running the ROCm Compute Profiler (`rocprof-compute`) CTest in the Azure CI environment, the
+`rocprof-compute` execution test failed. This issue was due to an outdated test file that was not renamed
+(`omniperf` to `rocprof-compute`), and the `ROCM_PATH` environment variable not being set in
+the Azure CI environment, resulting in the tool being unable to extract chip information as expected.
+This issue has been fixed in the ROCm 6.3.2 release. See [GitHub issue #4085](https://github.com/ROCm/ROCm/issues/4085).
+
+### MIVisionX memory access fault in Canny edge detection
+
+An issue where Canny edge detection kernels accessed out-of-bounds memory locations while
+computing gradient intensities on edge pixels has been fixed. This issue was isolated to
+Canny-specific use cases on Instinct MI300 series accelerators. See [GitHub issue #4086](https://github.com/ROCm/ROCm/issues/4086).
 
 ## ROCm upcoming changes
 
