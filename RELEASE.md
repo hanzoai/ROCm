@@ -465,12 +465,7 @@ individual components, review the [Detailed component changes](#detailed-compone
 
 ### TransferBench packages not functional
 
-TransferBench packages included in ROCm 6.3.0 were not compiled properly and were not functional for GPU targets except for gfx906. This issue has been fixed, and full functionality is now available in the ROCm 6.3.2 release. See [GitHub issue #4081](https://github.com/ROCm/ROCm/issues/4081).
-
-TransferBench is a utility for benchmarking simultaneous transfers between user-specified devices
-(CPUs or GPUs). For more information, see [TransferBench
-documentation](https://rocm.docs.amd.com/projects/TransferBench/en/latest/). To use TransferBench, access the properly compiled packages at
-[https://github.com/ROCm/TransferBench/releases](https://github.com/ROCm/TransferBench/releases).
+Issue with TransferBench packages not being compiled properly has been fixed. For more information, See [GitHub issue #4081](https://github.com/ROCm/ROCm/issues/4081).
 
 ### ROCm Compute Profiler CTest failure in CI
 
