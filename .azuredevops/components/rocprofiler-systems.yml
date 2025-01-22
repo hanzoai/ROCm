@@ -217,3 +217,17 @@ jobs:
     inputs:
       targetType: inline
       script: echo "##vso[task.setvariable variable=PATH]$(echo $PATH | sed -e 's;:$(Agent.BuildDirectory)/rocm/llvm/bin;;' -e 's;^/;;' -e 's;/$;;')"
+  - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/manifest.yml
+    parameters:
+      gpuTarget: $(JOB_GPU_TARGET)
+  - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/artifact-upload.yml
+    parameters:
+      gpuTarget: $(JOB_GPU_TARGET)
+  - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/docker-container.yml
+    parameters:
+      aptPackages: ${{ parameters.aptPackages }}
+      pipModules: ${{ parameters.pipModules }}
+      environment: combined
+      gpuTarget: $(JOB_GPU_TARGET)
+      optSymLink: true
+      extraPaths: /home/user/workspace/rocm/bin:/home/user/workspace/rocm/llvm/bin
