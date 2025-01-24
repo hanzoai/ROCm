@@ -38,15 +38,15 @@ parameters:
 - name: rocmDependencies
   type: object
   default:
-    - rocm-cmake
-    - llvm-project
-    - ROCR-Runtime
-    - clr
-    - rocDecode
-    - half
-    - rpp
-    - MIVisionX
     - aomp
+    - clr
+    - half
+    - llvm-project
+    - MIVisionX
+    - rocDecode
+    - rocm-cmake
+    - ROCR-Runtime
+    - rpp
 - name: rocmTestDependencies
   type: object
   default:
@@ -55,6 +55,7 @@ parameters:
     - half
     - llvm-project
     - MIVisionX
+    - rocDecode
     - rocminfo
     - rocprofiler-register
     - ROCR-Runtime
@@ -65,8 +66,7 @@ jobs:
   variables:
   - group: common
   - template: /.azuredevops/variables-global.yml
-  pool:
-    vmImage: ${{ variables.BASE_BUILD_POOL }}
+  pool: ${{ variables.LOW_BUILD_POOL }}
   workspace:
     clean: all
   strategy:
@@ -136,14 +136,9 @@ jobs:
       workingDirectory: '$(Build.SourcesDirectory)/rapidjson/build'
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/dependencies-rocm.yml
     parameters:
+      checkoutRef: ${{ parameters.checkoutRef }}
       dependencyList: ${{ parameters.rocmDependencies }}
       gpuTarget: $(JOB_GPU_TARGET)
-      # CI case: download latest default branch build
-      ${{ if eq(parameters.checkoutRef, '') }}:
-        dependencySource: staging
-      # manual build case: triggered by ROCm/ROCm repo
-      ${{ elseif ne(parameters.checkoutRef, '') }}:
-        dependencySource: tag-builds
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/build-cmake.yml
     parameters:
       extraBuildFlags: >-
@@ -159,6 +154,14 @@ jobs:
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/artifact-upload.yml
     parameters:
       gpuTarget: $(JOB_GPU_TARGET)
+  - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/docker-container.yml
+    parameters:
+      aptPackages: ${{ parameters.aptPackages }}
+      pipModules: ${{ parameters.pipModules }}
+      registerJPEGPackages: true
+      gpuTarget: $(JOB_GPU_TARGET)
+      extraCopyDirectories:
+        - /opt/libjpeg-turbo
 
 - job: rocAL_testing
   dependsOn: rocAL
@@ -170,7 +173,9 @@ jobs:
     value: $(Agent.BuildDirectory)/rocm
   - name: CMAKE_INCLUDE_PATH
     value: $(Agent.BuildDirectory)/rocm/include/rocal
-  pool: $(JOB_TEST_POOL)
+  pool:
+    name: $(JOB_TEST_POOL)
+    demands: firstRenderDeviceAccess
   workspace:
     clean: all
   strategy:
@@ -197,19 +202,11 @@ jobs:
     parameters:
       gpuTarget: $(JOB_GPU_TARGET)
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/dependencies-aqlprofile.yml
-    parameters:
-      ${{ if eq(parameters.checkoutRef, '') }}:
-        dependencySource: staging
-      ${{ elseif ne(parameters.checkoutRef, '') }}:
-        dependencySource: tag-builds
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/dependencies-rocm.yml
     parameters:
+      checkoutRef: ${{ parameters.checkoutRef }}
       dependencyList: ${{ parameters.rocmTestDependencies }}
       gpuTarget: $(JOB_GPU_TARGET)
-      ${{ if eq(parameters.checkoutRef, '') }}:
-        dependencySource: staging
-      ${{ elseif ne(parameters.checkoutRef, '') }}:
-        dependencySource: tag-builds
   - task: Bash@3
     displayName: Link libjpeg-turbo
     inputs:
@@ -238,3 +235,13 @@ jobs:
       script: |
         sudo rm /etc/ld.so.conf.d/libjpeg-turbo.conf
         sudo ldconfig -v
+  - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/docker-container.yml
+    parameters:
+      aptPackages: ${{ parameters.aptPackages }}
+      pipModules: ${{ parameters.pipModules }}
+      registerJPEGPackages: true
+      environment: test
+      gpuTarget: $(JOB_GPU_TARGET)
+      extraCopyDirectories:
+        - /opt/libjpeg-turbo
+# docker image will be missing the ldconfig to libjpeg-turbo

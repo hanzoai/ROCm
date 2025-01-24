@@ -453,6 +453,13 @@ The following sections describe key changes to ROCm components.
 
 * `rocprofiler_sample_device_counting_service` API updated to return counter output immediately, when called in synchronous mode. 
 
+### **ROCprofiler-SDK** (0.5.0)
+
+#### Added
+
+* SIMD_UTILIZATION metric.
+* New <a href="https://rocm.docs.amd.com/projects/rdc/en/docs-6.3.1/index.html">ROCm Data Center (RDC)</a> ops metrics.
+
 ## ROCm known issues
 
 ROCm known issues are noted on {fab}`github` [GitHub](https://github.com/ROCm/ROCm/labels/Verified%20Issue). For known
