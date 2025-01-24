@@ -481,6 +481,10 @@ An issue where Canny edge detection kernels accessed out-of-bounds memory locati
 computing gradient intensities on edge pixels has been fixed. This issue was isolated to
 Canny-specific use cases on Instinct MI300 series accelerators. See [GitHub issue #4086](https://github.com/ROCm/ROCm/issues/4086).
 
+### AMD VCN instability with rocDecode
+
+In some cases, a firmware crash occurred when AMD Video Core Next (VCN) was used for rocDecode operations. This issue has been resolved.
+
 ## ROCm upcoming changes
 
 The following changes to the ROCm software stack are anticipated for future releases.
