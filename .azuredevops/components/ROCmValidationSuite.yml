@@ -10,12 +10,14 @@ parameters:
   default:
     - cmake
     - ninja-build
+    - libdrm-dev
     - libyaml-cpp-dev
     - libpci-dev
     - libpci3
     - libgst-dev
     - libgtest-dev
     - git
+    - python3-pip
 - name: rocmDependencies
   type: object
   default:
@@ -58,8 +60,7 @@ jobs:
     value: $(Agent.BuildDirectory)/rocm
   - name: HIP_INC_DIR
     value: $(Agent.BuildDirectory)/rocm
-  pool:
-    vmImage: ${{ variables.BASE_BUILD_POOL }}
+  pool: ${{ variables.LOW_BUILD_POOL }}
   workspace:
     clean: all
   strategy:
@@ -76,14 +77,9 @@ jobs:
       checkoutRepo: ${{ parameters.checkoutRepo }}
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/dependencies-rocm.yml
     parameters:
+      checkoutRef: ${{ parameters.checkoutRef }}
       dependencyList: ${{ parameters.rocmDependencies }}
       gpuTarget: $(JOB_GPU_TARGET)
-      # CI case: download latest default branch build
-      ${{ if eq(parameters.checkoutRef, '') }}:
-        dependencySource: staging
-      # manual build case: triggered by ROCm/ROCm repo
-      ${{ elseif ne(parameters.checkoutRef, '') }}:
-        dependencySource: tag-builds
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/build-cmake.yml
     parameters:
       extraBuildFlags: >-
@@ -98,6 +94,14 @@ jobs:
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/artifact-upload.yml
     parameters:
       gpuTarget: $(JOB_GPU_TARGET)
+  - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/docker-container.yml
+    parameters:
+      aptPackages: ${{ parameters.aptPackages }}
+      gpuTarget: $(JOB_GPU_TARGET)
+      extraEnvVars:
+        - HIP_ROCCLR_HOME:::/home/user/workspace/rocm
+        - ROCM_PATH:::/home/user/workspace/rocm
+        - HIP_INC_DIR:::/home/user/workspace/rocm
 
 - job: ROCmValidationSuite_testing
   dependsOn: ROCmValidationSuite
@@ -122,19 +126,11 @@ jobs:
     parameters:
       gpuTarget: $(JOB_GPU_TARGET)
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/dependencies-aqlprofile.yml
-    parameters:
-      ${{ if eq(parameters.checkoutRef, '') }}:
-        dependencySource: staging
-      ${{ elseif ne(parameters.checkoutRef, '') }}:
-        dependencySource: tag-builds
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/dependencies-rocm.yml
     parameters:
+      checkoutRef: ${{ parameters.checkoutRef }}
       dependencyList: ${{ parameters.rocmTestDependencies }}
       gpuTarget: $(JOB_GPU_TARGET)
-      ${{ if eq(parameters.checkoutRef, '') }}:
-        dependencySource: staging
-      ${{ elseif ne(parameters.checkoutRef, '') }}:
-        dependencySource: tag-builds
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/gpu-diagnostics.yml
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/test.yml
     parameters:
@@ -143,3 +139,8 @@ jobs:
       testParameters: ''
       testDir: $(Agent.BuildDirectory)
       testPublishResults: false
+  - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/docker-container.yml
+    parameters:
+      aptPackages: ${{ parameters.aptPackages }}
+      environment: test
+      gpuTarget: $(JOB_GPU_TARGET)
