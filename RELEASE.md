@@ -490,7 +490,7 @@ Canny-specific use cases on Instinct MI300 series accelerators. See [GitHub issu
 
 ### AMD VCN instability with rocDecode
 
-In some cases, a firmware crash occurred when AMD Video Core Next (VCN) was used for rocDecode operations. This issue has been resolved.
+A firmware crash on gfx942 devices when AMD Video Core Next (VCN) was used for rocDecode operations has been resolved.
 
 ## ROCm upcoming changes
 
