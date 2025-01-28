@@ -1,9 +1,9 @@
-<head>
-  <meta charset="UTF-8">
-  <meta name="description" content="AMD ROCm documentation">
-  <meta name="keywords" content="documentation, guides, installation, compatibility, support,
-  reference, ROCm, AMD">
-</head>
+---
+myst:
+  html_meta:
+    "description": "Start building for HPC and AI with the performance-first AMD ROCm software stack. Explore how-to guides and reference docs."
+    "keywords": "Radeon, open, compute, platform, install, how, conceptual, reference, home, docs"
+---
 
 # AMD ROCm documentation
 
@@ -39,15 +39,12 @@ ROCm documentation is organized into the following categories:
 
 * [Use ROCm for AI](./how-to/rocm-for-ai/index.rst)
 * [Use ROCm for HPC](./how-to/rocm-for-hpc/index.rst)
-* [Fine-tune LLMs and inference optimization](./how-to/llm-fine-tuning-optimization/index.rst)
 * [System optimization](./how-to/system-optimization/index.rst)
 * [AMD Instinct MI300X performance validation and tuning](./how-to/tuning-guides/mi300x/index.rst)
-* [GPU cluster networking](https://dcgpu.docs.amd.com/projects/gpu-cluster-networking/en/latest/index.html)
 * [System debugging](./how-to/system-debugging.md)
-* [Use MPI](./how-to/gpu-enabled-mpi.rst)
 * [Use advanced compiler features](./conceptual/compiler-topics.md)
 * [Set the number of CUs](./how-to/setting-cus)
-* [Troubleshoot BAR access limitation](./how-to/Bar-Memory.rst)  
+* [Troubleshoot BAR access limitation](./how-to/Bar-Memory.rst)
 * [ROCm examples](https://github.com/amd/rocm-examples)
 :::
 
@@ -64,16 +61,15 @@ ROCm documentation is organized into the following categories:
 * [Oversubscription of hardware resources](./conceptual/oversubscription.rst)
 :::
 
-<!-- markdownlint-disable MD051 -->
 :::{grid-item-card} Reference
 :class-body: rocm-card-banner rocm-hue-6
-
+<!-- markdownlint-disable MD051 -->
 * [ROCm libraries](./reference/api-libraries.md)
 * [ROCm tools, compilers, and runtimes](./reference/rocm-tools.md)
 * [Accelerator and  GPU hardware specifications](./reference/gpu-arch-specs.rst)
 * [Precision support](./reference/precision-support.rst)
 * [Graph safe support](./reference/graph-safe-support.rst)
-:::
 <!-- markdownlint-enable MD051 -->
+:::
 
 ::::

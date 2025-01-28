@@ -1,5 +1,10 @@
 parameters:
-# currently excludes clr
+- name: dependencySource
+  type: string
+  default: staging
+  values: 
+    - staging
+    - mainline
 - name: rocmDependencies
   type: object
   default:
@@ -60,6 +65,7 @@ parameters:
     - roctracer
     - rocWMMA
     - rpp
+    - TransferBench
 
 trigger: none
 pr: none
@@ -99,11 +105,11 @@ jobs:
     displayName: System disk space before ROCm
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/dependencies-rocm.yml
     parameters:
+      dependencySource: ${{ parameters.dependencySource }}
       dependencyList: ${{ parameters.rocmDependencies }}
-      dependencySource: staging
+      gpuTarget: $(JOB_GPU_TARGET)
       skipLibraryLinking: true
       skipLlvmSymlink: true
-      gpuTarget: $(JOB_GPU_TARGET)
   - script: df -h
     displayName: System disk space after ROCm
   - script: du -sh $(Agent.BuildDirectory)/rocm
@@ -124,3 +130,10 @@ jobs:
     retryCountOnTaskFailure: 3
     inputs:
       targetPath: '$(Build.ArtifactStagingDirectory)'
+  - task: Bash@3
+    displayName: Save pipeline artifact file name
+    inputs:
+      workingDirectory: $(Pipeline.Workspace)
+      targetType: inline
+      script: echo "$(Build.DefinitionName)_$(Build.BuildNumber)_ubuntu2204_$(JOB_GPU_TARGET).tar.gz" >> pipelineArtifacts.txt
+  - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/artifact-links.yml
