@@ -38,6 +38,7 @@ ROCm documentation is organized into the following categories:
 :class-body: rocm-card-banner rocm-hue-12
 
 * [Use ROCm for AI](./how-to/rocm-for-ai/index.rst)
+* [AI tutorials](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/)
 * [Use ROCm for HPC](./how-to/rocm-for-hpc/index.rst)
 * [System optimization](./how-to/system-optimization/index.rst)
 * [AMD Instinct MI300X performance validation and tuning](./how-to/tuning-guides/mi300x/index.rst)
