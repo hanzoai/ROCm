@@ -31,6 +31,7 @@
 <!-- The following projects are all associated with the AMDGPU LLVM compiler -->
     <project name="half" revision="refs/heads/rocm" />
     <project name="llvm-project" />
+    <project name="SPIRV-LLVM-Translator" path="llvm-project/llvm/projects/SPIRV-LLVM-Translator" />
 <!-- gdb projects -->
     <project name="ROCdbgapi" /> 
     <project name="ROCgdb" revision="refs/heads/amd-mainline-rocgdb-15"/> 
