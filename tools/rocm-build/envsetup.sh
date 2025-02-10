@@ -189,3 +189,6 @@ export RELEASE_FLAG=${RELEASE_FLAG:-"-r"}
 export SUDO=sudo
 export PATH=/usr/local/bin:${PATH}:/sbin:/bin
 export CCACHE_DIR=${HOME}/.ccache
+export LAUNCHER_FLAGS="-DCMAKE_CXX_COMPILER_LAUNCHER=/usr/local/bin/ccache -DCMAKE_C_COMPILER_LAUNCHER=/usr/local/bin/ccache"
+export CCACHE_COMPILERCHECK=none
+export CCACHE_EXTRAFILES=${OUT_DIR}/rocm_compilers_hash_file
