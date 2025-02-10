@@ -1,76 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
     <remote name="rocm-org" fetch="https://github.com/ROCm/" />
-    <default revision="refs/tags/rocm-6.3.2"
+    <default revision="refs/heads/amd-mainline"
      remote="rocm-org"
      sync-c="true"
      sync-j="4" />
 <!--list of projects for ROCm-->
-    <project name="ROCK-Kernel-Driver" />
-    <project name="ROCR-Runtime" />
-    <project name="amdsmi" />
-    <project name="rdc" />
-    <project name="rocm_bandwidth_test" />
-    <project name="rocm_smi_lib" />
-    <project name="rocm-core" />
-    <project name="rocm-examples" />
-    <project name="rocminfo" />
-    <project name="rocprofiler" />
-    <project name="rocprofiler-register" />
-    <project name="rocprofiler-sdk" />
-    <project name="rocprofiler-compute" />
-    <project name="rocprofiler-systems" />
-    <project name="roctracer" />
+    <project name="ROCm" revision="refs/heads/main" />
+    <project name="ROCK-Kernel-Driver" revision="refs/heads/master" /> 
+    <project name="ROCR-Runtime" revision="refs/heads/amd-master"/> 
+    <project name="amdsmi" /> 
+    <project name="rdc" /> 
+    <project name="rocm_bandwidth_test" revision="refs/heads/master" /> 
+    <project name="rocm_smi_lib" /> 
+    <project name="rocm-core" revision="refs/heads/amd-master" /> 
+    <project name="rocm-examples" revision="refs/heads/develop"/> 
+    <project name="rocminfo" revision="refs/heads/amd-master" /> 
+    <project name="rocprofiler" /> 
+    <project name="rocprofiler-register" /> 
+    <project name="rocprofiler-sdk" /> 
+    <project name="rocprofiler-compute" /> 
+    <project name="rocprofiler-systems" /> 
+    <project name="roctracer" /> 
 <!--HIP Projects-->
     <project name="HIP" />
-    <project name="hip-tests" />
-    <project name="HIPIFY" />
-    <project name="clr" />
-    <project name="hipother" />
+    <project name="hip-tests" /> 
+    <project name="HIPIFY" /> 
+    <project name="clr" /> 
+    <project name="hipother" /> 
 <!-- The following projects are all associated with the AMDGPU LLVM compiler -->
-    <project name="half" />
+    <project name="half" revision="refs/heads/rocm" />
     <project name="llvm-project" />
+    <project name="SPIRV-LLVM-Translator" path="llvm-project/llvm/projects/SPIRV-LLVM-Translator" />
 <!-- gdb projects -->
-    <project name="ROCdbgapi" />
-    <project name="ROCgdb" />
+    <project name="ROCdbgapi" /> 
+    <project name="ROCgdb" revision="refs/heads/amd-mainline-rocgdb-15"/> 
     <project name="rocr_debug_agent" />
 <!-- ROCm Libraries -->
-    <project groups="mathlibs" name="AMDMIGraphX" />
-    <project groups="mathlibs" name="MIOpen" />
-    <project groups="mathlibs" name="MIVisionX" />
-    <project groups="mathlibs" name="ROCmValidationSuite" />
-    <project groups="mathlibs" name="Tensile" />
-    <project groups="mathlibs" name="composable_kernel" />
-    <project groups="mathlibs" name="hipBLAS-common" />
-    <project groups="mathlibs" name="hipBLAS" />
-    <project groups="mathlibs" name="hipBLASLt" />
-    <project groups="mathlibs" name="hipCUB" />
-    <project groups="mathlibs" name="hipFFT" />
-    <project groups="mathlibs" name="hipRAND" />
-    <project groups="mathlibs" name="hipSOLVER" />
-    <project groups="mathlibs" name="hipSPARSE" />
-    <project groups="mathlibs" name="hipSPARSELt" />
-    <project groups="mathlibs" name="hipTensor" />
-    <project groups="mathlibs" name="hipfort" />
-    <project groups="mathlibs" name="rccl" />
-    <project groups="mathlibs" name="rocAL" />
-    <project groups="mathlibs" name="rocALUTION" />
-    <project groups="mathlibs" name="rocBLAS" />
-    <project groups="mathlibs" name="rocDecode" />
-    <project groups="mathlibs" name="rocJPEG" />
-    <project groups="mathlibs" name="rocPyDecode" />
-    <project groups="mathlibs" name="rocFFT" />
-    <project groups="mathlibs" name="rocPRIM" />
-    <project groups="mathlibs" name="rocRAND" />
-    <project groups="mathlibs" name="rocSOLVER" />
-    <project groups="mathlibs" name="rocSPARSE" />
-    <project groups="mathlibs" name="rocThrust" />
-    <project groups="mathlibs" name="rocWMMA" />
-    <project groups="mathlibs" name="rocm-cmake" />
-    <project groups="mathlibs" name="rpp" />
-    <project groups="mathlibs" name="TransferBench" />
+    <project groups="mathlibs" name="AMDMIGraphX" revision="refs/heads/master" /> 
+    <project groups="mathlibs" name="MIOpen" revision="refs/heads/amd-master" /> 
+    <project groups="mathlibs" name="MIVisionX" revision="refs/heads/master" /> 
+    <project groups="mathlibs" name="ROCmValidationSuite" revision="refs/heads/master" /> 
+    <project groups="mathlibs" name="Tensile" revision="refs/heads/master" /> 
+    <project groups="mathlibs" name="composable_kernel" revision="refs/heads/amd-master"/> 
+    <project groups="mathlibs" name="hipBLAS-common" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="hipBLAS" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="hipBLASLt" revision="refs/heads/mainline" />  
+    <project groups="mathlibs" name="hipCUB" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="hipFFT" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="hipRAND" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="hipSOLVER" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="hipSPARSE" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="hipSPARSELt" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="hipTensor" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="hipfort" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="rccl" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="rocAL" revision="refs/heads/master" /> 
+    <project groups="mathlibs" name="rocALUTION" revision="refs/heads/mainline"/> 
+    <project groups="mathlibs" name="rocBLAS" revision="refs/heads/mainline"/> 
+    <project groups="mathlibs" name="rocDecode" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="rocJPEG" revision="refs/heads/mainline"/> 
+    <project groups="mathlibs" name="rocPyDecode" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="rocFFT" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="rocPRIM" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="rocRAND" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="rocSOLVER" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="rocSPARSE" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="rocThrust" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="rocWMMA" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="rocm-cmake" revision="refs/heads/mainline" /> 
+    <project groups="mathlibs" name="rpp" revision="refs/heads/master" /> 
+    <project groups="mathlibs" name="TransferBench" /> 
 <!-- Projects for OpenMP-Extras -->
-    <project name="aomp" path="openmp-extras/aomp" />
-    <project name="aomp-extras" path="openmp-extras/aomp-extras" />
-    <project name="flang" path="openmp-extras/flang" />
+    <project name="aomp" path="openmp-extras/aomp" /> 
+    <project name="aomp-extras" path="openmp-extras/aomp-extras" /> 
+    <project name="flang" path="openmp-extras/flang" /> 
 </manifest>
