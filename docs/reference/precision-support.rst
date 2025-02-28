@@ -66,18 +66,18 @@ table, along with their corresponding HIP type and a short description.
       - Description
     *
       - float8 (E4M3)
-      - ``-``
+      - ``__hip_fp8_e4m3_fnuz``
       - An 8-bit floating-point number that mostly follows IEEE-754 conventions
         and **S1E4M3** bit layout, as described in `8-bit Numerical Formats for Deep Neural Networks <https://arxiv.org/abs/2206.02915>`_ ,
-        with expanded range and no infinity or signed zero. NaN is
-        represented as negative zero.
+        with expanded range and no infinity or signed zero. NaN is represented
+        as negative zero.
     *
       - float8 (E5M2)
-      - ``-``
+      - ``__hip_fp8_e5m2_fnuz``
       - An 8-bit floating-point number mostly following IEEE-754 conventions and
         **S1E5M2** bit layout, as described in `8-bit Numerical Formats for Deep Neural Networks <https://arxiv.org/abs/2206.02915>`_ ,
-        with expanded range and no infinity or signed zero. NaN is
-        represented as negative zero.
+        with expanded range and no infinity or signed zero. NaN is represented
+        as negative zero.
     *
       - float16
       - ``half``
@@ -90,7 +90,7 @@ table, along with their corresponding HIP type and a short description.
         format.
     *
       - tensorfloat32
-      - ``-``
+      - Not available
       - A floating-point number that occupies 32 bits or less of storage,
         providing improved range compared to half (16-bit) format, at
         (potentially) greater throughput than single-precision (32-bit) formats.
@@ -451,16 +451,16 @@ detailed description.
         - ❌/❌
       *
         - rocRAND (:doc:`details <rocrand:api-reference/data-type-support>`)
-        - -/✅
-        - -/✅
-        - -/✅
-        - -/✅
+        - NA/✅
+        - NA/✅
+        - NA/✅
+        - NA/✅
       *
         - hipRAND (:doc:`details <hiprand:api-reference/data-type-support>`)
-        - -/✅
-        - -/✅
-        - -/✅
-        - -/✅
+        - NA/✅
+        - NA/✅
+        - NA/✅
+        - NA/✅
       *
         - rocPRIM (:doc:`details <rocprim:reference/data-type-support>`)
         - ✅/✅
@@ -506,22 +506,22 @@ detailed description.
         - ❌/❌
       *
         - rocRAND (:doc:`details <rocrand:api-reference/data-type-support>`)
-        - -/❌
-        - -/❌
-        - -/✅
-        - -/❌
-        - -/❌
-        - -/✅
-        - -/✅
+        - NA/❌
+        - NA/❌
+        - NA/✅
+        - NA/❌
+        - NA/❌
+        - NA/✅
+        - NA/✅
       *
         - hipRAND (:doc:`details <hiprand:api-reference/data-type-support>`)
-        - -/❌
-        - -/❌
-        - -/✅
-        - -/❌
-        - -/❌
-        - -/✅
-        - -/✅
+        - NA/❌
+        - NA/❌
+        - NA/✅
+        - NA/❌
+        - NA/❌
+        - NA/✅
+        - NA/✅
       *
         - rocPRIM (:doc:`details <rocprim:reference/data-type-support>`)
         - ❌/❌
@@ -550,6 +550,11 @@ detailed description.
         - ✅/✅
         - ✅/✅
 
+.. note::
+   
+  As random number generation libraries, rocRAND and hipRAND only specify output
+  data types for the random values they generate, with no need for input data
+  types.
 
 Libraries internal calculations type support
 -------------------------------------------------------------------------------
