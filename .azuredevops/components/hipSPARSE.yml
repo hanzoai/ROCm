@@ -45,7 +45,8 @@ jobs:
   variables:
   - group: common
   - template: /.azuredevops/variables-global.yml
-  pool: ${{ variables.LOW_BUILD_POOL }}
+  pool: 
+    vmImage: ${{ variables.BASE_BUILD_POOL }}
   workspace:
     clean: all
   strategy:
@@ -94,11 +95,11 @@ jobs:
       artifactName: testMatrices
       gpuTarget: $(JOB_GPU_TARGET)
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/artifact-links.yml
-  - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/docker-container.yml
-    parameters:
-      aptPackages: ${{ parameters.aptPackages }}
-      environment: test
-      gpuTarget: $(JOB_GPU_TARGET)
+  # - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/docker-container.yml
+  #   parameters:
+  #     aptPackages: ${{ parameters.aptPackages }}
+  #     environment: test
+  #     gpuTarget: $(JOB_GPU_TARGET)
 
 - job: hipSPARSE_testing
   dependsOn: hipSPARSE
@@ -114,6 +115,9 @@ jobs:
       gfx942:
         JOB_GPU_TARGET: gfx942
         JOB_TEST_POOL: ${{ variables.GFX942_TEST_POOL }}
+      gfx90a:
+        JOB_GPU_TARGET: gfx90a
+        JOB_TEST_POOL: ${{ variables.GFX90A_TEST_POOL }}
   steps:
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/dependencies-other.yml
     parameters:
