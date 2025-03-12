@@ -39,7 +39,7 @@ build_hipblaslt() {
         "${rocm_math_common_cmake_params[@]}" \
         -DTensile_LOGIC= \
         -DTensile_CODE_OBJECT_VERSION=default \
-        -DTensile_CPU_THREADS= \
+        -DTensile_CPU_THREADS=$((PROC / 4)) \
         -DTensile_LIBRARY_FORMAT=msgpack \
         -DBUILD_CLIENTS_SAMPLES=ON \
         -DBUILD_CLIENTS_TESTS=ON \
