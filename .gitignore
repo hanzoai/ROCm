@@ -5,6 +5,7 @@ build
 # documentation artifacts
 _build/
 _images/
+__pycache__/
 _static/
 _templates/
 _toc.yml

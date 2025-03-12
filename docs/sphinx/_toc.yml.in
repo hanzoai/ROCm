@@ -181,16 +181,16 @@ subtrees:
 
 - caption: Reference
   entries:
-    - file: reference/api-libraries.md
-      title: ROCm libraries
-    - file: reference/rocm-tools.md
-      title: ROCm tools, compilers, and runtimes
-    - file: reference/gpu-arch-specs.rst
-      title: Hardware specifications
-    - file: reference/precision-support.rst
-      title: Precision support
-    - file: reference/graph-safe-support.rst
-      title: Graph safe support
+  - file: reference/api-libraries.md
+    title: ROCm libraries
+  - file: reference/rocm-tools.md
+    title: ROCm tools, compilers, and runtimes
+  - file: reference/gpu-arch-specs.rst
+  - file: reference/gpu-atomics-operation.rst
+  - file: reference/precision-support.rst
+    title: Precision support
+  - file: reference/graph-safe-support.rst
+    title: Graph safe support
 
 - caption: Contribute
   entries:

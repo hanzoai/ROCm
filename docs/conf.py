@@ -30,6 +30,7 @@ if os.environ.get("READTHEDOCS", "") == "True":
 
 # configurations for PDF output by Read the Docs
 project = "ROCm Documentation"
+project_path = os.path.abspath(".").replace("\\", "/")
 author = "Advanced Micro Devices, Inc."
 copyright = "Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved."
 version = "6.4.0"
@@ -94,7 +95,7 @@ external_toc_path = "./sphinx/_toc.yml"
 # Add the _extensions directory to Python's search path
 sys.path.append(str(Path(__file__).parent / 'extension'))
 
-extensions = ["rocm_docs", "sphinx_reredirects", "sphinx_sitemap", "sphinxcontrib.datatemplates", "version-ref"]
+extensions = ["rocm_docs", "sphinx_reredirects", "sphinx_sitemap", "sphinxcontrib.datatemplates", "version-ref", "csv-to-list-table"]
 
 compatibility_matrix_file = str(Path(__file__).parent / 'compatibility/compatibility-matrix-historical-6.0.csv')
 
@@ -122,3 +123,13 @@ html_theme_options = {"link_main_doc": False}
 redirects = {"reference/openmp/openmp": "../../about/compatibility/openmp.html"}
 
 numfig = False
+
+html_context = {
+    "project_path" : {project_path},
+    "gpu_type" : [('AMD Instinct accelerators', 'intrinsic'), ('AMD gfx families', 'gfx'), ('NVIDIA families', 'nvidia') ],
+    "atomics_type" : [('HW atomics', 'hw-atomics'), ('CAS emulation', 'cas-atomics')],
+    "pcie_type" : [('No PCIe atomics', 'nopcie'), ('PCIe atomics', 'pcie')],
+    "memory_type" : [('Device DRAM', 'device-dram'), ('Migratable Host DRAM', 'migratable-host-dram'), ('Pinned Host DRAM', 'pinned-host-dram')],
+    "granularity_type" : [('Coarse-grained', 'coarse-grained'), ('Fine-grained', 'fine-grained')],
+    "scope_type" : [('Device', 'device'), ('System', 'system')]
+}
