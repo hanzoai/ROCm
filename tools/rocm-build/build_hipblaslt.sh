@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ex
-source "$(dirname "${BASH_SOURCE[0]}")/compute_utils.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/compute_helper.sh"
 set_component_src hipBLASLt
 disable_debug_package_generation
 if [ -n "$ENABLE_GPU_ARCH" ]; then
