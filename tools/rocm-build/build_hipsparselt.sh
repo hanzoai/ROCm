@@ -1,10 +1,13 @@
 #!/bin/bash
-
 set -ex
 source "$(dirname "${BASH_SOURCE[0]}")/compute_helper.sh"
-
 set_component_src hipSPARSELt
-
+disable_debug_package_generation
+if [ -n "$ENABLE_GPU_ARCH" ]; then
+    set_gpu_arch "$ENABLE_GPU_ARCH"
+else
+    set_gpu_arch "all"
+fi
 while [ "$1" != "" ];
 do
     case $1 in
@@ -17,38 +20,25 @@ do
     esac
     shift 1
 done
-
 build_hipsparselt() {
     echo "Start build"
-
     if [ "${ENABLE_STATIC_BUILDS}" == "true" ]; then
         ack_and_skip_static
     fi
-
     if [ "${ENABLE_ADDRESS_SANITIZER}" == "true" ]; then
        set_asan_env_vars
        set_address_sanitizer_on
     fi
-
     cd $COMPONENT_SRC
     mkdir -p "$BUILD_DIR" && cd "$BUILD_DIR"
     init_rocm_common_cmake_params
-
-    if [ -n "$GPU_ARCHS" ]; then
-        GPU_TARGETS="$GPU_ARCHS"
-    else
-        # gfx940;gfx941;gfx942
-        GPU_TARGETS=all
-    fi
-
     FC=gfortran \
-    CXX="${ROCM_PATH}/bin/hipcc" \
+    CXX=$(set_build_variables __HIP_CC__) \
     cmake \
-        -DAMDGPU_TARGETS=${GPU_TARGETS} \
         ${LAUNCHER_FLAGS} \
-        "${rocm_math_common_cmake_params[@]}" \
+         "${rocm_math_common_cmake_params[@]}" \
         -DTensile_LOGIC= \
-        -DTensile_CODE_OBJECT_VERSION=default \
+        -DTensile_CODE_OBJECT_VERSION=4 \
         -DTensile_CPU_THREADS= \
         -DTensile_LIBRARY_FORMAT=msgpack \
         -DBUILD_CLIENTS_SAMPLES=ON \
@@ -57,22 +47,17 @@ build_hipsparselt() {
         -DCMAKE_INSTALL_PREFIX=${ROCM_PATH} \
         -DBUILD_ADDRESS_SANITIZER="${ADDRESS_SANITIZER}" \
         "$COMPONENT_SRC"
-
     cmake --build "$BUILD_DIR" -- -j${PROC}
     cmake --build "$BUILD_DIR" -- install
     cmake --build "$BUILD_DIR" -- package
-
-    mkdir -p $PACKAGE_DIR && cp ${BUILD_DIR}/*.${PKGTYPE} $PACKAGE_DIR
-
+    copy_if "${PKGTYPE}" "${CPACKGEN:-"DEB;RPM"}" "${PACKAGE_DIR}" "${BUILD_DIR}"/*."${PKGTYPE}"
     $SCCACHE_BIN -s || echo "Unable to display sccache stats"
 }
-
 clean_hipsparselt() {
     echo "Cleaning hipSPARSELt build directory: ${BUILD_DIR} ${PACKAGE_DIR}"
     rm -rf "$BUILD_DIR" "$PACKAGE_DIR"
     echo "Done!"
 }
-
 print_output_directory() {
     case ${PKGTYPE} in
         ("deb")
@@ -84,9 +69,8 @@ print_output_directory() {
     esac
     exit
 }
-
 case $TARGET in
-    build) build_hipsparselt ;;
+    build) build_hipsparselt; build_wheel ;;
     outdir) print_output_directory ;;
     clean) clean_hipsparselt ;;
     *) die "Invalid target $TARGET" ;;
