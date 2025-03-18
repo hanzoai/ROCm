@@ -1,11 +1,16 @@
 #!/bin/bash
+
 set -ex
-source "$(dirname "${BASH_SOURCE[0]}")/compute_helper.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/compute_utils.sh"
+
 set_component_src hipSPARSELt
+
 disable_debug_package_generation
+# if ENABLE_GPU_ARCH is set in env by Job parameter ENABLE_GPU_ARCH, then set GFX_ARCH to that value
 if [ -n "$ENABLE_GPU_ARCH" ]; then
     set_gpu_arch "$ENABLE_GPU_ARCH"
 else
+    # gfx90a:xnack+;gfx90a:xnack-;gfx942
     set_gpu_arch "all"
 fi
 while [ "$1" != "" ];
@@ -20,20 +25,54 @@ do
     esac
     shift 1
 done
+
+create_blis_link()
+{
+    #find the pre-installed blis library and create the link under $BUILD_DIR/deps/blis
+    BLIS_REF_ROOT="$BUILD_DIR/deps/blis"
+    mkdir -p "$BLIS_REF_ROOT"/include
+    for blis_path in "/opt/AMD/aocl/aocl-linux-gcc-4.2.0/gcc" \
+                     "/opt/AMD/aocl/aocl-linux-gcc-4.1.0/gcc" \
+                     "/opt/AMD/aocl/aocl-linux-gcc-4.0.0/gcc";
+    do
+        if [ -e "${blis_path}/lib_ILP64/libblis-mt.a" ] ; then
+            ln -sf "${blis_path}/include_ILP64" "${BLIS_REF_ROOT}/include/blis"
+            ln -sf "${blis_path}/lib_ILP64" "${BLIS_REF_ROOT}/lib"
+            return
+        fi
+    done
+
+    if [[ -e "/usr/local/lib/libblis.a" ]]; then
+        ln -sf /usr/local/include/blis ${BLIS_REF_ROOT}/include/blis
+        ln -sf /usr/local/lib ${BLIS_REF_ROOT}/lib
+        return
+    fi
+    echo "error: BLIS lib not found" >&2
+    return 1
+}
+
 build_hipsparselt() {
     echo "Start build"
+
     if [ "${ENABLE_STATIC_BUILDS}" == "true" ]; then
         ack_and_skip_static
     fi
+
     if [ "${ENABLE_ADDRESS_SANITIZER}" == "true" ]; then
        set_asan_env_vars
        set_address_sanitizer_on
     fi
+
     cd $COMPONENT_SRC
     mkdir -p "$BUILD_DIR" && cd "$BUILD_DIR"
+    if [ "${ENABLE_ADDRESS_SANITIZER}" == "true" ]; then
+        create_blis_link
+        EXTRA_CMAKE_OPTIONS=("-DLINK_BLIS=ON" "-DBUILD_DIR=${BUILD_DIR}")
+    fi
+
     init_rocm_common_cmake_params
-    FC=gfortran \
-    CXX=$(set_build_variables __HIP_CC__) \
+
+    CXX=$(set_build_variables __CXX__) \
     cmake \
         ${LAUNCHER_FLAGS} \
          "${rocm_math_common_cmake_params[@]}" \
@@ -46,18 +85,24 @@ build_hipsparselt() {
         -DBUILD_CLIENTS_BENCHMARKS=ON \
         -DCMAKE_INSTALL_PREFIX=${ROCM_PATH} \
         -DBUILD_ADDRESS_SANITIZER="${ADDRESS_SANITIZER}" \
+        ${EXTRA_CMAKE_OPTIONS[@]} \
         "$COMPONENT_SRC"
+
     cmake --build "$BUILD_DIR" -- -j${PROC}
     cmake --build "$BUILD_DIR" -- install
     cmake --build "$BUILD_DIR" -- package
+
     copy_if "${PKGTYPE}" "${CPACKGEN:-"DEB;RPM"}" "${PACKAGE_DIR}" "${BUILD_DIR}"/*."${PKGTYPE}"
+
     $SCCACHE_BIN -s || echo "Unable to display sccache stats"
 }
+
 clean_hipsparselt() {
     echo "Cleaning hipSPARSELt build directory: ${BUILD_DIR} ${PACKAGE_DIR}"
     rm -rf "$BUILD_DIR" "$PACKAGE_DIR"
     echo "Done!"
 }
+
 print_output_directory() {
     case ${PKGTYPE} in
         ("deb")
@@ -69,6 +114,7 @@ print_output_directory() {
     esac
     exit
 }
+
 case $TARGET in
     build) build_hipsparselt; build_wheel ;;
     outdir) print_output_directory ;;

@@ -2,9 +2,12 @@
 
 set -ex
 
-source "$(dirname "${BASH_SOURCE[0]}")/compute_helper.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/compute_utils.sh"
 
 set_component_src TransferBench
+# ROCMOPS-8587 : this variable will be removing nic enablement from the compilation of 
+# the tool that will create complications for the general rocm release 
+export DISABLE_NIC_EXEC=1
 
 build_transferbench() {
     echo "Start build"
@@ -13,18 +16,15 @@ build_transferbench() {
         ack_and_skip_static
     fi
 
-    sed -i 's/^\(\s*set\s*(CMAKE_RUNTIME_OUTPUT_DIRECTORY.*\)$/#\1/'  "${COMPONENT_SRC}/CMakeLists.txt"
-
     mkdir -p "$BUILD_DIR" && cd "$BUILD_DIR"
     init_rocm_common_cmake_params
 
-    CXX="$ROCM_PATH"/bin/hipcc \
+    CXX=$(set_build_variables __HIP_CC__) \
     cmake "${rocm_math_common_cmake_params[@]}" "$COMPONENT_SRC"
     make package
 
     rm -rf _CPack_Packages/ && find -name '*.o' -delete
-    mkdir -p $PACKAGE_DIR
-    cp ${BUILD_DIR}/*.${PKGTYPE} $PACKAGE_DIR
+    copy_if "${PKGTYPE}" "${CPACKGEN:-"DEB;RPM"}" "${PACKAGE_DIR}" "${BUILD_DIR}"/*."${PKGTYPE}"
     show_build_cache_stats
 }
 
@@ -37,7 +37,7 @@ clean_transferbench() {
 stage2_command_args "$@"
 
 case $TARGET in
-    build) build_transferbench ;;
+    build) build_transferbench; build_wheel ;;
     outdir) print_output_directory ;;
     clean) clean_transferbench ;;
     *) die "Invalid target $TARGET" ;;

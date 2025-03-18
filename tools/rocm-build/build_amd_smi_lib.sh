@@ -10,7 +10,9 @@ printUsage() {
     echo "  -c,  --clean              Removes all amd_smi build artifacts"
     echo "  -r,  --release            Build non-debug version amd_smi (default is debug)"
     echo "  -a,  --address_sanitizer  Enable address sanitizer"
-    echo "  -s,  --static             Build static lib (.a).  build instead of dynamic/shared(.so) "
+    echo "  -s,  --static             Component/Build does not support static builds just accepting this param & ignore. No effect of the param on this build"
+    echo "  -w,  --wheel              Creates python wheel package of amd-smi. 
+                                      It needs to be used along with -r option"
     echo "  -o,  --outdir <pkg_type>  Print path of output directory containing packages of type referred to by pkg_type"
     echo "  -p,  --package <type>     Specify packaging format"
     echo "  -h,  --help               Prints this help"
@@ -25,7 +27,6 @@ printUsage() {
 PROJ_NAME="amdsmi"
 PACKAGE_ROOT="$(getPackageRoot)"
 TARGET="build"
-
 PACKAGE_LIB=$(getLibPath)
 PACKAGE_INCLUDE="$(getIncludePath)"
 AMDSMI_BUILD_DIR=$(getBuildPath $PROJ_NAME)
@@ -42,7 +43,7 @@ SHARED_LIBS="ON"
 CLEAN_OR_OUT=0;
 PKGTYPE="deb"
 
-VALID_STR=`getopt -o hcraso:p: --long help,clean,release,static,address_sanitizer,outdir:,package: -- "$@"`
+VALID_STR=`getopt -o hcraswo:p: --long help,clean,release,static,wheel,address_sanitizer,outdir:,package: -- "$@"`
 eval set -- "$VALID_STR"
 
 while true ;
@@ -60,6 +61,8 @@ do
                 ADDRESS_SANITIZER=true ; shift ;;
         (-s | --static)
                 ack_and_skip_static ;;
+        (-w | --wheel)
+                WHEEL_PACKAGE=true ; shift ;;
         (-o | --outdir)
                 TARGET="outdir"; PKGTYPE=$2 ; OUT_DIR_SPECIFIED=1 ; ((CLEAN_OR_OUT|=2)) ; shift 2 ;;
         (-p | --package)
@@ -99,6 +102,7 @@ build_amdsmi() {
             -DBUILD_SHARED_LIBS=$SHARED_LIBS \
             $(rocm_common_cmake_params) \
             $(rocm_cmake_params) \
+            ${GEN_NINJA} \
             -DENABLE_LDCONFIG=OFF \
             -DAMD_SMI_PACKAGE="${AMDSMI_PKG_NAME}" \
             -DCPACK_PACKAGE_VERSION_MAJOR="1" \
@@ -106,14 +110,14 @@ build_amdsmi() {
             -DCPACK_PACKAGE_VERSION_PATCH="0" \
             -DADDRESS_SANITIZER="$ADDRESS_SANITIZER" \
             -DBUILD_TESTS=ON \
-            "$AMD_SMI_LIB_ROOT"
+            -S "$AMD_SMI_LIB_ROOT"
         popd
     fi
 
     echo "Making amd_smi package:"
-    cmake --build "$AMDSMI_BUILD_DIR" -- $AMDSMI_MAKE_OPTS
-    cmake --build "$AMDSMI_BUILD_DIR" -- $AMDSMI_MAKE_OPTS install
-    cmake --build "$AMDSMI_BUILD_DIR" -- $AMDSMI_MAKE_OPTS package
+    cmake --build "$AMDSMI_BUILD_DIR" -- $DASH_JAY
+    cmake --build "$AMDSMI_BUILD_DIR" -- $DASH_JAY install
+    cmake --build "$AMDSMI_BUILD_DIR" -- $DASH_JAY package
 
     copy_if DEB "${CPACKGEN:-"DEB;RPM"}" "$AMDSMI_PACKAGE_DEB_DIR" $AMDSMI_BUILD_DIR/*.deb
     copy_if RPM "${CPACKGEN:-"DEB;RPM"}" "$AMDSMI_PACKAGE_RPM_DIR" $AMDSMI_BUILD_DIR/*.rpm
@@ -135,7 +139,7 @@ verifyEnvSetup
 
 case $TARGET in
     (clean) clean_amdsmi ;;
-    (build) build_amdsmi ;;
+    (build) build_amdsmi; build_wheel "$AMDSMI_BUILD_DIR" "$PROJ_NAME" ;;
     (outdir) print_output_directory ;;
     (*) die "Invalid target $TARGET" ;;
 esac
