@@ -82,7 +82,7 @@ The new bitstream reader feature has been added to [rocDecode](https://github.co
 
 * ROCm Compute Profiler now supports:
 
-    * ROCprofiler-SDK version 3 and Message Passing Interface (MPI).
+    * ROCprofiler-SDK and Message Passing Interface (MPI).
     * Roofline plot for 64-bit floating point (FP64) and 32-bit floating point (FP32) data types.
 
 * ROCm Compute Profiler has modified the kernel prefix associated with Kokkos.
@@ -510,11 +510,11 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 #### Added
 
-- Added enumeration mapping `amdsmi_get_gpu_enumeration_info()` to Python and C APIs. The mapping is also enabled in the CLI interface via `amd-smi list -e`
+- Added enumeration mapping `amdsmi_get_gpu_enumeration_info()` to Python and C APIs. The mapping is also enabled in the CLI interface via `amd-smi list -e`.
 
 - Added dynamic virtualization mode detection.
-  - Added new C and Python API `amdsmi_get_gpu_virtualization_mode_info`
-  - Added new C and Python enum `amdsmi_virtualization_mode_t`
+  - Added new C and Python API `amdsmi_get_gpu_virtualization_mode_info`.
+  - Added new C and Python enum `amdsmi_virtualization_mode_t`.
 
 - Added TVIOL_ACTIVE to `amd-smi monitor`.
 
@@ -549,7 +549,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
   - Most `sysfs` reads do not require cross-process level mutex and writes to `sysfs` should be protected by the kernel already.
   - Users can still switch to the old behavior by setting the environment variable `AMDSMI_MUTEX_CROSS_PROCESS=1`.
 
-- Changed `amdsmi_vram_vendor_type_t` enum names impacting the `amdsmi_vram_info_t` structure. This change also impacts the usage of the `vram_vendor` output of `amdsmi_get_gpu_vram_info()`
+- Changed `amdsmi_vram_vendor_type_t` enum names impacting the `amdsmi_vram_info_t` structure. This change also impacts the usage of the `vram_vendor` output of `amdsmi_get_gpu_vram_info()`.
 
 - Changed the `amdsmi_nps_caps_t` struct impacting `amdsmi_memory_partition_config_t`, `amdsmi_accelerator_partition_t`, `amdsmi_accelerator_partition_profile_config_t`.
   Affected functions are:
@@ -601,7 +601,7 @@ Some workaround options are as follows:
 
   - Remove other devices occupying DRM nodes.
 
-    Recommended steps for removing unnecessary drivers:  
+    Recommended steps for removing unnecessary drivers:
 
     1. Unload amdgpu - `sudo rmmod amdgpu`.
 
@@ -683,37 +683,37 @@ and in-depth descriptions.
 
 #### Added
 
-* Batched CK Tile General Matrix Multiplication (GEMM) with splitK support
-* Grouped CK Tile GEMM with splitK support
-* CK Tile GEMM compute pipeline v3
-* Universal CK Tile block GEMM with interwave and intrawave schedulers 
-* BF16 and INT8 WMMA GEMMs for Navi3x and Navi4x
-* Batched GEMM with output elementwise operation optimized for gfx942
-* Interwave scheduler for CK Tile GEMM mem pipeline
-* Spatially local tile partitioner in CK Tile GEMM
-* Multiple FMHA forward splitKV optimizations for decode including new N-Warp S-Shuffle pipeline
-* General FMHA forward general optimizations including refining tensor view padding configurations
-* FMHA fwd N-Warp S-Shuffle pipeline (FMHA fwd splitKV pipeline variant) 
-* FMHA fwd splitKV optimization for decode (`seqlen_q=1`)
-* hdim=96 support for FMHA forward
-* Variable-length paged KV cache support for FMHA forward
-* Paged KV cache support in group mode FMHA fwd splitKV kernels
-* Grouped convolution backward weight optimized irregular vector size loads
-* NGCHW BF16 grouped convolution forward support
-* Generic support for two-stage grouped convolution backward weight
-* Dynamic elementwise operation selected in runtime for convolutions
-* CK Tile transpose operator
-* CK Tile MOE operators: fused, sorting, and smooth quant
-* OCP FP8 support for gfx12
-* Support for FP8, BF16, FP16, OCP FP8, BF8, pk_int4 data types in CK Tile GEMM
-* Support for microscaling data types: MX FP4, FP6, and FP8
-* Support for gfx950, gfx1200, and gfx1201 targets
-* Support for large batch tensors in grouped convolution backward data
-* Support for grouped convolution backward weight BF16 NGCHW
-* Support for cshuffle algorithm in CK Tile GEMM epilogue 
-* Backend support for PyTorch 2.6
-* Test filters to select smoke tests or regression tests
-* Error threshold calculation for CK Tile GEMM examples
+* Batched CK Tile General Matrix Multiplication (GEMM) with splitK support.
+* Grouped CK Tile GEMM with splitK support.
+* CK Tile GEMM compute pipeline v3.
+* Universal CK Tile block GEMM with interwave and intrawave schedulers .
+* BF16 and INT8 WMMA GEMMs for Navi3x and Navi4x.
+* Batched GEMM with output elementwise operation optimized for gfx942.
+* Interwave scheduler for CK Tile GEMM mem pipeline.
+* Spatially local tile partitioner in CK Tile GEMM.
+* Multiple FMHA forward splitKV optimizations for decode including new N-Warp S-Shuffle pipeline.
+* General FMHA forward general optimizations including refining tensor view padding configurations.
+* FMHA fwd N-Warp S-Shuffle pipeline (FMHA fwd splitKV pipeline variant) .
+* FMHA fwd splitKV optimization for decode (`seqlen_q=1`).
+* hdim=96 support for FMHA forward.
+* Variable-length paged KV cache support for FMHA forward.
+* Paged KV cache support in group mode FMHA fwd splitKV kernels.
+* Grouped convolution backward weight optimized irregular vector size loads.
+* NGCHW BF16 grouped convolution forward support.
+* Generic support for two-stage grouped convolution backward weight.
+* Dynamic elementwise operation selected in runtime for convolutions.
+* CK Tile transpose operator.
+* CK Tile MOE operators: fused, sorting, and smooth quant.
+* OCP FP8 support for gfx12.
+* Support for FP8, BF16, FP16, OCP FP8, BF8, pk_int4 data types in CK Tile GEMM.
+* Support for microscaling data types: MX FP4, FP6, and FP8.
+* Support for gfx950, gfx1200, and gfx1201 targets.
+* Support for large batch tensors in grouped convolution backward data.
+* Support for grouped convolution backward weight BF16 NGCHW.
+* Support for cshuffle algorithm in CK Tile GEMM epilogue .
+* Backend support for PyTorch 2.6.
+* Test filters to select smoke tests or regression tests.
+* Error threshold calculation for CK Tile GEMM examples.
 
 #### Changed
 
@@ -913,7 +913,7 @@ The following lists the backward incompatible changes planned for upcoming major
 ### **HIPIFY** (19.0.0)
 
 #### Added
-* NVIIDIA CUDA 12.6.3 support
+* NVIDIA CUDA 12.6.3 support
 * cuDNN 9.7.0 support
 * cuTENSOR 2.0.2.1 support
 * LLVM 19.1.7 support
@@ -1514,9 +1514,9 @@ and in-depth descriptions.
 - Fixed test failures in SLES containers when running `TensileTests`.
 - Fixed a regression that prevents `TensileCreateLibrary` from completing when fallback logic is not available.
 
-## ROCm Known issues
+## ROCm known issues
 
-ROCm Known issues are noted on {fab}`github` [GitHub](https://github.com/ROCm/ROCm/labels/Verified%20Issue). For known
+ROCm known issues are noted on {fab}`github` [GitHub](https://github.com/ROCm/ROCm/labels/Verified%20Issue). For known
 issues related to individual components, review the [Detailed component changes](#detailed-component-changes).
 
 ### Systems with a display GPU and eight AMD Instinct MI300 series GPUs reboot when loading the AMDGPU driver
