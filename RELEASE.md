@@ -33,25 +33,20 @@ If you’re using Radeon™ PRO or Radeon GPUs in a workstation setting with a d
 documentation to verify compatibility and system requirements.
 ```
 
-For a historical overview of ROCm component updates, see the {doc}`ROCm consolidated changelog </release/changelog>`.
-
 ## Release highlights
 
 The following are notable new features and improvements in ROCm 6.4.0. For changes to individual components, see
 [Detailed component changes](#detailed-component-changes).
 
-### New kernel support added in Megatron-LM
+### New kernel support added in Megatron-LM framework for ROCm
 
-Megatron-LM adds support to the following kernels:
+The Megatron-LM framework for ROCm is a specialized fork of the robust Megatron-LM, designed to enable efficient training of large-scale language models on AMD GPUs. The Megatron-LM fork adds support to the following fused kernels:
+
 * Fused Attention (Fused QKV)
 * Fused Layer Norm
 * Fused ROPE
 
 See [Training a model with Megatron-LM for ROCm](https://rocm.docs.amd.com/en/latest/how-to/rocm-for-ai/training/benchmark-docker/megatron-lm.html) for more information.
-
-### Dynamic calculation of KV cache scaling factors supported
-
-ROCm 6.4.0 enables dynamic calculation of key-value (KV) cache scaling factors.
 
 ### CPX mode with NPS4 memory mode supported
 
@@ -61,50 +56,86 @@ To learn how to switch to the CPX and NPS4 partition modes, see [Dynamically cha
 
 To learn how CPX and NPS4 partition modes can benefit RCCL performance on MI300X systems, see [RCCL usage tips](https://advanced-micro-devices-demo--1555.com.readthedocs.build/projects/rccl/en/1555/how-to/rccl-usage-tips.html#nps4-and-cpx-partition-modes).
 
+### Kernel-mode GPU Driver (KMD) and user space software compatibility improved
+
+ROCm 6.4.0 has been tested to allow you to choose a combination of AMD Kernel-mode GPU Driver (KMD) and ROCm user space software from ROCm releases up to a year apart (assuming hardware support is available in both). This compatibility has been tested for backward direction in ROCm 6.4.0, and it will be tested in forward directions for every new driver release occurring for a year from ROCm 6.4.0 release (for example, older user space with newer KMD and vice versa).
+
 ### PyTorch 2.5 support added
 
 ROCm 6.4.0 adds support for PyTorch 2.5. See the [Compatibility
 matrix](../../docs/compatibility/compatibility-matrix.rst)
-for the complete list of PyTorch versions tested for compatibility with ROCm.
+for the complete list of PyTorch versions tested for compatibility with ROCm. See [Installing deep learning frameworks for ROCm](https://rocm.docs.amd.com/en/latest/how-to/deep-learning-rocm.html) for more information about supported deep learning frameworks.  
+
+### VP9 support added to rocDecode and rocPyDecode
+
+VP9 support is added to [rocDecode](https://github.com/ROCm/rocDecode) and [rocPyDecode](https://github.com/ROCm/rocPyDecode), allowing enhanced codec support with VP9 encoding.
+
+### Bitstream reader support added to rocDecode
+
+The new bitstream reader feature has been added to [rocDecode](https://github.com/ROCm/rocDecode). It contains built-in stream file parsers, including an elementary stream file parser and an IVF container file parser. It enables decoding without the requirement for FFmpeg demuxer. The reader can parse AVC, HEVC, and AV1 elementary stream files, and AV1 IVF container files.
+
+### DLPack support added to rocAL
+
+[rocAL](https://github.com/ROCm/rocAL) now supports DLPack, allowing rocAL GPU tensor to be exchanged with PyTorch. This allows faster data processing by leveraging DLPack tensors. It also improves the GPU based workload performance. For more details, see [DLpack github reference documentation](https://dmlc.github.io/dlpack/latest/).
 
 ### ROCm Compute Profiler updates
 
-* ROCm Compute Profiler has been updated to support:
+* ROCm Compute Profiler now supports:
 
     * ROCprofiler-SDK version 3 and Message Passing Interface (MPI).
-    * Aggregation of MPI data collected across distributed nodes and processes. It concatenates proto files and captures common metrics to simplify visualization in Perfetto. 
     * Roofline plot for 64-bit floating point (FP64) and 32-bit floating point (FP32) data types.
 
-* ROCm Compute Profiler has adjusted the kernel prefix associated with Kokkos.
+* ROCm Compute Profiler has modified the kernel prefix associated with Kokkos.
 
 ### ROCm Systems Profiler updates
 
-ROCm Systems Profiler has been updated to support:
+ROCm Systems Profiler now supports:
 
 * Network performance profiling for standard Network Interface Cards (NICs).
 * OpenMP offload of kernel activity.
 * Device tracing of OpenMP (C/C++).
+* AMD Video Core Next (VCN) engine activity and video decode API tracing.
 
-### Improved forward and backward compatibility between AMD Kernel-mode GPU Driver (KMD) and its user space software
+### rocWMMA updates
 
-ROCm 6.4.0 has been tested to allow you to use a combination configuration of AMD Kernel-mode GPU Driver (KMD) and ROCm user space software from ROCm releases up to a year apart. This compatibility has been tested to work in both forward and backward directions (for example, older user space with newer KMD and vice versa). 
+rocWMMA library has been enhanced with: 
+* Infrastructure to support interleaved wave-tiles for better General Matrix Multiplication (GEMM) performance. 
+* Binary sizes can now be reduced on supported compilers by using the `--offload-compress` compiler flag
+* An emulation test suite has been added for reduced scope smoke tests.
 
-### Computer vision API added for VCN activity
+### hipTensor updates
 
-Computer vision API has been added to help you monitor video decode activity detected on the AMD Video Core Next (VCN) hardware engine.
+hipTensor library has been enhanced with:
+
+* New benchmarking and validation test suites were added for contractions, reductions, and permutations, which are driven with YAML configurations. 
+* Binary sizes can now be reduced on supported compilers by using the `--offload-compress` compiler flag
+* Emulation test was suite added for reduced scope smoke tests. 
+* Default strides are now calculated in column-major order. 
+* Permutation kernel selection optimized for improved performance.
+
+### ROCm Data Center Tool (RDC) updates
+
+* Additional RDC modules have been developed, and metrics are included.
+* Plugins for [ROCprofiler-SDK](https://github.com/ROCm/rocprofiler-sdk) has been upgraded and RVS has been added.
+
+
 
 ### ROCm Offline Installer Creator updates
 
-The ROCm Offline Installer Creator 6.4.0 adds support for RHEL 9.6, SLES 15.7, and Oracle Linux 9.5 and uninstall support for RHEL, SLES, and Oracle Linux. See the [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-offline-installer.html#post-install-options-menu) documentation for more information.
+The ROCm Offline Installer Creator 6.4.0 adds support for RHEL 9.6 and Oracle Linux 9, and uninstall support for RHEL, SLES, and Oracle Linux. See [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-offline-installer.html#post-install-options-menu) for more information.
 
 ### ROCm Runfile Installer updates
 
 The ROCm Runfile Installer 6.4.0 adds improvements for dependency installation in an online-only environment and support for the following:
-* Ubuntu 24.04, RHEL 8.10, 9.4, and 9.6, and SLES 15.6 and 15.7
+* Ubuntu 24.04, RHEL 8.10, 9.4, and 9.6, and SLES 15 SP6
 * AMDGPU driver installation
 * ROCm and AMDGPU driver uninstall 
 
-For more information, see the [ROCm Runfile Installer documentation](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-runfile-installer.html).
+For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-runfile-installer.html).
+
+### Dynamic calculation of KV cache scaling factors supported
+
+ROCm 6.4.0 enables dynamic calculation of key-value (KV) cache scaling factors.
 
 ### ROCm documentation updates
 
@@ -130,12 +161,11 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
 
 ROCm 6.4.0 adds support for the following operating system and kernel versions:
 
-- SLES 15 SP 7
-- Oracle Linux 9.5
+- Oracle Linux 9
 - RHEL 9.6
 
 ROCm 6.4.0 marks the end of support (EoS) for:
-- SLES 15 SP 5
+- SLES 15 SP5
 - RHEL 9.5
 
 Hardware support remains unchanged in this release.
@@ -190,7 +220,7 @@ Click {fab}`github` to go to the component's source code on GitHub.
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocAL/en/docs-6.3.3/index.html">rocAL</a></td>
-                <td>2.1.0<&nbsp;&Rightarrow;&nbsp;<a href="#rocal-2-2-0">2.2.0</a></td>
+                <td>2.1.0&nbsp;&Rightarrow;&nbsp;<a href="#rocal-2-2-0">2.2.0</a></td>
                 <td><a href="https://github.com/ROCm/rocAL"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
@@ -472,6 +502,10 @@ Click {fab}`github` to go to the component's source code on GitHub.
 
 The following sections describe key changes to ROCm components.
 
+```{note}
+For a historical overview of ROCm component updates, see the {doc}`ROCm consolidated changelog </release/changelog>`.
+```
+
 ### **AMD SMI** (25.2.0)
 
 #### Added
@@ -496,7 +530,7 @@ The following sections describe key changes to ROCm components.
 
 #### Changed
 
-- Updated AMD SMI library version number format to reflect changes in backwards compatability and offer more semantic versioning.
+- Updated AMD SMI library version number format to reflect changes in backward compatibility and offer more semantic versioning.
   - Removed Year from AMD SMI library version number.
   - Version format changed from 25.2.0.0 (Year.Major.Minor.Patch) to 25.2.0 (Major.Minor.Patch).
   - Removed year in all version references.
@@ -515,7 +549,7 @@ The following sections describe key changes to ROCm components.
   - Most `sysfs` reads do not require cross-process level mutex and writes to `sysfs` should be protected by the kernel already.
   - Users can still switch to the old behavior by setting the environment variable `AMDSMI_MUTEX_CROSS_PROCESS=1`.
 
-- Changed `amdsmi_vram_vendor_type_t` enum names impacting the `amdsmi_vram_info_t` structure. This change also impacts usage of the `vram_vendor` output of `amdsmi_get_gpu_vram_info()`
+- Changed `amdsmi_vram_vendor_type_t` enum names impacting the `amdsmi_vram_info_t` structure. This change also impacts the usage of the `vram_vendor` output of `amdsmi_get_gpu_vram_info()`
 
 - Changed the `amdsmi_nps_caps_t` struct impacting `amdsmi_memory_partition_config_t`, `amdsmi_accelerator_partition_t`, `amdsmi_accelerator_partition_profile_config_t`.
   Affected functions are:
@@ -535,7 +569,7 @@ The following sections describe key changes to ROCm components.
 - Changed the name of the `power` field to `energy_accumulator` in the Python API for `amdsmi_get_energy_count()`.
 
 - Added violation status output for Graphics Clock Below Host Limit to `amd-smi` CLI: `amdsmi_get_violation_status()`, `amd-smi metric  --throttle`, and `amd-smi monitor --violation`.
-  Users can retrieve violation status' through either our Python or C++ APIs. Only available for MI300+ ASICs.
+  Users can retrieve violation status through either our Python or C++ APIs. Only available for MI300 series+ ASICs.
 
 - Updated API `amdsmi_get_violation_status()` structure and CLI `amdsmi_violation_status_t` to include GFX Clk below host limit.
 
@@ -561,7 +595,7 @@ The following sections describe key changes to ROCm components.
 
 - AMD SMI only reports 63 GPU devices when setting CPX on all 8 GPUs. When setting CPX as a partition mode, there is a DRM node limitation of 64.
 
-This is a known limitation of the Linux kernel, not the driver. Other drivers, such as those using PCIe space (for example, `ast`), might be occupying the necessary DRM nodes.  You can check the number of DRM nodes using `ls /sys/class/drm`.
+This is a known limitation of the Linux kernel; not the driver. Other drivers, such as those using PCIe space (for example, `ast`), might occupy the necessary DRM nodes.  You can check the number of DRM nodes using `ls /sys/class/drm`.
 
 Some workaround options are as follows:
 
@@ -617,7 +651,7 @@ and in-depth descriptions.
 * Always output a packed type for q/dq after determining non-packed tensors were inefficient.
 * Even if using NHWC, MIGraphX will always convert group convolutions to NCHW for improved performance. 
 * Renamed the `layout_nhwc` to `layout_convolution` and ensured that either the weights are the same layout as the inputs or set the input and weights to NHWC.
-* Minimum version of Cmake is now 3.27.
+* The minimum Cmake version is now 3.27.
 
 #### Removed
 
@@ -666,7 +700,7 @@ and in-depth descriptions.
 * Paged KV cache support in group mode FMHA fwd splitKV kernels
 * Grouped convolution backward weight optimized irregular vector size loads
 * NGCHW BF16 grouped convolution forward support
-* Generic support for two stage grouped convolution backward weight
+* Generic support for two-stage grouped convolution backward weight
 * Dynamic elementwise operation selected in runtime for convolutions
 * CK Tile transpose operator
 * CK Tile MOE operators: fused, sorting, and smooth quant
@@ -723,7 +757,7 @@ and in-depth descriptions.
 
 * `roc-obj` tools is deprecated and will be removed in an upcoming release.
 
-    - Perl package installation is not required and users will need to install these themselves if wanted.
+    - Perl package installation is not required, and users will need to install this themselves if they want to.
     - Support for ROCm Object tooling has moved into `llvm-objdump` provided by package `rocm-llvm`.
 
 #### Removed
@@ -742,9 +776,9 @@ and in-depth descriptions.
 
 #### Upcoming changes
 
-The following are the list of backwards incompatible changes planned for upcoming major ROCm releases.
+The following lists the backward incompatible changes planned for upcoming major ROCm releases.
 
-* Signature changes in APIs to match corresponding NVIDIA CUDA APIs,
+* Signature changes in APIs to correspond with NVIDIA CUDA APIs,
 
     - `hiprtcCreateProgram`
     - `hiprtcCompileProgram`
@@ -780,11 +814,11 @@ The following are the list of backwards incompatible changes planned for upcomin
 * The implementation of `hipStreamAddCallback` is updated, to match the behavior of CUDA.
 * Removal of `hiprtc` symbols from hip library.
 
-    - `hiprtc` will be a independent library, all symbols supported in HIP library are removed.
+    - `hiprtc` will be a independent library, and all symbols supported in HIP library are removed.
     - Any application using `hiprtc` APIs should link explicitly with `hiprtc` library.
     - This change makes the use of `hiprtc` library on Linux the same as on Windows, and matches the behavior of CUDA `nvrtc`.
 
-* Removal of deprecated struct `HIP_MEMSET_NODE_PARAMS`, developers can use definition `hipMemsetParams` instead.
+* Removal of deprecated struct `HIP_MEMSET_NODE_PARAMS`, Developers can use definition `hipMemsetParams` instead.
 
 ### **hipBLAS** (2.4.0)
 
@@ -840,12 +874,12 @@ The following are the list of backwards incompatible changes planned for upcomin
 * Removed usage of `std::unary_function` and `std::binary_function` in `test_hipcub_device_adjacent_difference.cpp`.
 * Changed the subset of tests that are run for smoke tests such that the smoke test will complete with faster run time and never exceed 2 GB of VRAM usage. Use `python rtest.py [--emulation|-e|--test|-t]=smoke` to run these tests.
 * The `rtest.py` options have changed. `rtest.py` is now run with at least either `--test|-t` or `--emulation|-e`, but not both options.
-* The NVIDIA backend now requires CUB, Thrust, and libcu++ 2.5.0. If it is not found it will be downloaded from the NVIDIA CCCL repository.
+* The NVIDIA backend now requires CUB, Thrust, and libcu++ 2.5.0. If it is not found, it will be downloaded from the NVIDIA CCCL repository.
 * Changed the C++ version from 14 to 17. C++14 will be deprecated in the next major release.
 
 #### Known issues
 
-* When building on Windows using HIP SDK for ROCm 6.4, ``hipMalloc`` returns ``hipSuccess`` even when the size passed to it is too large and the allocation fails. Because of this, limits have been set for the maximum test case sizes for some unit tests such as HipcubDeviceRadixSort&#39;s SortKeysLargeSizes .
+* When building on Microsoft Windows using HIP SDK for ROCm 6.4, ``hipMalloc`` returns ``hipSuccess`` even when the size passed to it is too large and the allocation fails. Because of this, limits have been set for the maximum test case sizes for some unit tests such as HipcubDeviceRadixSort&#39;s SortKeysLargeSizes .
 
 ### **hipFFT** (1.0.18)
 
@@ -884,16 +918,16 @@ The following are the list of backwards incompatible changes planned for upcomin
 * cuTENSOR 2.0.2.1 support
 * LLVM 19.1.7 support
 * Full support for direct hipification of `cuRAND` into `rocRAND` under the `--roc` option.
-* Support for `fp8` math device/host API. See [#1617](https://github.com/ROCm/HIPIFY/issues/1617).
+* Support for `fp8` math device/host API. For more information see [#1617](https://github.com/ROCm/HIPIFY/issues/1617) in the HIPIFY Github repository.
 
 #### Resolved issues
 * `MIOpen` support in hipify-perl under the `-miopen` option
 * Use `const_cast<const char**>` for the last arguments in the `hiprtcCreateProgram` and `hiprtcCompileProgram` function calls, as in CUDA, they are of the `const char* const*` type
-* Support for `fp16` device/host API. See [#1769](https://github.com/ROCm/HIPIFY/issues/1769).
-* Fixed instructions on building LLVM for HIPIFY on Linux. See [#1800](https://github.com/ROCm/HIPIFY/issues/1800).
+* Support for `fp16` device/host API. For more information see [#1769](https://github.com/ROCm/HIPIFY/issues/1769) in the HIPIFY Github repository.
+* Fixed instructions on building LLVM for HIPIFY on Linux. For more information see [#1800](https://github.com/ROCm/HIPIFY/issues/1800) in the HIPIFY Github repository.
 
 #### Known issues
-* `hipify-clang` build failure against LLVM 15-18 on `Ubuntu`, `CentOS`, and `Fedora`. See [#833](https://github.com/ROCm/HIPIFY/issues/833).
+* `hipify-clang` build failure against LLVM 15-18 on `Ubuntu`, `CentOS`, and `Fedora`. For more information see [#833](https://github.com/ROCm/HIPIFY/issues/833) in the HIPIFY Github repository.
 
 ### **hipRAND** (2.12.0)
 
@@ -942,7 +976,8 @@ The following are the list of backwards incompatible changes planned for upcomin
 
 #### Changed
 
-* Used `GPU_TARGETS` instead of `AMDGPU_TARGETS` in `cmakelists.txt`.
+* `GPU_TARGETS` is now used instead of `AMDGPU_TARGETS` in `cmakelists.txt`.
+* Binary sizes can be reduced on supported compilers by using the `--offload-compress` compiler flag.
 
 #### Optimized
 
@@ -967,7 +1002,7 @@ The following are the list of backwards incompatible changes planned for upcomin
 
 * [Conv] Enabled tuning through the `miopenSetConvolutionFindMode` API.
 * [RNN] Added the new algorithm type `miopenRNNroundedDynamic` for LSTM.
-* [TunaNet] Enabled NHWC for MI300.
+* [TunaNet] Enabled NHWC for AMD Instinct MI300.
 
 #### Optimized
 
@@ -1079,7 +1114,7 @@ The following are the list of backwards incompatible changes planned for upcomin
 
 #### Added
 
-* The new bitstream reader feature has been added. The bitstream reader contains built-in stream file parsers, including an elementary stream file parser and an IVF container file parser. The reader can parse AVC, HEVC, and AV1 elementary stream files, and AV1 IVF container files. More format support will be added in future releases.
+* The new bitstream reader feature has been added. The bitstream reader contains built-in stream file parsers, including an elementary stream file parser and an IVF container file parser. The reader can parse AVC, HEVC, and AV1 elementary stream files, and AV1 IVF container files. Additional supported formats will be added.
 * More CTests have been added: VP9 test and tests on video decode raw sample.
 * Two new samples, videodecoderaw and videodecodepicfiles, have been added. videodecoderaw uses the bitstream reader instead of the FFMPEG demuxer to get picture data, and videodecodepicfiles shows how to decode an elementary video stream stored in multiple files, with each file containing bitstream data of a coded picture.
 
@@ -1112,7 +1147,7 @@ The following are the list of backwards incompatible changes planned for upcomin
 #### Optimized
 
 * Improved MPI transform performance by using all-to-all communication for global transpose operations.  
-  Point-to-point communications are still used when all-to-all is not possible.
+  Point-to-point communications are still used when all-to-all is unavailable.
 * Improved the performance of unit-strided, complex interleaved, forward, and inverse length (64,64,64) FFTs.
 
 #### Resolved issues
@@ -1187,7 +1222,7 @@ The following are the list of backwards incompatible changes planned for upcomin
 - Fixed `rsmi_dev_target_graphics_version_get`, `rocm-smi --showhw`, and `rocm-smi --showprod` not displaying graphics version correctly for Instinct MI200 series, MI100 series, and RDNA3-based GPUs. 
 
 ```{note}
-See the full [ROCm SMI changelog](https://github.com/ROCm/rocm_smi_lib/blob/rocm-6.4.x/CHANGELOG.md) for more details, examples,
+See the full [ROCm SMI changelog](https://github.com/ROCm/rocm_smi_lib/blob/rocm-6.4.x/CHANGELOG.md) for details, examples,
 and in-depth descriptions.
 ```
 
@@ -1206,6 +1241,9 @@ and in-depth descriptions.
 - Fixed interruption in config file generation.
 
 - Fixed segmentation fault while running rocprof-sys-instrument.
+
+#### Changed
+- Backend refactored to use [ROCprofiler-SDK](https://github.com/ROCm/rocprofiler-sdk) rather than [ROCProfiler](https://github.com/ROCm/rocprofiler) and [ROCTracer](https://github.com/ROCm/ROCTracer).
 
 ### **rocPRIM** (3.4.0)
 
@@ -1235,7 +1273,7 @@ and in-depth descriptions.
 
 * Changed the subset of tests that are run for smoke tests such that the smoke test will complete faster and never exceed 2 GB of VRAM usage. Use `python rtest.py [--emulation|-e|--test|-t]=smoke` to run these tests.
 * The `rtest.py` options have changed. `rtest.py` is now run with at least either `--test|-t` or `--emulation|-e`, but not both options.
-* Changed the internal algorithm of block radix sort to use rank match to improve performance of various radix sort-related algorithms.
+* Changed the internal algorithm of block radix sort to use a rank match to improve the performance of various radix sort-related algorithms.
 * Disabled padding in various cases where higher occupancy resulted in better performance despite more bank conflicts.
 
 * Removed HIP-CPU support. HIP-CPU support was experimental and broken.
@@ -1307,7 +1345,7 @@ and in-depth descriptions.
 
 #### Added
 
-* Support for asynchronous scratch reclaim on AMD Instinct™ MI300X GPUs. Asynchronous scratch reclaim allows scratch memory that were assigned to command processor(cp) queues to be reclaimed back in case the application runs out of device memory or if the `hsa_amd_agent_set_async_scratch_limit` API is called with the threshold parameter as 0.
+* Support for asynchronous scratch reclaim on AMD Instinct MI300X GPUs. Asynchronous scratch reclaim allows scratch memory that was assigned to Command Processor(cp) queues to be reclaimed back in case the application runs out of device memory or if the `hsa_amd_agent_set_async_scratch_limit` API is called with the threshold parameter as 0.
 
 ### **rocSOLVER** (3.28.0)
 
@@ -1332,20 +1370,20 @@ and in-depth descriptions.
 * Added test filters `smoke`, `regression`, and `extended` for emulation tests.
 * Added `rocsparse_[s|d|c|z]csritilu0_compute_ex` routines for iterative ILU.
 * Added `rocsparse_[s|d|c|z]csritsv_solve_ex` routines for iterative triangular solve.
-* `GPU_TARGETS` to replace the now deprecated `AMDGPU_TARGETS` in CMake files.
+* Added `GPU_TARGETS` to replace the now deprecated `AMDGPU_TARGETS` in CMake files.
 * Added BSR format to the SpMM generic routine `rocsparse_spmm`.
 
 #### Changed
 
-* By default, build the rocSPARSE shared library using the `--offload-compress` compiler option which compresses the fat binary. This significantly reduces the shared library binary size.
+* By default, the rocSPARSE shared library is built using the `--offload-compress` compiler option which compresses the fat binary. This significantly reduces the shared library binary size.
 
 #### Optimized
 
 * Improved the performance of `rocsparse_spmm` when used with row order for `B` and `C` dense matrices and the row split algorithm `rocsparse_spmm_alg_csr_row_split`.
 * Improved the adaptive CSR sparse matrix-vector multiplication algorithm when the sparse matrix has many empty rows at the beginning or at the end of the matrix. This improves the routines `rocsparse_spmv` and `rocsparse_spmv_ex` when the adaptive algorithm `rocsparse_spmv_alg_csr_adaptive` is used.
 * Improved stream CSR sparse matrix-vector multiplication algorithm when the sparse matrix size (number of rows) decreases. This improves the routines `rocsparse_spmv` and `rocsparse_spmv_ex` when the stream algorithm `rocsparse_spmv_alg_csr_stream` is used.
-* Compared to `rocsparse_[s|d|c|z]csritilu0_compute`, the routines `rocsparse_[s|d|c|z]csritilu0_compute_ex` introduce a number of free iterations. A free iteration is an iteration that does not compute the evaluation of the stopping criteria, if enabled. This allows the user to tune the algorithm for performance improvements.
-* Compared to `rocsparse_[s|d|c|z]csritsv_solve`, the routines `rocsparse_[s|d|c|z]csritsv_solve_ex` introduce a number of free iterations. A free iteration is an iteration that does not compute the evaluation of the stopping criteria. This allows the user to tune the algorithm for performance improvements.
+* Compared to `rocsparse_[s|d|c|z]csritilu0_compute`, the routines `rocsparse_[s|d|c|z]csritilu0_compute_ex` introduce several free iterations. A free iteration is an iteration that does not compute the evaluation of the stopping criteria, if enabled. This allows the user to tune the algorithm for performance improvements.
+* Compared to `rocsparse_[s|d|c|z]csritsv_solve`, the routines `rocsparse_[s|d|c|z]csritsv_solve_ex` introduce several free iterations. A free iteration is an iteration that does not compute the evaluation of the stopping criteria. This allows the user to tune the algorithm for performance improvements.
 * Improved the user documentation.
 
 #### Resolved issues
@@ -1370,14 +1408,14 @@ and in-depth descriptions.
 #### Added
 
 * Added a section to install Thread Building Block (TBB) inside `cmake/Dependencies.cmake` if TBB is not already available.
-* Made TBB an optional dependency with the new `BUILD_HIPSTDPAR_TEST_WITH_TBB` flag. When the flag is `OFF` and TBB is not already on the machine, it will compile without TBB. Otherwise it will compile with TBB.
-* Added extended tests to `rtest.py`. These tests are extra tests that did not fit the criteria of smoke and regression tests. These tests will take much longer to run relative to smoke and regression tests. Use `python rtest.py [--emulation|-e|--test|-t]=extended` to run these tests.
+* Made TBB an optional dependency with the new `BUILD_HIPSTDPAR_TEST_WITH_TBB` flag. When the flag is `OFF` and TBB is not already on the machine, it will compile without TBB. Otherwise, it will compile with TBB.
+* Added extended tests to `rtest.py`. These tests are extra tests that did not fit the criteria of smoke and regression tests. These tests will take much longer than smoke and regression tests. Use `python rtest.py [--emulation|-e|--test|-t]=extended` to run these tests.
 * Added regression tests to `rtest.py`. These tests recreate scenarios that have caused hardware problems in past emulation environments. Use `python rtest.py [--emulation|-e|--test|-t]=regression` to run these tests.
-* Added smoke test options, which runs a subset of the unit tests and ensures that less than 2gb of VRAM will be used. Use `python rtest.py [--emulation|-e|--test|-t]=smoke` to run these tests.
+* Added smoke test options, which run a subset of the unit tests and ensure that less than 2 GB of VRAM will be used. Use `python rtest.py [--emulation|-e|--test|-t]=smoke` to run these tests.
 * Added `--emulation` option for `rtest.py`
 * Merged changes from upstream CCCL/thrust 2.4.0 and CCCL/thrust 2.5.0.
 * Added `find_first_of`, `find_end`, `search`, and `search_n` to HIPSTDPAR.
-* Updated HIPSTDPAR's `adjacent_find` to use rocPRIM's implementation.
+* Updated HIPSTDPAR's `adjacent_find` to use the rocPRIM implementation.
 
 #### Changed
 
@@ -1400,7 +1438,7 @@ and in-depth descriptions.
 #### Changed
 
 * Used `GPU_TARGETS` instead of `AMDGPU_TARGETS` in `cmakelists.txt`.
-* Used `--offload-compress` flag for supported compilers.
+* Binary sizes can be reduced on supported compilers by using the `--offload-compress` compiler flag.
 
 #### Resolved issues
 
@@ -1411,7 +1449,7 @@ and in-depth descriptions.
 #### Added
 
 * RPP Tensor Gaussian Filter and Tensor Box Filter support on HOST (CPU) backend.
-* RPP Fog augmentation and Rain augmentation on HOST (CPU) and HIP backends.
+* RPP Fog and Rain augmentation on HOST (CPU) and HIP backends.
 * RPP Warp Perspective on HOST (CPU) and HIP backends.
 * RPP Tensor Bitwise-XOR support on HOST (CPU) and HIP backends.
 * RPP Threshold on HOST (CPU) and HIP backends.
@@ -1428,7 +1466,7 @@ and in-depth descriptions.
 
 * CXX Compiler: Fixed HOST (CPU) g++ issues. 
 * Deprecation warning fixed for the `sprintf is deprecated` warning.
-* Test suite build fix - RPP Test Suite Pre-requisite instructions updated to lock to a specific `nifti_clib` commit as described in  https://github.com/ROCm/rpp/tree/develop/utilities/test_suite#prerequisites.
+* Test suite build fix - RPP Test Suite Pre-requisite instructions updated to lock to a specific `nifti_clib` commit as described in the [prerequisites](https://github.com/ROCm/rpp/tree/develop/utilities/test_suite#prerequisites).
 * Fixed broken image links for pixelate and jitter.
 
 ### **Tensile** (4.43.0)
@@ -1448,7 +1486,7 @@ and in-depth descriptions.
 
 - Updated Tensile documents (API reference, README.md, and comments).
 - Disabled ASM cache for tests.
-- Replaced Perl script with `hipcc.bat` as a compiler on Windows.
+- Replaced Perl script with `hipcc.bat` as a compiler on Microsoft Windows.
 - Improved CHANGELOG.md.
 - Enabled external CI.
 - Improved Tensile documentation.
@@ -1481,11 +1519,47 @@ and in-depth descriptions.
 ROCm Known issues are noted on {fab}`github` [GitHub](https://github.com/ROCm/ROCm/labels/Verified%20Issue). For known
 issues related to individual components, review the [Detailed component changes](#detailed-component-changes).
 
+### Systems with a display GPU and eight AMD Instinct MI300 series GPUs reboot when loading the AMDGPU driver
+
+Due to limitations in older `libdrm` libraries, you might not be able to use an AMD Instinct MI300 series GPUs with a display GPU on a single server. This limitation means there can only be a maximum of 64 DRM devices at any time, regardless of vendor. When attempting to initialize all DRM device modules, the kernel will PANIC on the 65th DRM device, resulting in a system reboot. This issue will be properly fixed when resolved in `libdrm` libraries and the Linux kernel, to be distributed by the OS per their release schedules. Remove the non-AMD Instinct MI300 series GPUs as a workaround, or add the following in the GRUB setting for the onboard modules.
+
+```bash
+modprobe.blacklist=$MODULE
+```
+For Example:
+
+* For Aspeed, use:
+```bash
+modprobe.blacklist=ast
+```
+* For Mellanox, use:
+```bash
+modprobe.blacklist=mgag200
+```
+
+### Failure when using a generic target with compression and vice versa
+
+In ROCm 6.4.0, compilation for generic target with compression will fail. As a result, you won't be able to compile for a generic target and use compression simultaneously. As a workaround, it's recommended not to use compression when using generic targets and vice versa. This issue will be addressed in a future ROCm release.
+
+### GFX Freq information is unavailable in the rocm-smi when running in SRIOV mode enabled on MI210.
+
+In ROCm 6.4.0, you cannot see the GFX Freq information in the guest VM. In SRIOV mode, the AMD Platform Management Firmware (PMFW) does not share the graphics frequency information with the guest VMs and is only available to Host systems. This issue will be addressed in a future ROCm release.
 
 ## ROCm resolved issues
 
 The following are previously known issues resolved in this release. For resolved issues related to
 individual components, review the [Detailed component changes](#detailed-component-changes).
+
+### PCI Express Qualification Tool failure on Debian 12
+
+Fixed the issue of the PCI Express Qualification Tool (PEQT) module present in the ROCm Validation Suite (RVS) failing due to the segmentation issue in Debian 12 (bookworm). The fix now allows you to determine the characteristics of the PCIe interconnect between the host platform and the GPU like support for Gen 3 atomic completers, DMA transfer statistics, link speed, and link width. See [GitHub issue #4175](https://github.com/ROCm/ROCm/issues/4175).
+
+### Transformer Engine test_distributed_fused_attn aborts with fatal Python error
+
+Fixed the issue of the `test_distributed_fused_attn` Pytest case for JAX in [Transformer Engine
+for ROCm](https://github.com/ROCm/TransformerEngine) faiiling with a fatal Python
+error under certain conditions. The root cause was unrelated to Transformer Engine
+but due to some issue within XLA. The fix has now been implemnted in XLA. See [GitHub issue #4087](https://github.com/ROCm/ROCm/issues/4087).
 
 ## ROCm upcoming changes
 
