@@ -32,6 +32,9 @@ The release notes provide a summary of notable changes since the previous ROCm r
 If you’re using Radeon™ PRO or Radeon GPUs in a workstation setting with a display connected, see the [Use ROCm on Radeon GPUs](https://rocm.docs.amd.com/projects/radeon/en/latest/docs/compatibility/native_linux/native_linux_compatibility.html)
 documentation to verify compatibility and system requirements.
 ```
+
+For a historical overview of ROCm component updates, see the {doc}`ROCm consolidated changelog </release/changelog>`.
+
 ## Release highlights
 
 The following are notable new features and improvements in ROCm 6.4.0. For changes to individual components, see

@@ -10,6 +10,7 @@ import sys
 from pathlib import Path
 
 shutil.copy2("../RELEASE.md", "./about/release-notes.md")
+shutil.copy2("../CHANGELOG.md", "./release/changelog.md")
 
 os.system("mkdir -p ../_readthedocs/html/downloads")
 os.system("cp compatibility/compatibility-matrix-historical-6.0.csv ../_readthedocs/html/downloads/compatibility-matrix-historical-6.0.csv")
