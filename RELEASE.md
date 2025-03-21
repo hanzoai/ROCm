@@ -135,39 +135,6 @@ For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/pro
 
 ROCm 6.4.0 enables dynamic calculation of key-value (KV) cache scaling factors.
 
-### Logical separation of user space and driver space components
-
-As of ROCm 6.4.0, AMD is making the software for AMD Instinct GPUs more modular by separating the user space components from the driver space components. Previously, ROCm releases and their associated versioning described both the user space and driver.
-
-ROCm 6.4.0 documentation is for the driver space only. System management documentation has been moved to [Instinct documentation portal](instinct.docs.amd.com.).
-
-Information on the variant of the `amdgpu` driver built for Instinct GPUs is available on [Instinct driver website](https://instinct.docs.amd.com/projects/amdgpu-docs/en/latest/). See [ROCm/ROCK-Kernel-Driver](https://github.com/ROCm/ROCK-Kernel-Driver) repo for source code, which is planned to be renamed to **instinct-driver**. For ROCM 6.4.0, the versioning scheme for the Instinct driver does not change. It's referred to as the Instinct driver version 6.4.0. In the subsequent ROCm minor release, currently planned as ROCm 6.5.0, the Instinct driver version will be separate from the ROCm versioning.
-
-The long-term benefits of this logical separation of the major software components are:
-
-* The independent installation of the Instinct driver with a separate version number will allow you to understand the backward and forward compatibility between driver and multiple ROCm user space releases.
-
-* Clearly defined options for installation combinations:
-
-    * Instinct driver and multiple supported ROCm user space versions.
-
-    * Instinct driver is only to be used with containers and ISV applications.
-
-    * ROCm user space only for software builds and testing.
-
-    * Using the `amdgpu` driver bundled with Linux distributions and ROCm user space released from AMD. 
-
-* Added flexibility for upgrade options: 
-
-    * You can upgrade your Instinct driver independently of ROCm user space, or vice versa.
-    * Bug fixes in either the Instinct driver or ROCm user space might be released independently versus the prior mono-release.
-
-```{note}
-* The above functionality is available in the current unified ROCm user space and driver release. The goal is to provide clearer nomenclature and ontology for the software packages, so you can easily understand the capabilities. The introduction of the Instinct driver package variant of `amdgpu` is the first step towards this. 
-* There are no restrictions placed on GPU families enabled by the Instinct driver. 
-* Features prioritized and tested for Instinct drivers will focus on headless (no video out) GPU accelerators. 
-```
-
 ### ROCm documentation updates
 
 ROCm documentation continues to be updated to provide clearer and more comprehensive guidance for a wider variety of user needs and use cases.
