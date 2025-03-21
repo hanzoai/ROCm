@@ -30,8 +30,8 @@ compatibility and system requirements.
       ,Ubuntu 22.04.5,Ubuntu 22.04.5,"Ubuntu 22.04.5, 22.04.4"
       ,"RHEL 9.6, 9.4","RHEL 9.5, 9.4","RHEL 9.4, 9.3"
       ,RHEL 8.10,RHEL 8.10,"RHEL 8.10, 8.9"
-      ,"SLES 15 SP7, SP6","SLES 15 SP6, SP5","SLES 15 SP6, SP5"
-      ,"Oracle Linux 9.5, 8.10 [#mi300x]_",Oracle Linux 8.10 [#mi300x]_,Oracle Linux 8.9 [#mi300x]_
+      ,"SLES 15 SP6","SLES 15 SP6, SP5","SLES 15 SP6, SP5"
+      ,"Oracle Linux 9, 8 [#mi300x]_",Oracle Linux 8.10 [#mi300x]_,Oracle Linux 8.9 [#mi300x]_
       ,Debian 12 [#single-node]_,Debian 12 [#single-node]_,
       ,Azure Linux 3.0 [#mi300x]_,Azure Linux 3.0 [#mi300x]_,
       ,.. _architecture-support-compatibility-matrix:,,
@@ -62,7 +62,7 @@ compatibility and system requirements.
       CUB,2.3.2,2.3.2,2.2.0
       ,,,
       KMD & USER SPACE [#kfd_support]_,.. _kfd-userspace-support-compatibility-matrix:,,
-      Tested user space versions,"6.4.x, 6.3.x, 6.2.x, 6.1.x","6.3.x, 6.2.x, 6.1.x","6.3.x, 6.2.x, 6.1.x, 6.0.x"
+      Tested user space versions,"6.4.x, 6.3.x, 6.2.x, 6.1.x","6.4.x, 6.3.x, 6.2.x, 6.1.x","6.3.x, 6.2.x, 6.1.x, 6.0.x"
       ,,,
       ML & COMPUTER VISION,.. _mllibs-support-compatibility-matrix:,,
       :doc:`Composable Kernel <composable_kernel:index>`,1.1.0,1.1.0,1.1.0
@@ -155,43 +155,44 @@ compatibility and system requirements.
 
 .. _OS-kernel-versions:
 
-Operating systems and kernel versions
-*************************************
+Operating systems, kernel and Glibc versions
+*********************************************
 
 Use this lookup table to confirm which operating system and kernel versions are supported with ROCm.
 
 .. csv-table::
-   :header: "OS", "Version", "Kernel"
-   :widths: 40, 20, 40
+   :header: "OS", "Version", "Kernel", "Glibc"
+   :widths: 40, 20, 30, 20
    :stub-columns: 1
 
-   `Ubuntu <https://ubuntu.com/about/release-cycle#ubuntu-kernel-release-cycle>`_, 24.04.2, "6.8 GA, 6.11 HWE"
-   , 24.04, "6.8 GA"
+   `Ubuntu <https://ubuntu.com/about/release-cycle#ubuntu-kernel-release-cycle>`_, 24.04.2, "6.8 GA, 6.11 HWE", 2.39
    ,,
-   `Ubuntu <https://ubuntu.com/about/release-cycle#ubuntu-kernel-release-cycle>`_, 22.04.5, "5.15 GA, 6.8 HWE"
-   , 22.04.4, "5.15 GA, 6.5 HWE"
+   `Ubuntu <https://ubuntu.com/about/release-cycle#ubuntu-kernel-release-cycle>`_, 22.04.5, "5.15 GA, 6.8 HWE", 2.35
    ,,
-   `Red Hat Enterprise Linux (RHEL 9) <https://access.redhat.com/articles/3078#RHEL9>`_, 9.6, x.x.x
-   ,9.5, 5.14.0
-   ,9.4, 5.14.0
-   ,9.3, 5.14.0
+   `Red Hat Enterprise Linux (RHEL 9) <https://access.redhat.com/articles/3078#RHEL9>`_, 9.6, 5.14+, 2.34
+   ,9.5, 5.14+, 2.34
+   ,9.4, 5.14+, 2.34
+   ,9.3, 5.14+, 
    ,,
-   `Red Hat Enterprise Linux (RHEL 8) <https://access.redhat.com/articles/3078#RHEL8>`_, 8.10, 4.18.0
+   `Red Hat Enterprise Linux (RHEL 8) <https://access.redhat.com/articles/3078#RHEL8>`_, 8.10, 4.18.0+, 2.38
    ,8.9, 4.18.0
    ,,
-   `SUSE Linux Enterprise Server (SLES) <https://www.suse.com/support/kb/doc/?id=000019587#SLE15SP4>`_, 15 SP7, x.x.x
-   ,15 SP6, 6.4.0
-   ,15 SP5, 5.14.21
+   `SUSE Linux Enterprise Server (SLES) <https://www.suse.com/support/kb/doc/?id=000019587#SLE15SP4>`_, 15 SP6, "6.5.0+, 6.4.0", 2.38
+   ,15 SP5, 5.14.21, 
    ,,
-   `Oracle Linux <https://blogs.oracle.com/scoter/post/oracle-linux-and-unbreakable-enterprise-kernel-uek-releases>`_, 9.5, x.x.x
-   ,8.10, 5.15.0
-   ,8.9, 5.15.0
+   `Oracle Linux <https://blogs.oracle.com/scoter/post/oracle-linux-and-unbreakable-enterprise-kernel-uek-releases>`_, 9, 5.15.0 (UEK), 2.35
+   ,8, 5.15.0 (UEK),
+   ,8.9, 5.15.0,
    ,,
-   `Debian <https://www.debian.org/download>`_,12, 6.1
+   `Debian <https://www.debian.org/download>`_,12, 6.1, 2.36
    ,,
-   `Azure Linux <https://techcommunity.microsoft.com/blog/linuxandopensourceblog/azure-linux-3-0-now-in-preview-on-azure-kubernetes-service-v1-31/4287229>`_,3.0, 6.6
+   `Azure Linux <https://techcommunity.microsoft.com/blog/linuxandopensourceblog/azure-linux-3-0-now-in-preview-on-azure-kubernetes-service-v1-31/4287229>`_,3.0, 6.6.60, 2.38
    ,,
 
+.. note::
+
+  * See `Red Hat Enterprise Linux Release Dates <https://access.redhat.com/articles/3078>`_ to learn about the specific kernel versions supported on Red Hat Enterprise Linux (RHEL).
+  * See `List of SUSE Linux Enterprise Server kernel <https://www.suse.com/support/kb/doc/?id=000019587>`_ to learn about the specific kernel version supported on SUSE Linux Enterprise Server (SLES).
 ..
    Footnotes and ref anchors in below historical tables should be appended with "-past-60", to differentiate from the
    footnote references in the above, latest, compatibility matrix.  It also allows to easily find & replace.
