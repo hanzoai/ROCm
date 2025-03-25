@@ -233,7 +233,7 @@ Click {fab}`github` to go to the component's source code on GitHub.
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocPyDecode/en/docs-6.3.3/index.html">rocPyDecode</a></td>
-                <td>0.2.0</td>
+                <td>0.2.0&nbsp;&Rightarrow;&nbsp;<a href="#rocpydecode-0-3-1">0.3.1</td>
                 <td><a href="https://github.com/ROCm/rocPyDecode"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
@@ -1117,6 +1117,7 @@ The following lists the backward incompatible changes planned for upcoming major
 #### Added
 
 * The new bitstream reader feature has been added. The bitstream reader contains built-in stream file parsers, including an elementary stream file parser and an IVF container file parser. The reader can parse AVC, HEVC, and AV1 elementary stream files, and AV1 IVF container files. Additional supported formats will be added.
+* VP9 support has been added.
 * More CTests have been added: VP9 test and tests on video decode raw sample.
 * Two new samples, videodecoderaw and videodecodepicfiles, have been added. videodecoderaw uses the bitstream reader instead of the FFMPEG demuxer to get picture data, and videodecodepicfiles shows how to decode an elementary video stream stored in multiple files, with each file containing bitstream data of a coded picture.
 
@@ -1251,45 +1252,43 @@ and in-depth descriptions.
 
 #### Added
 
-* Added extended tests to `rtest.py`. These tests are extra tests that did not fit the criteria of smoke and regression tests. These tests will take much longer than smoke and regression tests.
- * Use `python rtest.py [--emulation|-e|--test|-t]=extended` to run these tests.
-* Added regression tests to `rtest.py`. Regression tests are a subset of tests that caused hardware problems for past emulation environments.
-  * Can be run with `python rtest.py [--emulation|-e|--test|-t]=regression`
-* Added the parallel `find_first_of` device function with autotuned configurations. This function is similar to `std::find_first_of`. It searches for the first occurrence of any of the provided elements.
-* Added `--emulation` option added for `rtest.py`
-  * Unit tests can be run with `[--emulation|-e|--test|-t]=&lt;test_name&gt;`
-* Added tuned configurations for segmented radix sort for gfx942 to improve performance on this architecture.
-* Added a parallel device-level function, `rocprim::adjacent_find`, which is similar to the C++ Standard Library `std::adjacent_find` algorithm.
-* Added configuration autotuning to device adjacent find (`rocprim::adjacent_find`) for improved performance on selected architectures.
-* Added rocprim::numeric_limits, an extension of `std::numeric_limits`, which includes support for 128-bit integers.
-* Added rocprim::int128_t and rocprim::uint128_t which are the __int128_t and __uint128_t types.
-* Added the parallel `search` and `find_end` device functions similar to `std::search` and `std::find_end`. These functions search for the first and last occurrence of the sequence, respectively.
-* Added a parallel device-level function, `rocprim::search_n`, which is similar to the C++ Standard Library `std::search_n` algorithm.
-* Added new constructors and a `base` function, and added `constexpr` specifier to all functions in `rocprim::reverse_iterator` to improve parity with the C++17 `std::reverse_iterator`.
-* Added hipGraph support to device run-length-encode for non-trivial runs (`rocprim::run_length_encode_non_trivial_runs`).
-* Added configuration autotuning to device run-length-encode for non-trivial runs (`rocprim::run_length_encode_non_trivial_runs`) for improved performance on selected architectures.
-* Added configuration autotuning to device run-length-encode for trivial runs (`rocprim::run_length_encode`) for improved performance on selected architectures.
+* The parallel `find_first_of` device function with autotuned configurations has been added. This function is similar to `std::find_first_of`. It searches for the first occurrence of any of the provided elements.
+* Tuned configurations for segmented radix sort for gfx942 have been added to improve performance on the gfx942 architecture.
+* The parallel device-level function, `rocprim::adjacent_find`, which is similar to the C++ Standard Library `std::adjacent_find` algorithm, has been added.
+* Configuration autotuning has been added to device adjacent find (`rocprim::adjacent_find`) for improved performance on selected architectures.
+* `rocprim::numeric_limits` has been added. This is an extension of `std::numeric_limits` that supports 128-bit integers.
+* `rocprim::int128_t` and `rocprim::uint128_t` have been added. 
+* The parallel `search` and `find_end` device functions have been added. These are similar to `std::search` and `std::find_end`. These functions search for the first and last occurrence of the sequence, respectively.
+* A parallel device-level function, `rocprim::search_n`, has been added. `rocprim::search_n` is similar to the C++ Standard Library `std::search_n` algorithm.
+* New constructors, a `base` function, and a `constexpr` specifier have been added to all functions in `rocprim::reverse_iterator` to improve parity with the C++17 `std::reverse_iterator`.
+* hipGraph support has been added to the device run-length-encode for non-trivial runs (`rocprim::run_length_encode_non_trivial_runs`).
+* Configuration autotuning has been added to the device run-length-encode for non-trivial runs (`rocprim::run_length_encode_non_trivial_runs`) for improved performance on selected architectures.
+* Configuration autotuning has been added to the device run-length-encode for trivial runs (`rocprim::run_length_encode`) for improved performance on selected architectures.
+* The `--emulation` option has been added to `rtest.py`. Unit tests can be run with `python rtest.py [--emulation|-e|--test|-t]=<test_name>`.
+* Extended and regression tests have been added to `rtest.py`. Extended tests are tests that don't fit the criteria of smoke or regression tests, and take longer than smoke or regression tests to run. Use `python rtest.py [--emulation|-e|--test|-t]=extended` to run extended tests, and `python rtest.py [--emulation|-e|--test|-t]=regression` to run regression tests.
 * Added a new type traits interface to enable users to provide additional type trait information to rocPRIM, facilitating better compatibility with custom types.
 
 #### Changed
 
 * Changed the subset of tests that are run for smoke tests such that the smoke test will complete faster and never exceed 2 GB of VRAM usage. Use `python rtest.py [--emulation|-e|--test|-t]=smoke` to run these tests.
 * The `rtest.py` options have changed. `rtest.py` is now run with at least either `--test|-t` or `--emulation|-e`, but not both options.
-* Changed the internal algorithm of block radix sort to use a rank match to improve the performance of various radix sort-related algorithms.
+* Changed the internal algorithm of block radix sort to use a rank match. This improves the performance of various radix sort-related algorithms.
 * Disabled padding in various cases where higher occupancy resulted in better performance despite more bank conflicts.
-
-* Removed HIP-CPU support. HIP-CPU support was experimental and broken.
-* Changed the C++ version from 14 to 17. C++14 will be deprecated in the next major release.
+* The C++ version has changed from 14 to 17. C++14 will be deprecated in the next major release.
 * You can use CMake HIP language support with CMake 3.18 and later. To use HIP language support, run `cmake` with `-DUSE_HIPCXX=ON` instead of setting the `CXX` variable to the path to a HIP-aware compiler.
+
+#### Removed
+
+* HIP-CPU support
 
 #### Resolved issues
 
-* Fixed an issue where `rmake.py` would generate incorrect CMAKE commands while using a Linux environment.
-* Fixed an issue where `rocprim::partial_sort_copy` would yield a compile error if the input iterator is const.
-* Fixed incorrect 128-bit signed and unsigned integers type traits.
-* Fixed compilation issue when `rocprim::radix_key_codec&lt;...&gt;` is specialized with a 128-bit integer.
+* Fixed an issue where `rmake.py` generated incorrect cmake commands in a Linux environment.
+* Fixed an issue where `rocprim::partial_sort_copy` would yield a compile error if the input iterator was a const.
+* Fixed incorrect 128-bit signed and unsigned integer type traits.
+* Fixed a compilation issue when `rocprim::radix_key_codec&lt;...&gt;` is specialized with a 128-bit integer.
 * Fixed the warp-level reduction `rocprim::warp_reduce.reduce` DPP implementation to avoid undefined intermediate values during the reduction.
-* Fixed an issue that caused a segmentation fault when `hipStreamLegacy` was passed to some API functions.
+* Fixed an issue that caused a segmentation fault when `hipStreamLegacy` was passed to certain API functions.
 
 #### Upcoming changes
 
@@ -1322,6 +1321,24 @@ and in-depth descriptions.
 * SDK: `rocprofiler_agent_v0_t` support for agent UUIDs.
 * SDK: `rocprofiler_agent_v0_t` support for agent visibility based on gpu isolation environment variables such as `ROCR_VISIBLE_DEVICES` and so on.
 * Accumulation VGPR support for `rocprofv3`.
+
+### **rocPyDecode** (0.3.1)
+
+#### Added
+
+* VP9 support
+
+#### Changed
+
+* AMD Clang is now the default CXX and C compiler.
+
+#### Removed
+
+* All MD5 functionality, APIs, and sample code have been removed.
+
+#### Resolved issues
+
+* Ubuntu 24.04 compile failure with FFmpeg version 5.X and above has been fixed.
 
 ### **rocRAND** (3.3.0)
 
