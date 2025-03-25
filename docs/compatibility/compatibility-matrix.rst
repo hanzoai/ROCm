@@ -48,7 +48,7 @@ compatibility and system requirements.
       ,gfx908,gfx908,gfx908
       ,,,
       FRAMEWORK SUPPORT,.. _framework-support-compatibility-matrix:,,
-      :doc:`PyTorch <../compatibility/ml-compatibility/pytorch-compatibility>`,"2.5, 2.4, 2.3, 2.2, 1.13","2.4, 2.3, 2.2, 1.13","2.3, 2.2, 2.1, 2.0, 1.13"
+      :doc:`PyTorch <../compatibility/ml-compatibility/pytorch-compatibility>`,"2.6 [#PyTorch-26]_, 2.5, 2.4, 2.3, 2.2, 1.13","2.4, 2.3, 2.2, 1.13","2.3, 2.2, 2.1, 2.0, 1.13"
       :doc:`TensorFlow <../compatibility/ml-compatibility/tensorflow-compatibility>`,"2.17.0, 2.16.2, 2.15.1","2.17.0, 2.16.2, 2.15.1","2.16.1, 2.15.1, 2.14.1"
       :doc:`JAX <../compatibility/ml-compatibility/jax-compatibility>`,0.4.31,0.4.31,0.4.26
       `ONNX Runtime <https://onnxruntime.ai/docs/build/eps.html#amd-migraphx>`_,1.17.3,1.17.3,1.17.3
@@ -152,6 +152,7 @@ compatibility and system requirements.
 .. [#mi300_620] **For ROCm 6.2.0** - MI300X (gfx942) is supported on listed operating systems *except* Ubuntu 22.04.5 [6.8 HWE] and Ubuntu 22.04.4 [6.5 HWE].
 .. [#kfd_support] Starting ROCm 6.4.0, forward and backward compatibility between the AMD Kernel-mode GPU Driver (KMD) and its user space software is provided up to a year apart (assuming hardware support is available in both). For earlier ROCm releases, the compatibility is provided for +/- 2 releases. These are the compatibility combinations that are currently supported.
 .. [#ROCT-rocr] Starting from ROCm 6.3.0, the ROCT Thunk Interface is included as part of the ROCr runtime package.
+.. [#PyTorch-26] PyTorch 2.6 has preview support (with limited testing) in ROCm 6.4.0.
 
 .. _OS-kernel-versions:
 
