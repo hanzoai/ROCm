@@ -82,10 +82,9 @@ The new bitstream reader feature has been added to [rocDecode](https://github.co
 
 * ROCm Compute Profiler now supports:
 
-    * ROCprofiler-SDK and Message Passing Interface (MPI).
+    * ROCprofiler-SDK/ ROCProfv3
+    * Experimental multi-nodes profiling support.
     * Roofline plot for 64-bit floating point (FP64) and 32-bit floating point (FP32) data types.
-
-* ROCm Compute Profiler has modified the kernel prefix associated with Kokkos.
 
 ### ROCm Systems Profiler updates
 
@@ -120,12 +119,12 @@ hipTensor library has been enhanced with:
 
 ### ROCm Offline Installer Creator updates
 
-The ROCm Offline Installer Creator 6.4.0 adds support for RHEL 9.6 and Oracle Linux 9, and uninstall support for RHEL, SLES, and Oracle Linux. See [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-offline-installer.html#post-install-options-menu) for more information.
+The ROCm Offline Installer Creator 6.4.0 adds support for Oracle Linux 9 and uninstall support for RHEL, SLES, and Oracle Linux. See [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-offline-installer.html#post-install-options-menu) for more information.
 
 ### ROCm Runfile Installer updates
 
 The ROCm Runfile Installer 6.4.0 adds improvements for dependency installation in an online-only environment and support for the following:
-* Ubuntu 24.04, RHEL 8.10, 9.4, and 9.6, and SLES 15 SP6
+* Ubuntu 24.04, RHEL 8.10, 9.4, and 9.5, and SLES 15 SP6
 * AMDGPU driver installation
 * ROCm and AMDGPU driver uninstall 
 
@@ -160,11 +159,9 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
 ROCm 6.4.0 adds support for the following operating system and kernel versions:
 
 - Oracle Linux 9
-- RHEL 9.6
 
 ROCm 6.4.0 marks the end of support (EoS) for:
 - SLES 15 SP5
-- RHEL 9.5
 
 Hardware support remains unchanged in this release.
 
@@ -1463,6 +1460,10 @@ and in-depth descriptions.
 
 * For a CMake bug workaround, set `CMAKE_NO_BUILTIN_CHRPATH` when `BUILD_OFFLOAD_COMPRESS` is unset.
 
+#### Upcoming changes
+ 
+* rocWMMA will augment the fragment API objects with additional meta-properties that improve API expressiveness and configurability of parameters including multiple-wave cooperation. As part of this change, cooperative rocWMMA API functions `load_matrix_coop_sync` and `store_matrix_coop_sync` will be deprecated in a future ROCm release.
+
 ### **rpp** (1.9.10)
 
 #### Added
@@ -1503,7 +1504,6 @@ and in-depth descriptions.
 
 #### Changed
 
-- Updated Tensile documents (API reference, README.md, and comments).
 - Disabled ASM cache for tests.
 - Replaced Perl script with `hipcc.bat` as a compiler on Microsoft Windows.
 - Improved CHANGELOG.md.
