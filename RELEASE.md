@@ -60,6 +60,16 @@ To learn how CPX and NPS4 partition modes can benefit RCCL performance on MI300X
 
 ROCm 6.4.0 has been tested to allow you to choose a combination of AMD Kernel-mode GPU Driver (KMD) and ROCm user space software from ROCm releases up to a year apart (assuming hardware support is available in both). This compatibility has been tested for backward direction in ROCm 6.4.0, and it will be tested in forward directions for every new driver release occurring for a year from ROCm 6.4.0 release (for example, older user space with newer KMD and vice versa).
 
+### Separation of user space and driver space components documentation
+
+As of ROCm 6.4.0, the driver space components documentation has moved from [AMD ROCm documentation](https://rocmdocs.amd.com/) to its own documentation site, [AMD Instinct Data Center GPU Driver](instinct.docs.amd.com). The goal is to make the software for AMD Instinct GPUs more modular. This helps in having a clear understanding of the options for installation combinations of Instinct driver and multiple supported ROCm user space versions.
+
+Information about the variant of the `amdgpu` driver built for Instinct GPUs is available on [AMD Instinct Data Center GPU Driver](https://instinct.docs.amd.com/projects/amdgpu-docs/en/latest/). See [ROCm/ROCK-Kernel-Driver](https://github.com/ROCm/ROCK-Kernel-Driver) GitHub repository for source code, which is planned to be renamed to **instinct-driver** in a future ROCm release. For ROCm 6.4.0, the versioning scheme for the Instinct driver is parallel to the ROCm versioning; that is, 6.4.0. In future ROCm releases, the Instinct driver version is planned to be separate from the ROCm versioning.
+
+Separating the major software components improves the upgrade experience by:
+* Allowing you to upgrade your Instinct driver independently of ROCm user space, or vice versa.
+* Having bug fixes released independently in either the Instinct driver or ROCm user space.
+
 ### PyTorch 2.5 support added
 
 ROCm 6.4.0 adds support for PyTorch 2.5. See the [Compatibility
