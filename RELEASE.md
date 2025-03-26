@@ -109,7 +109,7 @@ ROCm Systems Profiler now supports:
 
 rocWMMA library has been enhanced with: 
 * Infrastructure to support interleaved wave-tiles for better General Matrix Multiplication (GEMM) performance. 
-* Binary sizes can now be reduced on supported compilers by using the `--offload-compress` compiler flag
+* Binary sizes can now be reduced on supported compilers by using the `--offload-compress` compiler flag.
 * An emulation test suite has been added for reduced scope smoke tests.
 
 ### hipTensor updates
@@ -117,7 +117,7 @@ rocWMMA library has been enhanced with:
 hipTensor library has been enhanced with:
 
 * New benchmarking and validation test suites were added for contractions, reductions, and permutations, which are driven with YAML configurations. 
-* Binary sizes can now be reduced on supported compilers by using the `--offload-compress` compiler flag
+* Binary sizes can now be reduced on supported compilers by using the `--offload-compress` compiler flag.
 * Emulation test was suite added for reduced scope smoke tests. 
 * Default strides are now calculated in column-major order. 
 * Permutation kernel selection optimized for improved performance.
@@ -154,11 +154,15 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
   guide has been updated to feature the latest [ROCm/pytorch-training](https://hub.docker.com/layers/rocm/pytorch-training/v25.4/images/sha256-fa98a9aa69968e654466c06f05aaa12730db79b48b113c1ab4f7a5fe6920a20b)
   Docker image.
 
+* A new topic, [Hardware atomics operation support](https://rocm-stg.amd.com/en/develop/reference/gpu-atomics-operation.html), discusses the support for atomic read-modify-write (atomicRMW) operations on gfx9, gfx10, gfx11, gfx12, MI100, MI200 and MI300 AMD GPUs.
+
 * [LLM inference performance testing on AMD Instinct MI300X](https://rocm.docs.amd.com/en/latest/how-to/rocm-for-ai/inference/vllm-benchmark.html?model=pyt_vllm_llama-3.1-8b)
   has been updated to feature the latest [ROCm/vLLM](https://hub.docker.com/layers/rocm/vllm/rocm6.3.1_instinct_vllm0.7.3_20250311/images/sha256-de0a2649b735f45b7ecab8813eb7b19778ae1f40591ca1196b07bc29c42ed4a3)
   Docker image.
 
 * The HIP documentation has been updated and includes the following changes:
+    - The new [HIP complex math API](https://rocm.docs.amd.com/projects/HIP/en/latest/reference/complex_math_api.html) topic describes HIP complex number types and usage of these types with example code.
+    - The new [HIP error codes](https://rocm.docs.amd.com/projects/HIP/en/latest/reference/error_codes.html) topic list notes all HIP runtime error codes and their descriptions. HIP API functions return these error codes to indicate various runtime conditions and errors.
     - The [Introduction to the HIP programming model](https://rocm.docs.amd.com/projects/HIP/en/latest/understand/programming_model.html) topic has been updated, providing a more robust introduction to HIP.
     - The [Math API](https://rocm.docs.amd.com/projects/HIP/en/latest/understand/programming_model.html) topic has been reorganized, and the ULP difference of maximum absolute error information has been added.
     - The new [Low precision floating point types](https://rocm.docs.amd.com/projects/HIP/en/latest/understand/programming_model.html) topic includes information about FP8 (Quarter Precision) and FP16 (Half Precision).
@@ -166,12 +170,9 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
 
 ## Operating system and hardware support changes
 
-ROCm 6.4.0 adds support for the following operating system and kernel versions:
+ROCm 6.4.0 adds support for Oracle Linux 9 operating system. Oracle Linux is supported only on AMD Instinct accelerators. For more information, see [Oracle Linux installation](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/install/install-methods/package-manager/package-manager-ol.html).
 
-- Oracle Linux 9
-
-ROCm 6.4.0 marks the end of support (EoS) for:
-- SLES 15 SP5
+ROCm 6.4.0 marks the end of support (EoS) for SLES 15 SP5.
 
 Hardware support remains unchanged in this release.
 
@@ -712,7 +713,7 @@ and in-depth descriptions.
 * OCP FP8 support for gfx12.
 * Support for FP8, BF16, FP16, OCP FP8, BF8, pk_int4 data types in CK Tile GEMM.
 * Support for microscaling data types: MX FP4, FP6, and FP8.
-* Support for gfx950, gfx1200, and gfx1201 targets.
+* Support for gfx1200, and gfx1201 targets.
 * Support for large batch tensors in grouped convolution backward data.
 * Support for grouped convolution backward weight BF16 NGCHW.
 * Support for cshuffle algorithm in CK Tile GEMM epilogue .
@@ -909,7 +910,7 @@ The following lists the backward incompatible changes planned for upcoming major
 
 ### **hipfort** (0.6.0)
 
-#### Upcoming Changes
+#### Upcoming changes
 
 * The hipfc compiler wrapper has been deprecated and will be removed
   in a future release. Users are encouraged to directly invoke their
@@ -932,6 +933,7 @@ The following lists the backward incompatible changes planned for upcoming major
 * Fixed instructions on building LLVM for HIPIFY on Linux. For more information see [#1800](https://github.com/ROCm/HIPIFY/issues/1800) in the HIPIFY Github repository.
 
 #### Known issues
+
 * `hipify-clang` build failure against LLVM 15-18 on `Ubuntu`, `CentOS`, and `Fedora`. For more information see [#833](https://github.com/ROCm/HIPIFY/issues/833) in the HIPIFY Github repository.
 
 ### **hipRAND** (2.12.0)
@@ -1035,7 +1037,7 @@ The following lists the backward incompatible changes planned for upcoming major
 * Installation on CentOS, RedHat, and SLES requires manually installing the `FFMPEG` and `OpenCV` dev packages.
 * Hardware decode requires the ROCm `graphics` use case.
 
-#### Upcoming Changes
+#### Upcoming changes
 
 * Optimized audio augmentations support for VX_RPP
 
@@ -1089,8 +1091,8 @@ The following lists the backward incompatible changes planned for upcoming major
 
 * Significantly reduced workspace memory requirements for Level 1 ILP64: `iamax` and `iamin`.
 * Reduced the workspace memory requirements for Level 1 ILP64: `dot`, `asum`, and `nrm2`.
-* Improved the performance of Level 2 gemv for the problem sizes (`TransA == N &amp;&amp; m &gt; 2*n`) and (`TransA == T`).
-* Improved the performance of Level 3 syrk and herk for the problem size (`k &gt; 500 &amp;&amp; n &lt; 4000`).
+* Improved the performance of Level 2 gemv for the problem sizes (`TransA == N && m > 2*n`) and (`TransA == T`).
+* Improved the performance of Level 3 syrk and herk for the problem size (`k > 500 && n < 4000`).
 
 #### Resolved issues
 
@@ -1099,7 +1101,7 @@ The following lists the backward incompatible changes planned for upcoming major
 * Resolved outdated SLES operating system package dependencies (`cxxtools` and `joblib`) in `install.sh -d`.
 * Fixed code object stripping for RPM packages.
 
-#### Upcoming Changes
+#### Upcoming changes
 
 * CMake variable `AMDGPU_TARGETS` is deprecated. Use `GPU_TARGETS` instead.
 
@@ -1311,6 +1313,7 @@ and in-depth descriptions.
 * Updated README for kernel filtration.
 
 #### Resolved issues
+
 * Fixed the program crash issue due to invalid UTF-8 characters in a trace log.
 
 ### **ROCprofiler-SDK** (0.6.0)

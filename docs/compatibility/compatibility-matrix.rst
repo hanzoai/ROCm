@@ -72,7 +72,7 @@ compatibility and system requirements.
       :doc:`rocAL <rocal:index>`,2.2.0,2.1.0,1.0.0
       :doc:`rocDecode <rocdecode:index>`,0.10.0,0.8.0,0.6.0
       :doc:`rocJPEG <rocjpeg:index>`,0.8.0,0.6.0,N/A
-      :doc:`rocPyDecode <rocpydecode:index>`,0.2.0,0.2.0,0.1.0
+      :doc:`rocPyDecode <rocpydecode:index>`,0.3.1,0.2.0,0.1.0
       :doc:`RPP <rpp:index>`,1.9.10,1.9.1,1.8.0
       ,,,
       COMMUNICATION,.. _commlibs-support-compatibility-matrix:,,
@@ -150,7 +150,7 @@ compatibility and system requirements.
 .. [#mi300x] Oracle Linux and Azure Linux are supported only on AMD Instinct MI300X.
 .. [#single-node] Debian 12 is supported only on AMD Instinct MI300X for single-node functionality. 
 .. [#mi300_620] **For ROCm 6.2.0** - MI300X (gfx942) is supported on listed operating systems *except* Ubuntu 22.04.5 [6.8 HWE] and Ubuntu 22.04.4 [6.5 HWE].
-.. [#kfd_support] Starting ROCm 6.4.0, forward and backward compatibility between the AMD Kernel-mode GPU Driver (KMD) and its user space software is provided up to a year apart (assuming hardware support is available in both). For earlier ROCm releases, the compatibility is provided for +/- 2 releases. These are the compatibility combinations that are currently supported.
+.. [#kfd_support] Starting from ROCm 6.4.0, forward and backward compatibility between the AMD Kernel-mode GPU Driver (KMD) and its user space software is provided up to a year apart (assuming hardware support is available in both). For earlier ROCm releases, the compatibility is provided for +/- 2 releases. These are the compatibility combinations that are currently supported.
 .. [#ROCT-rocr] Starting from ROCm 6.3.0, the ROCT Thunk Interface is included as part of the ROCr runtime package.
 .. [#PyTorch-26] PyTorch 2.6 has preview support (with limited testing) in ROCm 6.4.0.
 
@@ -172,17 +172,16 @@ Use this lookup table to confirm which operating system and kernel versions are 
    ,,
    `Red Hat Enterprise Linux (RHEL 9) <https://access.redhat.com/articles/3078#RHEL9>`_, 9.5, 5.14+, 2.34
    ,9.4, 5.14+, 2.34
-   ,9.3, 5.14+, 
+   ,9.3, 5.14+, 2.34
    ,,
-   `Red Hat Enterprise Linux (RHEL 8) <https://access.redhat.com/articles/3078#RHEL8>`_, 8.10, 4.18.0+, 2.38
-   ,8.9, 4.18.0
+   `Red Hat Enterprise Linux (RHEL 8) <https://access.redhat.com/articles/3078#RHEL8>`_, 8.10, 4.18.0+, 2.28
+   ,8.9, 4.18.0, 2.28
    ,,
    `SUSE Linux Enterprise Server (SLES) <https://www.suse.com/support/kb/doc/?id=000019587#SLE15SP4>`_, 15 SP6, "6.5.0+, 6.4.0", 2.38
-   ,15 SP5, 5.14.21, 
+   ,15 SP5, 5.14.21, 2.31
    ,,
    `Oracle Linux <https://blogs.oracle.com/scoter/post/oracle-linux-and-unbreakable-enterprise-kernel-uek-releases>`_, 9, 5.15.0 (UEK), 2.35
-   ,8, 5.15.0 (UEK),
-   ,8.9, 5.15.0,
+   ,8, 5.15.0 (UEK), 2.28
    ,,
    `Debian <https://www.debian.org/download>`_,12, 6.1, 2.36
    ,,
@@ -230,5 +229,5 @@ Expand for full historical view of:
    .. [#mi300_610-past-60] **For ROCm 6.1.0** - MI300A (gfx942) is supported on Ubuntu 22.04.4, RHEL 9.4, RHEL 9.3, RHEL 8.9, and SLES 15 SP5. MI300X (gfx942) is only supported on Ubuntu 22.04.4.
    .. [#mi300_602-past-60] **For ROCm 6.0.2** - MI300A (gfx942) is supported on Ubuntu 22.04.3, RHEL 8.9, and SLES 15 SP5. MI300X (gfx942) is only supported on Ubuntu 22.04.3.
    .. [#mi300_600-past-60] **For ROCm 6.0.0** - MI300A (gfx942) is supported on Ubuntu 22.04.3, RHEL 8.9, and SLES 15 SP5. MI300X (gfx942) is only supported on Ubuntu 22.04.3.
-   .. [#kfd_support-past-60] Starting ROCm 6.4.0, forward and backward compatibility between the AMD Kernel-mode GPU Driver (KMD) and its user space software is provided up to a year apart (assuming hardware support is available in both). For earlier ROCm releases, the compatibility is provided for +/- 2 releases. These are the compatibility combinations that are currently supported.
+   .. [#kfd_support-past-60] Starting from ROCm 6.4.0, forward and backward compatibility between the AMD Kernel-mode GPU Driver (KMD) and its user space software is provided up to a year apart (assuming hardware support is available in both). For earlier ROCm releases, the compatibility is provided for +/- 2 releases. These are the compatibility combinations that are currently supported.
    .. [#ROCT-rocr-past-60] Starting from ROCm 6.3.0, the ROCT Thunk Interface is included as part of the ROCr runtime package.
