@@ -1293,7 +1293,7 @@ and in-depth descriptions.
 * Fixed an issue where `rmake.py` generated incorrect cmake commands in a Linux environment.
 * Fixed an issue where `rocprim::partial_sort_copy` would yield a compile error if the input iterator was a const.
 * Fixed incorrect 128-bit signed and unsigned integer type traits.
-* Fixed a compilation issue when `rocprim::radix_key_codec&lt;...&gt;` is specialized with a 128-bit integer.
+* Fixed a compilation issue when `rocprim::radix_key_codec<...>` is specialized with a 128-bit integer.
 * Fixed the warp-level reduction `rocprim::warp_reduce.reduce` DPP implementation to avoid undefined intermediate values during the reduction.
 * Fixed an issue that caused a segmentation fault when `hipStreamLegacy` was passed to certain API functions.
 
@@ -1496,7 +1496,7 @@ and in-depth descriptions.
 
 * CXX Compiler: Fixed HOST (CPU) g++ issues. 
 * Deprecation warning fixed for the `sprintf is deprecated` warning.
-* Test suite build fix - RPP Test Suite Pre-requisite instructions updated to lock to a specific `nifti_clib` commit as described in the [prerequisites](https://github.com/ROCm/rpp/tree/develop/utilities/test_suite#prerequisites).
+* Test suite build fix - RPP Test Suite Pre-requisite instructions updated to lock to a specific `nifti_clib` commit.
 * Fixed broken image links for pixelate and jitter.
 
 ### **Tensile** (4.43.0)
