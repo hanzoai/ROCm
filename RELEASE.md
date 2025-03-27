@@ -142,7 +142,7 @@ For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/pro
 
 ### Dynamic calculation of KV cache scaling factors supported
 
-When using an FP8 key-value (KV) cache, models that don’t provide scaling factors (derived from the attention later projection output scales) might experience reduced accuracy due to quantization. ROCm 6.4.0 enables dynamic calculation of key-value (KV) cache scaling factors based on the actual runtime weight and input data to improve accuracy. For a vLLM usage example, see [Quantized KV Cache](https://docs.vllm.ai/en/latest/features/quantization/quantized_kvcache.html#usage-example) in the vLLM documentation.
+When using an FP8 key-value (KV) cache, models that don’t provide scaling factors (derived from the attention later projection output scales) might experience reduced accuracy due to quantization. vLLM now enables dynamic calculation of key-value (KV) cache scaling factors based on the actual runtime weight and input data to improve accuracy. For a vLLM usage example, see [Quantized KV Cache](https://docs.vllm.ai/en/latest/features/quantization/quantized_kvcache.html#usage-example) in the vLLM documentation.
 
 ### ROCm documentation updates
 
@@ -1331,6 +1331,12 @@ and in-depth descriptions.
 * SDK: `rocprofiler_agent_v0_t` support for agent UUIDs.
 * SDK: `rocprofiler_agent_v0_t` support for agent visibility based on gpu isolation environment variables such as `ROCR_VISIBLE_DEVICES` and so on.
 * Accumulation VGPR support for `rocprofv3`.
+* Host-trap based PC sampling support for `rocprofv3`.
+* Support for OpenMP tool.
+* `--agent-index` option in `rocprofv3` to specify the agent naming convention in the output
+    * absolute == node_id
+    * relative == logical_node_id
+    * type-relative == logical_node_type_id
 
 ### **rocPyDecode** (0.3.1)
 
@@ -1610,9 +1616,11 @@ includes all the features of the ROCm SMI and will continue to receive regular
 updates, new functionality, and ongoing support. For more information on AMD
 SMI, see the [AMD SMI documentation](https://rocm.docs.amd.com/projects/amdsmi/en/latest/).
 
-### ROCTracer and ROCProfiler (rocprof and rocprofv2) deprecation
+### ROCTracer, ROCProfiler, rocprof, and rocprofv2 deprecation
 
-Development and support for ROCTracer and ROCProfiler (`rocprof` and `rocprofv2`) will phase out in favor of ROCprofiler-SDK (`rocprofv3`) in upcoming ROCm releases. Going forward, only critical defect fixes will be addressed for older versions of profiling tools and libraries. Upgrade to the latest version of ROCprofiler-SDK (`rocprofv3`) library to ensure continued support and access to new features.
+Development and support for ROCTracer, ROCProfiler, `rocprof`, and `rocprofv2` are being phased out in favour of ROCprofiler-SDK in upcoming ROCm releases. Starting with ROCm 6.4, only critical defect fixes will be addressed for older versions of the profiling tools and libraries. All users are encouraged to upgrade to the latest version of the ROCprofiler-SDK library and the (`rocprofv3`) tool to ensure continued support and access to new features. ROCprofiler-SDK is still in beta today and will be production-ready in the upcoming ROCm feature release.
+ 
+It's anticipated that ROCTracer, ROCProfiler, `rocprof`, and `rocprofv2` will reach end-of-life by the upcoming feature release, aligning with Q1 of 2026.
 
 ### AMDGPU wavefront size compiler macro deprecation
 
