@@ -92,7 +92,7 @@ The new bitstream reader feature has been added to [rocDecode](https://github.co
 
 * ROCm Compute Profiler now supports:
 
-    * ROCprofiler-SDK/ ROCProfv3
+    * ROCprofiler-SDK (`rocprofv3`)
     * Experimental multi-nodes profiling support.
     * Roofline plot for 64-bit floating point (FP64) and 32-bit floating point (FP32) data types.
 
@@ -142,7 +142,7 @@ For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/pro
 
 ### Dynamic calculation of KV cache scaling factors supported
 
-ROCm 6.4.0 enables dynamic calculation of key-value (KV) cache scaling factors.
+When using an FP8 key-value (KV) cache, models that don’t provide scaling factors (derived from the attention later projection output scales) might experience reduced accuracy due to quantization. ROCm 6.4.0 enables dynamic calculation of key-value (KV) cache scaling factors based on the actual runtime weight and input data to improve accuracy. For a vLLM usage example, see [Quantized KV Cache](https://docs.vllm.ai/en/latest/features/quantization/quantized_kvcache.html#usage-example) in the vLLM documentation.
 
 ### ROCm documentation updates
 
@@ -1174,7 +1174,7 @@ The following lists the backward incompatible changes planned for upcoming major
 #### Added
 
 * Roofline support for Ubuntu 24.04.
-* Experimental support rocprofv3 (not enabled as default).
+* Experimental support `rocprofv3` (not enabled as default).
 * Experimental feature: Spatial multiplexing.
 
 #### Resolved issues
