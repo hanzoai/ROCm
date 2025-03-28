@@ -634,7 +634,7 @@ and in-depth descriptions.
 
 #### Added
 
-* Support for gfx1200 and gfx1201.
+* Support for gfx1201.
 * hipBLASLt support for contiguous transpose GEMM fusion and GEMM pointwise fusions for improved performance.
 * Support for hardware-specific FP8 datatypes (FP8 OCP and FP8 FNUZ).
 * Support for the BF16 datatype.
@@ -711,7 +711,7 @@ and in-depth descriptions.
 * OCP FP8 support for gfx12.
 * Support for FP8, BF16, FP16, OCP FP8, BF8, pk_int4 data types in CK Tile GEMM.
 * Support for microscaling data types: MX FP4, FP6, and FP8.
-* Support for gfx1200, and gfx1201 targets.
+* Support for gfx1201 target.
 * Support for large batch tensors in grouped convolution backward data.
 * Support for grouped convolution backward weight BF16 NGCHW.
 * Support for cshuffle algorithm in CK Tile GEMM epilogue .
