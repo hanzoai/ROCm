@@ -104,7 +104,7 @@ compatibility and system requirements.
       :doc:`rocThrust <rocthrust:index>`,3.3.0,3.3.0,3.0.1
       ,,,
       SUPPORT LIBS,,,
-      `hipother <https://github.com/ROCm/hipother>`_,6.4.43481,6.3.42134,6.2.41133
+      `hipother <https://github.com/ROCm/hipother>`_,6.4.43482,6.3.42134,6.2.41133
       `rocm-core <https://github.com/ROCm/rocm-core>`_,6.4.0,6.3.3,6.2.0
       `ROCT-Thunk-Interface <https://github.com/ROCm/ROCT-Thunk-Interface>`_,N/A [#ROCT-rocr]_,N/A [#ROCT-rocr]_,20240607.1.4246
       ,,,
@@ -124,7 +124,7 @@ compatibility and system requirements.
       :doc:`ROCTracer <roctracer:index>`,4.1.60400,4.1.60303,4.1.60200
       ,,,
       DEVELOPMENT TOOLS,,,
-      :doc:`HIPIFY <hipify:index>`,19.0.0.25081,18.0.0.25012,18.0.0.24232
+      :doc:`HIPIFY <hipify:index>`,19.0.0.25104,18.0.0.25012,18.0.0.24232
       :doc:`ROCm CMake <rocmcmakebuildtools:index>`,0.14.0,0.14.0,0.13.0
       :doc:`ROCdbgapi <rocdbgapi:index>`,0.77.2,0.77.0,0.76.0
       :doc:`ROCm Debugger (ROCgdb) <rocgdb:index>`,15.2.0,15.2.0,14.2.0
@@ -134,13 +134,13 @@ compatibility and system requirements.
       COMPILERS,.. _compilers-support-compatibility-matrix:,,
       `clang-ocl <https://github.com/ROCm/clang-ocl>`_,N/A,N/A,N/A
       :doc:`hipCC <hipcc:index>`,1.1.1,1.1.1,1.1.1
-      `Flang <https://github.com/ROCm/flang>`_,19.0.0.25081,18.0.0.25012,18.0.0.24232
-      :doc:`llvm-project <llvm-project:index>`,19.0.0.25081,18.0.0.25012,18.0.0.24232
-      `OpenMP <https://github.com/ROCm/llvm-project/tree/amd-staging/openmp>`_,19.0.0.25081,18.0.0.25012,18.0.0.24232
+      `Flang <https://github.com/ROCm/flang>`_,19.0.0.25104,18.0.0.25012,18.0.0.24232
+      :doc:`llvm-project <llvm-project:index>`,19.0.0.25104,18.0.0.25012,18.0.0.24232
+      `OpenMP <https://github.com/ROCm/llvm-project/tree/amd-staging/openmp>`_,19.0.0.25104,18.0.0.25012,18.0.0.24232
       ,,,
       RUNTIMES,.. _runtime-support-compatibility-matrix:,,
-      :doc:`AMD CLR <hip:understand/amd_clr>`,6.4.43481,6.3.42134,6.2.41133
-      :doc:`HIP <hip:index>`,6.4.43481,6.3.42134,6.2.41133
+      :doc:`AMD CLR <hip:understand/amd_clr>`,6.4.43482,6.3.42134,6.2.41133
+      :doc:`HIP <hip:index>`,6.4.43482,6.3.42134,6.2.41133
       `OpenCL Runtime <https://github.com/ROCm/clr/tree/develop/opencl>`_,2.0.0,2.0.0,2.0.0
       :doc:`ROCr Runtime <rocr-runtime:index>`,1.15.0,1.14.0,1.13.0
 

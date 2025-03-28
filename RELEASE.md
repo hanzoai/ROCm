@@ -1333,10 +1333,6 @@ and in-depth descriptions.
 * Accumulation VGPR support for `rocprofv3`.
 * Host-trap based PC sampling support for `rocprofv3`.
 * Support for OpenMP tool.
-* `--agent-index` option in `rocprofv3` to specify the agent naming convention in the output
-    * absolute == node_id
-    * relative == logical_node_id
-    * type-relative == logical_node_type_id
 
 ### **rocPyDecode** (0.3.1)
 
@@ -1595,9 +1591,9 @@ Fixed the issue of the PCI Express Qualification Tool (PEQT) module present in t
 ### Transformer Engine test_distributed_fused_attn aborts with fatal Python error
 
 Fixed the issue of the `test_distributed_fused_attn` Pytest case for JAX in [Transformer Engine
-for ROCm](https://github.com/ROCm/TransformerEngine) faiiling with a fatal Python
+for ROCm](https://github.com/ROCm/TransformerEngine) failing with a fatal Python
 error under certain conditions. The root cause was unrelated to Transformer Engine
-but due to some issue within XLA. The fix has now been implemnted in XLA. See [GitHub issue #4087](https://github.com/ROCm/ROCm/issues/4087).
+but due to some issue within XLA. The fix has now been implemented in XLA. See [GitHub issue #4087](https://github.com/ROCm/ROCm/issues/4087).
 
 ## ROCm upcoming changes
 
@@ -1618,7 +1614,7 @@ SMI, see the [AMD SMI documentation](https://rocm.docs.amd.com/projects/amdsmi/e
 
 ### ROCTracer, ROCProfiler, rocprof, and rocprofv2 deprecation
 
-Development and support for ROCTracer, ROCProfiler, `rocprof`, and `rocprofv2` are being phased out in favour of ROCprofiler-SDK in upcoming ROCm releases. Starting with ROCm 6.4, only critical defect fixes will be addressed for older versions of the profiling tools and libraries. All users are encouraged to upgrade to the latest version of the ROCprofiler-SDK library and the (`rocprofv3`) tool to ensure continued support and access to new features. ROCprofiler-SDK is still in beta today and will be production-ready in the upcoming ROCm feature release.
+Development and support for ROCTracer, ROCProfiler, `rocprof`, and `rocprofv2` are being phased out in favor of ROCprofiler-SDK in upcoming ROCm releases. Starting with ROCm 6.4, only critical defect fixes will be addressed for older versions of the profiling tools and libraries. All users are encouraged to upgrade to the latest version of the ROCprofiler-SDK library and the (`rocprofv3`) tool to ensure continued support and access to new features. ROCprofiler-SDK is still in beta today and will be production-ready in the upcoming ROCm feature release.
  
 It's anticipated that ROCTracer, ROCProfiler, `rocprof`, and `rocprofv2` will reach end-of-life by the upcoming feature release, aligning with Q1 of 2026.
 
