@@ -133,7 +133,7 @@ and in-depth descriptions.
 
 #### Added
 
-* Support for gfx1200 and gfx1201.
+* Support for gfx1201.
 * hipBLASLt support for contiguous transpose GEMM fusion and GEMM pointwise fusions for improved performance.
 * Support for hardware-specific FP8 datatypes (FP8 OCP and FP8 FNUZ).
 * Support for the BF16 datatype.
@@ -210,7 +210,7 @@ and in-depth descriptions.
 * OCP FP8 support for gfx12.
 * Support for FP8, BF16, FP16, OCP FP8, BF8, pk_int4 data types in CK Tile GEMM.
 * Support for microscaling data types: MX FP4, FP6, and FP8.
-* Support for gfx1200, and gfx1201 targets.
+* Support for gfx1201 target.
 * Support for large batch tensors in grouped convolution backward data.
 * Support for grouped convolution backward weight BF16 NGCHW.
 * Support for cshuffle algorithm in CK Tile GEMM epilogue .
@@ -671,7 +671,7 @@ The following lists the backward incompatible changes planned for upcoming major
 #### Added
 
 * Roofline support for Ubuntu 24.04.
-* Experimental support rocprofv3 (not enabled as default).
+* Experimental support `rocprofv3` (not enabled as default).
 * Experimental feature: Spatial multiplexing.
 
 #### Resolved issues
@@ -828,6 +828,8 @@ and in-depth descriptions.
 * SDK: `rocprofiler_agent_v0_t` support for agent UUIDs.
 * SDK: `rocprofiler_agent_v0_t` support for agent visibility based on gpu isolation environment variables such as `ROCR_VISIBLE_DEVICES` and so on.
 * Accumulation VGPR support for `rocprofv3`.
+* Host-trap based PC sampling support for `rocprofv3`.
+* Support for OpenMP tool.
 
 ### **rocPyDecode** (0.3.1)
 
