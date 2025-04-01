@@ -109,7 +109,7 @@ compatibility and system requirements.
       `ROCT-Thunk-Interface <https://github.com/ROCm/ROCT-Thunk-Interface>`_,N/A [#ROCT-rocr]_,N/A [#ROCT-rocr]_,20240607.1.4246
       ,,,
       SYSTEM MGMT TOOLS,.. _tools-support-compatibility-matrix:,,
-      :doc:`AMD SMI <amdsmi:index>`,25.2.0,24.7.1,24.6.2
+      :doc:`AMD SMI <amdsmi:index>`,25.3.0,24.7.1,24.6.2
       :doc:`ROCm Data Center Tool <rdc:index>`,0.3.0,0.3.0,0.3.0
       :doc:`rocminfo <rocminfo:index>`,1.0.0,1.0.0,1.0.0
       :doc:`ROCm SMI <rocm_smi_lib:index>`,7.5.0,7.4.0,7.3.0

@@ -370,7 +370,7 @@ Click {fab}`github` to go to the component's source code on GitHub.
                 <th rowspan="7">Tools</th>
                 <th rowspan="7">System management</th>
                 <td><a href="https://rocm.docs.amd.com/projects/amdsmi/en/docs-6.3.3/index.html">AMD SMI</a></td>
-                <td>24.7.1&nbsp;&Rightarrow;&nbsp;<a href="#amd-smi-25-2-0">25.2.0</a></td>
+                <td>24.7.1&nbsp;&Rightarrow;&nbsp;<a href="#amd-smi-25-3-0">25.3.0</a></td>
                 <td><a href="https://github.com/ROCm/amdsmi"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
@@ -510,7 +510,7 @@ The following sections describe key changes to ROCm components.
 For a historical overview of ROCm component updates, see the {doc}`ROCm consolidated changelog </release/changelog>`.
 ```
 
-### **AMD SMI** (25.2.0)
+### **AMD SMI** (25.3.0)
 
 #### Added
 
@@ -535,8 +535,8 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 #### Changed
 
 - Updated AMD SMI library version number format to reflect changes in backward compatibility and offer more semantic versioning.
-  - Removed Year from AMD SMI library version number.
-  - Version format changed from 25.2.0.0 (Year.Major.Minor.Patch) to 25.2.0 (Major.Minor.Patch).
+  - Removed year from AMD SMI library version number.
+  - Version format changed from 25.3.0.0 (Year.Major.Minor.Patch) to 25.3.0 (Major.Minor.Patch).
   - Removed year in all version references.
 
 - Added new Python dependencies: `python3-setuptools` and `python3-wheel`.
