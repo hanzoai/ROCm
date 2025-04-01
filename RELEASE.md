@@ -138,10 +138,6 @@ The ROCm Runfile Installer 6.4.0 adds improvements for dependency installation i
 
 For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-runfile-installer.html).
 
-### Dynamic calculation of KV cache scaling factors supported
-
-When using an FP8 key-value (KV) cache, models that don’t provide scaling factors (derived from the attention later projection output scales) might experience reduced accuracy due to quantization. vLLM now enables dynamic calculation of key-value (KV) cache scaling factors based on the actual runtime weight and input data to improve accuracy. For a vLLM usage example, see [Quantized KV Cache](https://docs.vllm.ai/en/latest/features/quantization/quantized_kvcache.html#usage-example) in the vLLM documentation.
-
 ### ROCm documentation updates
 
 ROCm documentation continues to be updated to provide clearer and more comprehensive guidance for a wider variety of user needs and use cases.
@@ -172,7 +168,7 @@ ROCm 6.4.0 adds support for Oracle Linux 9 operating system. Oracle Linux is sup
 
 ROCm 6.4.0 marks the end of support (EoS) for SLES 15 SP5.
 
-Hardware support remains unchanged in this release.
+ROCm 6.4.0 adds support for [AMD Radeon PRO W7800 48GB](https://www.amd.com/en/products/graphics/workstations/radeon-pro/w7800-48gb.html) GPU for heavy compute workloads. See [Supported GPUs](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#supported-gpus) for more information.
 
 See the [Compatibility
 matrix](../../docs/compatibility/compatibility-matrix.rst)
@@ -1419,6 +1415,7 @@ and in-depth descriptions.
 
 * Fixed an issue in `rocsparse_spgemm`, `rocsparse_[s|d|c|z]csrgemm`, and `rocsparse_[s|d|c|z]bsrgemm` where incorrect results could be produced when rocSPARSE was built with optimization level `O0`. This was caused by a bug in the hash tables that could allow keys to be inserted twice.
 * Fixed an issue in the routine `rocsparse_spgemm` when using `rocsparse_spgemm_stage_symbolic` and `rocsparse_spgemm_stage_numeric`, where the routine would crash when `alpha` and `beta` were passed as host pointers and where `beta != 0`.
+* Fixed an issue in `rocsparse_bsrilu0`, where the algorithm was running out of bounds of the `bsr_val` array.
 
 #### Upcoming changes
 
@@ -1573,9 +1570,21 @@ modprobe.blacklist=mgag200
 
 In ROCm 6.4.0, compilation for generic target with compression will fail. As a result, you won't be able to compile for a generic target and use compression simultaneously. As a workaround, it's recommended not to use compression when using generic targets and vice versa. This issue will be addressed in a future ROCm release.
 
-### GFX Freq information is unavailable in the rocm-smi when running in SRIOV mode enabled on MI210.
+### GFX Freq information is unavailable in the rocm-smi when running in SRIOV mode enabled on MI210
 
 In ROCm 6.4.0, you cannot see the GFX Freq information in the guest VM. In SRIOV mode, the AMD Platform Management Firmware (PMFW) does not share the graphics frequency information with the guest VMs and is only available to Host systems. This issue will be addressed in a future ROCm release.
+
+### Failure to use --kokkos-trace option in ROCm Compute Profiler
+
+In ROCm 6.4.0, it’s not recommended to use the `--kokkos-trace` option. `--kokkos-trace` has been partially implemented in the `rocprofv3` tool, resulting in a difference between the output of `--kokkos-trace` and the `counter_collection.csv` output file. The program will exit with a warning message if the `-kokkos-trace` option is detected in the ROCm Compute Profiler. The issue will be addressed in a future ROCm release.
+
+### ROCm Systems Profiler fails to use call-stack sampling for Python codes
+
+In ROCm 6.4.0, due to partial integration of the latest version of ROCprofiler-SDK, ROCm Systems Profiler fails to use call-stack sampling for Python codes using `rocprof-sys-sample` executable. This results in failure to sample the collected RCCL information. The issue will be addressed in a future ROCm release.
+
+### MIOpen generates incorrect results for particular input with FP32 data type
+
+In ROCm 6.4.0, MIOpen generates incorrect results on the `conv2dbackward` function for a particular input with 32-bit floating point (FP32) data types. The issue is only specific to FP32 data types with 2 * 2 kernel size and dilation 2 * 1. As a workaround, change the data type from FP32 to FP16. The issue will be addressed in a future ROCm release. 
 
 ## ROCm resolved issues
 
