@@ -52,6 +52,8 @@ See [Training a model with Megatron-LM for ROCm](https://rocm.docs.amd.com/en/la
 
 On AMD Instinct™ MI300X systems, you can now use Core Partitioned X-celerator (CPX) mode in combination with the Non-Uniform Memory Access (NUMA) Per Socket (NPS4) memory mode. This partition mode configuration can be applied to a Single Root IO Virtualization (SR-IOV) host or a bare metal environment. This feature enables better performance with small language models (13B parameters or less) that can fit within one CPX GPU.
 
+For steps on changing GPU partition modes, see [Change GPU partition modes](https://advanced-micro-devices-dcgpu-documentation--19.com.readthedocs.build/projects/amdgpu-docs/en/19/system-optimization/mi300x.html#change-gpu-partition-modes) in the Instinct documentation.
+
 To learn how CPX and NPS4 partition modes can benefit RCCL performance on MI300X systems, see [RCCL usage tips](https://advanced-micro-devices-demo--1555.com.readthedocs.build/projects/rccl/en/1555/how-to/rccl-usage-tips.html#nps4-and-cpx-partition-modes).
 
 ### Kernel-mode GPU Driver (KMD) and user space software compatibility improved
@@ -168,7 +170,7 @@ ROCm 6.4.0 adds support for Oracle Linux 9 operating system. Oracle Linux is sup
 
 ROCm 6.4.0 marks the end of support (EoS) for SLES 15 SP5.
 
-ROCm 6.4.0 adds support for [AMD Radeon PRO W7800 48GB](https://www.amd.com/en/products/graphics/workstations/radeon-pro/w7800-48gb.html) GPU for heavy compute workloads. See [Supported GPUs](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#supported-gpus) for more information.
+ROCm 6.4.0 adds support for [AMD Radeon PRO W7800 48GB](https://www.amd.com/en/products/graphics/workstations/radeon-pro/w7800-48gb.html) GPU for compute workloads. See [Supported GPUs](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#supported-gpus) for more information.
 
 See the [Compatibility
 matrix](../../docs/compatibility/compatibility-matrix.rst)
