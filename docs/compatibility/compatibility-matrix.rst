@@ -124,7 +124,7 @@ compatibility and system requirements.
       :doc:`ROCTracer <roctracer:index>`,4.1.60400,4.1.60303,4.1.60200
       ,,,
       DEVELOPMENT TOOLS,,,
-      :doc:`HIPIFY <hipify:index>`,19.0.0.25104,18.0.0.25012,18.0.0.24232
+      :doc:`HIPIFY <hipify:index>`,19.0.0.25133,18.0.0.25012,18.0.0.24232
       :doc:`ROCm CMake <rocmcmakebuildtools:index>`,0.14.0,0.14.0,0.13.0
       :doc:`ROCdbgapi <rocdbgapi:index>`,0.77.2,0.77.0,0.76.0
       :doc:`ROCm Debugger (ROCgdb) <rocgdb:index>`,15.2.0,15.2.0,14.2.0
@@ -134,9 +134,9 @@ compatibility and system requirements.
       COMPILERS,.. _compilers-support-compatibility-matrix:,,
       `clang-ocl <https://github.com/ROCm/clang-ocl>`_,N/A,N/A,N/A
       :doc:`hipCC <hipcc:index>`,1.1.1,1.1.1,1.1.1
-      `Flang <https://github.com/ROCm/flang>`_,19.0.0.25104,18.0.0.25012,18.0.0.24232
-      :doc:`llvm-project <llvm-project:index>`,19.0.0.25104,18.0.0.25012,18.0.0.24232
-      `OpenMP <https://github.com/ROCm/llvm-project/tree/amd-staging/openmp>`_,19.0.0.25104,18.0.0.25012,18.0.0.24232
+      `Flang <https://github.com/ROCm/flang>`_,19.0.0.25133,18.0.0.25012,18.0.0.24232
+      :doc:`llvm-project <llvm-project:index>`,19.0.0.25133,18.0.0.25012,18.0.0.24232
+      `OpenMP <https://github.com/ROCm/llvm-project/tree/amd-staging/openmp>`_,19.0.0.25133,18.0.0.25012,18.0.0.24232
       ,,,
       RUNTIMES,.. _runtime-support-compatibility-matrix:,,
       :doc:`AMD CLR <hip:understand/amd_clr>`,6.4.43482,6.3.42134,6.2.41133

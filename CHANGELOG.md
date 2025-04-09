@@ -263,10 +263,6 @@ and in-depth descriptions.
     - Perl package installation is not required, and users will need to install this themselves if they want to.
     - Support for ROCm Object tooling has moved into `llvm-objdump` provided by package `rocm-llvm`.
 
-#### Removed
-
-* HIP API `hipExtHostAlloc`.
-
 #### Optimized
 
 * `hipGraphLaunch` parallelism is improved for complex data-parallel graphs.
@@ -275,7 +271,9 @@ and in-depth descriptions.
 
 #### Resolved issues
 
-* Out-of-memory error on Microsoft Windows. When the user calls `hipMalloc` for device memory allocation while specifying a size larger than the available device memory, the HIP runtime fixes the error in the API implementation, allocating the available device memory plus system memory (shared virtual memory). This fix is not available on Linux.
+* Out-of-memory error on Microsoft Windows. When the user calls `hipMalloc` for device memory allocation while specifying a size larger than the available device memory, the HIP runtime fixes the error in the API implementation, allocating the available device memory plus system memory (shared virtual memory).
+* Error of dependency on libgcc-s1 during rocm-dev install on Debian Buster. HIP runtime now uses libgcc1 for this distros.
+* Stack corruption during kernel execution. HIP runtime now adds a maximum stack size limit based on the GPU device feature. 
 
 #### Upcoming changes
 
