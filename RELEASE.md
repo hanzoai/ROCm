@@ -766,16 +766,24 @@ and in-depth descriptions.
     - Perl package installation is not required, and users will need to install this themselves if they want to.
     - Support for ROCm Object tooling has moved into `llvm-objdump` provided by package `rocm-llvm`.
 
+* SDMA retainer logic is removed for engine selection in operation of runtime buffer copy.
+
 #### Optimized
 
 * `hipGraphLaunch` parallelism is improved for complex data-parallel graphs.
 * Make the round-robin queue selection in command scheduling. For multi-streams execution, HSA queue from null stream lock is freed and won't occupy the queue ID after the kernel in the stream is finished.
 * The HIP runtime doesn't free bitcode object before code generation. It adds a cache, which allows compiled code objects to be reused instead of recompiling. This improves performance on multi-GPU systems.
+* Runtime now uses unified copy approach:
+
+    - Unpinned `H2D` copies are no longer blocking until the size of 1 MB.
+    - Kernel copy path is enabled for unpinned `H2D`/`D2H` methods.
+    - The default environment variable `GPU_FORCE_BLIT_COPY_SIZE` is set to `16`, which limits the kernel copy to sizes less than 16 KB, while copies larger than that would be handled by `SDMA` engine.
+    - Blit code is refactored, and ASAN instrumentation is cleaned up.
 
 #### Resolved issues
 
 * Out-of-memory error on Microsoft Windows. When the user calls `hipMalloc` for device memory allocation while specifying a size larger than the available device memory, the HIP runtime fixes the error in the API implementation, allocating the available device memory plus system memory (shared virtual memory).
-* Error of dependency on libgcc-s1 during rocm-dev install on Debian Buster. HIP runtime now uses libgcc1 for this distros.
+* Error of dependency on `libgcc-s1` during rocm-dev install on Debian Buster. HIP runtime now uses `libgcc1` for this distros.
 * Stack corruption during kernel execution. HIP runtime now adds a maximum stack size limit based on the GPU device feature. 
 
 #### Upcoming changes
@@ -1660,7 +1668,15 @@ and will be disabled in a future release.
 * For cases where compile-time evaluation of the wavefront size cannot be avoided,
   uses of `__AMDGCN_WAVEFRONT_SIZE`, `__AMDGCN_WAVEFRONT_SIZE__`, or `warpSize`
   can be replaced with a user-defined macro or `constexpr` variable with the wavefront
-  size(s) for the target hardware.
+  size(s) for the target hardware. For example: 
+
+```
+   #if defined(__GFX9__)
+   #define MY_MACRO_FOR_WAVEFRONT_SIZE 64
+   #else
+   #define MY_MACRO_FOR_WAVEFRONT_SIZE 32
+   #endif
+```
 
 ### HIPCC Perl scripts deprecation
 
@@ -1676,3 +1692,11 @@ or executables passed as input.  The ``llvm-objdump --offloading`` tool option a
 supports the ``--arch-name`` option, and only extracts code objects found with
 the specified target architecture. See [llvm-objdump](https://llvm.org/docs/CommandGuide/llvm-objdump.html)
 for more information. 
+
+### HIP runtime API changes
+ 
+There are a number of upcoming changes planned for HIP runtime API in an upcoming major release 
+that are not backward compatible with prior releases. Most of these changes increase 
+alignment between HIP and CUDA APIs or behavior. Some of the upcoming changes are to 
+clean up header files, remove namespace collision, and have a clear separation between 
+`hipRTC` and HIP runtime. For more information refer to [HIP Upcoming changes](#hip-6-4-0).
