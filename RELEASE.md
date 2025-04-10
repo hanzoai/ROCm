@@ -128,7 +128,7 @@ hipTensor library has been enhanced with:
 
 * Additional new modules and metrics have been added to enhance the end-user experience by improving monitoring, management, and optimization of GPU resources, RDC components, communication, data transfer, and the overall system functionality, ensuring reduced downtime.
     * Modules: RVS integration, Group policy management, Add version command, Multilevel Diagnostics Runs, Topology mapping, Conditions and Thresholds, Memory speed, Runtime health check.
-    * Metrices: Switches and Link Status, Memory bandwidth, Memory Usage, Utilization, MM Eng Enc/Dec throughput.
+    * Metrics: Switches and Link Status, Memory bandwidth, Memory Usage, Utilization, MM Eng Enc/Dec throughput.
 * Plugins for ROCprofiler-SDK (`rocprofv3`) has been upgraded.
 
 ### ROCm Offline Installer Creator updates
@@ -1600,7 +1600,7 @@ In ROCm 6.4.0, MIOpen generates incorrect results on the `conv2dbackward` functi
 
 ### ROCm Debugger (ROCgdb) might not work correctly on the AMD Radeon PRO W6800 SR-IOV virtualization environment
 
-The ROCm Debugger (ROCgdb) component needs access to some registers to fetch debugging information. These registers are blocked in the AMD Radeon PRO W6800 SR-IOV virtualization environment, resulting in the ROCm Debugger (ROCgdb) being unfunctional. The issue is due to the limitation in the virtualization host driver, which isn't specific to ROCm. The issue will be fixed in a future host driver release.
+The ROCm Debugger (ROCgdb) component needs access to some registers to fetch debugging information. These registers are blocked in the AMD Radeon PRO W6800 SR-IOV virtualization environment, resulting in the ROCm Debugger (ROCgdb) being unfunctional. The issue is due to the limitation in the virtualization environment and isn't specific to ROCm. Further investigation is in progress.
 
 ### Limited support for Sparse API and Pallas functionality in JAX
 
@@ -1613,6 +1613,22 @@ In ROCm 6.4.0, using a Mixtral 8X7B model with different tensor parallelism (TP)
 The inconsistency primarily impacts the applications that rely on consistent log probabilities, such as those involving uncertainty estimation or probabilistic decision-making. This known limitation results from how TP distributes computations across multiple GPUs, resulting in slight variations in floating-point arithmetic. Currently, there is no direct resolution as this is a framework-level characteristic rather than a defect.
 
 As a workaround, you can standardize the TP sizes across all the deployments to minimize the inconsistency in the log probabilities. For information on the resolution of this inconsistency in the future, see the [SGlang](https://github.com/sgl-project/sglang) and [vLLM](https://github.com/vllm-project/vllm) GitHub repositories. 
+
+### No module named more_itertools warning on Azure Linux 3
+
+During the driver installation process on Azure Linux 3, you might encounter the `ModuleNotFoundError: No module named 'more_itertools'` warning. This warning is a result of the reintroduction of `python3-wheel` and `python3-setuptools` dependencies in the CMake of `amdsmi`, which requires `more_itertools` to build these Python libraries . This issue will be fixed in a future ROCm release. As a workaround, use the following command before installation.
+
+```
+sudo python3 -m pip install more_itertools
+```
+
+### Rare occurrence of AMDGPU driver failing to load in a VM on Quanta system
+
+In a rare occurrence (1 in 500 reboots), the guest kernel might display the call trace due to the AMDGPU driver failing to load in a repeated power cycle virtual machine (VM) on a Quanta system. This issue will limit you from using the AMD GPUs in the guest kernel. As a workaround, reboot the VM to avoid the failure.
+
+### Clang compilation failure might occur due to incorrectly installed GNU C++ runtime
+
+Clang compilation failure with the error `fatal error: 'cmath' file not found` might occur if the GNU C++ runtime is not installed correctly. The error indicates that the `libstdc++-dev` package, compatible with the latest installed GNU Compiler Collection (GCC) version, is missing. This issue is a result of Clang being unable to find the newest GNU C++ runtimes it recognizes and the associated header files. As a workaround, install the `libstdc++-dev` package compatible with the installed GCC version.
 
 ## ROCm resolved issues
 
