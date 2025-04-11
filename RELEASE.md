@@ -72,9 +72,9 @@ Separating the major software components improves the upgrade experience by:
 * Allowing you to upgrade your Instinct driver independently of ROCm user space, or vice versa.
 * Having bug fixes released independently in either the Instinct driver or ROCm user space.
 
-### PyTorch 2.5 support added
+### PyTorch 2.6 and 2.5 support added
 
-ROCm 6.4.0 adds support for PyTorch 2.5. See the [Compatibility
+ROCm 6.4.0 adds support for PyTorch 2.6 and 2.5. See the [Compatibility
 matrix](../../docs/compatibility/compatibility-matrix.rst)
 for the complete list of PyTorch versions tested for compatibility with ROCm. See [Installing deep learning frameworks for ROCm](https://rocm.docs.amd.com/en/latest/how-to/deep-learning-rocm.html) for more information about supported deep learning frameworks.  
 
