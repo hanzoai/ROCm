@@ -1600,7 +1600,7 @@ In ROCm 6.4.0, MIOpen generates incorrect results on the `conv2dbackward` functi
 
 ### ROCm Debugger (ROCgdb) might not work correctly on the AMD Radeon PRO W6800 SR-IOV virtualization environment
 
-The ROCm Debugger (ROCgdb) component needs access to some registers to fetch debugging information. These registers are blocked in the AMD Radeon PRO W6800 SR-IOV virtualization environment, resulting in the ROCm Debugger (ROCgdb) being unfunctional. The issue is due to the limitation in the virtualization environment and isn't specific to ROCm. Further investigation is in progress.
+The ROCm Debugger (ROCgdb) component needs access to some registers to fetch debugging information. These registers are blocked in the AMD Radeon PRO W6800 SR-IOV virtualization environment, resulting in the ROCm Debugger (ROCgdb) being non-functional. The issue is due to the limitation in the virtualization environment and isn't specific to ROCm. Further investigation is in progress.
 
 ### Limited support for Sparse API and Pallas functionality in JAX
 
@@ -1665,9 +1665,9 @@ SMI, see the [AMD SMI documentation](https://rocm.docs.amd.com/projects/amdsmi/e
 
 ### ROCTracer, ROCProfiler, rocprof, and rocprofv2 deprecation
 
-Development and support for ROCTracer, ROCProfiler, `rocprof`, and `rocprofv2` are being phased out in favor of ROCprofiler-SDK in upcoming ROCm releases. Starting with ROCm 6.4, only critical defect fixes will be addressed for older versions of the profiling tools and libraries. All users are encouraged to upgrade to the latest version of the ROCprofiler-SDK library and the (`rocprofv3`) tool to ensure continued support and access to new features. ROCprofiler-SDK is still in beta today and will be production-ready in the upcoming ROCm feature release.
+Development and support for ROCTracer, ROCProfiler, `rocprof`, and `rocprofv2` are being phased out in favor of ROCprofiler-SDK in upcoming ROCm releases. Starting with ROCm 6.4, only critical defect fixes will be addressed for older versions of the profiling tools and libraries. All users are encouraged to upgrade to the latest version of the ROCprofiler-SDK library and the (`rocprofv3`) tool to ensure continued support and access to new features. ROCprofiler-SDK is still in beta today and will be production-ready in a future ROCm release.
  
-It's anticipated that ROCTracer, ROCProfiler, `rocprof`, and `rocprofv2` will reach end-of-life by the upcoming feature release, aligning with Q1 of 2026.
+It's anticipated that ROCTracer, ROCProfiler, `rocprof`, and `rocprofv2` will reach end-of-life by future releases, aligning with Q1 of 2026.
 
 ### AMDGPU wavefront size compiler macro deprecation
 
