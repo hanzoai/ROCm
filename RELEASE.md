@@ -53,10 +53,10 @@ See [Training a model with Megatron-LM for ROCm](https://rocm.docs.amd.com/en/la
 On AMD Instinct™ MI300X systems, you can now use Core Partitioned X-celerator (CPX) mode in combination with the Non-Uniform Memory Access (NUMA) Per Socket (NPS4) memory mode. This partition mode configuration can be applied to a Single Root IO Virtualization (SR-IOV) host or a bare metal environment. This feature enables better performance with small language models (13B parameters or less) that can fit within one CPX GPU.
 
 To learn how to switch to CPX and NPS4 modes, see [Change GPU partition
-modes](https://advanced-micro-devices-dcgpu-documentation--19.com.readthedocs.build/projects/amdgpu-docs/en/19/system-optimization/mi300x.html#change-gpu-partition-modes)
+modes](https://instinct.docs.amd.com/projects/amdgpu-docs/en/latest/system-optimization/mi300x.html#change-gpu-partition-modes)
 in the Instinct documentation.
 
-To learn how CPX and NPS4 partition modes can benefit RCCL performance on MI300X systems, see [RCCL usage tips](https://advanced-micro-devices-demo--1555.com.readthedocs.build/projects/rccl/en/1555/how-to/rccl-usage-tips.html#nps4-and-cpx-partition-modes).
+To learn how CPX and NPS4 partition modes can benefit RCCL performance on MI300X systems, see [RCCL usage tips](https://rocm.docs.amd.com/projects/rccl/en/latest/how-to/rccl-usage-tips.html#rccl-performance-with-cpx-and-nps4).
 
 ### Kernel-mode GPU Driver (KMD) and user space software compatibility improved
 
@@ -1629,6 +1629,22 @@ In a rare occurrence (1 in 500 reboots), the guest kernel might display the call
 ### Clang compilation failure might occur due to incorrectly installed GNU C++ runtime
 
 Clang compilation failure with the error `fatal error: 'cmath' file not found` might occur if the GNU C++ runtime is not installed correctly. The error indicates that the `libstdc++-dev` package, compatible with the latest installed GNU Compiler Collection (GCC) version, is missing. This issue is a result of Clang being unable to find the newest GNU C++ runtimes it recognizes and the associated header files. As a workaround, install the `libstdc++-dev` package compatible with the installed GCC version.
+
+### ROCProfiler with rocprof might fail to initialize in some PyTorch applications
+
+In some PyTorch applications, the `HSA_TOOLS_LIB` environment variable might fail to initialize the ROCProfiler library with the `rocprof` tool. As a result of the issue, `--stats` and the counter collection commands might fail to trace the execution of the application and collect hardware component performance during kernel execution, respectively. The issue might have originated from a change in the PyTorch library, causing an overwrite in the `HSA_TOOLS_LIB` environment variable. This issue will be fixed in a future ROCm release. However, consider that ROCprofiler and `rocprof` are being phased out in favor of ROCprofiler-SDK in upcoming ROCm releases. For details, see [ROCm upcoming changes](#roctracer-rocprofiler-rocprof-and-rocprofv2-deprecation).
+ 
+As a workaround, add the following to the command you are running:
+
+```
+LD_PRELOAD=/opt/rocm-6.x.x/lib/librocprofiler64.so.1.
+```
+
+Alternatively, you can modify the `rocprof` script located at `/opt/rocm-6.x.x/bin/rocprof` by adding the following in line #96:
+
+```
+ROCPROFV1_LD_PRELOAD=$MY_HSA_TOOLS_LIB
+```
 
 ## ROCm resolved issues
 
