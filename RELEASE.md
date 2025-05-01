@@ -491,7 +491,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Resolved issues
 
-- Fixed [rocprofiler](https://rocm.docs.amd.com/projects/rocprofiler/en/docs-6.4.0/index.html) eval metrics and memory leaks.
+- Fixed [ROCProfiler](https://rocm.docs.amd.com/projects/rocprofiler/en/docs-6.4.0/index.html) eval metrics and memory leaks.
 
 ### **ROCm SMI** (7.6.0)
 
@@ -551,7 +551,7 @@ and will be disabled in a future release.
 
 * The `__AMDGCN_WAVEFRONT_SIZE__` macro and `__AMDGCN_WAVEFRONT_SIZE` alias will be removed in an upcoming release.
   It is recommended to remove any use of this macro. For more information, see
-  [AMDGPU support](https://rocm.docs.amd.com/projects/llvm-project/en/docs-6.3.2/LLVM/clang/html/AMDGPUSupport.html).
+  [AMDGPU support](https://rocm.docs.amd.com/projects/llvm-project/en/docs-6.4.0/LLVM/clang/html/AMDGPUSupport.html).
 * `warpSize` will only be available as a non-`constexpr` variable. Where required,
   the wavefront size should be queried via the `warpSize` variable in device code,
   or via `hipGetDeviceProperties` in host code. Neither of these will result in a compile-time constant. 
@@ -589,4 +589,4 @@ There are a number of upcoming changes planned for HIP runtime API in an upcomin
 that are not backward compatible with prior releases. Most of these changes increase 
 alignment between HIP and CUDA APIs or behavior. Some of the upcoming changes are to 
 clean up header files, remove namespace collision, and have a clear separation between 
-`hipRTC` and HIP runtime. For more information refer to [HIP Upcoming changes](#https://rocm.docs.amd.com/en/latest/about/release-notes.html#id15).
+`hipRTC` and HIP runtime. For more information refer to [HIP Upcoming changes](https://rocm.docs.amd.com/en/latest/about/release-notes.html#id15).
