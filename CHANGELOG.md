@@ -9,7 +9,7 @@ different versions of the ROCm software stack and its components.
 See the [ROCm 6.4.1 release notes](https://rocm-stg.amd.com/en/latest/about/release-notes.html)
 for a complete overview of this release.
 
-### **AMD SMI** (25.4.0)
+### **AMD SMI** (25.4.2)
 
 #### Added
 
@@ -50,7 +50,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 * Fixed an accuracy issue for some solutions using an `FP32` or `TF32` data type with a TT transpose.
 
-### **RCCL** (2.23.4)
+### **RCCL** (2.22.3)
 
 #### Changed
 
@@ -59,7 +59,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 #### Resolved issues
 
 * Fixed an issue where early termination, in rare circumstances, could cause the application to stop responding by adding synchronization before destroying a proxy thread.
-* Fixed the accuracy issue for the MSCCLPP `allreduc7` kernel in graph mode.
+* Fixed the accuracy issue for the MSCCLPP `allreduce7` kernel in graph mode.
 
 ### **rocALUTION** (3.2.3)
 
@@ -84,9 +84,9 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Resolved issues
 
-- Fixed [rocprofiler](https://rocm.docs.amd.com/projects/rocprofiler/en/docs-6.4.0/index.html) eval metrics and memory leaks.
+- Fixed [ROCProfiler](https://rocm.docs.amd.com/projects/rocprofiler/en/docs-6.4.0/index.html) eval metrics and memory leaks.
 
-### **ROCm SMI** (7.6.0)
+### **ROCm SMI** (7.5.0)
 
 #### Resolved issues
 
@@ -96,11 +96,15 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 See the full [ROCm SMI changelog](https://github.com/ROCm/rocm_smi_lib/blob/release/rocm-rel-6.4/CHANGELOG.md) for details, examples, and in-depth descriptions.
 ```
 
-### **ROCm Systems Profiler** (1.0.0)
+### **ROCm Systems Profiler** (1.0.1)
 
 #### Added 
 
 * How-to document for [network performance profiling](https://rocm.docs.amd.com/projects/rocprofiler-systems/en/amd-staging/how-to/nic-profiling.html) for standard Network Interface Cards (NICs).
+
+#### Resolved issues
+
+* Fixed a build issue with Dyninst on GCC 13.
 
 ### **ROCr Runtime** (1.15.0)
 

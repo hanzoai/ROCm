@@ -82,14 +82,14 @@ compatibility and system requirements.
       MATH LIBS,.. _mathlibs-support-compatibility-matrix:,,
       `half <https://github.com/ROCm/half>`_ ,1.12.0,1.12.0,1.12.0
       :doc:`hipBLAS <hipblas:index>`,2.4.0,2.4.0,2.3.0
-      :doc:`hipBLASLt <hipblaslt:index>`,0.12.0,0.12.0,0.10.0
+      :doc:`hipBLASLt <hipblaslt:index>`,0.12.1,0.12.0,0.10.0
       :doc:`hipFFT <hipfft:index>`,1.0.18,1.0.18,1.0.17
       :doc:`hipfort <hipfort:index>`,0.6.0,0.6.0,0.5.0
       :doc:`hipRAND <hiprand:index>`,2.12.0,2.12.0,2.11.0
       :doc:`hipSOLVER <hipsolver:index>`,2.4.0,2.4.0,2.3.0
       :doc:`hipSPARSE <hipsparse:index>`,3.2.0,3.2.0,3.1.2
       :doc:`hipSPARSELt <hipsparselt:index>`,0.2.3,0.2.3,0.2.2
-      :doc:`rocALUTION <rocalution:index>`,3.2.2,3.2.2,3.2.1
+      :doc:`rocALUTION <rocalution:index>`,3.2.3,3.2.2,3.2.1
       :doc:`rocBLAS <rocblas:index>`,4.4.0,4.4.0,4.3.0
       :doc:`rocFFT <rocfft:index>`,1.0.32,1.0.32,1.0.31
       :doc:`rocRAND <rocrand:index>`,3.3.0,3.3.0,3.2.0
@@ -110,16 +110,16 @@ compatibility and system requirements.
       `ROCT-Thunk-Interface <https://github.com/ROCm/ROCT-Thunk-Interface>`_,N/A [#ROCT-rocr]_,N/A [#ROCT-rocr]_,N/A [#ROCT-rocr]_
       ,,,
       SYSTEM MGMT TOOLS,.. _tools-support-compatibility-matrix:,,
-      :doc:`AMD SMI <amdsmi:index>`,25.3.0,25.3.0,24.7.1
+      :doc:`AMD SMI <amdsmi:index>`,25.4.2,25.3.0,24.7.1
       :doc:`ROCm Data Center Tool <rdc:index>`,0.3.0,0.3.0,0.3.0
       :doc:`rocminfo <rocminfo:index>`,1.0.0,1.0.0,1.0.0
-      :doc:`ROCm SMI <rocm_smi_lib:index>`,7.6.0,7.5.0,7.4.0
+      :doc:`ROCm SMI <rocm_smi_lib:index>`,7.5.0,7.5.0,7.4.0
       :doc:`ROCm Validation Suite <rocmvalidationsuite:index>`,1.1.0,1.1.0,1.1.0
       ,,,
       PERFORMANCE TOOLS,,,
       :doc:`ROCm Bandwidth Test <rocm_bandwidth_test:index>`,1.4.0,1.4.0,1.4.0
       :doc:`ROCm Compute Profiler <rocprofiler-compute:index>`,3.1.0,3.1.0,3.0.0
-      :doc:`ROCm Systems Profiler <rocprofiler-systems:index>`,1.0.0,1.0.0,0.1.0
+      :doc:`ROCm Systems Profiler <rocprofiler-systems:index>`,1.0.1,1.0.0,0.1.0
       :doc:`ROCProfiler <rocprofiler:index>`,2.0.60401,2.0.60400,2.0.60300
       :doc:`ROCprofiler-SDK <rocprofiler-sdk:index>`,0.6.0,0.6.0,0.5.0
       :doc:`ROCTracer <roctracer:index>`,4.1.60401,4.1.60400,4.1.60300
@@ -135,9 +135,9 @@ compatibility and system requirements.
       COMPILERS,.. _compilers-support-compatibility-matrix:,,
       `clang-ocl <https://github.com/ROCm/clang-ocl>`_,N/A,N/A,N/A
       :doc:`hipCC <hipcc:index>`,1.1.1,1.1.1,1.1.1
-      `Flang <https://github.com/ROCm/flang>`_,19.0.0.25163,19.0.0.25133,18.0.0.24455
-      :doc:`llvm-project <llvm-project:index>`,19.0.0.25163,19.0.0.25133,18.0.0.24491
-      `OpenMP <https://github.com/ROCm/llvm-project/tree/amd-staging/openmp>`_,19.0.0.25163,19.0.0.25133,18.0.0.24491
+      `Flang <https://github.com/ROCm/flang>`_,19.0.0.25172,19.0.0.25133,18.0.0.24455
+      :doc:`llvm-project <llvm-project:index>`,19.0.0.25172,19.0.0.25133,18.0.0.24491
+      `OpenMP <https://github.com/ROCm/llvm-project/tree/amd-staging/openmp>`_,19.0.0.25172,19.0.0.25133,18.0.0.24491
       ,,,
       RUNTIMES,.. _runtime-support-compatibility-matrix:,,
       :doc:`AMD CLR <hip:understand/amd_clr>`,6.4.43483,6.4.43482,6.3.42131
