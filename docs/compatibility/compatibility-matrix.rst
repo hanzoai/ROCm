@@ -135,9 +135,9 @@ compatibility and system requirements.
       COMPILERS,.. _compilers-support-compatibility-matrix:,,
       `clang-ocl <https://github.com/ROCm/clang-ocl>`_,N/A,N/A,N/A
       :doc:`hipCC <hipcc:index>`,1.1.1,1.1.1,1.1.1
-      `Flang <https://github.com/ROCm/flang>`_,19.0.0.25172,19.0.0.25133,18.0.0.24455
-      :doc:`llvm-project <llvm-project:index>`,19.0.0.25172,19.0.0.25133,18.0.0.24491
-      `OpenMP <https://github.com/ROCm/llvm-project/tree/amd-staging/openmp>`_,19.0.0.25172,19.0.0.25133,18.0.0.24491
+      `Flang <https://github.com/ROCm/flang>`_,19.0.0.25184,19.0.0.25133,18.0.0.24455
+      :doc:`llvm-project <llvm-project:index>`,19.0.0.25184,19.0.0.25133,18.0.0.24491
+      `OpenMP <https://github.com/ROCm/llvm-project/tree/amd-staging/openmp>`_,19.0.0.25184,19.0.0.25133,18.0.0.24491
       ,,,
       RUNTIMES,.. _runtime-support-compatibility-matrix:,,
       :doc:`AMD CLR <hip:understand/amd_clr>`,6.4.43483,6.4.43482,6.3.42131

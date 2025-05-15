@@ -482,6 +482,10 @@ See the full [AMD SMI changelog](https://github.com/AMD-ROCm-Internal/amdsmi/blo
 * Fixed an issue where early termination, in rare circumstances, could cause the application to stop responding by adding synchronization before destroying a proxy thread.
 * Fixed the accuracy issue for the MSCCLPP `allreduce7` kernel in graph mode.
 
+#### Known issues
+
+* When splitting a communicator using `ncclCommSplit` in some GPU configurations, MSCCL initialization can cause a segmentation fault. The recommended workaround is to disable MSCCL with `export RCCL_MSCCL_ENABLE=0`.
+
 ### **rocALUTION** (3.2.3)
 
 #### Added
