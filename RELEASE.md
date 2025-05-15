@@ -43,11 +43,12 @@ The following are notable new features and improvements in ROCm 6.4.1. For chang
 AMD Instinct MI300X now supports DPX partition mode under NPS2 memory mode. For more partitioning information, see the [Deep dive into the MI300 compute and memory partition modes](https://rocm.blogs.amd.com/software-tools-optimization/compute-memory-modes/README.html) blog and [AMD Instinct MI300X system optimization](https://instinct.docs.amd.com/projects/amdgpu-docs/en/latest/system-optimization/mi300x.html#change-gpu-partition-modes).
 
 ### Introducing the ROCm Data Science toolkit
+
 The ROCm Data Science toolkit (or ROCm-DS) is an open-source software collection for high-performance data science applications built on the core ROCm platform. You can leverage ROCm-DS to accelerate both new and existing data science workloads, allowing you to execute intensive applications with larger datasets at lightning speed. ROCm-DS is in an early access state. Running production workloads is not recommended. For more information, see [AMD ROCm-DS Documentation](https://rocm.docs.amd.com/projects/rocm-ds/en/latest/index.html).
 
 ### ROCm Offline Installer Creator updates
 
-The ROCm Offline Installer Creator 6.4.1 now allows you to use the SPACEBAR or ENTER keys for menu item selection in the GUI. It also adds support for Debian 12 and fixes an issue for “full” mode RHEL offline installer creation, where GDM packages were uninstalled during offline installation. See [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-offline-installer.html) for more information.
+The ROCm Offline Installer Creator 6.4.1 now allows you to use the SPACEBAR or ENTER keys for menu item selection in the GUI. It also adds support for Debian 12 and fixes an issue for “full” mode RHEL offline installer creation, where GDM packages were uninstalled during offline installation. See [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/install/rocm-offline-installer.html) for more information.
 
 ### ROCm Runfile Installer updates
 
@@ -58,7 +59,7 @@ The ROCm Runfile Installer 6.4.1 adds the following improvements:
 - The Runfile Installer can be used to uninstall any Runfile-based installation of the driver.
 - In the CLI interface, the `postrocm` argument can now be run separately from the `rocm` argument.  In cases where `postrocm` was missed from the initial ROCm install, `postrocm` can now be run on the same target folder. For example, if you installed ROCm 6.4.1 using `install.run target=/myrocm rocm`, you can run the post-installation separately using the command `install.run target=/myrocm/rocm-6.4.1 postrocm`.
 
-For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-runfile-installer.html).
+For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/install/rocm-runfile-installer.html).
 
 ### ROCm documentation updates
 
@@ -440,7 +441,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 * Fixed partition enumeration in `amd-smi list -e`, `amdsmi_get_gpu_enumeration_info()`, `amdsmi_enumeration_info_t`, `drm_card`, and `drm_render` fields.
 
 ```{note}
-See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/rocm-rel-6.4/CHANGELOG.md) for details, examples, and in-depth descriptions.
+See the full [AMD SMI changelog](https://github.com/AMD-ROCm-Internal/amdsmi/blob/release/rocm-rel-6.4/CHANGELOG.md) for details, examples, and in-depth descriptions.
 ```
 
 ### **HIP** (6.4.1)
@@ -511,7 +512,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 - Fixed partition enumeration. It now refers to the correct DRM Render and Card paths.
 
 ```{note}
-See the full [ROCm SMI changelog](https://github.com/ROCm/rocm_smi_lib/blob/release/rocm-rel-6.4/CHANGELOG.md) for details, examples, and in-depth descriptions.
+See the full [ROCm SMI changelog](https://github.com/AMD-ROCm-Internal/rocm_smi_lib/blob/release/rocm-rel-6.4/CHANGELOG.md) for details, examples, and in-depth descriptions.
 ```
 
 ### **ROCm Systems Profiler** (1.0.1)
