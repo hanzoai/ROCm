@@ -448,20 +448,22 @@ See the full [AMD SMI changelog](https://github.com/AMD-ROCm-Internal/amdsmi/blo
 
 #### Added
 
-* New debug mask, to print precise code object information for logging.
+* New log mask enumeration `LOG_COMGR` enables logging precise code object information.
 
 #### Changed
 
-* Calling the code object has changed. HIP runtime now uses device bitcode before SPIR-V.
+* HIP runtime uses device bitcode before SPIRV.
+* The implementation of preventing `hipLaunchKernel` latency degradation with number of idle streams is reverted/disabled by default.
 
 #### Optimized
 
-* Improved kernel logging using the demangling shader names.
+* Improved kernel logging includes de-mangling shader names.
+* Refined implementation in HIP APIs `hipEventRecords` and `hipStreamWaitEvent` for performance improvement.
 
 #### Resolved issues
 
-* Stale state during the graph capture. The return error was fixed, and HIP runtime now always uses the latest dependent nodes during `hipEventRecord` capture.
-* Issue of `hipEventRecords` failing to call the `hip::getStream` runtime function.
+* Stale state during the graph capture. The return error was fixed, HIP runtime now always uses the latest dependent nodes during `hipEventRecord` capture.
+* Segmentation fault during kernel execution. HIP runtime now allows maximum stack size as per ISA on the GPU device.
 
 ### **hipBLASLt** (0.12.1)
 
