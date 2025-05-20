@@ -439,6 +439,10 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 * Fixed partition enumeration in `amd-smi list -e`, `amdsmi_get_gpu_enumeration_info()`, `amdsmi_enumeration_info_t`, `drm_card`, and `drm_render` fields.
 
+#### Known issues
+
+* When using the `--follow` flag with `amd-smi ras --cper`, CPER entries are not streamed continuously as intended. This will be fixed in an upcoming ROCm release.
+
 ```{note}
 See the full [AMD SMI changelog](https://github.com/AMD-ROCm-Internal/amdsmi/blob/release/rocm-rel-6.4/CHANGELOG.md) for details, examples, and in-depth descriptions.
 ```
