@@ -486,6 +486,11 @@ See the full [AMD SMI changelog](https://github.com/AMD-ROCm-Internal/amdsmi/blo
 * When splitting a communicator using `ncclCommSplit` in some GPU configurations, MSCCL initialization can cause a segmentation fault. The recommended workaround is to disable MSCCL with `export RCCL_MSCCL_ENABLE=0`.
   This issue will be fixed in a future ROCm release.
 
+* Within the RCCL-UnitTests test suite, failures occur in tests ending with the
+  `.ManagedMem` and `.ManagedMemGraph` suffixes. These failures only affect the
+  test results and do not affect the RCCL component itself. This issue will be
+  resolved in a future ROCm release.
+
 ### **rocALUTION** (3.2.3)
 
 #### Added
