@@ -75,7 +75,14 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
 
 ## Operating system and hardware support changes
 
-Operating system and hardware support remain unchanged in this release.
+ROCm 6.4.1 introduces support for the RDNA4 architecture-based [Radeon AI PRO
+R9700](https://www.amd.com/en/products/graphics/workstations/radeon-ai-pro/ai-9000-series/amd-radeon-ai-pro-r9700.html),
+[Radeon RX 9070 XT](https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070xt.html), and
+[Radeon RX 9060 XT](https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9060xt.html) GPUs
+for compute workloads. For details, see the full list of [Supported GPUs
+(Linux)](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html#supported-gpus).
+
+Operating system support remains unchanged in this release.
 
 See the [Compatibility
 matrix](../../docs/compatibility/compatibility-matrix.rst)
@@ -550,6 +557,13 @@ See the full [ROCm SMI changelog](https://github.com/AMD-ROCm-Internal/rocm_smi_
 
 ROCm known issues are noted on {fab}`github` [GitHub](https://github.com/ROCm/ROCm/labels/Verified%20Issue). For known
 issues related to individual components, review the [Detailed component changes](#detailed-component-changes).
+
+### Radeon AI PRO R9700 hangs when running Stable Diffusion 2.1 at batch sizes above four
+
+Radeon AI PRO R9700 GPUs might hang when running [Stable Diffusion
+2.1](https://huggingface.co/stabilityai/stable-diffusion-2-1) with batch sizes
+greater than four. As a workaround, limit batch sizes to four or fewer. This issue
+will be addressed in a future ROCm release.
 
 ### RCCL MSCCL initialization failure
 
