@@ -16,10 +16,23 @@ for a complete overview of this release.
 * Dumping CPER entries from RAS tool `amdsmi_get_gpu_cper_entries()` to Python and C APIs.
   - Dumping CPER entries consist of `amdsmi_cper_hdr_t`.
   - Dumping CPER entries is also enabled in the CLI interface through `sudo amd-smi ras --cper`.
+* `amdsmi_get_gpu_busy_percent` to the C API.
 
-#### Resolved
+#### Changed
+
+* Modified VRAM display for `amd-smi monitor -v`. 
+
+#### Optimized
+
+* Improved load times for CLI commands when the GPU has multiple parititons.
+
+#### Resolved issues
 
 * Fixed partition enumeration in `amd-smi list -e`, `amdsmi_get_gpu_enumeration_info()`, `amdsmi_enumeration_info_t`, `drm_card`, and `drm_render` fields.
+
+#### Known issues
+
+* When using the `--follow` flag with `amd-smi ras --cper`, CPER entries are not streamed continuously as intended. This will be fixed in an upcoming ROCm release.
 
 ```{note}
 See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/rocm-rel-6.4/CHANGELOG.md) for details, examples, and in-depth descriptions.
@@ -29,20 +42,22 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Added
 
-* New debug mask, to print precise code object information for logging.
+* New log mask enumeration `LOG_COMGR` enables logging precise code object information.
 
 #### Changed
 
-* Calling the code object has changed. HIP runtime now uses device bitcode before SPIR-V.
+* HIP runtime uses device bitcode before SPIRV.
+* The implementation of preventing `hipLaunchKernel` latency degradation with number of idle streams is reverted or disabled by default.
 
 #### Optimized
 
-* Improved kernel logging using the demangling shader names.
+* Improved kernel logging includes de-mangling shader names.
+* Refined implementation in HIP APIs `hipEventRecords` and `hipStreamWaitEvent` for performance improvement.
 
 #### Resolved issues
 
-* Stale state during the graph capture. The return error was fixed, and HIP runtime now always uses the latest dependent nodes during `hipEventRecord` capture.
-* Issue of `hipEventRecords` failing to call the `hip::getStream` runtime function.
+* Stale state during the graph capture. The return error was fixed, HIP runtime now always uses the latest dependent nodes during `hipEventRecord` capture.
+* Segmentation fault during kernel execution. HIP runtime now allows maximum stack size as per ISA on the GPU device.
 
 ### **hipBLASLt** (0.12.1)
 
@@ -60,6 +75,16 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 * Fixed an issue where early termination, in rare circumstances, could cause the application to stop responding by adding synchronization before destroying a proxy thread.
 * Fixed the accuracy issue for the MSCCLPP `allreduce7` kernel in graph mode.
+
+#### Known issues
+
+* When splitting a communicator using `ncclCommSplit` in some GPU configurations, MSCCL initialization can cause a segmentation fault. The recommended workaround is to disable MSCCL with `export RCCL_MSCCL_ENABLE=0`.
+  This issue will be fixed in a future ROCm release.
+
+* Within the RCCL-UnitTests test suite, failures occur in tests ending with the
+  `.ManagedMem` and `.ManagedMemGraph` suffixes. These failures only affect the
+  test results and do not affect the RCCL component itself. This issue will be
+  resolved in a future ROCm release.
 
 ### **rocALUTION** (3.2.3)
 
@@ -100,7 +125,7 @@ See the full [ROCm SMI changelog](https://github.com/ROCm/rocm_smi_lib/blob/rele
 
 #### Added 
 
-* How-to document for [network performance profiling](https://rocm.docs.amd.com/projects/rocprofiler-systems/en/amd-staging/how-to/nic-profiling.html) for standard Network Interface Cards (NICs).
+* How-to document for [network performance profiling](https://rocm.docs.amd.com/projects/rocprofiler-systems/en/latest/how-to/nic-profiling.html) for standard Network Interface Cards (NICs).
 
 #### Resolved issues
 
