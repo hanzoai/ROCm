@@ -38,10 +38,13 @@ compatibility and system requirements.
       :doc:`Architecture <rocm-install-on-linux:reference/system-requirements>`,CDNA3,CDNA3,CDNA3
       ,CDNA2,CDNA2,CDNA2
       ,CDNA,CDNA,CDNA
+      ,RDNA4,,
       ,RDNA3,RDNA3,RDNA3
       ,RDNA2,RDNA2,RDNA2
       ,.. _gpu-support-compatibility-matrix:,,
-      :doc:`GPU / LLVM target <rocm-install-on-linux:reference/system-requirements>`,gfx1100,gfx1100,gfx1100
+      :doc:`GPU / LLVM target <rocm-install-on-linux:reference/system-requirements>`,gfx1201,,
+      ,gfx1200,,
+      ,gfx1100,gfx1100,gfx1100
       ,gfx1030,gfx1030,gfx1030
       ,gfx942,gfx942,gfx942
       ,gfx90a,gfx90a,gfx90a

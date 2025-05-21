@@ -7,16 +7,19 @@ ROCm Version,6.4.1,6.4.0,6.3.3,6.3.2,6.3.1,6.3.0,6.2.4,6.2.2,6.2.1,6.2.0, 6.1.5,
       ,SLES 15 SP6,SLES 15 SP6,"SLES 15 SP6, SP5","SLES 15 SP6, SP5","SLES 15 SP6, SP5","SLES 15 SP6, SP5","SLES 15 SP6, SP5","SLES 15 SP6, SP5","SLES 15 SP6, SP5","SLES 15 SP6, SP5","SLES 15 SP5, SP4","SLES 15 SP5, SP4","SLES 15 SP5, SP4","SLES 15 SP5, SP4","SLES 15 SP5, SP4","SLES 15 SP5, SP4"
       ,,,,,,,,,,,,CentOS 7.9,CentOS 7.9,CentOS 7.9,CentOS 7.9,CentOS 7.9
       ,"Oracle Linux 9, 8 [#mi300x-past-60]_","Oracle Linux 9, 8 [#mi300x-past-60]_",Oracle Linux 8.10 [#mi300x-past-60]_,Oracle Linux 8.10 [#mi300x-past-60]_,Oracle Linux 8.10 [#mi300x-past-60]_,Oracle Linux 8.10 [#mi300x-past-60]_,Oracle Linux 8.9 [#mi300x-past-60]_,Oracle Linux 8.9 [#mi300x-past-60]_,Oracle Linux 8.9 [#mi300x-past-60]_,Oracle Linux 8.9 [#mi300x-past-60]_,Oracle Linux 8.9 [#mi300x-past-60]_,Oracle Linux 8.9 [#mi300x-past-60]_,Oracle Linux 8.9 [#mi300x-past-60]_,,,
-,Debian 12 [#single-node-past-60]_,Debian 12 [#single-node-past-60]_,Debian 12 [#single-node-past-60]_,Debian 12 [#single-node-past-60]_,Debian 12 [#single-node-past-60]_,,,,,,,,,,,
-,Azure Linux 3.0 [#mi300x-past-60]_,Azure Linux 3.0 [#mi300x-past-60]_,Azure Linux 3.0 [#mi300x-past-60]_,Azure Linux 3.0 [#mi300x-past-60]_,,,,,,,,,,,,
+      ,Debian 12 [#single-node-past-60]_,Debian 12 [#single-node-past-60]_,Debian 12 [#single-node-past-60]_,Debian 12 [#single-node-past-60]_,Debian 12 [#single-node-past-60]_,,,,,,,,,,,
+      ,Azure Linux 3.0 [#mi300x-past-60]_,Azure Linux 3.0 [#mi300x-past-60]_,Azure Linux 3.0 [#mi300x-past-60]_,Azure Linux 3.0 [#mi300x-past-60]_,,,,,,,,,,,,
       ,.. _architecture-support-compatibility-matrix-past-60:,,,,,,,,,,,,,,,
       :doc:`Architecture <rocm-install-on-linux:reference/system-requirements>`,CDNA3,CDNA3,CDNA3,CDNA3,CDNA3,CDNA3,CDNA3,CDNA3,CDNA3,CDNA3,CDNA3,CDNA3,CDNA3,CDNA3,CDNA3,CDNA3
       ,CDNA2,CDNA2,CDNA2,CDNA2,CDNA2,CDNA2,CDNA2,CDNA2,CDNA2,CDNA2,CDNA2,CDNA2,CDNA2,CDNA2,CDNA2,CDNA2
       ,CDNA,CDNA,CDNA,CDNA,CDNA,CDNA,CDNA,CDNA,CDNA,CDNA,CDNA,CDNA,CDNA,CDNA,CDNA,CDNA
+      ,RDNA4,,,,,,,,,,,,,,,
       ,RDNA3,RDNA3,RDNA3,RDNA3,RDNA3,RDNA3,RDNA3,RDNA3,RDNA3,RDNA3,RDNA3,RDNA3,RDNA3,RDNA3,RDNA3,RDNA3
       ,RDNA2,RDNA2,RDNA2,RDNA2,RDNA2,RDNA2,RDNA2,RDNA2,RDNA2,RDNA2,RDNA2,RDNA2,RDNA2,RDNA2,RDNA2,RDNA2
       ,.. _gpu-support-compatibility-matrix-past-60:,,,,,,,,,,,,,,,
-      :doc:`GPU / LLVM target <rocm-install-on-linux:reference/system-requirements>`,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100
+      :doc:`GPU / LLVM target <rocm-install-on-linux:reference/system-requirements>`,gfx1201,,,,,,,,,,,,,,,
+      ,gfx1200,,,,,,,,,,,,,,,
+      ,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100,gfx1100
       ,gfx1030,gfx1030,gfx1030,gfx1030,gfx1030,gfx1030,gfx1030,gfx1030,gfx1030,gfx1030,gfx1030,gfx1030,gfx1030,gfx1030,gfx1030,gfx1030
       ,gfx942,gfx942,gfx942,gfx942,gfx942,gfx942,gfx942 [#mi300_624-past-60]_,gfx942 [#mi300_622-past-60]_,gfx942 [#mi300_621-past-60]_,gfx942 [#mi300_620-past-60]_, gfx942 [#mi300_612-past-60]_, gfx942 [#mi300_612-past-60]_, gfx942 [#mi300_611-past-60]_, gfx942 [#mi300_610-past-60]_, gfx942 [#mi300_602-past-60]_, gfx942 [#mi300_600-past-60]_
       ,gfx90a,gfx90a,gfx90a,gfx90a,gfx90a,gfx90a,gfx90a,gfx90a,gfx90a,gfx90a,gfx90a,gfx90a,gfx90a,gfx90a,gfx90a,gfx90a
