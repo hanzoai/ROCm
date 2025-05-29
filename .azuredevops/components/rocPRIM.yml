@@ -21,6 +21,9 @@ parameters:
 - name: buildDependsOn
   type: object
   default: null
+- name: unifiedBuild
+  type: boolean
+  default: false
 # set to true if doing full build of ROCm stack
 # and dependencies are pulled from same pipeline
 - name: aggregatePipeline
@@ -70,6 +73,7 @@ parameters:
     - rocThrust:
       name: rocThrust
       sparseCheckoutDir: projects/rocthrust
+      skipUnifiedBuild: 'false'
       buildDependsOn:
         gfx942:
           - rocPRIM_build_gfx942
@@ -78,6 +82,18 @@ parameters:
     - hipCUB:
       name: hipCUB
       sparseCheckoutDir: projects/hipcub
+      skipUnifiedBuild: 'false'
+      buildDependsOn:
+        gfx942:
+          - rocPRIM_build_gfx942
+        gfx90a:
+          - rocPRIM_build_gfx90a
+    # rocSOLVER depends on both rocBLAS and rocPRIM
+    # for a unified build, rocBLAS will be the one to call rocSOLVER
+    - rocSOLVER:
+      name: rocSOLVER
+      sparseCheckoutDir: projects/rocsolver
+      skipUnifiedBuild: 'true'
       buildDependsOn:
         gfx942:
           - rocPRIM_build_gfx942
@@ -142,7 +158,8 @@ jobs:
       and(succeeded(),
         eq(variables['ENABLE_${{ upper(job.target) }}_TESTS'], 'true'),
         not(containsValue(split(variables['DISABLED_${{ upper(job.target) }}_TESTS'], ','), '${{ parameters.componentName }}')),
-        eq(${{ parameters.aggregatePipeline }}, False)
+        eq(${{ parameters.aggregatePipeline }}, False),
+        eq(${{ parameters.unifiedBuild }}, False)
       )
     variables:
     - group: common
@@ -166,6 +183,8 @@ jobs:
         checkoutRef: ${{ parameters.checkoutRef }}
         dependencyList: ${{ parameters.rocmTestDependencies }}
         gpuTarget: ${{ job.target }}
+        ${{ if parameters.triggerDownstreamJobs }}:
+          downstreamAggregateNames: ${{ parameters.downstreamAggregateNames }}
     - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/gpu-diagnostics.yml
     - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/test.yml
       parameters:
@@ -179,9 +198,12 @@ jobs:
 
 - ${{ if parameters.triggerDownstreamJobs }}:
   - ${{ each component in parameters.downstreamComponentMatrix }}:
-    - template: /.azuredevops/components/${{ component.name }}.yml@pipelines_repo
-      parameters:
-        sparseCheckoutDir: ${{ component.sparseCheckoutDir }}
-        buildDependsOn: ${{ component.buildDependsOn }}
-        downstreamAggregateNames: ${{ parameters.downstreamAggregateNames }}+${{ parameters.componentName }}
-        triggerDownstreamJobs: true
+    - ${{ if not(and(parameters.unifiedBuild, eq(component.skipUnifiedBuild, 'true'))) }}:
+      - template: /.azuredevops/components/${{ component.name }}.yml@pipelines_repo
+        parameters:
+          checkoutRepo: ${{ parameters.checkoutRepo }}
+          sparseCheckoutDir: ${{ component.sparseCheckoutDir }}
+          buildDependsOn: ${{ component.buildDependsOn }}
+          downstreamAggregateNames: ${{ parameters.downstreamAggregateNames }}+${{ parameters.componentName }}
+          triggerDownstreamJobs: true
+          unifiedBuild: ${{ parameters.unifiedBuild }}
