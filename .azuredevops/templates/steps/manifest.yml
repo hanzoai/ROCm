@@ -2,6 +2,9 @@ parameters:
 - name: componentName
   type: string
   default: $(Build.DefinitionName)
+- name: sparseCheckoutDir
+  type: string
+  default: ''
 - name: gpuTarget
   type: string
   default: ''
@@ -31,8 +34,9 @@ steps:
 
       IS_TAG_BUILD=$(jq 'has("release_repo")' resources.repositories)
       IS_AOMP_BUILD=$(jq 'has("aomp_repo")' resources.repositories)
+      IS_MATHLIBS_BUILD=$(jq 'has("libraries_repo")' resources.repositories)
 
-      if [ "$IS_TAG_BUILD" = "true" ] || [ "$IS_AOMP_BUILD" = "true" ]; then
+      if [ "$IS_TAG_BUILD" = "true" ] || [ "$IS_AOMP_BUILD" = "true" ] || [ "$IS_MATHLIBS_BUILD" = "true" ]; then
         exclude_keys=("pipelines_repo" "self") # Triggered by a file under ROCm/ROCm
       else
         exclude_keys=("pipelines_repo") # Triggered by a file under a component repo
@@ -51,6 +55,7 @@ steps:
               buildId: "$(Build.BuildId)",
               repoId: $entry.value.id,
               repoName: $entry.value.name,
+              repoSparse: "${{ parameters.sparseCheckoutDir }}",
               repoRef: $entry.value.ref,
               repoUrl: $entry.value.url,
               repoVersion: $entry.value.version
@@ -87,6 +92,7 @@ steps:
           "<tr><td>" + .buildNumber + "</td>" +
           "<td><a href=\"https://dev.azure.com/ROCm-CI/ROCm-CI/_build/results?buildId=" + .buildId + "\">" + .buildId + "</a></td>" +
           "<td><a href=\"" + .repoUrl + "\">" + .repoName + "</a></td>" +
+          "<td><a href=\"" + .repoUrl + "/tree/" + .repoRef + "/" + .repoSparse + "\">" + .repoSparse + "</a></td>" +
           "<td><a href=\"" + .repoUrl + "/tree/" + .repoRef + "\">" + .repoRef + "</a></td>" +
           "<td><a href=\"" + .repoUrl + "/commit/" + .repoVersion + "\">" + .repoVersion + "</a></td></tr>"
         ')
@@ -99,6 +105,7 @@ steps:
           "<tr><td>" + .buildNumber + "</td>" +
           "<td><a href=\"https://dev.azure.com/ROCm-CI/ROCm-CI/_build/results?buildId=" + .buildId + "\">" + .buildId + "</a></td>" +
           "<td><a href=\"" + .repoUrl + "\">" + .repoName + "</a></td>" +
+          "<td><a href=\"" + .repoUrl + "/tree/" + .repoRef + "/" + .repoSparse + "\">" + .repoSparse + "</a></td>" +
           "<td><a href=\"" + .repoUrl + "/tree/" + .repoRef + "\">" + .repoRef + "</a></td>" +
           "<td><a href=\"" + .repoUrl + "/commit/" + .repoVersion + "\">" + .repoVersion + "</a></td></tr>"
         ')
@@ -123,6 +130,7 @@ steps:
         <th>Build Number</th>
         <th>Build ID</th>
         <th>Repo Name</th>
+        <th>Repo Sparse</th>
         <th>Repo Ref</th>
         <th>Repo Version</th>
       </tr>
@@ -134,6 +142,7 @@ steps:
         <th>Build Number</th>
         <th>Build ID</th>
         <th>Repo Name</th>
+        <th>Repo Sparse</th>
         <th>Repo Ref</th>
         <th>Repo Version</th>
       </tr>
