@@ -20,12 +20,8 @@ parameters:
   type: object
   default:
     buildJobs:
-      - ubuntu2204:
-        os: ubuntu2204
-        packageManager: apt
-      - almalinux8:
-        os: almalinux8
-        packageManager: dnf
+      - { os: ubuntu2204, packageManager: apt }
+      - { os: almalinux8, packageManager: dnf }
 
 jobs:
 - ${{ each job in parameters.jobMatrix.buildJobs }}:
@@ -51,6 +47,7 @@ jobs:
         checkoutRepo: ${{ parameters.checkoutRepo }}
     - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/build-cmake.yml
       parameters:
+        os: ${{ job.os }}
         extraBuildFlags: >-
           -DCMAKE_CURRENT_BINARY_DIR=$PWD
           -DCMAKE_CURRENT_SOURCE_DIR=$PWD/../

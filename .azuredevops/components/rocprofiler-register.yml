@@ -20,12 +20,8 @@ parameters:
   type: object
   default:
     buildJobs:
-      - ubuntu2204:
-        os: ubuntu2204
-        packageManager: apt
-      - almalinux8:
-        os: almalinux8
-        packageManager: dnf
+      - { os: ubuntu2204, packageManager: apt }
+      - { os: almalinux8, packageManager: dnf }
 
 jobs:
 - ${{ each job in parameters.jobMatrix.buildJobs }}:
@@ -52,6 +48,7 @@ jobs:
     - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/build-cmake.yml
       parameters:
         componentName: rocprofiler-register
+        os: ${{ job.os }}
         extraBuildFlags: >-
           -DCMAKE_PREFIX_PATH=$(Build.BinariesDirectory)
           -DROCPROFILER_REGISTER_BUILD_TESTS=ON
