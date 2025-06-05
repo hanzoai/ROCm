@@ -32,7 +32,7 @@ parameters:
       - { os: ubuntu2204, packageManager: apt }
       - { os: ubuntu2404, packageManager: apt }
       - { os: almalinux8, packageManager: dnf }
-      
+
 jobs:
 - ${{ each job in parameters.jobMatrix.buildJobs }}:
   - job: rocm_cmake_${{ job.os }}
