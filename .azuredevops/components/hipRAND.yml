@@ -72,24 +72,23 @@ parameters:
     testJobs:
       - { os: ubuntu2204, packageManager: apt, target: gfx942 }
       - { os: ubuntu2204, packageManager: apt, target: gfx90a }
-- name: downstreamComponentMatrix
-  type: object
-  default:
-    - rocFFT:
-      name: rocFFT
-      sparseCheckoutDir: projects/rocfft
-      skipUnifiedBuild: 'false'
-      buildDependsOn:
-        gfx942:
-          - hipRAND_build_gfx942
-        gfx90a:
-          - hipRAND_build_gfx90a
+# - name: downstreamComponentMatrix
+#   type: object
+#   default:
+#     - rocFFT:
+#       name: rocFFT
+#       sparseCheckoutDir: projects/rocfft
+#       skipUnifiedBuild: 'false'
+#       buildDependsOn:
+#         - hipRAND_build
 
 jobs:
 - ${{ each job in parameters.jobMatrix.buildJobs }}:
   - job: ${{ parameters.componentName }}_build_${{ job.os }}_${{ job.target }}
     ${{ if parameters.buildDependsOn }}:
-      dependsOn: ${{ parameters.buildDependsOn[job.target] }}
+      dependsOn:
+        - ${{ each build in parameters.buildDependsOn }}:
+          - ${{ build }}_${{ job.os }}_${{ job.target }}
     variables:
     - group: common
     - template: /.azuredevops/variables-global.yml
@@ -184,6 +183,7 @@ jobs:
       - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/local-artifact-download.yml
         parameters:
           preTargetFilter: ${{ parameters.componentName }}
+          os: ${{ job.os }}
           gpuTarget: ${{ job.target }}
       - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/dependencies-aqlprofile.yml
       - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/dependencies-rocm.yml
@@ -206,14 +206,14 @@ jobs:
           environment: test
           gpuTarget: ${{ job.target }}
 
-- ${{ if parameters.triggerDownstreamJobs }}:
-  - ${{ each component in parameters.downstreamComponentMatrix }}:
-    - ${{ if not(and(parameters.unifiedBuild, eq(component.skipUnifiedBuild, 'true'))) }}:
-      - template: /.azuredevops/components/${{ component.name }}.yml@pipelines_repo
-        parameters:
-          checkoutRepo: ${{ parameters.checkoutRepo }}
-          sparseCheckoutDir: ${{ component.sparseCheckoutDir }}
-          buildDependsOn: ${{ component.buildDependsOn }}
-          downstreamAggregateNames: ${{ parameters.downstreamAggregateNames }}+${{ parameters.componentName }}
-          triggerDownstreamJobs: true
-          unifiedBuild: ${{ parameters.unifiedBuild }}
+# - ${{ if parameters.triggerDownstreamJobs }}:
+#   - ${{ each component in parameters.downstreamComponentMatrix }}:
+#     - ${{ if not(and(parameters.unifiedBuild, eq(component.skipUnifiedBuild, 'true'))) }}:
+#       - template: /.azuredevops/components/${{ component.name }}.yml@pipelines_repo
+#         parameters:
+#           checkoutRepo: ${{ parameters.checkoutRepo }}
+#           sparseCheckoutDir: ${{ component.sparseCheckoutDir }}
+#           buildDependsOn: ${{ component.buildDependsOn }}
+#           downstreamAggregateNames: ${{ parameters.downstreamAggregateNames }}+${{ parameters.componentName }}
+#           triggerDownstreamJobs: true
+#           unifiedBuild: ${{ parameters.unifiedBuild }}

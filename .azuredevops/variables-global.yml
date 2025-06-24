@@ -32,13 +32,13 @@ variables:
 - name: GFX90A_TEST_POOL
   value: gfx90a_test_pool
 - name: LATEST_RELEASE_VERSION
-  value: 6.4.0
+  value: 6.4.1
 - name: REPO_RADEON_VERSION
-  value: 6.4
+  value: 6.4.1
 - name: NEXT_RELEASE_VERSION
-  value: 6.5.0
+  value: 7.0.0
 - name: LATEST_RELEASE_TAG
-  value: rocm-6.4.0
+  value: rocm-6.4.1
 - name: DOCKER_SKIP_GFX
   value: gfx90a
 - name: AMDMIGRAPHX_PIPELINE_ID
@@ -80,7 +80,7 @@ variables:
 - name: HIPIFY_PIPELINE_ID
   value: 92
 - name: HIPRAND_PIPELINE_ID
-  value: 90
+  value: 275
 - name: HIPSOLVER_PIPELINE_ID
   value: 84
 - name: HIPSPARSE_PIPELINE_ID
@@ -150,7 +150,7 @@ variables:
 - name: ROCR_RUNTIME_PIPELINE_ID
   value: 10
 - name: ROCRAND_PIPELINE_ID
-  value: 95
+  value: 274
 - name: ROCSOLVER_PIPELINE_ID
   value: 81
 - name: ROCSPARSE_PIPELINE_ID

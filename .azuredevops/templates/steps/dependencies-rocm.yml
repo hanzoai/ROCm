@@ -130,7 +130,7 @@ parameters:
     hipRAND:
       pipelineId: $(HIPRAND_PIPELINE_ID)
       stagingBranch: develop
-      mainlineBranch: mainline
+      mainlineBranch: develop
       hasGpuTarget: true
     hipSOLVER:
       pipelineId: $(HIPSOLVER_PIPELINE_ID)
@@ -305,7 +305,7 @@ parameters:
     rocRAND:
       pipelineId: $(ROCRAND_PIPELINE_ID)
       stagingBranch: develop
-      mainlineBranch: mainline
+      mainlineBranch: develop
       hasGpuTarget: true
     rocr_debug_agent:
       pipelineId: $(ROCR_DEBUG_AGENT_PIPELINE_ID)
@@ -397,6 +397,7 @@ steps:
         ${{ if parameters.componentVarList[dependency].hasGpuTarget }}:
           gpuTarget: ${{ parameters.gpuTarget }}
         preTargetFilter: ${{ dependency }}
+        os: ${{ parameters.os }}
         buildType: current
   - ${{ else }}:
     - template: artifact-download.yml
@@ -437,14 +438,14 @@ steps:
       targetType: inline
       script: |
         sudo mkdir -p $(Agent.BuildDirectory)/rocm/lib
-        sudo ln -s $(Agent.BuildDirectory)/rocm/llvm $(Agent.BuildDirectory)/rocm/lib/llvm
+        sudo ln -sr $(Agent.BuildDirectory)/rocm/llvm $(Agent.BuildDirectory)/rocm/lib/llvm
   - task: Bash@3
     displayName: Symlink executables from rocm/llvm/bin to rocm/bin
     inputs:
       targetType: inline
       script: |
         for file in amdclang amdclang++ amdclang-cl amdclang-cpp amdflang amdlld aompcc mygpu mycpu offload-arch; do
-          sudo ln -s $(Agent.BuildDirectory)/rocm/llvm/bin/$file $(Agent.BuildDirectory)/rocm/bin/$file
+          sudo ln -sr $(Agent.BuildDirectory)/rocm/llvm/bin/$file $(Agent.BuildDirectory)/rocm/bin/$file
         done
 # dlopen calls within a ctest or pytest sequence runs into issues when shared library symlink convention is not followed
 # the convention is as follows:
