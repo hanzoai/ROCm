@@ -60,12 +60,12 @@ parameters:
       - { os: ubuntu2204, packageManager: apt, target: gfx942 }
       - { os: ubuntu2204, packageManager: apt, target: gfx90a }
       - { os: ubuntu2204, packageManager: apt, target: gfx1201 }
-      # - { os: ubuntu2204, packageManager: apt, target: gfx1100 }
+      - { os: ubuntu2204, packageManager: apt, target: gfx1100 }
       - { os: ubuntu2204, packageManager: apt, target: gfx1030 }
       - { os: almalinux8, packageManager: dnf, target: gfx942 }
       - { os: almalinux8, packageManager: dnf, target: gfx90a }
       - { os: almalinux8, packageManager: dnf, target: gfx1201 }
-      # - { os: almalinux8, packageManager: dnf, target: gfx1100 }
+      - { os: almalinux8, packageManager: dnf, target: gfx1100 }
       - { os: almalinux8, packageManager: dnf, target: gfx1030 }
     testJobs:
       - { os: ubuntu2204, packageManager: apt, target: gfx942, shard: 1, shardCount: 3 }
@@ -82,36 +82,29 @@ parameters:
       sparseCheckoutDir: projects/rocthrust
       skipUnifiedBuild: 'false'
       buildDependsOn:
-        gfx942:
-          - rocPRIM_build_gfx942
-        gfx90a:
-          - rocPRIM_build_gfx90a
+        - rocPRIM_build
     - hipCUB:
       name: hipCUB
       sparseCheckoutDir: projects/hipcub
       skipUnifiedBuild: 'false'
       buildDependsOn:
-        gfx942:
-          - rocPRIM_build_gfx942
-        gfx90a:
-          - rocPRIM_build_gfx90a
+        - rocPRIM_build
     # rocSOLVER depends on both rocBLAS and rocPRIM
     # for a unified build, rocBLAS will be the one to call rocSOLVER
-    - rocSOLVER:
-      name: rocSOLVER
-      sparseCheckoutDir: projects/rocsolver
-      skipUnifiedBuild: 'true'
-      buildDependsOn:
-        gfx942:
-          - rocPRIM_build_gfx942
-        gfx90a:
-          - rocPRIM_build_gfx90a
+    # - rocSOLVER:
+    #   name: rocSOLVER
+    #   sparseCheckoutDir: projects/rocsolver
+    #   skipUnifiedBuild: 'true'
+    #   buildDependsOn:
+    #     - rocPRIM_build
 
 jobs:
 - ${{ each job in parameters.jobMatrix.buildJobs }}:
   - job: ${{ parameters.componentName }}_build_${{ job.os }}_${{ job.target }}
     ${{ if parameters.buildDependsOn }}:
-      dependsOn: ${{ parameters.buildDependsOn[job.target] }}
+      dependsOn:
+        - ${{ each build in parameters.buildDependsOn }}:
+          - ${{ build }}_${{ job.os }}_${{ job.target }}
     variables:
     - group: common
     - template: /.azuredevops/variables-global.yml
@@ -177,7 +170,7 @@ jobs:
 
 - ${{ if eq(parameters.unifiedBuild, False) }}:
   - ${{ each job in parameters.jobMatrix.testJobs }}:
-    - job: ${{ parameters.componentName }}_test_${{ job.os }}_${{ job.target }}_${{ job.shard }}
+    - job: ${{ parameters.componentName }}_test_${{ job.os }}_${{ job.target }}_shard_${{ job.shard }}
       dependsOn: ${{ parameters.componentName }}_build_${{ job.os }}_${{ job.target }}
       condition:
         and(succeeded(),
