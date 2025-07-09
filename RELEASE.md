@@ -46,7 +46,7 @@ The following are notable new features and improvements in ROCm 6.4.2. For chang
 
 * ROCm Compute Profiler now uses [AMD SMI](https://rocm.docs.amd.com/projects/amdsmi/en/latest/index.html) instead of [ROCm SMI](https://rocm.docs.amd.com/projects/rocm_smi_lib/en/latest/index.html). The AMD System Management Interface Library (AMD SMI) is a successor to ROCm SMI. It is a unified system management interface tool that provides a user-space interface for applications to monitor and control GPU applications and gives users the ability to query information about drivers and GPUs on the system. For more information, see [https://github.com/ROCm/amdsmi](https://github.com/ROCm/amdsmi) and the [AMD SMI documentation](https://rocm.docs.amd.com/projects/amdsmi/en/latest/index.html).
 
-* ROCm Compute Profiler has added FP8 metrics support for AMD Instinct MI300 series accelerators.
+* ROCm Compute Profiler has added 8-bit floating point (FP8) metrics support for AMD Instinct MI300 series accelerators. For more information, see [System Speed-of-Light](https://rocm.docs.amd.com/projects/rocprofiler-compute/en/amd-staging/conceptual/system-speed-of-light.html).
 
 ### rocSOLVER enhancements
 
@@ -56,7 +56,7 @@ rocSOLVER has improved the performance of eigensolvers and singular value decomp
 
 The ROCm Offline Installer Creator 6.4.2 includes the following features and improvements:
  
-* Added support for Oracle Linux 8.10 and 9.6.
+* Added support for Oracle Linux 8.10 and 9.6, and SLES 15 SP7.
 * Additional package options for the Offline Installer Creator, including `amd-smi`, `rocdecode`, `rocjpeg`, and `rdc`.
 * ROCm meta packages are now used for selecting ROCm components and use cases.
 * Improved separation of kernel/driver and ROCm prerequisite packages to reduce the size of ROCm-only or driver-only offline installers.
@@ -65,7 +65,7 @@ In addition, the option to build an offline installer based on ROCm version 5.7.
 
 ### ROCm Runfile Installer updates
 
-The ROCm Runfile Installer 6.4.2 adds support for Oracle Linux 8.10 and 9.6 using the RHEL 8 or 9 `.run` files and for Debian 12 using the Ubuntu 22.04 `.run` file. It also fixes permission settings issues during ROCm and AMDGPU driver installation. For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-runfile-installer.html).
+The ROCm Runfile Installer 6.4.2 adds support for Oracle Linux 8.10 and 9.6 (using the RHEL 8 or 9 .run files), Debian 12 (using the Ubuntu 22.04 .run file), and SLES 15 SP7. It also fixes permission settings issues during ROCm and AMDGPU driver installation. For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-runfile-installer.html).
 
 ### ROCm documentation updates
 
@@ -86,7 +86,11 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
 
 ## Operating system and hardware support changes
 
-ROCm 6.4.2 marks the end of support (EoS) for RHEL 9.5. Hardware support remains unchanged in this release.
+ROCm 6.4.2 adds support for SLES 15 SP7. For more information, see [SLES installation](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/install/install-methods/package-manager/package-manager-sles.html).
+
+ROCm 6.4.2 marks the end of support (EoS) for RHEL 9.5. 
+
+Hardware support remains unchanged in this release.
 
 See the [Compatibility
 matrix](../../docs/compatibility/compatibility-matrix.rst)
@@ -472,7 +476,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * Failure in the API `hipStreamDestroy`, when stream type is `hipStreamLegacy`. The API now returns error code `hipErrorInvalidResourceHandle` on this condition.
 * Kernel launch errors, such as `shared object initialization failed`, `invalid device function`, or `kernel execution failure`. HIP runtime now loads `COMGR` properly considering the file with its name and mapped image.
 * Memory access fault in some applications. HIP runtime fixed offset accumulation in memory address.
-* The memory leak in virtual memory management (VMM). HIP runtime now uses the size of handle for allocated memory range instead of actual size for physical memory, which fixed the issue of address clash with VMM.
+* The memory leak in virtual memory management (VMM). The HIP runtime now uses the size of the handle for the allocated memory range instead of the actual size for physical memory, which resolves the issue of address clashes with VMM.
 
 ### **hipBLASLt** (0.12.1)
 
@@ -568,11 +572,15 @@ individual components, review the [Detailed component changes](#detailed-compone
 
 ### AMD SMI CLI: CPER entries not dumped continuously when using follow flag
 
-An issue where CPER entries were not streamed continuously as intended when using the `--follow` flag with `amd-smi ras --cper` has been resolved. See [issue #4768](https://github.com/ROCm/ROCm/issues/4768) on GitHub.
+An issue where CPER entries were not streamed continuously as intended when using the `--follow` flag with `amd-smi ras --cper` has been resolved. See [GitHub issue #4768](https://github.com/ROCm/ROCm/issues/4768).
 
 ### Instinct MI300X reports incorrect raw GPU timestamps
 
 An issue where the command processor firmware reported incorrect raw GPU timestamps on MI300X accelerators has been resolved. See [GitHub issue #4079](https://github.com/ROCm/ROCm/issues/4079).
+
+### MIOpen generates incorrect results for particular input with FP32 data type
+
+An issue where MIOpen generated incorrect results on the `conv2dbackward` function for a particular input with 32-bit floating point (FP32) data types has been resolved. The issue was only specific to FP32 data types with 2 * 2 kernel size and dilation 2 * 1. See [GitHub issue #4606](https://github.com/ROCm/ROCm/issues/4606). 
 
 ## ROCm upcoming changes
 
@@ -612,7 +620,7 @@ and will be disabled in a future release.
   [AMDGPU support](https://rocm.docs.amd.com/projects/llvm-project/en/docs-6.4.1/LLVM/clang/html/AMDGPUSupport.html).
 * `warpSize` will only be available as a non-`constexpr` variable. Where required,
   the wavefront size should be queried via the `warpSize` variable in device code,
-  or via `hipGetDeviceProperties` in host code. Neither of these will result in a compile-time constant. 
+  or via `hipGetDeviceProperties` in host code. Neither of these will result in a compile-time constant. For more information, see [warpSize](https://rocm.docs.amd.com/projects/HIP/en/latest/how-to/hip_cpp_language_extensions.html#warpsize).
 * For cases where compile-time evaluation of the wavefront size cannot be avoided,
   uses of `__AMDGCN_WAVEFRONT_SIZE`, `__AMDGCN_WAVEFRONT_SIZE__`, or `warpSize`
   can be replaced with a user-defined macro or `constexpr` variable with the wavefront

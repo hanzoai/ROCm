@@ -11,7 +11,7 @@ for a complete overview of this release.
 
 ### **AMD SMI** (25.5.1)
 
-### Added
+#### Added
 
 - Compute Unit Occupancy information per process.
 
@@ -21,13 +21,13 @@ for a complete overview of this release.
 
 - `amd-smi ras --afid --cper-file <file_path>` to decode CPER records.
 
-### Changed
+#### Changed
 
 - Padded `asic_serial` in `amdsmi_get_asic_info` with 0s.
 
 - Renamed field `COMPUTE_PARTITION` to `ACCELERATOR_PARTITION` in CLI call `amd-smi --partition`.
 
-### Resolved issues
+#### Resolved issues
 
 - Corrected VRAM memory calculation in `amdsmi_get_gpu_process_list`. Previously, the VRAM memory usage reported by `amdsmi_get_gpu_process_list` was inaccurate and was calculated using KB instead of KiB.
 
@@ -43,7 +43,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Optimized
 
-* Improved implementation in `hipEventSynchronize`, HIP runtime now makes internal callbacks non-blocking to gain performance.
+* Improved implementation in `hipEventSynchronize`, HIP runtime now makes internal callbacks as non-blocking operations to improve performance.
 
 #### Resolved issues
 
@@ -52,6 +52,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * Failure in the API `hipStreamDestroy`, when stream type is `hipStreamLegacy`. The API now returns error code `hipErrorInvalidResourceHandle` on this condition.
 * Kernel launch errors, such as `shared object initialization failed`, `invalid device function`, or `kernel execution failure`. HIP runtime now loads `COMGR` properly considering the file with its name and mapped image.
 * Memory access fault in some applications. HIP runtime fixed offset accumulation in memory address.
+* The memory leak in virtual memory management (VMM). The HIP runtime now uses the size of the handle for the allocated memory range instead of the actual size for physical memory, which resolves the issue of address clashes with VMM.
 
 ### **hipBLASLt** (0.12.1)
 
@@ -105,7 +106,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 ### **rocPRIM** (3.4.1)
 
-#### Upcoming Changes
+#### Upcoming changes
 
 * Changes to the template parameters of warp and block algorithms will be made in an upcoming release.
 * Due to an upcoming compiler change, the following symbols related to warp size have been marked as deprecated and will be removed in an upcoming major release:
@@ -115,11 +116,11 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 ### **rocSHMEM** (2.0.1)
 
-#### Resolved Issues
+#### Resolved issues
 
-* Resolved incorrect output for `rocshmem_ctx_my_pe` and `rocshmem_ctx_n_pes`.
-* Resolved multi-team errors by providing team specific buffers in `rocshmem_ctx_wg_team_sync`.
-* Resolved missing implementation of `rocshmem_g` for IPC conduit.
+* Incorrect output for `rocshmem_ctx_my_pe` and `rocshmem_ctx_n_pes`.
+* Multi-team errors by providing team specific buffers in `rocshmem_ctx_wg_team_sync`.
+* Missing implementation of `rocshmem_g` for IPC conduit.
 
 ### **rocSOLVER** (3.28.2)
 
