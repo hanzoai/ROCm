@@ -463,7 +463,9 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Added
 
+* HIP API implementation for `hipEventRecordWithFlags`, records an event in the specified stream with flags.
 * Support for the pointer attribute `HIP_POINTER_ATTRIBUTE_CONTEXT`.
+* Support for the flags `hipEventWaitDefault` and `hipEventWaitExternal`.
 
 #### Optimized
 
@@ -471,12 +473,15 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Resolved issues
 
-* Issue of dependency on `libgcc-s1` during rocm-dev install on Debian Buster. HIP runtime removed this Debian package dependency and uses `libgcc1` instead for this distros.
+* Issue of dependency on `libgcc-s1` during rocm-dev install on Debian Buster. HIP runtime removed this Debian package dependency, and uses `libgcc1` instead for this distros.
 * Building issue for `COMGR` dynamic load on Fedora and other Distros. HIP runtime now doesn't link against `libamd_comgr.so`.
 * Failure in the API `hipStreamDestroy`, when stream type is `hipStreamLegacy`. The API now returns error code `hipErrorInvalidResourceHandle` on this condition.
-* Kernel launch errors, such as `shared object initialization failed`, `invalid device function`, or `kernel execution failure`. HIP runtime now loads `COMGR` properly considering the file with its name and mapped image.
+* Kernel launch errors, such as `shared object initialization failed`, `invalid device function` or `kernel execution failure`. HIP runtime now loads `COMGR` properly considering the file with its name and mapped image.
 * Memory access fault in some applications. HIP runtime fixed offset accumulation in memory address.
-* The memory leak in virtual memory management (VMM). The HIP runtime now uses the size of the handle for the allocated memory range instead of the actual size for physical memory, which resolves the issue of address clashes with VMM.
+* The memory leak in virtual memory management (VMM). HIP runtime now uses the size of handle for allocated memory range instead of actual size for physical memory, which fixed the issue of address clash with VMM.
+* Large memory allocation issue. HIP runtime now checks GPU video RAM and system RAM properly and sets size limits during memory allocation either on the host or the GPU device.
+* Support of `hipDeviceMallocContiguous` flags in `hipExtMallocWithFlags()`. It now enables `HSA_AMD_MEMORY_POOL_CONTIGUOUS_FLAG` in the memory pool allocation on GPU device.
+* Radom memory segmentation fault in handling `GraphExec` object release and `hipDeviceSyncronization`. HIP runtime now uses internal device synchronize function in `__hipUnregisterFatBinary`. 
 
 ### **hipBLASLt** (0.12.1)
 
