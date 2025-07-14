@@ -61,11 +61,11 @@ The ROCm Offline Installer Creator 6.4.2 includes the following features and imp
 * ROCm meta packages are now used for selecting ROCm components and use cases.
 * Improved separation of kernel/driver and ROCm prerequisite packages to reduce the size of ROCm-only or driver-only offline installers.
  
-In addition, the option to build an offline installer based on ROCm version 5.7.3 has been removed. To build an offline installer for ROCm 5.7.3, use the Offline Installer Creator from version 6.4.1 or earlier. See [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-offline-installer.html) for more information.
+In addition, the option to build an offline installer based on ROCm version 5.7.3 has been removed. To build an offline installer for ROCm 5.7.3, use the Offline Installer Creator from version 6.4.1 or earlier. See [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/install/rocm-offline-installer.html) for more information.
 
 ### ROCm Runfile Installer updates
 
-The ROCm Runfile Installer 6.4.2 adds support for Oracle Linux 8.10 and 9.6 (using the RHEL 8 or 9 .run files), Debian 12 (using the Ubuntu 22.04 .run file), and SLES 15 SP7. It also fixes permission settings issues during ROCm and AMDGPU driver installation. For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-runfile-installer.html).
+The ROCm Runfile Installer 6.4.2 adds support for Oracle Linux 8.10 and 9.6 (using the RHEL 8 or 9 .run files), Debian 12 (using the Ubuntu 22.04 .run file), and SLES 15 SP7. It also fixes permission settings issues during ROCm and AMDGPU driver installation. For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/install/rocm-runfile-installer.html).
 
 ### ROCm documentation updates
 
@@ -82,7 +82,7 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
 
 * Documentation for the new [ROCprof Compute Viewer](https://rocm.docs.amd.com/projects/rocprof-compute-viewer/en/amd-mainline/) was added in May 2025. This tool is used to visualize and analyze GPU thread trace data collected using [rocprofv3](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/index.html). Note that [ROCprof Compute Viewer](https://rocm.docs.amd.com/projects/rocprof-compute-viewer/en/amd-mainline/) is in an early access state. Running production workloads is not recommended.
 
-* The AMDGPU installer documentation has been removed to encourage the use of the package manager for ROCm installation. While the package manager is the recommended method, you can still install ROCm using the AMDGPU installer by following the [legacy process](https://rocm.docs.amd.com/projects/install-on-linux/en/docs-6.4.1/install/install-methods/amdgpu-installer-index.html). Ensure to update the command with the intended ROCm version before running it. For more information, see [Installation via native package manager](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/install-methods/package-manager-index.html).
+* The AMDGPU installer documentation has been removed to encourage the use of the package manager for ROCm installation. While the package manager is the recommended method, you can still install ROCm using the AMDGPU installer by following the [legacy process](https://rocm.docs.amd.com/projects/install-on-linux/en/docs-6.4.1/install/install-methods/amdgpu-installer-index.html). Ensure to update the command with the intended ROCm version before running it. For more information, see [Installation via native package manager](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/install/install-methods/package-manager-index.html).
 
 ## Operating system and hardware support changes
 
@@ -90,7 +90,9 @@ ROCm 6.4.2 adds support for SLES 15 SP7. For more information, see [SLES install
 
 ROCm 6.4.2 marks the end of support (EoS) for RHEL 9.5. 
 
-Hardware support remains unchanged in this release.
+ROCm 6.4.2 adds support for RDNA3 architecture-based [Radeon RX 7700 XT](https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/amd-radeon-rx-7700-xt.html) GPU. This GPU is supported on Ubuntu 24.04.2 and RHEL 9.6.
+For details, see the full list of [Supported GPUs
+(Linux)](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#supported-gpus).
 
 See the [Compatibility
 matrix](../../docs/compatibility/compatibility-matrix.rst)

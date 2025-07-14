@@ -39,7 +39,9 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Added
 
+* HIP API implementation for `hipEventRecordWithFlags`, records an event in the specified stream with flags.
 * Support for the pointer attribute `HIP_POINTER_ATTRIBUTE_CONTEXT`.
+* Support for the flags `hipEventWaitDefault` and `hipEventWaitExternal`.
 
 #### Optimized
 
@@ -47,12 +49,15 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Resolved issues
 
-* Issue of dependency on `libgcc-s1` during rocm-dev install on Debian Buster. HIP runtime removed this Debian package dependency and uses `libgcc1` instead for this distros.
+* Issue of dependency on `libgcc-s1` during rocm-dev install on Debian Buster. HIP runtime removed this Debian package dependency, and uses `libgcc1` instead for this distros.
 * Building issue for `COMGR` dynamic load on Fedora and other Distros. HIP runtime now doesn't link against `libamd_comgr.so`.
 * Failure in the API `hipStreamDestroy`, when stream type is `hipStreamLegacy`. The API now returns error code `hipErrorInvalidResourceHandle` on this condition.
-* Kernel launch errors, such as `shared object initialization failed`, `invalid device function`, or `kernel execution failure`. HIP runtime now loads `COMGR` properly considering the file with its name and mapped image.
+* Kernel launch errors, such as `shared object initialization failed`, `invalid device function` or `kernel execution failure`. HIP runtime now loads `COMGR` properly considering the file with its name and mapped image.
 * Memory access fault in some applications. HIP runtime fixed offset accumulation in memory address.
-* The memory leak in virtual memory management (VMM). The HIP runtime now uses the size of the handle for the allocated memory range instead of the actual size for physical memory, which resolves the issue of address clashes with VMM.
+* The memory leak in virtual memory management (VMM). HIP runtime now uses the size of handle for allocated memory range instead of actual size for physical memory, which fixed the issue of address clash with VMM.
+* Large memory allocation issue. HIP runtime now checks GPU video RAM and system RAM properly and sets size limits during memory allocation either on the host or the GPU device.
+* Support of `hipDeviceMallocContiguous` flags in `hipExtMallocWithFlags()`. It now enables `HSA_AMD_MEMORY_POOL_CONTIGUOUS_FLAG` in the memory pool allocation on GPU device.
+* Radom memory segmentation fault in handling `GraphExec` object release and `hipDeviceSyncronization`. HIP runtime now uses internal device synchronize function in `__hipUnregisterFatBinary`. 
 
 ### **hipBLASLt** (0.12.1)
 
@@ -114,6 +119,25 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
   * `rocprim::warp_size()`
   * `ROCPRIM_WAVEFRONT_SIZE`
 
+* The default scan accumulator types for device-level scan algorithms will be changed in an upcoming release, resulting in a breaking change. Previously, the default accumulator type was set to the input type for the inclusive scans and to the initial value type for the exclusive scans. This could lead to unexpected overflow if the input or initial type was smaller than the output type when the accumulator type wasn't explicitly set using the `AccType` template parameter. The new default accumulator types will be set to the type that results when the input or initial value type is applied to the scan operator.  
+
+    The following is the complete list of affected functions and how their default accumulator types are changing:
+    
+    * `rocprim::inclusive_scan`
+        * current default: `class AccType = typename std::iterator_traits<InputIterator>::value_type>`
+        * future default: `class AccType = rocprim::invoke_result_binary_op_t<typename std::iterator_traits<InputIterator>::value_type, BinaryFunction>`
+    * `rocprim::deterministic_inclusive_scan`
+        * current default: `class AccType = typename std::iterator_traits<InputIterator>::value_type>`
+        * future default: `class AccType = rocprim::invoke_result_binary_op_t<typename std::iterator_traits<InputIterator>::value_type, BinaryFunction>`
+    * `rocprim::exclusive_scan`
+        * current default: `class AccType = detail::input_type_t<InitValueType>>`
+        * future default: `class AccType = rocprim::invoke_result_binary_op_t<rocprim::detail::input_type_t<InitValueType>, BinaryFunction>`
+    * `rocprim::deterministic_exclusive_scan`
+        * current default: `class AccType = detail::input_type_t<InitValueType>>`
+        * future default: `class AccType = rocprim::invoke_result_binary_op_t<rocprim::detail::input_type_t<InitValueType>, BinaryFunction>`
+
+* `rocprim::load_cs` and `rocprim::store_cs` are deprecated and will be removed in an upcoming release. Alternatively, you can use `rocprim::load_nontemporal` and `rocprim::store_nontemporal` to load and store values in specific conditions (like bypassing the cache) for `rocprim::thread_load` and `rocprim::thread_store`.
+
 ### **rocSHMEM** (2.0.1)
 
 #### Resolved issues
@@ -156,7 +180,7 @@ for a complete overview of this release.
 
 #### Optimized
 
-* Improved load times for CLI commands when the GPU has multiple parititons.
+* Improved load times for CLI commands when the GPU has multiple partitions.
 
 #### Resolved issues
 
