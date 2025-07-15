@@ -194,6 +194,7 @@ Higgs
 Hyperparameters
 Huggingface
 ICD
+ICT
 ICV
 IDE
 IDEs
@@ -368,6 +369,7 @@ RDC's
 RDMA
 RDNA
 README
+Recomputation
 RHEL
 RMW
 RNN
