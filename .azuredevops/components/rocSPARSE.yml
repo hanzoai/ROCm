@@ -181,7 +181,7 @@ jobs:
 - ${{ if eq(parameters.unifiedBuild, False) }}:
   - ${{ each job in parameters.jobMatrix.testJobs }}:
     - job: ${{ parameters.componentName }}_test_${{ job.os }}_${{ job.target }}
-      timeoutInMinutes: 90
+      timeoutInMinutes: 120
       dependsOn: ${{ parameters.componentName }}_build_${{ job.os }}_${{ job.target }}
       condition:
         and(succeeded(),
@@ -196,6 +196,7 @@ jobs:
       workspace:
         clean: all
       steps:
+      - checkout: none
       - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/dependencies-other.yml
         parameters:
           aptPackages: ${{ parameters.aptPackages }}
