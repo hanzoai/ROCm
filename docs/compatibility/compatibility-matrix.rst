@@ -30,7 +30,7 @@ compatibility and system requirements.
       ,Ubuntu 22.04.5,Ubuntu 22.04.5,Ubuntu 22.04.5
       ,"RHEL 9.6, 9.4","RHEL 9.6, 9.5, 9.4","RHEL 9.5, 9.4"
       ,RHEL 8.10,RHEL 8.10,RHEL 8.10
-      ,"SLES 15 SP7 [#SLES-OS]_, SP6",SLES 15 SP6,"SLES 15 SP6, SP5"
+      ,"SLES 15 SP7, SP6",SLES 15 SP6,"SLES 15 SP6, SP5"
       ,"Oracle Linux 9, 8 [#mi300x]_","Oracle Linux 9, 8 [#mi300x]_",Oracle Linux 8.10 [#mi300x]_
       ,Debian 12 [#single-node]_,Debian 12 [#single-node]_,
       ,Azure Linux 3.0 [#mi300x]_,Azure Linux 3.0 [#mi300x]_,
@@ -153,7 +153,6 @@ compatibility and system requirements.
 
 .. rubric:: Footnotes
 
-.. [#SLES-OS] SLES 15 SP7 is supported only on AMD Instinct MI210 and MI300X.
 .. [#mi300x] Oracle Linux and Azure Linux are supported only on AMD Instinct MI300X.
 .. [#single-node] Debian 12 is supported only on AMD Instinct MI300X for single-node functionality.
 .. [#RDNA-OS] Radeon AI PRO R9700, Radeon RX 9070 XT (gfx1201), Radeon RX 9060 XT (gfx1200), Radeon PRO W7700 (gfx1101), and Radeon RX 7800 XT (gfx1101) are supported only on Ubuntu 24.04.2, Ubuntu 22.04.5, RHEL 9.6, and RHEL 9.4.
@@ -228,7 +227,6 @@ Expand for full historical view of:
 
    .. rubric:: Footnotes
 
-   .. [#SLES-OS-past-60] SLES 15 SP7 is supported only on AMD Instinct MI210 and MI300X.
    .. [#mi300x-past-60] Oracle Linux and Azure Linux are supported only on AMD Instinct MI300X.
    .. [#single-node-past-60] Debian 12 is supported only on AMD Instinct MI300X for single-node functionality.
    .. [#RDNA-OS-past-60] Radeon AI PRO R9700, Radeon RX 9070 XT (gfx1201), Radeon RX 9060 XT (gfx1200), Radeon PRO W7700 (gfx1101), and Radeon RX 7800 XT (gfx1101) are supported only on Ubuntu 24.04.2, Ubuntu 22.04.5, RHEL 9.6, and RHEL 9.4.
