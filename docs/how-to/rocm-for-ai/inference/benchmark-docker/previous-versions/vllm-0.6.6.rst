@@ -31,8 +31,8 @@ accelerator and includes the following components:
 With this Docker image, you can quickly validate the expected inference
 performance numbers for the MI300X accelerator. This topic also provides tips on
 optimizing performance with popular AI models. For more information, see the lists of
-:ref:`available models for MAD-integrated benchmarking <vllm-benchmark-mad-models>`
-and :ref:`standalone benchmarking <vllm-benchmark-standalone-options>`.
+:ref:`available models for MAD-integrated benchmarking <vllm-benchmark-mad-v066-models>`
+and :ref:`standalone benchmarking <vllm-benchmark-standalone-v066-options>`.
 
 .. _vllm-benchmark-vllm:
 
@@ -55,7 +55,7 @@ MI300X accelerator with the prebuilt vLLM Docker image.
 
    To optimize performance, disable automatic NUMA balancing. Otherwise, the GPU
    might hang until the periodic balancing is finalized. For more information,
-   see :ref:`AMD Instinct MI300X system optimization <mi300x-disable-numa>`.
+   see the :ref:`system validation steps <rocm-for-ai-system-optimization>`.
 
    .. code-block:: shell
 
@@ -76,11 +76,11 @@ MI300X accelerator with the prebuilt vLLM Docker image.
 Once the setup is complete, choose between two options to reproduce the
 benchmark results:
 
--  :ref:`MAD-integrated benchmarking <vllm-benchmark-mad>`
+-  :ref:`MAD-integrated benchmarking <vllm-benchmark-mad-v066>`
 
--  :ref:`Standalone benchmarking <vllm-benchmark-standalone>`
+-  :ref:`Standalone benchmarking <vllm-benchmark-standalone-v066>`
 
-.. _vllm-benchmark-mad:
+.. _vllm-benchmark-mad-v066:
 
 MAD-integrated benchmarking
 ===========================
@@ -108,9 +108,9 @@ model are collected in the following path: ``~/MAD/reports_float16/``.
 
 Although the following models are preconfigured to collect latency and
 throughput performance data, you can also change the benchmarking parameters.
-Refer to the :ref:`Standalone benchmarking <vllm-benchmark-standalone>` section.
+Refer to the :ref:`Standalone benchmarking <vllm-benchmark-standalone-v066>` section.
 
-.. _vllm-benchmark-mad-models:
+.. _vllm-benchmark-mad-v066-models:
 
 Available models
 ----------------
@@ -134,10 +134,10 @@ Available models
    * - `Llama 3.2 11B Vision <https://huggingface.co/meta-llama/Llama-3.2-11B-Vision-Instruct>`_
      - ``pyt_vllm_llama-3.2-11b-vision-instruct``
 
-   * - `Llama 2 7B <https://huggingface.co/meta-llama/Llama-2-7b-chat-hf>`_
+   * - `Llama 2 7B <https://huggingface.co/meta-llama/Llama-2-7b-chat-hf>`__
      - ``pyt_vllm_llama-2-7b``
 
-   * - `Llama 2 70B <https://huggingface.co/meta-llama/Llama-2-70b-chat-hf>`_
+   * - `Llama 2 70B <https://huggingface.co/meta-llama/Llama-2-70b-chat-hf>`__
      - ``pyt_vllm_llama-2-70b``
 
    * - `Mixtral MoE 8x7B <https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1>`_
@@ -194,7 +194,7 @@ Available models
    * - `C4AI Command R+ 08-2024 FP8 <https://huggingface.co/amd/c4ai-command-r-plus-FP8-KV>`_
      - ``pyt_vllm_command-r-plus_fp8``
 
-.. _vllm-benchmark-standalone:
+.. _vllm-benchmark-standalone-v066:
 
 Standalone benchmarking
 =======================
@@ -220,14 +220,14 @@ Command
 -------
 
 To start the benchmark, use the following command with the appropriate options.
-See :ref:`Options <vllm-benchmark-standalone-options>` for the list of
+See :ref:`Options <vllm-benchmark-standalone-v066-options>` for the list of
 options and their descriptions.
 
 .. code-block:: shell
 
    ./vllm_benchmark_report.sh -s $test_option -m $model_repo -g $num_gpu -d $datatype
 
-See the :ref:`examples <vllm-benchmark-run-benchmark>` for more information.
+See the :ref:`examples <vllm-benchmark-run-benchmark-v066>` for more information.
 
 .. note::
 
@@ -246,7 +246,7 @@ See the :ref:`examples <vllm-benchmark-run-benchmark>` for more information.
       # pass your HF_TOKEN
       export HF_TOKEN=$your_personal_hf_token
 
-.. _vllm-benchmark-standalone-options:
+.. _vllm-benchmark-standalone-v066-options:
 
 Options and available models
 ----------------------------
@@ -289,11 +289,11 @@ Options and available models
 
    * -
      - ``meta-llama/Llama-2-7b-chat-hf``
-     - `Llama 2 7B <https://huggingface.co/meta-llama/Llama-2-7b-chat-hf>`_
+     - `Llama 2 7B <https://huggingface.co/meta-llama/Llama-2-7b-chat-hf>`__
 
    * -
      - ``meta-llama/Llama-2-70b-chat-hf``
-     - `Llama 2 7B <https://huggingface.co/meta-llama/Llama-2-70b-chat-hf>`_
+     - `Llama 2 70B <https://huggingface.co/meta-llama/Llama-2-70b-chat-hf>`__
 
    * -
      - ``mistralai/Mixtral-8x7B-Instruct-v0.1``
@@ -375,13 +375,13 @@ Options and available models
      - ``float16`` or ``float8``
      - Data type
 
-.. _vllm-benchmark-run-benchmark:
+.. _vllm-benchmark-run-benchmark-v066:
 
 Running the benchmark on the MI300X accelerator
 -----------------------------------------------
 
 Here are some examples of running the benchmark with various options.
-See :ref:`Options <vllm-benchmark-standalone-options>` for the list of
+See :ref:`Options <vllm-benchmark-standalone-v066-options>` for the list of
 options and their descriptions.
 
 Example 1: latency benchmark
@@ -437,22 +437,22 @@ Further reading
 ===============
 
 - For application performance optimization strategies for HPC and AI workloads,
-  including inference with vLLM, see :doc:`../inference-optimization/workload`.
+  including inference with vLLM, see :doc:`/how-to/rocm-for-ai/inference-optimization/workload`.
 
 - To learn more about the options for latency and throughput benchmark scripts,
   see `<https://github.com/ROCm/vllm/tree/main/benchmarks>`_.
 
 - To learn more about system settings and management practices to configure your system for
-  MI300X accelerators, see :doc:`../../system-optimization/mi300x`.
+  MI300X series accelerators, see `AMD Instinct MI300X system optimization <https://instinct.docs.amd.com/projects/amdgpu-docs/en/latest/system-optimization/mi300x.html>`_
 
-- To learn how to run LLM models from Hugging Face or your own model, see
-  :doc:`Running models from Hugging Face <hugging-face-models>`.
+- To learn how to run community models from Hugging Face on AMD GPUs, see
+  :doc:`Running models from Hugging Face </how-to/rocm-for-ai/inference/hugging-face-models>`.
 
-- To learn how to optimize inference on LLMs, see
-  :doc:`Inference optimization <../inference-optimization/index>`.
+- To learn how to fine-tune LLMs and optimize inference, see
+  :doc:`Fine-tuning LLMs and inference optimization </how-to/rocm-for-ai/fine-tuning/fine-tuning-and-inference>`.
 
-- To learn how to fine-tune LLMs, see
-  :doc:`Fine-tuning LLMs <../fine-tuning/index>`.
+- For a list of other ready-made Docker images for AI with ROCm, see
+  `AMD Infinity Hub <https://www.amd.com/en/developer/resources/infinity-hub.html#f-amd_hub_category=AI%20%26%20ML%20Models>`_.
 
 Previous versions
 =================

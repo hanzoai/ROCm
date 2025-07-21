@@ -32,10 +32,10 @@ PyTorch inference performance testing
 
       <div id="vllm-benchmark-ud-params-picker" class="container-fluid">
         <div class="row">
-          <div class="col-2 me-2 model-param-head">Model group</div>
+          <div class="col-2 me-2 model-param-head">Model</div>
           <div class="row col-10">
    {% for model_group in model_groups %}
-            <div class="col-4 model-param" data-param-k="model-group" data-param-v="{{ model_group.tag }}" tabindex="0">{{ model_group.group }}</div>
+            <div class="col-3 model-param" data-param-k="model-group" data-param-v="{{ model_group.tag }}" tabindex="0">{{ model_group.group }}</div>
    {% endfor %}
           </div>
         </div>
@@ -93,7 +93,7 @@ PyTorch inference performance testing
 
    .. container:: model-doc pyt_chai1_inference
 
-      Use the following command to pull the `ROCm PyTorch Docker image <https://hub.docker.com/layers/rocm/pytorch/rocm6.2.3_ubuntu22.04_py3.10_pytorch_release_2.3.0_triton_llvm_reg_issue/images/sha256-b736a4239ab38a9d0e448af6d4adca83b117debed00bfbe33846f99c4540f79b>`_ from Docker Hub.
+      Use the following command to pull the `ROCm PyTorch Docker image <https://hub.docker.com/layers/rocm/pytorch/rocm6.2.3_ubuntu22.04_py3.10_pytorch_release_2.3.0_triton_llvm_reg_issue/images/sha256-b736a4239ab38a9d0e448af6d4adca83b117debed00bfbe33846f99c4540f79b>`__ from Docker Hub.
 
       .. code-block:: shell
 
@@ -103,9 +103,9 @@ PyTorch inference performance testing
 
          The Chai-1 benchmark uses a specifically selected Docker image using ROCm 6.2.3 and PyTorch 2.3.0 to address an accuracy issue.
 
-   .. container:: model-doc pyt_clip_inference pyt_mochi_video_inference
+   .. container:: model-doc pyt_clip_inference pyt_mochi_video_inference pyt_wan2.1_inference
 
-      Use the following command to pull the `ROCm PyTorch Docker image <https://hub.docker.com/layers/rocm/pytorch/latest/images/sha256-05b55983e5154f46e7441897d0908d79877370adca4d1fff4899d9539d6c4969>`_ from Docker Hub.
+      Use the following command to pull the `ROCm PyTorch Docker image <https://hub.docker.com/layers/rocm/pytorch/latest/images/sha256-05b55983e5154f46e7441897d0908d79877370adca4d1fff4899d9539d6c4969>`__ from Docker Hub.
 
       .. code-block:: shell
 

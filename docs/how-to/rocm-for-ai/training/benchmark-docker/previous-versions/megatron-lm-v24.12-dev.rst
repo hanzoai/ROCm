@@ -102,7 +102,8 @@ the output is ``1``, run the following command to disable NUMA auto-balancing.
 
    sudo sh -c 'echo 0 > /proc/sys/kernel/numa_balancing'
 
-See :ref:`mi300x-disable-numa` for more information.
+See :ref:`System validation and optimization <rocm-for-ai-system-optimization>`
+for more information.
 
 Hardware verification with ROCm
 -------------------------------
@@ -118,7 +119,7 @@ Run the command:
 
    rocm-smi --setperfdeterminism 1900
 
-See :ref:`mi300x-hardware-verification-with-rocm` for more information.
+See `Hardware verification with ROCm <https://instinct.docs.amd.com/projects/amdgpu-docs/en/latest/system-optimization/mi300x.html#hardware-verification-with-rocm>`_ for more information.
 
 RCCL Bandwidth Test
 -------------------
@@ -171,7 +172,7 @@ Run on 8 GPUs (``-g 8``), scanning from 8 bytes to 10 GB:
 
    ./build/all_reduce_perf -b 8 -e 10G -f 2 -g 8
 
-.. image:: ../../data/how-to/rocm-for-ai/rccl-tests-8-gpu.png
+.. image:: /data/how-to/rocm-for-ai/rccl-tests-8-gpu.png
    :width: 800
 
 Using one MPI process per GPU and ``-g 1`` for performance-oriented runs on both single-node and multi-node is
@@ -181,7 +182,7 @@ recommended. So, a run on 8 GPUs looks something like:
 
    mpirun -np 8 --bind-to numa ./build/all_reduce_perf -b 8 -e 10G -f 2 -g 1
 
-.. image:: ../../data/how-to/rocm-for-ai/rccl-tests-1-mpi-process-per-gpu.png
+.. image:: /data/how-to/rocm-for-ai/rccl-tests-1-mpi-process-per-gpu.png
    :width: 800
 
 Running with one MPI process per GPU ensures a one-to-one mapping for CPUs and GPUs, which can be beneficial
@@ -202,10 +203,10 @@ Use the following script to run the RCCL test for four MI300X GPU nodes. Modify 
    -x NCCL_DEBUG=version \
    $HOME/rccl-tests/build/all_reduce_perf -b 8 -e 8g -f 2 -g 1
 
-.. image:: ../../data/how-to/rocm-for-ai/rccl-tests-4-mi300x-gpu-nodes.png
+.. image:: /data/how-to/rocm-for-ai/rccl-tests-4-mi300x-gpu-nodes.png
    :width: 800
 
-.. _mi300x-amd-megatron-lm-training:
+.. _mi300x-amd-megatron-lm-training-v2412:
 
 Start training on MI300X accelerators
 =====================================
@@ -217,7 +218,7 @@ Use the following instructions to set up the environment, configure the script t
 reproduce the benchmark results on the MI300X accelerators with the AMD Megatron-LM Docker
 image.
 
-.. _amd-megatron-lm-requirements:
+.. _amd-megatron-lm-requirements-v2412:
 
 Download the Docker image and required packages
 -----------------------------------------------
@@ -271,10 +272,10 @@ end-of-document token, remove sentence splitting, and use the tokenizer type.
 In this case, the automatically generated output files are named ``my-gpt2_text_document.bin`` and
 ``my-gpt2_text_document.idx``.
 
-.. image:: ../../data/how-to/rocm-for-ai/prep-training-datasets-my-gpt2-text-document.png
+.. image:: /data/how-to/rocm-for-ai/prep-training-datasets-my-gpt2-text-document.png
    :width: 800
 
-.. _amd-megatron-lm-environment-setup:
+.. _amd-megatron-lm-environment-setup-v2412:
 
 Environment setup
 -----------------
@@ -374,19 +375,19 @@ Run benchmark tests
 
         NODE_RANK="${NODE_RANK:-0}"
 
-* Use this command to run a performance benchmark test of any of the Llama 2 models that this Docker image supports (see :ref:`variables <amd-megatron-lm-benchmark-test-vars>`).
+* Use this command to run a performance benchmark test of any of the Llama 2 models that this Docker image supports (see :ref:`variables <amd-megatron-lm-benchmark-test-vars-v2412>`).
 
   .. code-block:: shell
 
      {variables} bash examples/llama/train_llama2.sh
 
-* Use this command to run a performance benchmark test of any of the Llama 3 and Llama 3.1 models that this Docker image supports (see :ref:`variables <amd-megatron-lm-benchmark-test-vars>`).
+* Use this command to run a performance benchmark test of any of the Llama 3 and Llama 3.1 models that this Docker image supports (see :ref:`variables <amd-megatron-lm-benchmark-test-vars-v2412>`).
 
   .. code-block:: shell
 
      {variables} bash examples/llama/train_llama3.sh
 
-.. _amd-megatron-lm-benchmark-test-vars:
+.. _amd-megatron-lm-benchmark-test-vars-v2412:
 
 The benchmark tests support the same set of variables:
 
@@ -465,11 +466,11 @@ Benchmarking examples
          TEE_OUTPUT=1 MBS=5 BS=120 TP=8 TE_FP8=0 NO_TORCH_COMPILE=1
          SEQ_LENGTH=4096 bash examples/llama/train_llama2.sh
 
-      You can find the training logs at the location defined in ``$TRAIN_LOG`` in the :ref:`configuration script <amd-megatron-lm-environment-setup>`.
+      You can find the training logs at the location defined in ``$TRAIN_LOG`` in the :ref:`configuration script <amd-megatron-lm-environment-setup-v2412>`.
 
       See the sample output:
 
-      .. image:: ../../data/how-to/rocm-for-ai/llama2-7b-training-log-sample.png
+      .. image:: /data/how-to/rocm-for-ai/llama2-7b-training-log-sample.png
          :width: 800
 
    .. tab-item:: Multi node training
@@ -494,18 +495,18 @@ Benchmarking examples
          TEE_OUTPUT=1 MBS=4 BS=64 TP=8 TE_FP8=0 NO_TORCH_COMPILE=1
          SEQ_LENGTH=4096 bash examples/llama/train_llama2.sh
 
-      You can find the training logs at the location defined in ``$TRAIN_LOG`` in the :ref:`configuration script <amd-megatron-lm-environment-setup>`.
+      You can find the training logs at the location defined in ``$TRAIN_LOG`` in the :ref:`configuration script <amd-megatron-lm-environment-setup-v2412>`.
 
       Sample output for 2-node training:
 
       Master node:
 
-      .. image:: ../../data/how-to/rocm-for-ai/2-node-training-master.png
+      .. image:: /data/how-to/rocm-for-ai/2-node-training-master.png
          :width: 800
 
       Worker node:
 
-      .. image:: ../../data/how-to/rocm-for-ai/2-node-training-worker.png
+      .. image:: /data/how-to/rocm-for-ai/2-node-training-worker.png
          :width: 800
 
 Previous versions

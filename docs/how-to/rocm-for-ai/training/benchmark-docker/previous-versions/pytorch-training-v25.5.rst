@@ -1,3 +1,5 @@
+:orphan:
+
 .. meta::
    :description: How to train a model using PyTorch for ROCm.
    :keywords: ROCm, AI, LLM, train, PyTorch, torch, Llama, flux, tutorial, docker
@@ -38,7 +40,7 @@ software components to accelerate training workloads:
 | Triton                   | 3.2.0                          |
 +--------------------------+--------------------------------+
 
-.. _amd-pytorch-training-model-support:
+.. _amd-pytorch-training-model-support-v255:
 
 Supported models
 ================
@@ -62,7 +64,7 @@ The following models are pre-optimized for performance on the AMD Instinct MI325
    Some models, such as Llama 3, require an external license agreement through
    a third party (for example, Meta).
 
-.. _amd-pytorch-training-performance-measurements:
+.. _amd-pytorch-training-performance-measurements-v255:
 
 Performance measurements
 ========================
