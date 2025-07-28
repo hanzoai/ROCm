@@ -29,6 +29,7 @@
 
 (performance-tools)=
 
+* {doc}`AQLProfile <aqlprofile:index>`
 * {doc}`ROCm Bandwidth Test <rocm_bandwidth_test:index>`
 * {doc}`ROCm Compute Profiler <rocprofiler-compute:index>`
 * {doc}`ROCm Systems Profiler <rocprofiler-systems:index>`
