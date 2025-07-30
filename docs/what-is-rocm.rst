@@ -110,7 +110,6 @@ Performance
 .. csv-table::
   :header: "Component", "Description"
 
-  ":doc:`AQLProfile <aqlprofile:index>`", "The Architected Queuing Language Profiling Library (AQLProfile) is an open source library that enables advanced GPU profiling and tracing on AMD platforms"
   ":doc:`ROCm Bandwidth Test <rocm_bandwidth_test:index>`", "Captures the performance characteristics of buffer copying and kernel read/write operations"
   ":doc:`ROCm Compute Profiler <rocprofiler-compute:index>`", "Kernel-level profiling for machine learning and high performance computing (HPC) workloads"
   ":doc:`ROCm Systems Profiler <rocprofiler-systems:index>`", "Comprehensive profiling and tracing of applications running on the CPU or the CPU and GPU"

@@ -123,7 +123,6 @@ compatibility and system requirements.
       :doc:`ROCm Validation Suite <rocmvalidationsuite:index>`,1.1.0,1.1.0,1.1.0
       ,,,
       PERFORMANCE TOOLS,,,
-      :doc:`AQLProfile <aqlprofile:index>`,0.6.0,0.6.0,0.5.0
       :doc:`ROCm Bandwidth Test <rocm_bandwidth_test:index>`,1.4.0,1.4.0,1.4.0
       :doc:`ROCm Compute Profiler <rocprofiler-compute:index>`,3.1.1,3.1.0,3.0.0
       :doc:`ROCm Systems Profiler <rocprofiler-systems:index>`,1.0.2,1.0.1,0.1.0
