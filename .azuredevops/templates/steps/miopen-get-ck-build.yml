@@ -13,8 +13,10 @@ steps:
     CC: $(Agent.BuildDirectory)/rocm/llvm/bin/amdclang
   inputs:
     targetType: inline
-    workingDirectory: $(Build.SourcesDirectory)
+    workingDirectory: $(Agent.BuildDirectory)/s
     script: |
+      set -e
+
       AZ_API="https://dev.azure.com/ROCm-CI/ROCm-CI/_apis"
       GH_API="https://api.github.com/repos/ROCm"
       EXIT_CODE=0
