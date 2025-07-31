@@ -205,6 +205,7 @@ jobs:
           -DAMDGPU_TARGETS=${{ job.target }}
           -DGPU_TARGETS=${{ job.target }}
           -DBUILD_CLIENTS_TESTS=ON
+          -DHIPBLASLT_ENABLE_BLIS=OFF
           -GNinja
     - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/manifest.yml
       parameters:
