@@ -72,8 +72,7 @@ for more information about operating system and hardware compatibility.
 
 ## ROCm components
 
-The following table lists the versions of ROCm components for ROCm 6.4.3, including any version
-changes from 6.4.3 to 6.4.2. Click the component's updated version to go to a list of its changes.
+The following table lists the versions of ROCm components for ROCm 6.4.3.
 Click {fab}`github` to go to the component's source code on GitHub.
 
 <div class="pst-scrollable-table-container">
@@ -411,11 +410,6 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 ROCm known issues are noted on {fab}`github` [GitHub](https://github.com/ROCm/ROCm/labels/Verified%20Issue). For known
 issues related to individual components, review the [Detailed component changes](#detailed-component-changes).
-
-## ROCm resolved issues
-
-The following are previously known issues resolved in this release. For resolved issues related to
-individual components, review the [Detailed component changes](#detailed-component-changes).
 
 ## ROCm upcoming changes
 
