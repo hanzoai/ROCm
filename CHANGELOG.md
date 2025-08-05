@@ -4,6 +4,11 @@ This page is a historical overview of changes made to ROCm components. This
 consolidated changelog documents key modifications and improvements across
 different versions of the ROCm software stack and its components.
 
+## ROCm 6.4.3
+
+See the [ROCm 6.4.3 release notes](https://rocm-stg.amd.com/en/latest/about/release-notes.html#rocm-6-4-3-release-notes)
+for a complete overview of this release.
+
 ## ROCm 6.4.2
 
 See the [ROCm 6.4.2 release notes](https://rocm.docs.amd.com/en/docs-6.4.2/about/release-notes.html)

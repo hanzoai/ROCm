@@ -35,11 +35,7 @@ documentation to verify compatibility and system requirements.
 
 ## Release highlights
 
-ROCm 6.4.3 is a quality release that resolves several outstanding issues. No new features are introduced. For more information about the changes in ROCm 6.4.3, review the rest of the Release Notes. 
-
-### Performance decline issue fixed
-
-The performance decline issue in some RCCL applications has been fixed by avoiding unnecessary queue eviction during fork.
+ROCm 6.4.3 is a quality release that resolves outstanding issues. No new features are introduced. For more information about the changes in ROCm 6.4.3, review the rest of the Release Notes. 
 
 ### ROCm documentation updates
 
@@ -55,7 +51,7 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
  
     For more information about the changes, see [Changelog for the AI Developer Hub](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/changelog.html).
 
-* ROCm provides a comprehensive ecosystem for deep learning development. For more details, see [Deep learning frameworks for ROCm](https://rocm.docs.amd.com/en/docs-6.4.2/how-to/deep-learning-rocm.html). As of July 31, 2025, AMD ROCm provides support for the following additional deep learning frameworks:
+* ROCm provides a comprehensive ecosystem for deep learning development. For more details, see [Deep learning frameworks for ROCm](https://rocm.docs.amd.com/en/docs-6.4.2/how-to/deep-learning-rocm.html). AMD ROCm adds support for the following deep learning frameworks:
 
     * Taichi is an open-source, imperative, and parallel programming language designed for high-performance numerical computation. Embedded in Python, it leverages just-in-time (JIT) compilation frameworks such as LLVM to accelerate compute-intensive Python code by compiling it to native GPU or CPU instructions. It is currently supported on ROCm 6.3.2. For more information, see [Taichi compatibility](https://rocm.docs.amd.com/en/docs-6.4.3/compatibility/ml-compatibility/taichi-compatibility.html).
     * Megablocks is a light-weight library for mixture-of-experts (MoE) training. The core of the system is efficient "dropless-MoE" and standard MoE layers. Megablocks is integrated with Megatron-LM, where data and pipeline parallel training of MoEs is supported. It is currently supported on ROCm 6.3.0. For more information, see [Megablocks compatibility](https://rocm.docs.amd.com/en/docs-6.4.3/compatibility/ml-compatibility/megablocks-compatibility.html).
