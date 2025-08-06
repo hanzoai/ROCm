@@ -24,8 +24,6 @@ The release notes provide a summary of notable changes since the previous ROCm r
 
 - [ROCm known issues](#rocm-known-issues)
 
-- [ROCm resolved issues](#rocm-resolved-issues)
-
 - [ROCm upcoming changes](#rocm-upcoming-changes)
 
 ```{note}
@@ -35,7 +33,15 @@ documentation to verify compatibility and system requirements.
 
 ## Release highlights
 
-ROCm 6.4.3 is a quality release that resolves outstanding issues. No new features are introduced. For more information about the changes in ROCm 6.4.3, review the rest of the Release Notes. 
+ROCm 6.4.3 is a quality release that resolves the following issues. For changes to individual components, see [Detailed component changes](#detailed-component-changes).
+
+### AMDGPU driver updates
+
+* The performance decline issue in some RCCL applications has been fixed by avoiding unnecessary queue eviction during fork.
+* Fixed an issue in the AMDGPU driver’s scheduler constraints that could cause queue preemption to fail during workload execution.
+
+### ROCm SMI update
+* Fixed the failure to load GPU data like System Clock (SCLK) by adjusting the logic for retrieving GPU board voltage.
 
 ### ROCm documentation updates
 
@@ -277,7 +283,7 @@ Click {fab}`github` to go to the component's source code on GitHub.
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocm_smi_lib/en/docs-6.4.2/index.html">ROCm SMI</a></td>
-                <td>7.5.0</td>
+                <td>7.5.0&nbsp;&Rightarrow;&nbsp;<a href="#rocm-smi-7-7-0">7.7.0</td>
                 <td><a href="https://github.com/ROCm/rocm_smi_lib"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
@@ -396,10 +402,20 @@ Click {fab}`github` to go to the component's source code on GitHub.
 
 ## Detailed component changes
 
-There is no key changes to ROCm components from the previous [ROCm 6.4.2 release](https://rocm.docs.amd.com/en/docs-6.4.2/about/release-notes.html#rocm-6-4-2-release-notes).
+The following sections describe key changes to ROCm components.
 
 ```{note}
 For a historical overview of ROCm component updates, see the {doc}`ROCm consolidated changelog </release/changelog>`.
+```
+
+### **ROCm SMI** (7.7.0)
+
+#### Added
+
+- Support for getting the GPU Board voltage.
+
+```{note}
+See the full [ROCm SMI changelog](https://github.com/ROCm/rocm_smi_lib/blob/release/rocm-rel-6.4/CHANGELOG.md) for details, examples, and in-depth descriptions.
 ```
 
 ## ROCm known issues

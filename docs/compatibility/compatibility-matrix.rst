@@ -119,7 +119,7 @@ compatibility and system requirements.
       :doc:`AMD SMI <amdsmi:index>`,25.5.1,25.5.1,24.7.1
       :doc:`ROCm Data Center Tool <rdc:index>`,0.3.0,0.3.0,0.3.0
       :doc:`rocminfo <rocminfo:index>`,1.0.0,1.0.0,1.0.0
-      :doc:`ROCm SMI <rocm_smi_lib:index>`,7.5.0,7.5.0,7.4.0
+      :doc:`ROCm SMI <rocm_smi_lib:index>`,7.7.0,7.5.0,7.4.0
       :doc:`ROCm Validation Suite <rocmvalidationsuite:index>`,1.1.0,1.1.0,1.1.0
       ,,,
       PERFORMANCE TOOLS,,,
