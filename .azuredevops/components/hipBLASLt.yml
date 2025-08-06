@@ -208,7 +208,7 @@ jobs:
           -DHIPBLASLT_ENABLE_ROCROLLER=ON
           -DHIPBLASLT_ENABLE_FETCH=ON
           -DHIPBLASLT_ENABLE_BLIS=OFF
-          -DTENSILELITE_LOGIC_FILTER="gfx942/GridBased/*Bljk_DB_UserArgs"
+          -DTENSILELITE_LOGIC_FILTER="gfx942/GridBased/*_DB_UserArgs"
           -GNinja
     - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/manifest.yml
       parameters:
