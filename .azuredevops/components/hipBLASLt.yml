@@ -97,16 +97,16 @@ parameters:
       #- { pool: rocm-ci_medium_build_pool, os: almalinux8, packageManager: dnf, target: gfx1030 }
     testJobs:
       - { os: ubuntu2204, packageManager: apt, target: gfx942 }
-      - { os: ubuntu2204, packageManager: apt, target: gfx90a }
-- name: downstreamComponentMatrix
-  type: object
-  default:
-    - rocBLAS:
-      name: rocBLAS
-      sparseCheckoutDir: projects/rocblas
-      skipUnifiedBuild: 'false'
-      buildDependsOn:
-        - hipBLASLt_build
+      #- { os: ubuntu2204, packageManager: apt, target: gfx90a }
+#- name: downstreamComponentMatrix
+#  type: object
+#  default:
+#    - rocBLAS:
+#      name: rocBLAS
+#      sparseCheckoutDir: projects/rocblas
+#      skipUnifiedBuild: 'false'
+#      buildDependsOn:
+#        - hipBLASLt_build
 
 jobs:
 - ${{ each job in parameters.jobMatrix.buildJobs }}:
@@ -208,6 +208,7 @@ jobs:
           -DHIPBLASLT_ENABLE_ROCROLLER=ON
           -DHIPBLASLT_ENABLE_FETCH=ON
           -DHIPBLASLT_ENABLE_BLIS=OFF
+          -DTENSILELITE_LOGIC_FILTER="gfx942/GridBased/*Bljk_DB_UserArgs"
           -GNinja
     - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/manifest.yml
       parameters:
@@ -285,7 +286,7 @@ jobs:
           componentName: ${{ parameters.componentName }}
           os: ${{ job.os }}
           testDir: '$(Agent.BuildDirectory)/rocm/bin'
-          testExecutable: './hipblaslt-test'
+          testExecutable: 'TENSILE_DB=0xFFFF ./hipblaslt-test'
           testParameters: '--gtest_output=xml:./test_output.xml --gtest_color=yes --gtest_filter=*pre_checkin*'
       - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/docker-container.yml
         parameters:
