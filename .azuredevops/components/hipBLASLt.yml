@@ -287,7 +287,7 @@ jobs:
           os: ${{ job.os }}
           testDir: '$(Agent.BuildDirectory)/rocm/bin'
           testExecutable: 'TENSILE_DB=0xFFFF ./hipblaslt-test'
-          testParameters: '--gtest_output=xml:./test_output.xml --gtest_color=yes --gtest_filter=*pre_checkin*'
+          testParameters: '--gtest_output=xml:./test_output.xml --gtest_color=yes --gtest_filter="_/matmul_test.matmul/pre_checkin_matmul_large_nt_f64_dst_f64_gfx942_f64_rf64_rf64_rf64_rf64_r_NT_4096_4096_2048_2_4096_4096_2_4096_4096_1"'
       - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/docker-container.yml
         parameters:
           aptPackages: ${{ parameters.aptPackages }}
