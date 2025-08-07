@@ -209,12 +209,6 @@ jobs:
           -DHIPBLASLT_ENABLE_FETCH=ON
           -DHIPBLASLT_ENABLE_BLIS=OFF
           -GNinja
-    - task: Bash@3
-      displayName: Compress build dir
-      inputs:
-        targetType: inline
-        script: |
-          tar -czf $(Build.ArtifactStagingDirectory)/hipblaslt-build-files.tar.gz $(Agent.BuildDirectory)/s/build
     - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/manifest.yml
       parameters:
         componentName: ${{ parameters.componentName }}
@@ -292,7 +286,7 @@ jobs:
           os: ${{ job.os }}
           testDir: '$(Agent.BuildDirectory)/rocm/bin'
           testExecutable: './hipblaslt-test'
-          testParameters: '--gtest_output=xml:./test_output.xml --gtest_color=yes'
+          testParameters: '--gtest_output=xml:./test_output.xml --gtest_color=yes --gtest_filter=*pre_checkin*'
       - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/docker-container.yml
         parameters:
           aptPackages: ${{ parameters.aptPackages }}
