@@ -50,4 +50,3 @@
 | [5.0.2](https://rocm.docs.amd.com/en/docs-5.0.2/) | Mar 4, 2022 |
 | [5.0.1](https://rocm.docs.amd.com/en/docs-5.0.1/) | Feb 16, 2022 |
 | [5.0.0](https://rocm.docs.amd.com/en/docs-5.0.0/) | Feb 9, 2022 |
-
