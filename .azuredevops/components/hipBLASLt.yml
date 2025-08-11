@@ -36,8 +36,10 @@ parameters:
     - gfortran
     - git
     - libdrm-dev
+    - liblapack-dev
     - libmsgpack-dev
     - libnuma-dev
+    - libopenblas-dev
     - ninja-build
     - python3-pip
     - python3-venv
@@ -46,6 +48,12 @@ parameters:
   default:
     - joblib
     - "packaging>=22.0"
+    - pyyaml
+    - msgpack
+    - simplejson
+    - ujson
+    - orjson
+    - yappi
     - --upgrade
 - name: rocmDependencies
   type: object
@@ -169,7 +177,7 @@ jobs:
           cd $(Agent.BuildDirectory)/temp-deps
           # position-independent LAPACK is required for almalinux8 builds
           cmake -DBUILD_GTEST=OFF -DBUILD_LAPACK=ON -DCMAKE_POSITION_INDEPENDENT_CODE=ON $(Agent.BuildDirectory)/s/deps
-          make
+          make -j
           sudo make install
     - script: |
         mkdir -p $(CCACHE_DIR)
@@ -195,7 +203,11 @@ jobs:
           -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
           -DCMAKE_C_COMPILER_LAUNCHER=ccache
           -DAMDGPU_TARGETS=${{ job.target }}
+          -DGPU_TARGETS=${{ job.target }}
           -DBUILD_CLIENTS_TESTS=ON
+          -DHIPBLASLT_ENABLE_ROCROLLER=ON
+          -DHIPBLASLT_ENABLE_FETCH=ON
+          -DHIPBLASLT_ENABLE_BLIS=OFF
           -GNinja
     - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/manifest.yml
       parameters:
