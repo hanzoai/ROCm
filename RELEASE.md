@@ -43,7 +43,15 @@ The following are notable new features and improvements in ROCm 7.0.0. For chang
 HIP API 7.0 introduces changes to make it align more closely with NVIDIA CUDA. These change are incompatible with prior releases,
 and might require recompiling existing HIP applications for use in the ROCm 7.0 release. For more information, see the [HIP API 7.0 changes](../hip-7-changes) and the [HIP changelog](#hip-7-0-0) below.
 
-### Instinct Driver / ROCm packaging separation
+### New machine learning programming language for AMD accelerators
+
+Wave is a high-performance domain-specific Python programming language (DSL) designed to accelerate the development and optimization of machine learning kernels on AMD GPUs. It introduces a subgroup-level (wave) programming model that deliberately separates the mathematical formulation of computation from subgroup and thread distribution strategies. ROCm 7.0 supports the library on AMD Instinct MI300 and MI350 series accelerators. Wave is now integrated into SGLang, also enabling a broader user base. For more information, see its [GitHub repository](https://github.com/iree-org/wave).
+
+```{note}
+Wave for ROCm is in an early access state. Running production workloads is not recommended.
+```
+
+### Instinct Driver/ROCm packaging separation
 
 The Instinct Driver is now distributed separately from the ROCm software stack and is stored under in its own location ``/amdgpu/`` in the package repository at [repo.radeon.com](https://repo.radeon.com/amdgpu/). The first release is designated as Instinct Driver version 30.10. See [ROCm Gets Modular: Meet the Instinct Datacenter GPU Driver](https://rocm.blogs.amd.com/ecosystems-and-partners/instinct-gpu-driver/README.html) for more information.
 
@@ -70,48 +78,51 @@ Support has been added for the ROCm Profiling Data (rocpd) output format, which 
 * Added stochastic and host-trap PC sampling support for all MI300 series accelerators.
 * HIP streams translate to Queues in Time Traces in Perfetto output.
 
+For more information about ROCprofiler-SDK changes, see the [detailed component changelog](#rocprofiler-sdk-1-0-0) below
+
 ### Compilers changes and improvements
 
 ROCm 7.0 introduces the AMD Next-Gen Fortran compiler. ``llvm-flang`` (sometimes called new-flang or flang-18) is a re-implementation of the Fortran frontend. It is a strategic replacement for classic-flang and is developed in LLVM’s upstream repo at [llvm/llvm-project](https://github.com/llvm/llvm-project/tree/main/flang).
 
 Key enhancements include:
 
-    * Compiler:
-        * Improved memory load and store instructions.
-        * Updated clang/llvm to AMD clang version 20.0.0git (equivalent to LLVM 20.0.0 with additional out-of-tree patches).
-        * Support added for separate debug file generation for device code.
+* Compiler:
+    * Improved memory load and store instructions.
+    * Updated clang/llvm to AMD clang version 20.0.0git (equivalent to LLVM 20.0.0 with additional out-of-tree patches).
+    * Support added for separate debug file generation for device code.
 
-    * Comgr:
-        * Added support for an in-memory virtual file system (VFS) for storing temporary files generated during intermediate compilation steps. This is designed to improve performance by reducing on-disk file I/O. Currently, VFS is supported only for the device library link step, with plans for expanded support in future releases.
+* Comgr:
+    * Added support for an in-memory virtual file system (VFS) for storing temporary files generated during intermediate compilation steps. This is designed to improve performance by reducing on-disk file I/O. Currently, VFS is supported only for the device library link step, with plans for expanded support in future releases.
 
-    * SPIR-V:
-        * Improved [target-specific extensions](https://github.com/ROCm/llvm-project/blob/c2535466c6e40acd5ecf6ba1676a4e069c6245cc/clang/docs/LanguageExtensions.rst):
-            * Added a new target-specific builtin ``__builtin_amdgcn_processor_is`` for late or deferred queries of the current target processor.
-            * Added a new target-specific builtin ``__builtin_amdgcn_is_invocable``, enabling fine-grained, per-builtin feature availability.
-    * HIPIFY now supports NVIDIA CUDA 12.8.0 APIs:
-        * Added support for all new device and host APIs, including FP4, FP6, and FP128 – including support for the corresponding ROCm HIP equivalents.
+* SPIR-V:
+    * Improved [target-specific extensions](https://github.com/ROCm/llvm-project/blob/c2535466c6e40acd5ecf6ba1676a4e069c6245cc/clang/docs/LanguageExtensions.rst):
+        * Added a new target-specific builtin ``__builtin_amdgcn_processor_is`` for late or deferred queries of the current target processor.
+        * Added a new target-specific builtin ``__builtin_amdgcn_is_invocable``, enabling fine-grained, per-builtin feature availability.
+* HIPIFY now supports NVIDIA CUDA 12.8.0 APIs:
+    * Added support for all new device and host APIs, including `FP4`, `FP6`, and `FP128`– including support for the corresponding ROCm HIP equivalents.
 
 Deprecated features:
 
-    * ROCm components no longer use the ``__AMDGCN_WAVEFRONT_SIZE`` and ``__AMDGCN_WAVEFRONT_SIZE__`` macros nor HIP’s ``warpSize`` variable as ``constexpr``. These macros and reliance on ``warpSize`` as a ``constexpr`` are deprecated and will be disabled in a future release. Users are encouraged to update their code if needed to ensure future compatibility.
+* ROCm components no longer use the ``__AMDGCN_WAVEFRONT_SIZE`` and ``__AMDGCN_WAVEFRONT_SIZE__`` macros nor HIP’s ``warpSize`` variable as ``constexpr``. These macros and reliance on ``warpSize`` as a ``constexpr`` are deprecated and will be disabled in a future release. Users are encouraged to update their code if needed to ensure future compatibility.
 
 ### Libraries changes and improvements
 
 #### New data type support
 
-MX-compliant data types bring microscaling support to ROCm. For more information, see the [OCP Microscaling (MX) Formats Specification](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf). The ROCm 7.0 Alpha enables functional support for MX data types FP4, FP6, and FP8 on MI355X systems in these ROCm libraries:
-    *	Composable Kernel (FP4 and FP8 only)
-    *	hipBLASLt
-    *	MIGraphX (FP4 only)
+MX-compliant data types bring microscaling support to ROCm. For more information, see the [OCP Microscaling (MX) Formats Specification](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf). The ROCm 7.0 Alpha enables functional support for MX data types `FP4`, `FP6`, and `FP8` on MI355X systems in these ROCm libraries:
+*	Composable Kernel (`FP4` and `FP8` only)
+*	hipBLASLt
+*	MIGraphX (`FP4` only)
 
-The following libraries are updated to support the Open Compute Project (OCP) floating-point FP8 format on AMD Instinct MI355X instead of the NANOO FP8 format:
+The following libraries are updated to support the Open Compute Project (OCP) floating-point `FP8` format on AMD Instinct MI355X instead of the NANOO `FP8` format:
 
-    *	Composable Kernel
-    *	hipBLASLt
-    *	hipSPARSELt
-    *	MIGraphX
-    *	rocWMMA
-MIGraphX now also supports BF16.
+*	Composable Kernel
+*	hipBLASLt
+*	hipSPARSELt
+*	MIGraphX
+*	rocWMMA
+
+MIGraphX now also supports `BF16`.
 
 #### RCCL support
 
@@ -119,8 +130,8 @@ RCCL is supported for single-node functional usage only. Multi-node communicatio
 
 #### MIGraphX support
 
-*	Support for OCP FP8 and MX FP4 data types on MI355X
-*	Support for BF16 on all hardware
+*	Support for OCP `FP8` and MX `FP4` data types on MI355X
+*	Support for `BF16` on all hardware
 *	Support for PyTorch 2.7 via Torch-MIGraphX
 
 ### Tools changes and improvements
@@ -131,20 +142,20 @@ RCCL is supported for single-node functional usage only. Multi-node communicatio
 * New APIs: CPU affinity shows GPUs’ affinitization to each CPU in a system.
 
 #### ROCgdb
-* MX data types support: FP4, FP6, and FP8
+* MX data types support: `FP4`, `FP6`, and `FP8`.
 
 #### ROCprof Compute Viewer
-* Initial release: ``rocprof-compute-viewer`` allows the visualization of ``rocprofv3``’s thread trace output
+* Initial release: ``rocprof-compute-viewer`` allows the visualization of ``rocprofv3``’s thread trace output.
 
 #### ROCprof Trace Decoder
-* Initial release: ``rocprof-trace-decoder`` a plugin API for decoding thread traces
+* Initial release: ``rocprof-trace-decoder`` a plugin API for decoding thread traces.
 
 #### ROCm Compute Profiler
 
-* MX data types support: FP4, FP6, and FP8.
+* MX data types support: `FP4`, `FP6`, and `FP8`.
 * AMD Instinct MI355X and MI350X performance counters: CPC, SPI, SQ, TA/TD/TCP, and TCC.
-* Enhanced roofline analysis with support for INT8, INT32, FP8, FP16, and BF16 data types.
-* Roofline distinction for FP32 and FP64 data types.
+* Enhanced roofline analysis with support for `INT8`, `INT32`, `FP8`, `FP16`, and `BF16` data types.
+* Roofline distinction for `FP32` and `FP64` data types.
 * Selective kernel profiling.
 
 #### ROCm Systems Profiler
@@ -175,7 +186,7 @@ See [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-
 
 The ROCm Runfile Installer 7.0.0 adds the following features and improvements:
  
-* Added support for RHEL 10.0, Oracle 10.0, and Rocky 9.6,
+* Added support for RHEL 10.0, Oracle 10.0, and Rocky 9.6.
 * Added `untar` mode for the `.run` file to allow extraction of ROCm to a given directory, similar to a normal tarball.
 * Added an RVS test script.
 * Fixes to the rocm-examples test script.
@@ -187,6 +198,8 @@ For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/pro
 
 ROCm documentation continues to be updated to provide clearer and more comprehensive guidance for a wider variety of user needs and use cases.
 
+* Documentation for [rocCV](https://rocm.docs.amd.com/projects/rocCV/en/latest/index.html), an efficient GPU-accelerated library for image pre- and post-processing, has been added. rocCV is in an early access state, and using it on production workloads is not recommended.
+
 * ROCm Math libraries support a wide range of data types, enabling optimized performance across various precision requirements. The following Math libraries are now updated with new precision content. For more information, click the Math library’s link:
 
     * [hipBLAS](https://rocm.docs.amd.com/projects/hipBLAS/en/develop/reference/data-type-support.html)
@@ -194,8 +207,6 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
     * [hipSPARSE](https://rocm.docs.amd.com/projects/hipSPARSE/en/develop/reference/precision.html)
     * [rocSPARSE](https://rocm.docs.amd.com/projects/rocSPARSE/en/develop/reference/precision.html)
     * [Tensile](https://rocm.docs.amd.com/projects/Tensile/en/develop/src/reference/precision-support.html#precision-support)
-
-* Documentation for [rocCV](https://rocm.docs.amd.com/projects/rocCV/en/latest/index.html), an efficient GPU-accelerated library for image pre- and post-processing, has been added. rocCV is in an early access state, and using it on production workloads is not recommended.
 
 * ROCm offers a comprehensive ecosystem for deep learning development, featuring libraries optimized for deep learning operations and ROCm-aware versions of popular deep learning frameworks and libraries. The following deep learning frameworks' content now includes release notes and known issues:
 
@@ -214,13 +225,13 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
     * [rocSPARSE](https://rocm.docs.amd.com/projects/rocSPARSE/en/develop/reference/env_variables.html)
     * [Tensile](https://rocm.docs.amd.com/projects/Tensile/en/develop/src/reference/environment-variables.html)
 
-* Modern computing tasks often require balancing numerical precision against hardware resources and processing speed. Low precision floating point number formats in HIP include FP4 (4-bit) and FP6 (6-bit), which reduce memory and bandwidth requirements. For more information, see the updated [Low precision floating point types](https://rocm.docs.amd.com/projects/HIP/en/docs-develop/reference/low_fp_types.html) topic.
+* Modern computing tasks often require balancing numerical precision against hardware resources and processing speed. Low precision floating point number formats in HIP include `FP4` (4-bit) and `FP6` (6-bit), which reduce memory and bandwidth requirements. For more information, see the updated [Low precision floating point types](https://rocm.docs.amd.com/projects/HIP/en/docs-develop/reference/low_fp_types.html) topic.
 
 ## Operating system and hardware support changes
 
 ROCm 7.0.0 adds support for [placeholder]. For more information, see installation instructions.
 
-ROCm 6.4.2 marks the end of support (EoS) for [placeholder]
+ROCm 7.0.0 marks the end of support (EoS) for [placeholder]
 
 ROCm 7.0.0 adds support for AMD Instinct MI355X and MI350X. For details, see the full list of Supported GPUs (Linux).
 
@@ -260,42 +271,42 @@ Click {fab}`github` to go to the component's source code on GitHub.
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/AMDMIGraphX/en/docs-6.4.3/index.html">MIGraphX</a></td>
-                <td>2.12.0&nbsp;&Rightarrow;&nbsp;<a href="##migraphx-2-13-0">2.13.0</a></td>
+                <td>2.12.0&nbsp;&Rightarrow;&nbsp;<a href="#migraphx-2-13-0">2.13.0</a></td>
                 <td><a href="https://github.com/ROCm/AMDMIGraphX"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/MIOpen/en/docs-6.4.3/index.html">MIOpen</a></td>
-                <td>3.4.0&nbsp;&Rightarrow;&nbsp;<a href="##miopen-3-4-1">3.4.1</a></td>
+                <td>3.4.0&nbsp;&Rightarrow;&nbsp;<a href="#miopen-3-5-0">3.5.0</a></td>
                 <td><a href="https://github.com/ROCm/MIOpen"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/MIVisionX/en/docs-6.4.3/index.html">MIVisionX</a></td>
-                <td>3.2.0&nbsp;&Rightarrow;&nbsp;<a href="##mivisionx-3-3-0">3.3.0</a></td>
+                <td>3.2.0&nbsp;&Rightarrow;&nbsp;<a href="#mivisionx-3-3-0">3.3.0</a></td>
                 <td><a href="https://github.com/ROCm/MIVisionX"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocAL/en/docs-6.4.3/index.html">rocAL</a></td>
-                <td>2.2.0&nbsp;&Rightarrow;&nbsp;<a href="##rocal-2-2-0">2.3.0</a></td>
+                <td>2.2.0&nbsp;&Rightarrow;&nbsp;<a href="#rocal-2-2-0">2.3.0</a></td>
                 <td><a href="https://github.com/ROCm/rocAL"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocDecode/en/docs-6.4.3/index.html">rocDecode</a></td>
-                <td>0.10.0&nbsp;&Rightarrow;&nbsp;<a href="##rocdecode-1-0-0">1.0.0</a></td>
+                <td>0.10.0&nbsp;&Rightarrow;&nbsp;<a href="#rocdecode-1-0-0">1.0.0</a></td>
                 <td><a href="https://github.com/ROCm/rocDecode"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocJPEG/en/docs-6.4.3/index.html">rocJPEG</a></td>
-                <td>0.8.0&nbsp;&Rightarrow;&nbsp;<a href="##rocjpeg-1-1-0">1.1.0</a></td>
+                <td>0.8.0&nbsp;&Rightarrow;&nbsp;<a href="#rocjpeg-1-1-0">1.1.0</a></td>
                 <td><a href="https://github.com/ROCm/rocJPEG"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocPyDecode/en/docs-6.4.3/index.html">rocPyDecode</a></td>
-                <td>0.3.1&nbsp;&Rightarrow;&nbsp;<a href="##rocpydecode-0-6-0">0.6.0</a></td>
+                <td>0.3.1&nbsp;&Rightarrow;&nbsp;<a href="#rocpydecode-0-6-0">0.6.0</a></td>
                 <td><a href="https://github.com/ROCm/rocPyDecode"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rpp/en/docs-6.4.3/index.html">RPP</a></td>
-                <td>1.9.10&nbsp;&Rightarrow;&nbsp;<a href="##rpp-2-0-0">2.0.0</a></td>
+                <td>1.9.10&nbsp;&Rightarrow;&nbsp;<a href="#rpp-2-0-0">2.0.0</a></td>
                 <td><a href="https://github.com/ROCm/rpp"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
         </tbody>
@@ -304,12 +315,12 @@ Click {fab}`github` to go to the component's source code on GitHub.
                 <th rowspan="2"></th>
                 <th rowspan="2">Communication</th>
                 <td><a href="https://rocm.docs.amd.com/projects/rccl/en/docs-6.4.3/index.html">RCCL</a></td>
-                <td>2.22.3&nbsp;&Rightarrow;&nbsp;<a href="##rccl-2-26-6">2.26.6</a></td>
+                <td>2.22.3&nbsp;&Rightarrow;&nbsp;<a href="#rccl-2-26-6">2.26.6</a></td>
                 <td><a href="https://github.com/ROCm/rccl"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
             <td><a href="https://rocm.docs.amd.com/projects/rocSHMEM/en/docs-6.4.3/index.html">rocSHMEM</a></td>
-                <td>2.0.1&nbsp;&Rightarrow;&nbsp;<a href="##rocshmem-3-0-0">3.0.0</a></td>
+                <td>2.0.1&nbsp;&Rightarrow;&nbsp;<a href="#rocshmem-3-0-0">3.0.0</a></td>
                 <td><a href="https://github.com/ROCm/rocSHMEM"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
         </tbody>
@@ -318,82 +329,82 @@ Click {fab}`github` to go to the component's source code on GitHub.
                 <th rowspan="16"></th>
                 <th rowspan="16">Math</th>
                 <td><a href="https://rocm.docs.amd.com/projects/hipBLAS/en/docs-6.4.3/index.html">hipBLAS</a></td>
-                <td>2.4.0&nbsp;&Rightarrow;&nbsp;<a href="##hipblas-3-0-0">3.0.0</a></td>
+                <td>2.4.0&nbsp;&Rightarrow;&nbsp;<a href="#hipblas-3-0-0">3.0.0</a></td>
                 <td><a href="https://github.com/ROCm/hipBLAS"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/hipBLASLt/en/docs-6.4.3/index.html">hipBLASLt</a></td>
-                <td>0.12.1&nbsp;&Rightarrow;&nbsp;<a href="##hipblaslt-1-0-0">1.0.0</a></td>
+                <td>0.12.1&nbsp;&Rightarrow;&nbsp;<a href="#hipblaslt-1-0-0">1.0.0</a></td>
                 <td><a href="https://github.com/ROCm/hipBLASLt"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/hipFFT/en/docs-6.4.3/index.html">hipFFT</a></td>
-                <td>1.0.18&nbsp;&Rightarrow;&nbsp;<a href="##hipfft-1-0-20">1.0.20</a></td>
+                <td>1.0.18&nbsp;&Rightarrow;&nbsp;<a href="#hipfft-1-0-20">1.0.20</a></td>
                 <td><a href="https://github.com/ROCm/hipFFT"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/hipfort/en/docs-6.4.3/index.html">hipfort</a></td>
-                <td>0.6.0&nbsp;&Rightarrow;&nbsp;<a href="##hipfort-0-7-0">0.7.0</a></td>
+                <td>0.6.0&nbsp;&Rightarrow;&nbsp;<a href="#hipfort-0-7-0">0.7.0</a></td>
                 <td><a href="https://github.com/ROCm/hipfort"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/hipRAND/en/docs-6.4.3/index.html">hipRAND</a></td>
-                <td>2.12.0&nbsp;&Rightarrow;&nbsp;<a href="##hiprand-3-0-0">3.0.0</a></td>
+                <td>2.12.0&nbsp;&Rightarrow;&nbsp;<a href="#hiprand-3-0-0">3.0.0</a></td>
                 <td><a href="https://github.com/ROCm/hipRAND"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/hipSOLVER/en/docs-6.4.3/index.html">hipSOLVER</a></td>
-                <td>2.4.0&nbsp;&Rightarrow;&nbsp;<a href="##hipsolver-3-0-0">3.0.0</a></td>
+                <td>2.4.0&nbsp;&Rightarrow;&nbsp;<a href="#hipsolver-3-0-0">3.0.0</a></td>
                 <td><a href="https://github.com/ROCm/hipSOLVER"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/hipSPARSE/en/docs-6.4.3/index.html">hipSPARSE</a></td>
-                <td>3.2.0&nbsp;&Rightarrow;&nbsp;<a href="##hipsparse-4-0-1">4.0.1</a></td>
+                <td>3.2.0&nbsp;&Rightarrow;&nbsp;<a href="#hipsparse-4-0-1">4.0.1</a></td>
                 <td><a href="https://github.com/ROCm/hipSPARSE"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/hipSPARSELt/en/docs-6.4.3/index.html">hipSPARSELt</a></td>
-                <td>0.2.3&nbsp;&Rightarrow;&nbsp;<a href="##hipsparselt-0-2-4">0.2.4</a></td>
+                <td>0.2.3&nbsp;&Rightarrow;&nbsp;<a href="#hipsparselt-0-2-4">0.2.4</a></td>
                 <td><a href="https://github.com/ROCm/hipSPARSELt"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocALUTION/en/docs-6.4.3/index.html">rocALUTION</a></td>
-                <td>3.2.3&nbsp;&Rightarrow;&nbsp;<a href="##rocalution-4-0-0">4.0.0</a></td>
+                <td>3.2.3&nbsp;&Rightarrow;&nbsp;<a href="#rocalution-4-0-0">4.0.0</a></td>
                 <td><a href="https://github.com/ROCm/rocALUTION"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocBLAS/en/docs-6.4.3/index.html">rocBLAS</a></td>
-                <td>4.4.1&nbsp;&Rightarrow;&nbsp;<a href="##rocblas-5-0-0">5.0.0</a></td></td>
+                <td>4.4.1&nbsp;&Rightarrow;&nbsp;<a href="#rocblas-5-0-0">5.0.0</a></td></td>
                 <td><a href="https://github.com/ROCm/rocBLAS"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocFFT/en/docs-6.4.3/index.html">rocFFT</a></td>
-                <td>1.0.32&nbsp;&Rightarrow;&nbsp;<a href="##rocfft-1-0-34">1.0.34</a></td>
+                <td>1.0.32&nbsp;&Rightarrow;&nbsp;<a href="#rocfft-1-0-34">1.0.34</a></td>
                 <td><a href="https://github.com/ROCm/rocFFT"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocRAND/en/docs-6.4.3/index.html">rocRAND</a></td>
-                <td>3.3.0&nbsp;&Rightarrow;&nbsp;<a href="##rocrand-4-0-0">4.0.0</a></td>
+                <td>3.3.0&nbsp;&Rightarrow;&nbsp;<a href="#rocrand-4-0-0">4.0.0</a></td>
                 <td><a href="https://github.com/ROCm/rocRAND"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocSOLVER/en/docs-6.4.3/index.html">rocSOLVER</a></td>
-                <td>3.28.2&nbsp;&Rightarrow;&nbsp;<a href="##rocsolver-3-30-0">3.30.0</a></td>
+                <td>3.28.2&nbsp;&Rightarrow;&nbsp;<a href="#rocsolver-3-30-0">3.30.0</a></td>
                 <td><a href="https://github.com/ROCm/rocSOLVER"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocSPARSE/en/docs-6.4.3/index.html">rocSPARSE</a></td>
-                <td>3.4.0&nbsp;&Rightarrow;&nbsp;<a href="##rocsparse-4-0-2">4.0.2</a></td>
+                <td>3.4.0&nbsp;&Rightarrow;&nbsp;<a href="#rocsparse-4-0-2">4.0.2</a></td>
                 <td><a href="https://github.com/ROCm/rocSPARSE"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocWMMA/en/docs-6.4.3/index.html">rocWMMA</a></td>
-                <td>1.7.0&nbsp;&Rightarrow;&nbsp;<a href="##rocwmma-2-0-0">2.0.0</a></td>
+                <td>1.7.0&nbsp;&Rightarrow;&nbsp;<a href="#rocwmma-2-0-0">2.0.0</a></td>
                 <td><a href="https://github.com/ROCm/rocWMMA"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/Tensile/en/docs-6.4.3/src/index.html">Tensile</a></td>
-                <td>4.43.0&nbsp;&Rightarrow;&nbsp;<a href="##tensile-4-44-0">4.44.0</a></td>
+                <td>4.43.0&nbsp;&Rightarrow;&nbsp;<a href="#tensile-4-44-0">4.44.0</a></td>
                 <td><a href="https://github.com/ROCm/Tensile"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
         </tbody>
@@ -402,22 +413,22 @@ Click {fab}`github` to go to the component's source code on GitHub.
                 <th rowspan="4"></th>
                 <th rowspan="4">Primitives</th>
                 <td><a href="https://rocm.docs.amd.com/projects/hipCUB/en/docs-6.4.3/index.html">hipCUB</a></td>
-                <td>3.4.0&nbsp;&Rightarrow;&nbsp;<a href="##hipcub-4-0-0">4.0.0</a></td>
+                <td>3.4.0&nbsp;&Rightarrow;&nbsp;<a href="#hipcub-4-0-0">4.0.0</a></td>
                 <td><a href="https://github.com/ROCm/hipCUB"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/hipTensor/en/docs-6.4.3/index.html">hipTensor</a></td>
-                <td>1.5.0&nbsp;&Rightarrow;&nbsp;<a href="##hiptensor-2-0-0">2.0.0</a></td>
+                <td>1.5.0&nbsp;&Rightarrow;&nbsp;<a href="#hiptensor-2-0-0">2.0.0</a></td>
                 <td><a href="https://github.com/ROCm/hipTensor"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocPRIM/en/docs-6.4.3/index.html">rocPRIM</a></td>
-                <td>3.4.1&nbsp;&Rightarrow;&nbsp;<a href="##rocprim-4-0-0">4.0.0</a></td>
+                <td>3.4.1&nbsp;&Rightarrow;&nbsp;<a href="#rocprim-4-0-0">4.0.0</a></td>
                 <td><a href="https://github.com/ROCm/rocPRIM"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocThrust/en/docs-6.4.3/index.html">rocThrust</a></td>
-                <td>3.3.0&nbsp;&Rightarrow;&nbsp;<a href="##rocthrust-4-0-0">4.0.0</a></td>
+                <td>3.3.0&nbsp;&Rightarrow;&nbsp;<a href="#rocthrust-4-0-0">4.0.0</a></td>
                 <td><a href="https://github.com/ROCm/rocThrust"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
         </tbody>
@@ -426,12 +437,12 @@ Click {fab}`github` to go to the component's source code on GitHub.
                 <th rowspan="7">Tools</th>
                 <th rowspan="7">System management</th>
                 <td><a href="https://rocm.docs.amd.com/projects/amdsmi/en/docs-6.4.3/index.html">AMD SMI</a></td>
-                <td>25.5.1&nbsp;&Rightarrow;&nbsp;<a href="##amdsmi-26-0-0">26.0.0</a></td>
+                <td>25.5.1&nbsp;&Rightarrow;&nbsp;<a href="#amdsmi-26-0-0">26.0.0</a></td>
                 <td><a href="https://github.com/ROCm/amdsmi"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rdc/en/docs-6.4.3/index.html">ROCm Data Center Tool</a></td>
-                <td>0.3.0&nbsp;&Rightarrow;&nbsp;<a href="##rdc-1-1-0">1.1.0</a></td>
+                <td>0.3.0&nbsp;&Rightarrow;&nbsp;<a href="#rdc-1-1-0">1.1.0</a></td>
                 <td><a href="https://github.com/ROCm/rdc"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
@@ -441,12 +452,12 @@ Click {fab}`github` to go to the component's source code on GitHub.
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocm_smi_lib/en/docs-6.4.3/index.html">ROCm SMI</a></td>
-                <td>7.7.0&nbsp;&Rightarrow;&nbsp;<a href="##rocmsmi-7-8-0">7.8.0</a></td>
+                <td>7.7.0&nbsp;&Rightarrow;&nbsp;<a href="#rocmsmi-7-8-0">7.8.0</a></td>
                 <td><a href="https://github.com/ROCm/rocm_smi_lib"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/ROCmValidationSuite/en/docs-6.4.3/index.html">ROCm Validation Suite</a></td>
-                <td>1.1.0&nbsp;&Rightarrow;&nbsp;<a href="##rocm-validation-suite-1-2-0">1.2.0</a></td>
+                <td>1.1.0&nbsp;&Rightarrow;&nbsp;<a href="#rocm-validation-suite-1-2-0">1.2.0</a></td>
                 <td><a href="https://github.com/ROCm/ROCmValidationSuite"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
         </tbody>
@@ -456,19 +467,19 @@ Click {fab}`github` to go to the component's source code on GitHub.
                 <th rowspan="6">Performance</th>
                 <td><a href="https://rocm.docs.amd.com/projects/rocm_bandwidth_test/en/docs-6.4.3/index.html">ROCm Bandwidth
                         Test</a></td>
-                <td>1.4.0&nbsp;&Rightarrow;&nbsp;<a href="##rocm-bandwidth-test-2-6-0">2.6.0</a></td>
+                <td>1.4.0&nbsp;&Rightarrow;&nbsp;<a href="#rocm-bandwidth-test-2-6-0">2.6.0</a></td>
                 <td><a href="https://github.com/ROCm/rocm_bandwidth_test/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocprofiler-compute/en/docs-6.4.3/index.html">ROCm Compute Profiler</a></td>
-                <td>3.1.1&nbsp;&Rightarrow;&nbsp;<a href="##rocm-compute-profiler-3-2-1">3.2.1</a></td>
+                <td>3.1.1&nbsp;&Rightarrow;&nbsp;<a href="#rocm-compute-profiler-3-2-1">3.2.1</a></td>
                 <td><a href="https://github.com/ROCm/rocprofiler-compute"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocprofiler-systems/en/docs-6.4.3/index.html">ROCm Systems Profiler</a></td>
-                <td>1.0.2&nbsp;&Rightarrow;&nbsp;<a href="##rocm-systems-profiler-1-1-0">1.1.0</a></td>
+                <td>1.0.2&nbsp;&Rightarrow;&nbsp;<a href="#rocm-systems-profiler-1-1-0">1.1.0</a></td>
                 <td><a href="https://github.com/ROCm/rocprofiler-systems"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
@@ -480,7 +491,7 @@ Click {fab}`github` to go to the component's source code on GitHub.
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/docs-6.4.3/index.html">ROCprofiler-SDK</a></td>
-                <td>0.6.0&nbsp;&Rightarrow;&nbsp;<a href="##rocprofiler-sdk-1-0-0">1.0.0</a></td>
+                <td>0.6.0&nbsp;&Rightarrow;&nbsp;<a href="#rocprofiler-sdk-1-0-0">1.0.0</a></td>
                 <td><a href="https://github.com/ROCm/rocprofiler-sdk/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
@@ -496,13 +507,13 @@ Click {fab}`github` to go to the component's source code on GitHub.
                 <th rowspan="5"></th>
                 <th rowspan="5">Development</th>
                 <td><a href="https://rocm.docs.amd.com/projects/HIPIFY/en/docs-6.4.3/index.html">HIPIFY</a></td>
-                <td>19.0.0&nbsp;&Rightarrow;&nbsp;<a href="##hipify-20-0-0">20.0.0</a></td>
+                <td>19.0.0&nbsp;&Rightarrow;&nbsp;<a href="#hipify-20-0-0">20.0.0</a></td>
                 <td><a href="https://github.com/ROCm/HIPIFY/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/ROCdbgapi/en/docs-6.4.3/index.html">ROCdbgapi</a></td>
-                <td>0.77.2&nbsp;&Rightarrow;&nbsp;<a href="##rocdbgapi-0-77-3">0.77.3</a></td>
+                <td>0.77.2&nbsp;&Rightarrow;&nbsp;<a href="#rocdbgapi-0-77-3">0.77.3</a></td>
                 <td><a href="https://github.com/ROCm/ROCdbgapi/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
@@ -515,14 +526,14 @@ Click {fab}`github` to go to the component's source code on GitHub.
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/ROCgdb/en/docs-6.4.3/index.html">ROCm Debugger (ROCgdb)</a>
                 </td>
-                <td>15.2&nbsp;&Rightarrow;&nbsp;<a href="##rocgdb-16-3">16.3</a></td>
+                <td>15.2&nbsp;&Rightarrow;&nbsp;<a href="#rocgdb-16-3">16.3</a></td>
                 <td><a href="https://github.com/ROCm/ROCgdb/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocr_debug_agent/en/docs-6.4.3/index.html">ROCr Debug Agent</a>
                 </td>
-                <td>2.0.4&nbsp;&Rightarrow;&nbsp;<a href="##rocr-debug-agent-2-1-0">2.1.0</a></td>
+                <td>2.0.4&nbsp;&Rightarrow;&nbsp;<a href="#rocr-debug-agent-2-1-0">2.1.0</a></td>
                 <td><a href="https://github.com/ROCm/rocr_debug_agent/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
@@ -537,7 +548,7 @@ Click {fab}`github` to go to the component's source code on GitHub.
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/llvm-project/en/docs-6.4.3/index.html">llvm-project</a></td>
-                <td>19.0.0&nbsp;&Rightarrow;&nbsp;<a href="##llvm-project-20-0-0">20.0.0</a></td>
+                <td>19.0.0&nbsp;&Rightarrow;&nbsp;<a href="#llvm-project-20-0-0">20.0.0</a></td>
                 <td><a href="https://github.com/ROCm/llvm-project/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
@@ -546,12 +557,12 @@ Click {fab}`github` to go to the component's source code on GitHub.
             <tr>
                 <th rowspan="2" colspan="2">Runtimes</th>
                 <td><a href="https://rocm.docs.amd.com/projects/HIP/en/docs-6.4.3/index.html">HIP</a></td>
-                <td>6.4.3&nbsp;&Rightarrow;&nbsp;<a href="##hip-7-0-0">7.0.0</a></td>
+                <td>6.4.3&nbsp;&Rightarrow;&nbsp;<a href="#hip-7-0-0">7.0.0</a></td>
                 <td><a href="https://github.com/ROCm/HIP/"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/ROCR-Runtime/en/docs-6.4.3/index.html">ROCr Runtime</a></td>
-                <td>1.15.0&nbsp;&Rightarrow;&nbsp;<a href="##rocr-runtime-1-18-0">1.18.0</a></td>
+                <td>1.15.0&nbsp;&Rightarrow;&nbsp;<a href="#rocr-runtime-1-18-0">1.18.0</a></td>
                 <td><a href="https://github.com/ROCm/ROCR-Runtime/"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
         </tbody>
@@ -566,45 +577,189 @@ The following sections describe key changes to ROCm components.
 For a historical overview of ROCm component updates, see the {doc}`ROCm consolidated changelog </release/changelog>`.
 ```
 
-### Composable Kernel 1.1.0 
+### **AMD SMI** (26.0.0)
+
+### Added
+
+* The Default command. 
+
+    A default view has been added. The default view provides a snapshot of commonly requested information such as bdf, current partition mode, version information, and more. Users can access that information by simply typing `amd-smi` with no additional commands or arguments. Users may also obtain this information through laternate output formats such as json or csv by using the default command with the respective output format: `amd-smi default --json` or `amd-smi default --csv`.
+
+* Support for GPU metrics 1.8.  
+  - Added new fields for `amdsmi_gpu_xcp_metrics_t` including:  
+    - Adding the following metrics to allow new calculations for violation status:
+    - Per XCP metrics `gfx_below_host_limit_ppt_acc[XCP][MAX_XCC]` - GFX Clock Host limit Package Power Tracking violation counts
+    - Per XCP metrics `gfx_below_host_limit_thm_acc[XCP][MAX_XCC]` - GFX Clock Host limit Thermal (TVIOL) violation counts
+    - Per XCP metrics `gfx_low_utilization_acc[XCP][MAX_XCC]` - violation counts for how did low utilization caused the GPU to be below application clocks.
+    - Per XCP metrics `gfx_below_host_limit_total_acc[XCP][MAX_XCC]`- violation counts for how long GPU was held below application clocks any limiter (see above new violation metrics).
+  - Increasing available JPEG engines to 40.  
+  Current ASICs may not support all 40. These will be indicated as `UINT16_MAX` or `N/A` in CLI.
+
+* Bad page threshold count.  
+  - Added `amdsmi_get_gpu_bad_page_threshold` to Python API and CLI; root/sudo permissions required to display the count.
+
+* CPU model name for RDC.  
+  - Added new C and Python API `amdsmi_get_cpu_model_name`.
+  - Not sourced from esmi library.
+
+* Added `amdsmi_get_cpu_affinity_with_scope()`.  
+
+* `socket power` to `amdsmi_get_power_info`
+  - Previously the C API had the value in the `amdsmi_power_info` structure, but was unused
+  - Now we populate the value in both C and Python APIs
+  - The value is representative of the socket's power agnostic of the the GPU version.
+
+* New event notification types to `amdsmi_evt_notification_type_t`.  
+  The following values were added to the `amdsmi_evt_notification_type_t` enum:
+  - `AMDSMI_EVT_NOTIF_EVENT_MIGRATE_START`
+  - `AMDSMI_EVT_NOTIF_EVENT_MIGRATE_END`
+  - `AMDSMI_EVT_NOTIF_EVENT_PAGE_FAULT_START`
+  - `AMDSMI_EVT_NOTIF_EVENT_PAGE_FAULT_END`
+  - `AMDSMI_EVT_NOTIF_EVENT_QUEUE_EVICTION`
+  - `AMDSMI_EVT_NOTIF_EVENT_QUEUE_RESTORE`
+  - `AMDSMI_EVT_NOTIF_EVENT_UNMAP_FROM_GPU`
+  - `AMDSMI_EVT_NOTIF_PROCESS_START`
+  - `AMDSMI_EVT_NOTIF_PROCESS_END`
+
+- Power Cap to `amd-smi monitor`.  
+  - `amd-smi monitor -p` will display the power cap along with power.
+
+### Changed
+
+* Updated `amdsmi_get_clock_info` in `amdsmi_interface.py`.  
+  - The `clk_deep_sleep` field now returns the sleep integer value.  
+
+* Updated `amdsmi_get_gpu_asic_info` in `amdsmi.h`.  
+  - Added `subsystem_id` structure member.
+
+* The `amd-smi topology` command has been enabled for Guest environments.  
+  - `amd-smi topology` is now available in Guest environments. This includes full functionality so users can use the command just as they would in Bare Metal environments.
+
+* Expanded Violation Status tracking for GPU metrics 1.8.  
+  - The driver will no longer be supporting existing single-value GFX Clk Below Host Limit fields (`acc_gfx_clk_below_host_limit`, `per_gfx_clk_below_host_limit`, `active_gfx_clk_below_host_limit`), they are now changed in favor of new per-XCP/XCC arrays.
+  - Added new fields to `amdsmi_violation_status_t` and related interfaces for enhanced violation breakdown:
+    - Per-XCP/XCC accumulators and status for:
+      - GFX Clock Below Host Limit (Power, Thermal, and Total)
+      - Low Utilization
+    - Added 2D arrays to track per-XCP/XCC accumulators, percentage, and active status:
+      - `acc_gfx_clk_below_host_limit_pwr`, `acc_gfx_clk_below_host_limit_thm`, `acc_gfx_clk_below_host_limit_total`
+      - `per_gfx_clk_below_host_limit_pwr`, `per_gfx_clk_below_host_limit_thm`, `per_gfx_clk_below_host_limit_total`
+      - `active_gfx_clk_below_host_limit_pwr`, `active_gfx_clk_below_host_limit_thm`, `active_gfx_clk_below_host_limit_total`
+      - `acc_low_utilization`, `per_low_utilization`, `active_low_utilization`
+  - Python API and CLI now report these expanded fields.
+
+* The char arrays in the following structures have been changed.  
+  - `amdsmi_vbios_info_t` member `build_date` changed from `AMDSMI_MAX_DATE_LENGTH` to `AMDSMI_MAX_STRING_LENGTH`.
+  - `amdsmi_dpm_policy_entry_t` member `policy_description` changed from `AMDSMI_MAX_NAME` to `AMDSMI_MAX_STRING_LENGTH`.
+  - `amdsmi_name_value_t` member `name` changed from `AMDSMI_MAX_NAME` to `AMDSMI_MAX_STRING_LENGTH`.
+
+* Updated `amdsmi_get_clock_info` in `amdsmi_interface.py`.  
+  - The `clk_deep_sleep` field now returns the sleep integer value.  
+
+* Updated `amdsmi_bdf_t` in `amdsmi.h`.  
+  - The `amdsmi_bdf_t` union was changed to have an identical unnamed struct for backwards compatiblity
+
+### Removed
+
+- Removed unnecessary API, `amdsmi_free_name_value_pairs(),` from amdsmi.h
+  - This API is only used internally to free up memory from the python interface and does not need to be
+  exposed to the User.
+
+- Removed unused definitions:  
+  - `AMDSMI_MAX_NAME`
+  - `AMDSMI_256_LENGTH`
+  - `AMDSMI_MAX_DATE_LENGTH`
+  - `MAX_AMDSMI_NAME_LENGTH`
+  - `AMDSMI_LIB_VERSION_YEAR`
+  - `AMDSMI_DEFAULT_VARIANT`
+  - `AMDSMI_MAX_NUM_POWER_PROFILES`
+  - `AMDSMI_MAX_DRIVER_VERSION_LENGTH`
+
+- Removed unused member `year` in struct `amdsmi_version_t`.  
+
+- Removed `amdsmi_io_link_type_t` and replaced with `amdsmi_link_type_t`**  
+  - `amdsmi_io_link_type_t` is no longer needed as `amdsmi_link_type_t` is sufficient.
+  - `amdsmi_link_type_t` enum has changed.
+  - This change will also affect `amdsmi_link_metrics_t`, where the link_type field changes from `amdsmi_io_link_type_t` to `amdsmi_link_type_t`.
+
+- Removed `amdsmi_get_power_info_v2()`.  
+  - The ``amdsmi_get_power_info()`` has been unified and the v2 function is no longer needed/used.
+
+- Removed `AMDSMI_EVT_NOTIF_RING_HANG` event notification type in `amdsmi_evt_notification_type_t`.  
+
+- The `amdsmi_get_gpu_vram_info` now provides vendor names as a string.  
+  - `amdsmi_vram_vendor_type_t` enum structure is removed.
+  - `amdsmi_vram_info_t` member named `amdsmi_vram_vendor_type_t` is changed to a character string.
+  - `amdsmi_get_gpu_vram_info` now no longer requires decoding the vendor name as an enum.
+
+- Removed backwards compatibility for `amdsmi_get_gpu_metrics_info()`'s,`jpeg_activity`and `vcn_activity` fields. Alternatively use `xcp_stats.jpeg_busy` or `xcp_stats.vcn_busy`. 
+  - Backwards compatibility is removed for `jpeg_activity` and `vcn_activity` fields, if the `jpeg_busy` or `vcn_busy` field is available.
+  - Providing both `vcn_activity`/`jpeg_activity` and XCP (partition) stats `vcn_busy`/`jpeg_busy` caused confusion about which field to use. By removing backward compatibility, it is easier to identify the relevant field.
+  - The `jpeg_busy` field increased in size (for supported ASICs), making backward compatibility unable to fully copy the structure into `jpeg_activity`.
+
+### Optimized
+
+- Reduced ``amd-smi`` CLI API calls needed to be called before reading or (re)setting GPU features.  
+  - Now when users call any amd-smi CLI command, we have reduced the APIs needed to be called. Previously,
+  when a user would read a GPU's status, (for example) we would poll for other information helpful for our sets/reset
+  CLI calls. This change will increase overall run-time performance of the CLI tool.
+
+- Removed partition information from the default `amd-smi static` CLI command.  
+  - Users can still retrieve the same data by calling `amd-smi`, `amd-smi static -p`, or `amd-smi partition -c -m`/`sudo amd-smi partition -a`.   
+  - Reading ``current_compute_partition`` may momentarily wake the GPU up. This is due to reading XCD registers, which is expected behavior. Changing partitions is not a trivial operation, `current_compute_partition` SYSFS controls this action.
+
+- Optimized CLI command `amd-smi topology` in partition mode.  
+  - Reduced the number of `amdsmi_topo_get_p2p_status` API calls to one fourth.  
+
+### Resolved issues
+
+- Removed duplicated GPU IDs when receiving events using the `amd-smi event` command.
+
+```{note}
+See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/rocm-rel-7.0/CHANGELOG.md) for details, examples, and in-depth descriptions.
+```
+
+### **Composable Kernel** (1.1.0) 
 
 #### Added
 
-* Added support for bf16, f32, and f16 for 2D and 3D NGCHW grouped convolution backward data
+* Added support for `BF16`, `F32`, and `F16` for 2D and 3D NGCHW grouped convolution backward data.
 * Added a fully asynchronous HOST (CPU) arguments copy flow for CK grouped GEMM kernels.
 * Added support GKCYX layout for grouped convolution forward (NGCHW/GKCYX/NGKHW, number of instances in instance factory for NGCHW/GKYXC/NGKHW has been reduced).
 * Added support for GKCYX layout for grouped convolution forward (NGCHW/GKCYX/NGKHW).
 * Added support for GKCYX layout for grouped convolution backward weight (NGCHW/GKCYX/NGKHW).
 * Added support for GKCYX layout for grouped convolution backward data (NGCHW/GKCYX/NGKHW).
-* Added support for Stream-K version of mixed fp8/bf16 GEMM
-* Added support for Multiple D GEMM
-* Added GEMM pipeline for microscaling (MX) FP8/FP6/FP4 data types
-* Added support for FP16 2:4 structured sparsity to universal GEMM.
+* Added support for Stream-K version of mixed `FP8` / `BF16` GEMM.
+* Added support for Multiple D GEMM.
+* Added GEMM pipeline for microscaling (MX) `FP8` / `FP6` / `FP4` data types
+* Added support for `FP16` 2:4 structured sparsity to universal GEMM.
 * Added support for Split K for grouped convolution backward data.
 * Added logit soft-capping support for fMHA forward kernels.
-* Added support for hdim as a multiple of 32 for FMHA (fwd/fwd_splitkv)
+* Added support for hdim as a multiple of 32 for FMHA (fwd/fwd_splitkv).
 * Added benchmarking support for tile engine GEMM.
 * Added Ping-pong scheduler support for GEMM operation along the K dimension.
 * Added rotating buffer feature for CK_Tile GEMM.
 * Added int8 support for CK_TILE GEMM.
 
-#### Optimized
+#### Changed
 
-
-* Optimize the gemm multiply multiply preshuffle & lds bypass with Pack of KGroup and better instruction layout.
-* Added Vectorize Transpose optimization for CK Tile.
-* Added the asynchronous copy for gfx950.
-
-#### Changes
-
-* Removed support for gfx940 and gfx941 targets.
 * Replaced the raw buffer load/store intrinsics with Clang20 built-ins.
 * DL and DPP kernels are now enabled by default.
 * Number of instances in instance factory for grouped convolution forward NGCHW/GKYXC/NGKHW has been reduced.
 * Number of instances in instance factory for grouped convolution backward weight NGCHW/GKYXC/NGKHW has been reduced.
 * Number of instances in instance factory for grouped convolution backward data NGCHW/GKYXC/NGKHW has been reduced.
 
-### HIP 7.0.0
+#### Removed
+
+* Removed support for gfx940 and gfx941 targets.
+
+#### Optimized
+
+* Optimize the GEMM multiply preshuffle and lds bypass with Pack of KGroup and better instruction layout.
+* Added Vectorize Transpose optimization for CK Tile.
+* Added the asynchronous copy for gfx950.
+
+### **HIP** 7.0.0
 
 #### Added
 
@@ -615,17 +770,17 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
     - `hipMemGetHandleForAddressRange`  gets a handle for the address range requested.
     - `num_threads`  Total number of threads in the group. The legacy API size is alias.
     - `__reduce_add_sync`, `__reduce_min_sync`, and `__reduce_max_sync` functions added for reduction across lanes of a warp. For details, see [Warp cross-lane functions](https://rocm.docs.amd.com/projects/HIP/en/latest/how-to/hip_cpp_language_extensions.html#warp-cross-lane-functions).
-* New support for Open Compute Project (OCP) floating-point `FP4`/`FP6`/`FP8` as the following. For details, see [Low precision floating point document](https://rocm.docs.amd.com/projects/HIP/en/latest/reference/low_fp_types.html).
-    - Data types for `FP4`/`FP6`/`FP8`.
-    - HIP APIs for `FP4`/`FP6`/`FP8`, which are compatible with corresponding CUDA APIs.
+* New support for Open Compute Project (OCP) floating-point `FP4` / `FP6` / `FP8` as the following. For details, see [Low precision floating point document](https://rocm.docs.amd.com/projects/HIP/en/latest/reference/low_fp_types.html).
+    - Data types for `FP4` / `FP6` / `FP8`.
+    - HIP APIs for `FP4` / `FP6` / `FP8`, which are compatible with corresponding CUDA APIs.
     - HIP Extensions APIs for microscaling formats, which are supported on AMD GPUs.
 * New `wptr` and `rptr` values in `ClPrint`, for better logging in dispatch barrier methods.
 * New debug mask, to print precise code object information for logging.
 * The `_sync()` version of crosslane builtins such as `shfl_sync()` and `__reduce_add_sync` are enabled by default. These can be disabled by setting the preprocessor macro `HIP_DISABLE_WARP_SYNC_BUILTINS`.
-* Added `constexpr` operators for `fp16`/`bf16`.
+* Added `constexpr` operators for `FP16` / `BF16`.
 * Added `__syncwarp` operation.
 * Added PCI CHIP ID information as the device attribute.
-* Added new tests applications for OCP data types `FP4`/`FP6`/`FP8`.
+* Added new tests applications for OCP data types `FP4` / `FP6` / `FP8`.
 * A new attribute in HIP runtime was implemented which exposes a new device capability of how many compute dies (chiplets, xcc) are available on a given GPU. Developers can get this attribute via the API `hipDeviceGetAttribute`, to make use of the best cache locality in a kernel, and optimize the Kernel launch grid layout, for performance improvement.
 
 #### Changed
@@ -769,50 +924,52 @@ HIP runtime has the following functional improvements which greatly improve runt
 
 #### Added
 
-* Added the `hipblasSetWorkspace()` API
-* Support for codecoverage tests
-
+* Added the `hipblasSetWorkspace()` API.
+* Support for codecoverage tests.
+	
 #### Changed
 
-* HIPBLAS_V2 API is now the only available API using `hipComplex` and `hipDatatype` types
-* Documentation updates
-* Verbose compilation for `hipblas.cpp`
+* HIPBLAS_V2 API is the only available API using the `hipComplex` and `hipDatatype` types.
+* Documentation updates.
+* Verbose compilation for `hipblas.cpp`.
 
 #### Removed
 
-* `hipblasDatatype_t` type
-* `hipComplex` and `hipDoubleComplex` types
-* Support code for non-production gfx targets
+* `hipblasDatatype_t` type.
+* `hipComplex` and `hipDoubleComplex` types.
+* Support code for non-production gfx targets.
 
-#### Resolved Issues
+#### Resolved issues
 
-* The build time `CMake` configuration for the dependency on `hipBLAS-common` is fixed
-* Compiler warnings for unhandled enums have been resolved
+* The build time `CMake` configuration for the dependency on `hipBLAS-common` is fixed.
+* Compiler warnings for unhandled enumerations have been resolved.
 
 ### **hipBLASLt** (1.0.0)
 
 #### Added
 
-* Stream-K GEMM support has been enabled for the `FP32`, `FP16`, `BF16`, `FP8`, and `BF8` data types on the MI300A APU. To activate this feature, set the `TENSILE_SOLUTION_SELECTION_METHOD` environment variable to `2`, for example, `export TENSILE_SOLUTION_SELECTION_METHOD=2`.
+* Stream-K GEMM support has been enabled for the `FP32`, `FP16`, `BF16`, `FP8`, and `BF8` data types on the Instinct MI300A APU. To activate this feature, set the `TENSILE_SOLUTION_SELECTION_METHOD` environment variable to `2`, for example, `export TENSILE_SOLUTION_SELECTION_METHOD=2`.
 * Fused Swish/SiLU GEMM in hipBLASLt (enabled by ``HIPBLASLT_EPILOGUE_SWISH_EXT`` and ``HIPBLASLT_EPILOGUE_SWISH_BIAS_EXT``)
-* Added support for ``HIPBLASLT_EPILOGUE_GELU_AUX_BIAS`` for gfx942
-* Added `HIPBLASLT_TUNING_USER_MAX_WORKSPACE` to constrain max workspace size for user offline tuning
-* Added ``HIPBLASLT_ORDER_COL16_4R16`` and ``HIPBLASLT_ORDER_COL16_4R8`` to ``hipblasLtOrder_t`` to support FP16/BF16 swizzle GEMM and FP8/BF8 swizzle GEMM respectively.
-* Added TF32 emulation on gfx950
+* Added support for ``HIPBLASLT_EPILOGUE_GELU_AUX_BIAS`` for gfx942.
+* Added `HIPBLASLT_TUNING_USER_MAX_WORKSPACE` to constrain the maximum workspace size for user offline tuning.
+* Added ``HIPBLASLT_ORDER_COL16_4R16`` and ``HIPBLASLT_ORDER_COL16_4R8`` to ``hipblasLtOrder_t`` to support `FP16`/`BF16` swizzle GEMM and `FP8` / `BF8` swizzle GEMM respectively.
+* Added TF32 emulation on gfx950.
+* Added support for `FP6`, `BF6`, and `FP4` on gfx950
+* Added support for block scaling by setting `HIPBLASLT_MATMUL_DESC_A_SCALE_MODE` and `HIPBLASLT_MATMUL_DESC_B_SCALE_MODE` to `HIPBLASLT_MATMUL_MATRIX_SCALE_VEC32_UE8M0`.
 
 #### Changed
 
-* ``HIPBLASLT_MATMUL_DESC_A_SCALE_POINTER_VEC_EXT`` and ``HIPBLASLT_MATMUL_DESC_B_SCALE_POINTER_VEC_EXT`` are removed. Use the ``HIPBLASLT_MATMUL_DESC_A_SCALE_MODE`` and ``HIPBLASLT_MATMUL_DESC_B_SCALE_MODE`` attributes to set scalar (``HIPBLASLT_MATMUL_MATRIX_SCALE_SCALAR_32F``) or vector (``HIPBLASLT_MATMUL_MATRIX_SCALE_OUTER_VEC_32F``).
-* The non-V2 APIs (``GemmPreference``, ``GemmProblemType``, ``GemmEpilogue``, ``GemmTuning``, ``GemmInputs``) in the Cpp header are now the same as the V2 APIs (``GemmPreferenceV2``, ``GemmProblemTypeV2``, ``GemmEpilogueV2``, ``GemmTuningV2``, ``GemmInputsV2``). The original non-V2 APIs are removed.
-* `hipblasltExtAMaxWithScale` API is removed.
+* ``HIPBLASLT_MATMUL_DESC_A_SCALE_POINTER_VEC_EXT`` and ``HIPBLASLT_MATMUL_DESC_B_SCALE_POINTER_VEC_EXT`` are removed. Use the ``HIPBLASLT_MATMUL_DESC_A_SCALE_MODE`` and ``HIPBLASLT_MATMUL_DESC_B_SCALE_MODE`` attributes to set scalar (``HIPBLASLT_MATMUL_MATRIX_SCALE_SCALAR_32F``) or vector (``HIPBLASLT_MATMUL_MATRIX_SCALE_OUTER_VEC_32F``) attributes.
+* The non-V2 APIs (``GemmPreference``, ``GemmProblemType``, ``GemmEpilogue``, ``GemmTuning``, ``GemmInputs``) in the cpp header are now the same as the V2 APIs (``GemmPreferenceV2``, ``GemmProblemTypeV2``, ``GemmEpilogueV2``, ``GemmTuningV2``, ``GemmInputsV2``). The original non-V2 APIs are removed.
+* The `hipblasltExtAMaxWithScale` API is removed.
 
 #### Optimized
 
-* Improved performance for 8-bit (FP8/BF8/I8) NN/NT cases by adding ``s_delay_alu`` to reduce stalls from dependent ALU operations on gfx12+.
-* Improved performance for 8-bit and 16-bit (FP16/BF16) TN cases by enabling software dependency check (Expert Scheduling Mode) under certain restrictions to reduce redundant hardware dependency checks on gfx12+.
+* Improved performance for 8-bit (`FP8` / `BF8` / `I8`) NN/NT cases by adding ``s_delay_alu`` to reduce stalls from dependent ALU operations on gfx12+.
+* Improved performance for 8-bit and 16-bit (`FP16` / `BF16`) TN cases by enabling software dependency checks (Expert Scheduling Mode) under certain restrictions to reduce redundant hardware dependency checks on gfx12+.
 * Improved performance for 8-bit, 16-bit, and 32-bit batched GEMM with a better heuristic search algorithm for gfx942.
 
-#### Upcoming Changes
+#### Upcoming changes
 
 * V2 APIs (``GemmPreferenceV2``, ``GemmProblemTypeV2``, ``GemmEpilogueV2``, ``GemmTuningV2``, ``GemmInputsV2``) are deprecated.
 
@@ -841,28 +998,28 @@ HIP runtime has the following functional improvements which greatly improve runt
 * Deprecated `hipcub::AsmThreadStore` is removed, use `hipcub::ThreadStore` instead.
 * Deprecated `BlockAdjacentDifference::FlagHeads`, `BlockAdjacentDifference::FlagTails` and `BlockAdjacentDifference::FlagHeadsAndTails` have been removed.
 * This release removes support for custom builds on gfx940 and gfx941.
-* Removed C++14 support, only C++17 is supported.
+* Removed C++14 support. Only C++17 is supported.
 
 #### Changed
 
-* The NVIDIA backend now requires CUB, Thrust, and libcu++ 2.7.0. If they aren&#39;t found, they will be downloaded from the NVIDIA CCCL repository.
+* The NVIDIA backend now requires CUB, Thrust, and libcu++ 2.7.0. If they aren't found, they will be downloaded from the NVIDIA CCCL repository.
 * Updated `thread_load` and `thread_store` to align hipCUB with CUB.
-* All kernels now have hidden symbol visibility. All symbols now have inline namespaces that include the library version, (for example, hipcub::HIPCUB_300400_NS::symbol instead of hipcub::symbol), letting the user link multiple libraries built with different versions of hipCUB.
+* All kernels now have hidden symbol visibility. All symbols now have inline namespaces that include the library version, (for example, `hipcub::HIPCUB_300400_NS::symbol` instead of `hipcub::symbol`), letting the user link multiple libraries built with different versions of hipCUB.
 * Modified the broadcast kernel in warp scan benchmarks. The reported performance may be different to previous versions.
 * The `hipcub::detail::accumulator_t` in rocPRIM backend has been changed to utilise `rocprim::accumulator_t`.
 * The usage of `rocprim::invoke_result_binary_op_t` has been replaced with `rocprim::accumulator_t`.
 
-#### Resolved Issues
+#### Resolved issues
 
 * Fixed an issue where `Sort(keys, compare_op, valid_items, oob_default)` in `block_merge_sort.hpp` would not fill in elements that are out of range (items after `valid_items`) with `oob_default`.
 * Fixed an issue where `ScatterToStripedFlagged` in `block_exhange.hpp` was calling the wrong function.
 
-#### Known Issues
+#### Known issues
 
-* `BlockAdjacentDifference::FlagHeads`, `BlockAdjacentDifference::FlagTails` and `BlockAdjacentDifference::FlagHeadsAndTails` have been removed from hipCUB&#39;s CUB backend. They were already deprecated as of version 2.12.0 of hipCUB and they were removed from CCCL (CUB) as of CCCL&#39;s 2.6.0 release.
+* `BlockAdjacentDifference::FlagHeads`, `BlockAdjacentDifference::FlagTails` and `BlockAdjacentDifference::FlagHeadsAndTails` have been removed from hipCUB's CUB backend. They were already deprecated as of version 2.12.0 of hipCUB and they were removed from CCCL (CUB) as of CCCL's 2.6.0 release.
 * `BlockScan::InclusiveScan` for the NVIDIA backend does not compute the block aggregate correctly when passing an initial value parameter. This behavior is not matched by the AMD backend.
 
-#### Upcoming Changes
+#### Upcoming changes
 
 * `BlockAdjacentDifference::FlagHeads`, `BlockAdjacentDifference::FlagTails` and `BlockAdjacentDifference::FlagHeadsAndTails` were deprecated as of version 2.12.0 of hipCUB, and will be removed from the rocPRIM backend in a future release for the next ROCm major version (ROCm 7.0.0).
 
@@ -874,16 +1031,15 @@ HIP runtime has the following functional improvements which greatly improve runt
 
 #### Removed
 
-* Removed hipfft-rider legacy compatibility from clients
-* Remove support for the gfx940 and gfx941 targets from the client programs.
-* Remove backward compatibility symlink for include directories.
+* Removed hipfft-rider legacy compatibility from clients.
+* Removed support for the gfx940 and gfx941 targets from the client programs.
+* Removed backward compatibility symlink for include directories.
 
 ### **hipfort** (0.7.0)
 
 #### Added
 
-* Added documentation clarifying how hipfort is built for the NVIDIA
-  platform. Thanks [@fluidnumerics-joe](https://github.com/fluidnumerics-joe)!
+* Added documentation clarifying how hipfort is built for the NVIDIA platform.
 
 #### Changed
 
@@ -898,27 +1054,27 @@ HIP runtime has the following functional improvements which greatly improve runt
 * cuTENSOR 2.2.0.0 support
 * LLVM 20.1.8 support
 
-#### Resolved Issues
+#### Resolved issues
 
 * `hipDNN` support is removed by default
 * [#1859](https://github.com/ROCm/HIPIFY/issues/1859)[hipify-perl] Fix warnings on unsupported Driver or Runtime APIs which were erroneously not reported
 * [#1930](https://github.com/ROCm/HIPIFY/issues/1930) Revise `JIT API`
 * [#1962](https://github.com/ROCm/HIPIFY/issues/1962) Support for cuda-samples helper headers
-* [#2035](https://github.com/ROCm/HIPIFY/issues/2035) Remove `const_cast&lt;const char**&gt;` in `hiprtcCreateProgram` and `hiprtcCompileProgram`
+* [#2035](https://github.com/ROCm/HIPIFY/issues/2035) Remove `const_cast<const char**>;` in `hiprtcCreateProgram` and `hiprtcCompileProgram`
 
 ### **hipRAND** (3.0.0)
 
 #### Added
 
-* gfx950 support
+* gfx950 support.
 
 #### Changed
 
-* Deprecated hipRAND&#39;s Fortran API in favor of hipfort.
-
+* Deprecated the hipRAND Fortran API in favor of hipfort.
+	
 #### Removed
-
-* Removed C++14 support, only C++17 is supported.
+	
+* Removed C++14 support, so only C++17 is supported.
 
 ### **hipSOLVER** (3.0.0)
 
@@ -928,42 +1084,37 @@ HIP runtime has the following functional improvements which greatly improve runt
   * csrlsvqr
     * hipsolverSpCcsrlsvqr, hipsolverSpZcsrlsvqr
 
-#### Resolved Issues
-
-* Corrected the value of `lwork` returned by various `bufferSize` functions to be consistent with NVIDIA cuSOLVER. The following functions will
-  now return `lwork` such that the workspace size (in bytes) is `sizeof(T) * lwork`, rather than `lwork`. To restore the original behavior, set
-  environment variable `HIPSOLVER_BUFFERSIZE_RETURN_BYTES`.
-  * hipsolverXorgbr_bufferSize, hipsolverXorgqr_bufferSize, hipsolverXorgtr_bufferSize, hipsolverXormqr_bufferSize, hipsolverXormtr_bufferSize,
-    hipsolverXgesvd_bufferSize, hipsolverXgesvdj_bufferSize, hipsolverXgesvdBatched_bufferSize, hipsolverXgesvdaStridedBatched_bufferSize,
-    hipsolverXsyevd_bufferSize, hipsolverXsyevdx_bufferSize, hipsolverXsyevj_bufferSize, hipsolverXsyevjBatched_bufferSize,
-    hipsolverXsygvd_bufferSize, hipsolverXsygvdx_bufferSize, hipsolverXsygvj_bufferSize, hipsolverXsytrd_bufferSize, hipsolverXsytrf_bufferSize
+#### Resolved issues
+	
+* Corrected the value of `lwork` returned by various `bufferSize` functions to be consistent with NVIDIA cuSOLVER. The following functions now return `lwork` so that the workspace size (in bytes) is `sizeof(T) * lwork`, rather than `lwork`. To restore the original behavior, set the environment variable `HIPSOLVER_BUFFERSIZE_RETURN_BYTES`.
+  * `hipsolverXorgbr_bufferSize`, `hipsolverXorgqr_bufferSize`, `hipsolverXorgtr_bufferSize`, `hipsolverXormqr_bufferSize`, `hipsolverXormtr_bufferSize`, `hipsolverXgesvd_bufferSize`, `hipsolverXgesvdj_bufferSize`, `hipsolverXgesvdBatched_bufferSize`, `hipsolverXgesvdaStridedBatched_bufferSize`, `hipsolverXsyevd_bufferSize`, `hipsolverXsyevdx_bufferSize`, `hipsolverXsyevj_bufferSize`, `hipsolverXsyevjBatched_bufferSize`, `hipsolverXsygvd_bufferSize`, `hipsolverXsygvdx_bufferSize`, `hipsolverXsygvj_bufferSize`, `hipsolverXsytrd_bufferSize`, `hipsolverXsytrf_bufferSize`.
 
 ### **hipSPARSE** (4.0.1)
 
 #### Added
 
-* Add the `int8`, `int32`, and `float16` data types to `hipDataTypeToHCCDataType` so that sparse matrix descriptors can be used with them.
-* Adds half float mixed precision to `hipsparseAxpby` where X and Y use float16 and result and the compute type use float
-* Adds half float mixed precision to `hipsparseSpVV` where X and Y use float16 and result and the compute type use float
-* Adds half float mixed precision to `hipsparseSpMM` where A and B use float16 and C and the compute type use float
-* Adds half float mixed precision to `hipsparseSDDMM` where A and B use float16 and C and the compute type use float
-* Adds half float uniform precision to `hipsparseScatter` and `hipsparseGather` routines
-* Adds half float uniform precision to `hipsparseSDDMM` routine
-* Add `int8` precision to `hipsparseCsr2cscEx2` routine.
-* Add the `almalinux` OS name to correct the gfortran dependency
+* Added the `int8`, `int32`, and `float16` data types to `hipDataTypeToHCCDataType` so that sparse matrix descriptors can be used with them.
+* Added half float mixed precision to `hipsparseAxpby` where X and Y use `float16` and the result and compute type use `float`.
+* Added half float mixed precision to `hipsparseSpVV` where X and Y use `float16` and the result and compute type use `float`.
+* Added half float mixed precision to `hipsparseSpMM` where A and B use `float16` and C and the compute type use `float`.
+* Added half float mixed precision to `hipsparseSDDMM` where A and B use `float16` and C and the compute type use `float`.
+* Added half float uniform precision to the `hipsparseScatter` and `hipsparseGather` routines.
+* Added half float uniform precision to the `hipsparseSDDMM` routine.
+* Added `int8` precision to the `hipsparseCsr2cscEx2` routine.
+* Added the `almalinux` operating system name to correct the GFortran dependency.
 
 #### Changed
 
-* Switch to defaulting to C++17 when building hipSPARSE from source. Previously hipSPARSE was using C++14 by default.
-
-#### Resolved Issues
+* Switched to defaulting to C++17 when building hipSPARSE from source. Previously hipSPARSE was using C++14 by default.
+	
+#### Resolved issues
 
 * Fixed a compilation [issue](https://github.com/ROCm/hipSPARSE/issues/555) related to using `std::filesystem` and C++14.
-* Fixed the empty clients-common package by moving the `hipsparse_clientmatrices.cmake` and `hipsparse_mtx2csr` files to it.
+* Fixed an issue where the clients-common package was empty by moving the `hipsparse_clientmatrices.cmake` and `hipsparse_mtx2csr` files to it.
 
-#### Known Issues
-
-* In `hipsparseSpSM_solve()`, the external buffer is passed as a parameter. This does not match the NVIDIA CUDA cuSPARSE API. This extra external buffer parameter will be removed in a future release. For now, this extra parameter can be ignored and nullptr passed because it is unused internally by `hipsparseSpSM_solve()`.
+#### Known issues
+	
+* In `hipsparseSpSM_solve()`, the external buffer is passed as a parameter. This does not match the NVIDIA CUDA cuSPARSE API. This extra external buffer parameter will be removed in a future release. For now, this extra parameter can be ignored and nullptr passed in, because it is unused internally.
 
 ### **hipSPARSELt** (0.2.4)
 
@@ -971,20 +1122,20 @@ HIP runtime has the following functional improvements which greatly improve runt
 
 * Support for the LLVM target gfx950.
 * Support for the following data type combinations for the LLVM target gfx950:
-  * FP8(E4M3) inputs, F32 output, and F32 Matrix Core accumulation.
-  * BF8(E5M2) inputs, F32 output, and F32 Matrix Core accumulation.
+  * `FP8`(E4M3) inputs, `F32` output, and `F32` Matrix Core accumulation.
+  * `BF8`(E5M2) inputs, `F32` output, and `F32` Matrix Core accumulation.
 * Support for ROC-TX if `HIPSPARSELT_ENABLE_MARKER=1` is set.
 * Support for the cuSPARSELt v0.6.3 backend.
 
+#### Removed
+	
+* Support for LLVM targets gfx940 and gfx941 has been removed.
+* `hipsparseLtDatatype_t` has been removed.
+	
 #### Optimized
 
 * Improved the library loading time.
-* Provided more kernels for FP16 datatype.
-
-#### Removed
-
-* Support for LLVM targets gfx940 and gfx941 has been removed.
-* `hipsparseLtDatatype_t` has been removed.
+* Provided more kernels for the `FP16` data type.
 
 ### **hipTensor** (2.0.0)
 
@@ -1032,79 +1183,107 @@ HIP runtime has the following functional improvements which greatly improve runt
 ### **MIOpen** (3.5.0)
 
 #### Added
+	
+* [Conv] Added misa kernels for gfx950.
+* [Conv] Enabled Split-K support for CK backward data solvers (2D).
+* [Conv] Enabled CK wrw solver on gfx950 for the `BF16` data type.
+* [BatchNorm] Enabled NHWC in OpenCL.
+* Added grouped convolution + activation fusion.
+* Added grouped convolution + bias + activation fusion.
+* Composable Kernel (CK) can now be built inline as part of MIOpen.
 
-* [Conv] Added misa kernels for gfx950
-* [Conv] Enabled split_k support for CK backward data solvers (2D)
-* Added grouped convolution + activation fusion
-* Added grouped convolution + bias + activation fusion
-* [BatchNorm] Enabled NHWC in OpenCL
-* Composable Kernel (CK) can now be built inline as part of MIOpen
-* Changed to using median value with outliers removed when deciding on the best solution to run
-* [Conv] Enabled CK wrw solver on gfx950 for bf16 datatype
-* [Conv] Updated igemm asm solver
+#### Changed
+
+* Changed to using the median value with outliers removed when deciding on the best solution to run.
+* [Conv] Updated the igemm asm solver.
 
 #### Optimized
 
 * [BatchNorm] Optimized NHWC OpenCL kernels and improved heuristics
-* [RNN] Dynamic algorithm optimization
+* [RNN] Dynamic algorithm optimization.
 * [Conv] Eliminated redundant clearing of output buffers
-* [RNN] Updated selection heuristics
-* Updated tuning for MI300
+* [RNN] Updated selection heuristics.
+* Updated tuning for the AMD Instinct MI300 series.
 
-#### Resolved Issues
+#### Resolved issues
 
-* Fixed a segmentation fault when user specifies workspace smaller than what is required
-* Fixed a layout calculation logic error that returned incorrect results and enabled less restrictive layout selection
-* Fixed memory access faults in misa kernels due to out-of-bounds memory usage
-* Fixed performance drop on gfx950 due to transpose kernel use
-* Fixed memory access fault caused by not allocating enough workspace
-* Fixed a name typo that caused kernel mismatches and long startup times
+* Fixed a segmentation fault when the user specified a smaller workspace than what was required.
+* Fixed a layout calculation logic error that returned incorrect results and enabled less restrictive layout selection.
+* Fixed memory access faults in misa kernels due to out-of-bounds memory usage.
+* Fixed a performance drop on the gfx950 due to transpose kernel use.
+* Fixed a memory access fault caused by not allocating enough workspace.
+* Fixed a name typo that caused kernel mismatches and long startup times.
 
 ### **MIVisionX** (3.3.0)
 
+#### Added
+
+* Support to enable/disable BatchPD code in VX_RPP extensions by checking the RPP_LEGACY_SUPPORT flag.
+
 #### Changed
 
-* VX_RPP extension : Version 3.1.0 release
-* Add support to enable/disable BatchPD code in VX_RPP extensions by checking the RPP_LEGACY_SUPPORT flag.
+* VX_RPP extension : Version 3.1.0 release.
 * Update the parameters and kernel API of Blur, Fog, Jitter, LensCorrection, Rain, Pixelate, Vignette and ResizeCrop wrt tensor kernels replacing the legacy BatchPD API calls in VX_RPP extensions.
 
-#### Known Issues
+#### Known issues
 
 * Installation on CentOS/RedHat/SLES requires the manual installation of the `FFMPEG` &amp; `OpenCV` dev packages.
 
-#### Upcoming Changes
+#### Upcoming changes
 
 * Optimized audio augmentations support for VX_RPP
 
-### **rccl** (2.26.6)
-
-#### Resolved Issues
-
-* Resolved an issue when using more than 64 channels when multiple collectives are used in the same `ncclGroup()` call.
-* Fixed unit test failures in tests ending with `ManagedMem` and `ManagedMemGraph` suffixes.
-* Suboptimal algorithmic switching point for AllReduce on MI300x.
-* Fixed the known issue &#34;When splitting a communicator using `ncclCommSplit` in some GPU configurations, MSCCL initialization can cause a segmentation fault.&#34; with a design change to use `comm` instead of `rank` for `mscclStatus`. The Global map for `comm` to `mscclStatus` is still not thread safe but should be explicitly handled by mutexes for read writes. This is tested for correctness, but there is a plan to use a thread-safe map data structure in upcoming changes.
+### **RCCL** (2.26.6)
 
 #### Added
 
-* Added support for extended fine-grained system memory pool.
-* Added new GPU target `gfx950`.
+* Added support for the extended fine-grained system memory pool.
+* Added support for gfx950.
 * Added support for `unroll=1` in device-code generation to improve performance.
 * Set a default of 112 channels for a single node with `8 * gfx950`.
-* Enabled LL128 protocol on `gfx950`.
-* Adding ability to choose unroll factor at runtime via `RCCL_UNROLL_FACTOR`.  This can be set at runtime to 1, 2, or 4.  This change currently increases compilation and linking time because it triples the number of kernels generated.
-* Added MSCCL support for AllGather multinode gfx942/gfx950 (i.e., 16 and 32 GPUs). To enable, set the environment variable `RCCL_MSCCL_FORCE_ENABLE=1`. Max message size for MSCCL AllGather usage is `12292 * sizeof(datatype) * nGPUs`.
-* Thread thresholds for LL/LL128 are selected in Tuning Models for the MI300X. This impacts the number of channels used for AG and RS. Channel tuning model is bypassed if `NCCL_THREAD_THRESHOLDS`, `NCCL_MIN_NCHANNELS&#39;, or &#39;NCCL_MAX_NCHANNELS` are set.
-* Multi-node tuning for AllGather, AllReduce, and ReduceScatter that leverages LL/LL64/LL128 protocol to use nontemporal vector load/store for tunable message size ranges.
+* Enabled LL128 protocol on the gfx950.
+* Added the ability to choose the unroll factor at runtime using `RCCL_UNROLL_FACTOR`.  This can be set at runtime to 1, 2, or 4.  This change currently increases compilation and linking time because it triples the number of kernels generated.
+* Added MSCCL support for AllGather multinode gfx942/gfx950 (for instance, 16 and 32 GPUs). To enable this feature, set the environment variable `RCCL_MSCCL_FORCE_ENABLE=1`. The maximum message size for MSCCL AllGather usage is `12292 * sizeof(datatype) * nGPUs`.
+* Thread thresholds for LL/LL128 are selected in Tuning Models for the AMD Instinct MI300X. This impacts the number of channels used for AG and RS. The channel tuning model is bypassed if `NCCL_THREAD_THRESHOLDS`, `NCCL_MIN_NCHANNELS`, or `NCCL_MAX_NCHANNELS` are set.
+* Multi-node tuning for AllGather, AllReduce, and ReduceScatter that leverages LL/LL64/LL128 protocols to use nontemporal vector load/store for tunable message size ranges.
 * LL/LL128 usage ranges for AR, AG, and RS are part of the tuning models, which enable architecture-specific tuning in conjunction with the existing Rome Models scheme in RCCL.
 * Two new APIs are exposed as part of an initiative to separate RCCL code. These APIs are `rcclGetAlgoInfo` and `rcclFuncMaxSendRecvCount`. However, user-level invocation requires that RCCL be built with `RCCL_EXPOSE_STATIC` enabled.
 
 #### Changed
 
-* Compatibility with NCCL 2.23.4
-* Compatibility with NCCL 2.24.3
-* Compatibility with NCCL 2.25.1
-* Compatibility with NCCL 2.26.6
+* Compatibility with NCCL 2.23.4.
+* Compatibility with NCCL 2.24.3.
+* Compatibility with NCCL 2.25.1.
+* Compatibility with NCCL 2.26.6.
+
+#### Resolved issues
+
+* Resolved an issue when using more than 64 channels when multiple collectives are used in the same `ncclGroup()` call.
+* Fixed unit test failures in tests ending with the `ManagedMem` and `ManagedMemGraph` suffixes.
+* Fixed a suboptimal algorithmic switching point for AllReduce on the AMD Instinct MI300X.
+* Fixed the known issue "When splitting a communicator using `ncclCommSplit` in some GPU configurations, MSCCL initialization can cause a segmentation fault" with a design change to use `comm` instead of `rank` for `mscclStatus`. The Global map for `comm` to `mscclStatus` is still not thread safe but should be explicitly handled by mutexes for read-write operations. This is tested for correctness, but there is a plan to use a thread-safe map data structure in an upcoming release.
+
+### **rocAL** (2.3.0)
+
+#### Added
+* Extended support to rocAL's video decoder to use rocDecode hardware decoder.
+* Setup - installs rocdecode dev packages for Ubuntu, RedHat, and SLES.
+* Setup - installs turbojpeg dev package for Ubuntu and Redhat.
+* rocAL's image decoder has been extended to support the rocJPEG hardware decoder.
+* Added numpy reader support for reading npy files in rocAL.
+* Added test case for numpy reader in C++ and python tests.
+
+#### Resolved issues
+* `TurboJPEG` no longer needs to be installed manually. It is now installed by the package installer.
+* Hardware decode no longer requires that ROCm be installed with the `graphics` usecase.
+
+#### Known issues
+* Package installation on SLES requires manually installing `TurboJPEG`.
+* Package installation on CentOS, RedHat, and SLES requires manually installing the `FFMPEG Dev` package.
+
+#### Upcoming changes
+
+* rocJPEG support for JPEG decode.
 
 ### **rocALUTION** (4.0.0)
 
@@ -1120,7 +1299,7 @@ HIP runtime has the following functional improvements which greatly improve runt
 
 * Improved the user documentation
 
-#### Resolved Issues
+#### Resolved issues
 
 * Fix for GPU hashing algorithm when not compiling with -O2/O3
 
@@ -1128,47 +1307,55 @@ HIP runtime has the following functional improvements which greatly improve runt
 
 #### Added
 
-* gfx950 support
-* `ROCBLAS_LAYER = 8` internal API logging for `gemm` debugging
-* Support for AOCL 5.0 gcc build as a client reference library
-* Allow `PkgConfig` for client reference library fallback detection
+* gfx950 support.
+* Internal API logging for `gemm` debugging using `ROCBLAS_LAYER = 8`.
+* Support for AOCL 5.0 gcc build as a client reference library.
+* Allowing the use of `PkgConfig` for client reference library fallback detection.
 
 #### Changed
 
-* `CMAKE_CXX_COMPILER` is now passed on during compilation for a Tensile build
-* Change default atomics mode from `allowed` to `not allowed`
-
-#### Removed
-
-* Support code for non-production gfx targets
-* `rocblas_hgemm_kernel_name`, `rocblas_sgemm_kernel_name`, and `rocblas_dgemm_kernel_name` API functions
-* Use of `warpSize` as a constexpr
-* Use of deprecated behavior of `hipPeekLastError`
-* `rocblas_float8.h` and `rocblas_hip_f8_impl.h` files
-* `rocblas_gemm_ex3`, `rocblas_gemm_batched_ex3`, `rocblas_gemm_strided_batched_ex3` API functions
+* `CMAKE_CXX_COMPILER` is now passed on during compilation for a Tensile build.
+* The default atomics mode is changed from `allowed` to `not allowed`.
 
 #### Optimized
 
-* Optimized `gemm` by using `gemv` kernels when applicable
-* Optimized `gemv` for small `m` and `n` with a large batch count on gfx942
-* Improved the performance of Level 1 `dot` for all precisions and variants when `N &gt; 100000000` on gfx942
-* Improved the performance of Level 1 `asum` and `nrm2` for all precisions and variants on gfx942
-* Improved the performance of Level 2 `sger` (single precision) on gfx942
-* Improved the performance of Level 3 `dgmm` for all precisions and variants on gfx942
+* Optimized `gemm` by using `gemv` kernels when applicable.
+* Optimized `gemv` for small `m` and `n` with a large batch count on gfx942.
+* Improved the performance of Level 1 `dot` for all precisions and variants when `N > 100000000` on gfx942.
+* Improved the performance of Level 1 `asum` and `nrm2` for all precisions and variants on gfx942.
+* Improved the performance of Level 2 `sger` (single precision) on gfx942.
+* Improved the performance of Level 3 `dgmm` for all precisions and variants on gfx942.
 
-#### Resolved Issues
+#### Removed
 
-* Fixed environment variable path-based logging to append multiple handle output to the same file
-* Support numerics when `trsm` is running with `rocblas_status_perf_degraded`
-* Fixed the build dependency installation of `joblib` on some operating systems
-* Return `rocblas_status_internal_error` when `rocblas_[set,get]_ [matrix,vector]` is called with a host pointer in place of a device pointer
-* Reduced the default verbosity level for internal GEMM backend information
-* Updated from the deprecated rocm-cmake to ROCmCMakeBuildTools
-* Corrected AlmaLinux gfortran package dependencies
+* Support code for non-production gfx targets.
+* `rocblas_hgemm_kernel_name`, `rocblas_sgemm_kernel_name`, and `rocblas_dgemm_kernel_name` API functions.
+* The use of `warpSize` as a constexpr.
+* The use of deprecated behavior of `hipPeekLastError`.
+* `rocblas_float8.h` and `rocblas_hip_f8_impl.h` files.
+* `rocblas_gemm_ex3`, `rocblas_gemm_batched_ex3`, and `rocblas_gemm_strided_batched_ex3` API functions.
 
-#### Upcoming Changes
+#### Resolved issues
+	
+* Fixed environment variable path-based logging to append multiple handle outputs to the same file.
+* Support numerics when `trsm` is running with `rocblas_status_perf_degraded`.
+* Fixed the build dependency installation of `joblib` on some operating systems.
+* Return `rocblas_status_internal_error` when `rocblas_[set,get]_ [matrix,vector]` is called with a host pointer in place of a device pointer.
+* Reduced the default verbosity level for internal GEMM backend information.
+* Updated from the deprecated rocm-cmake to ROCmCMakeBuildTools.
+* Corrected AlmaLinux GFortran package dependencies.
 
-* Deprecated the use of negative indices to indicate the default solution is being used for `gemm_ex` with `rocblas_gemm_algo_solution_index`
+#### Upcoming changes
+
+* Deprecated the use of negative indices to indicate the default solution is being used for `gemm_ex` with `rocblas_gemm_algo_solution_index`.
+
+### **ROCdbgapi** (0.77.3)
+
+#### Added
+- Support for the `gfx950`, `gfx1150`, and `gfx1151` architectures.
+
+#### Removed
+- Support for the `gfx940` and `gfx941` architectures.
 
 ### **rocDecode** (1.0.0)
 
@@ -1179,23 +1366,26 @@ HIP runtime has the following functional improvements which greatly improve runt
 * HEVC/AVC/AV1/VP9 stream syntax error handling.
 * HEVC stream bit depth change handling and DPB buffer size change handling through decoder reconfiguration.
 * AVC stream DPB buffer size change handling through decoder reconfiguration.
-* rocdecode now uses the Cmake CMAKE_PREFIX_PATH directive.
-* rocdecode - A new avcodec-based decoder built as a separate &#34;rocdecode-host&#34; library
+* A new avcodec-based decoder built as a separate `rocdecode-host` library
+
+#### Changed
+
+* rocDecode now uses the Cmake `CMAKE_PREFIX_PATH` directive.
 
 #### Optimized
 
-* Decode session start latency reduction.
+* Decode session starts latency reduction.
 * Bitstream type detection optimization in bitstream reader.
 
-#### Resolved Issues
+#### Resolved issues
 
-* Fixed a bug in picture files sample &#34;videoDecodePicFiles&#34; that can results in incorrect output frame count.
+* Fixed a bug in the `videoDecodePicFiles` picture files sample that can results in incorrect output frame count.
 * Fixed a decoded frame output issue in video size change cases.
-* Removed incorrect asserts of bitdepth_minus_8 in GetBitDepth() and num_chroma_planes in GetNumChromaPlanes() API calls in RocVideoDecoder utility class.
+* Removed incorrect asserts of `bitdepth_minus_8` in `GetBitDepth()` and `num_chroma_planes` in `GetNumChromaPlanes()` API calls in the RocVideoDecoder utility class.
 
 #### Removed
 
-* GetStream() interface call from RocVideoDecoder utility class
+* `GetStream()` interface call from RocVideoDecoder utility class.
 
 #### Changed
 
@@ -1210,7 +1400,7 @@ HIP runtime has the following functional improvements which greatly improve runt
 
 #### Removed
 
-* Removed rocfft-rider legacy compatibility from clients
+* Removed ``rocfft-rider`` legacy compatibility from clients.
 * Removed support for the gfx940 and gfx941 targets from the client programs.
 * Removed backward compatibility symlink for include directories.
 
@@ -1225,10 +1415,233 @@ HIP runtime has the following functional improvements which greatly improve runt
   - 8192
 * Implemented single-kernel plans for some large 1D problem sizes, on devices with at least 160KiB of LDS.
 
-#### Resolved Issues
+#### Resolved isues
 
 * Fixed kernel faults on multi-device transforms that gather to a single device, when the input/output bricks are not 
   contiguous.
+
+### **rocJPEG** (1.1.0)
+
+#### Added
+* cmake config files.
+* CTEST - New tests were introduced for JPEG batch decoding using various output formats, such as yuv_planar, y, rgb, and rgb_planar, both with and without region-of-interest (ROI).
+
+#### Changed
+* Readme - cleanup and updates to pre-reqs.
+* The `decode_params` argument of the `rocJpegDecodeBatched` API is now an array of `RocJpegDecodeParams` structs representing the decode parameters for the batch of JPEG images.
+* `libdrm_amdgpu` is now explicitly linked with rocjpeg.
+
+#### Removed
+* Dev Package - No longer installs pkg-config.
+
+#### Resolved issues
+* Fixed a bug that prevented copying the decoded image into the output buffer when the output buffer is larger than the input image.
+* Resolved an issue with resizing the internal memory pool by utilizing the explicit constructor of the vector's type during the resizing process.
+* Addressed and resolved CMake configuration warnings.
+
+### **ROCm SMI** (7.8.0)
+
+#### Added
+
+- Support for GPU metrics 1.8.  
+  - Added new fields for `rsmi_gpu_metrics_t` including:  
+    - Adding the following metrics to allow new calculations for violation status:
+    - Per XCP metrics `gfx_below_host_limit_ppt_acc[XCP][MAX_XCC]` - GFX Clock Host limit Package Power Tracking violation counts
+    - Per XCP metrics `gfx_below_host_limit_thm_acc[XCP][MAX_XCC]` - GFX Clock Host limit Thermal (TVIOL) violation counts
+    - Per XCP metrics `gfx_low_utilization_acc[XCP][MAX_XCC]` - violation counts for how did low utilization caused the GPU to be below application clocks.
+    - Per XCP metrics `gfx_below_host_limit_total_acc[XCP][MAX_XCC]`- violation counts for how long GPU was held below application clocks any limiter (see above new violation metrics).
+  - Increasing available JPEG engines to 40.  
+  Current ASICs may not support all 40. These will be indicated as UINT16_MAX or N/A in CLI.
+
+#### Removed
+
+- Removed backwards compatibility for `rsmi_dev_gpu_metrics_info_get()`'s `jpeg_activity` and `vcn_activity` fields. Alternatively use `xcp_stats.jpeg_busy` and `xcp_stats.vcn_busy`.
+  - Backwards compability is removed for `jpeg_activity` and `vcn_activity` fields, if the `jpeg_busy` or `vcn_busy` field is available.
+      - Providing both `vcn_activity`/`jpeg_activity` and XCP (partition) stats `vcn_busy`/`jpeg_busy` caused confusion for users about which field to use. By removing backward compatibility, it is easier to identify the relevant field.
+      - The `jpeg_busy` field increased in size (for supported ASICs), making backward compatibility unable to fully copy the structure into `jpeg_activity`.
+
+```{note}
+See the full [ROCm SMI changelog](https://github.com/ROCm/rocm_smi_lib/blob/release/rocm-rel-7.0/CHANGELOG.md) for details, examples, and in-depth descriptions.
+```
+
+### **ROCm Compute Profiler** (3.2.1)
+
+#### Added
+
+##### CDNA4 (AMD Instinct MI350/MI355) support
+
+* Support for AMD Instinct MI350 series GPUs with the addition of the following counters:
+  * VALU co-issue (Two VALUs are issued instructions) efficiency
+  * Stream Processor Instruction (SPI) Wave Occupancy
+  * Scheduler-Pipe Wave Utilization
+  * Scheduler FIFO Full Rate
+  * CPC ADC Utilization
+  * F6F4 data type metrics
+  * Update formula for total FLOPs while taking into account F6F4 ops
+  * LDS STORE, LDS LOAD, LDS ATOMIC instruction count metrics
+  * LDS STORE, LDS LOAD, LDS ATOMIC bandwidth metrics
+  * LDS FIFO full rate
+  * Sequencer -> TA ADDR Stall rates
+  * Sequencer -> TA CMD Stall rates
+  * Sequencer -> TA DATA Stall rates
+  * L1 latencies
+  * L2 latencies
+  * L2 to EA stalls
+  * L2 to EA stalls per channel
+
+* Roofline support for AMD Instinct MI350 series architecture.
+
+##### Textual User Interface (TUI) (beta version)
+
+* Text User Interface (TUI) support for analyze mode
+  * A command line based user interface to support interactive single-run analysis
+  * To launch, use `--tui` option in analyze mode. For example, ``rocprof-compute analyze --tui``.
+
+##### PC Sampling (beta version)
+
+* Stochastic (hardware-based) PC sampling has been enabled for AMD Instinct MI300X series and later accelerators.
+
+* Host-trap PC Sampling has been enabled for AMD Instinct MI200 series and later accelerators.
+
+* Support for sorting of PC sampling by type: offset or count.
+
+* PC Sampling Support on CLI and TUI analysis.
+
+##### Roofline
+
+* Support for Roofline plot on CLI (single run) analysis.
+
+* Roofline support for RHEL 10 OS.
+
+* `FP4` and `FP6` data types have been added for roofline profiling on AMD Instinct MI350 series.
+
+##### rocprofv3 support
+
+* ``rocprofv3`` is supported as the default backend for profiling.
+* Support to obtain performance information for all channels for TCC counters.
+* Support for profiling on AMD Instinct MI 100 using ``rocprofv3``.
+* Deprecation warning for ``rocprofv3`` interface in favor of the ROCprofiler-SDK interface, which directly accesses ``rocprofv3`` C++ tool.
+
+##### Others
+
+* Docker files to package the application and dependencies into a single portable and executable standalone binary file.
+
+* Analysis report based filtering
+  * ``-b`` option in profile mode now also accepts metric id(s) for analysis report based filtering.
+  * ``-b`` option in profile mode also accepts hardware IP block for filtering; however, this filter support will be deprecated soon.
+  * ``--list-metrics`` option added in profile mode to list possible metric id(s), similar to analyze mode.
+
+* Support MEM chart on CLI (single run)
+
+* ``--specs-correction`` option to provide missing system specifications for analysis.
+
+#### Changed
+
+* Changed the default ``rocprof`` version to ``rocprofv3``. This is used when environment variable ``ROCPROF`` is not set.
+* Changed ``normal_unit`` default to ``per_kernel``.
+* Decreased profiling time by not collecting unused counters in post-analysis.
+* Updated Dash to >=3.0.0 (for web UI).
+* Changed the condition when Roofline PDFs are generated during general profiling and ``--roof-only`` profiling (skip only when ``--no-roof`` option is present).
+* Updated Roofline binaries:
+  * Rebuild using latest ROCm stack
+  * Minimum OS distribution support minimum for roofline feature is now Ubuntu 22.04, RHEL 8, and SLES15 SP6.
+
+#### Removed
+
+* Roofline support for Ubuntu 20.04 and SLES below 15.6
+* Removed support for AMD Instinct MI50 and MI60.
+
+#### Optimized
+
+* ROCm Compute Profiler CLI has been improved to better display the GPU architecture analytics
+
+#### Resolved issues
+
+* Fixed kernel name and kernel dispatch filtering when using ``rocprofv3``.
+* Fixed an issue of TCC channel counters collection in ``rocprofv3``.
+* Fixed peak FLOPS of `F8`, `I8`, `F16`, and `BF16` on AMD Instinct MI 300.
+* Fixed not detecting memory clock issue when using amd-smi
+* Fixed standalone GUI crashing
+* Fixed L2 read/write/atomic bandwidths on MI350
+
+#### Known issues
+
+* On AMD Instinct MI100, accumulation counters are not collected, resulting in the following metrics failing to show up in the analysis: Instruction Fetch Latency, Wavefront Occupancy, LDS Latency
+  * As a workaround, use the environment variable ``ROCPROF=rocprof``, to use ``rocprof v1`` for profiling on AMD Instinct MI100.
+
+* GPU id filtering is not supported when using ``rocprofv3``.
+
+* Analysis of previously collected workload data will not work due to sysinfo.csv schema change.
+  * As a workaround, re-run the profiling operation for the workload and interrupt the process after 10 seconds.
+  Followed by copying the ``sysinfo.csv`` file from the new data folder to the old one.
+  This assumes your system specification hasn't changed since the creation of the previous workload data.
+
+* Analysis of new workloads might require providing shader/memory clock speed using
+``--specs-correction`` operation if amd-smi or rocminfo does not provide clock speeds.
+
+* Memory chart on ROCm Compute Profiler CLI might look corrupted if the CLI width is too narrow.
+
+#### Upcoming changes
+
+* ``rocprof v1/v2/v3`` interfaces will be removed in favor of the ROCprofiler-SDK interface, which directly accesses ``rocprofv3`` C++ tool. Using ``rocprof v1/v2/v3`` interfaces will trigger a deprecation warning.
+  * To use ROCprofiler-SDK interface, set environment variable `ROCPROF=rocprofiler-sdk` and optionally provide profile mode option ``--rocprofiler-sdk-library-path /path/to/librocprofiler-sdk.so``. Add ``--rocprofiler-sdk-library-path`` runtime option to choose the path to ROCprofiler-SDK library to be used.
+* Hardware IP block based filtering using ``-b`` option in profile mode will be removed in favor of analysis report block based filtering using ``-b`` option in profile mode.
+* MongoDB database support will be removed, and a deprecation warning has been added to the application interface.
+* Usage of ``rocm-smi`` is deprecated in favor of ``amd-smi``, and a deprecation warning has been added to the application interface.
+
+### **ROCgdb** (16.3)
+
+#### Added
+
+- Support for the `gfx950`, `gfx1150`, and `gfx1151` architectures.
+
+#### Removed
+
+- Support for the `gfx940` and `gfx941` architectures.
+
+
+### **ROCm Data Center Tool** (1.1.0)
+
+#### Added
+
+- More profiling and monitoring metrics, especially for AMD Instinct MI300 and newer GPUs.
+- Advanced logging and debugging options, including new log levels and troubleshooting guidance.
+
+#### Changed
+
+- Completed migration from legacy [ROCProfiler](https://rocm.docs.amd.com/projects/rocprofiler/en/latest/) to [ROCprofiler-SDK](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/).
+- Reorganized the configuration files internally and improved [README/installation](https://github.com/ROCm/rdc/blob/amd-staging/README.md) instructions.
+- Updated metrics and monitoring support for the latest AMD data center GPUs.
+
+#### Optimized
+
+- Integration with [ROCprofiler-SDK](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/) for performance metrics collection.
+- Standalone and embedded operating modes, including streamlined authentication and configuration options.
+- Support and documentation for diagnostic commands and GPU group management.
+- [RVS](https://rocm.docs.amd.com/projects/ROCmValidationSuite/en/latest/) test integration and reporting.
+
+### **ROCm Systems Profiler** (1.1.0)
+
+#### Added
+
+- Profiling and metric collection capabilities for VCN engine activity, JPEG engine activity, and API tracing for rocDecode, rocJPEG, and VA-APIs.
+- How-to document for VCN and JPEG activity sampling and tracing.
+- Support for tracing Fortran applications.
+- Support for tracing MPI API in Fortran.
+
+#### Changed
+
+- Replaced ROCm SMI backend with AMD SMI backend for collecting GPU metrics.
+- ROCprofiler-SDK is now used to trace RCCL API and collect communication counters.
+- Updated the Dyninst submodule to v13.0.
+- Set the default value of `ROCPROFSYS_SAMPLING_CPUS` to `none`.
+
+#### Resolved issues
+
+- Fixed GPU metric collection settings with `ROCPROFSYS_AMD_SMI_METRICS`.
+- Fixed a build issue with CMake 4.
+- Fixed incorrect kernel names shown for kernel dispatch tracks in Perfetto.
+- Fixed formatting of some output logs.
 
 ### **ROCmValidationSuite** (1.2.0)
 
@@ -1242,14 +1655,15 @@ HIP runtime has the following functional improvements which greatly improve runt
 #### Changed
 
 - Migrated SMI API usage from `rocm-smi` to `amd-smi`.
-- Updated FP8 GEMM operations to use hipBLASLt instead of rocBLAS.
+- Updated `FP8` GEMM operations to use hipBLASLt instead of rocBLAS.
 
 ### **rocPRIM** (4.0.0)
 
 #### Added
 
+* Added gfx950 support.
 * Added `rocprim::accumulator_t` to ensure parity with CCCL.
-* Added test for `rocprim::accumulator_t`
+* Added test for `rocprim::accumulator_t`.
 * Added `rocprim::invoke_result_r` to ensure parity with CCCL.
 * Added function `is_build_in` into `rocprim::traits::get`.
 * Added virtual shared memory as a fallback option in `rocprim::device_merge` when it exceeds shared memory capacity, similar to `rocprim::device_select`, `rocprim::device_partition`, and `rocprim::device_merge_sort`, which already include this feature.
@@ -1268,56 +1682,55 @@ HIP runtime has the following functional improvements which greatly improve runt
 * Added support for building tests with device-side random data generation, making them finish faster. This requires rocRAND, and is enabled with the `WITH_ROCRAND=ON` build flag.
 * Added tests and documentation to `lookback_scan_state`. It is still in the `detail` namespace.
 
-#### Optimizations
+#### Optimized
 
-* Improved performance of `rocprim::device_select` and `rocprim::device_partition` when using multiple streams on the MI3XX architecture.
+* Improved performance of `rocprim::device_select` and `rocprim::device_partition` when using multiple streams on the AMD Instinct MI300 series.
 
 #### Changed
 
 * Changed the parameters `long_radix_bits` and `LongRadixBits` from `segmented_radix_sort` to `radix_bits` and `RadixBits` respectively.
-* Marked the initialisation constructor of `rocprim::reverse_iterator&lt;Iter&gt;` `explicit`, use `rocprim::make_reverse_iterator`.
+* Marked the initialisation constructor of `rocprim::reverse_iterator<Iter>` `explicit`, use `rocprim::make_reverse_iterator`.
 * Merged `radix_key_codec` into type_traits system.
 * Renamed `type_traits_interface.hpp` to `type_traits.hpp`, rename the original `type_traits.hpp` to `type_traits_functions.hpp`.
 * The default scan accumulator types for device-level scan algorithms have changed. This is a breaking change.
-The previous default accumulator types could lead to situations in which unexpected overflow occured, such as
-when the input or inital type was smaller than the output type. 
-  * This is a complete list of affected functions and how their default accumulator types are changing:
-    * `rocprim::inclusive_scan`
-      * Previous default: `class AccType = typename std::iterator_traits&lt;InputIterator&gt;::value_type&gt;`
-      * Current default: `class AccType = rocprim::accumulator_t&lt;BinaryFunction, typename std::iterator_traits&lt;InputIterator&gt;::value_type&gt;`
-    * `rocprim::deterministic_inclusive_scan`
-      * Previous default: `class AccType = typename std::iterator_traits&lt;InputIterator&gt;::value_type&gt;`
-      * Current default: `class AccType = rocprim::accumulator_t&lt;BinaryFunction, typename std::iterator_traits&lt;InputIterator&gt;::value_type&gt;`
-    * `rocprim::exclusive_scan`
-      * Previous default: `class AccType = detail::input_type_t&lt;InitValueType&gt;&gt;`
-      * Current default: `class AccType = rocprim::accumulator_t&lt;BinaryFunction, rocprim::detail::input_type_t&lt;InitValueType&gt;&gt;`
-    * `rocprim::deterministic_exclusive_scan`
-      * Previous default: `class AccType = detail::input_type_t&lt;InitValueType&gt;&gt;`
-      * Current default: `class AccType = rocprim::accumulator_t&lt;BinaryFunction, rocprim::detail::input_type_t&lt;InitValueType&gt;&gt;`
+The previous default accumulator types could lead to situations in which unexpected overflow occured, such as when the input or inital type was smaller than the output type. This is a complete list of affected functions and how their default accumulator types are changing:
+
+  * `rocprim::inclusive_scan`
+    * Previous default: `class AccType = typename std::iterator_traits<InputIterator>::value_type>`
+    * Current default: `class AccType = rocprim::accumulator_t<BinaryFunction, typename std::iterator_traits<InputIterator>::value_type>`
+  * `rocprim::deterministic_inclusive_scan`
+    * Previous default: `class AccType = typename std::iterator_traits<InputIterator>::value_type>`
+    * Current default: `class AccType = rocprim::accumulator_t<BinaryFunction, typename std::iterator_traits<InputIterator>::value_type>`
+  * `rocprim::exclusive_scan`
+    * Previous default: `class AccType = detail::input_type_t<InitValueType>>`
+    * Current default: `class AccType = rocprim::accumulator_t<BinaryFunction, rocprim::detail::input_type_t<InitValueType>>`
+  * `rocprim::deterministic_exclusive_scan`
+    * Previous default: `class AccType = detail::input_type_t<InitValueType>>`
+    * Current default: `class AccType = rocprim::accumulator_t<BinaryFunction, rocprim::detail::input_type_t<InitValueType>>`
 * Undeprecated internal `detail::raw_storage`.
-* A new version of `rocprim::thread_load` and `rocprim::thread_store` replace the deprecated `rocprim::thread_load` and `rocprim::thread_store` functions. The versions avoid inline assembly where possible, and don&#39;t hinder the optimizer as much as a result.
+* A new version of `rocprim::thread_load` and `rocprim::thread_store` replace the deprecated `rocprim::thread_load` and `rocprim::thread_store` functions. The versions avoid inline assembly where possible, and don't hinder the optimizer as much as a result.
 * Renamed `rocprim::load_cs` to `rocprim::load_nontemporal` and `rocprim::store_cs` to `rocprim::store_nontemporal` to express the intent of these load and store methods better.
 * All kernels now have hidden symbol visibility. All symbols now have inline namespaces that include the library version, for example, `rocprim::ROCPRIM_300400_NS::symbol` instead of `rocPRIM::symbol`, letting the user link multiple libraries built with different versions of rocPRIM.
 
-#### Upcoming Changes
+#### Upcoming changes
 
-* `rocprim::invoke_result_binary_op` and `rocprim::invoke_result_binary_op_t` are deprecated. Use `rocprim::accumulator_t` now.
+* `rocprim::invoke_result_binary_op` and `rocprim::invoke_result_binary_op_t` are deprecated. Use `rocprim::accumulator_t` instead.
 
 #### Removed
 
 * Removed `rocprim::detail::float_bit_mask` and relative tests, use `rocprim::traits::float_bit_mask` instead.
-* Removed `rocprim::traits::is_fundamental`, please use `rocprim::traits::get&lt;T&gt;::is_fundamental()` directly.
+* Removed `rocprim::traits::is_fundamental`, use `rocprim::traits::get<T>::is_fundamental()` directly.
 * Removed the deprecated parameters `short_radix_bits` and `ShortRadixBits` from the `segmented_radix_sort` config. They were unused, it is only an API change.
-* Removed the deprecated `operator&lt;&lt;` from the iterators.
+* Removed the deprecated `operator<<` from the iterators.
 * Removed the deprecated `TwiddleIn` and `TwiddleOut`. Use `radix_key_codec` instead.
 * Removed the deprecated flags API of `block_adjacent_difference`. Use `subtract_left()` or `block_discontinuity::flag_heads()` instead.
 * Removed the deprecated `to_exclusive` functions in the warp scans.
 * Removed the `rocprim::load_cs` from the `cache_load_modifier` enum. Use `rocprim::load_nontemporal` instead.
 * Removed the `rocprim::store_cs` from the `cache_store_modifier` enum. Use `rocprim::store_nontemporal` instead.
-* Removed the deprecated header file `rocprim/detail/match_result_type.hpp`. Include `rocprim/type_traits.hpp` instead.
-  * This header included `rocprim::detail::invoke_result`. Use `rocprim::invoke_result` instead.
-  * This header included `rocprim::detail::invoke_result_binary_op`. Use `rocprim::invoke_result_binary_op` instead.
-  * This header included `rocprim::detail::match_result_type`. Use `rocprim::invoke_result_binary_op_t` instead.
+* Removed the deprecated header file `rocprim/detail/match_result_type.hpp`. Include `rocprim/type_traits.hpp` instead. This header included:
+  * `rocprim::detail::invoke_result`. Use `rocprim::invoke_result` instead.
+  * `rocprim::detail::invoke_result_binary_op`. Use `rocprim::invoke_result_binary_op` instead.
+  * `rocprim::detail::match_result_type`. Use `rocprim::invoke_result_binary_op_t` instead.
 * Removed the deprecated `rocprim::detail::radix_key_codec` function. Use `rocprim::radix_key_codec` instead.
 * Removed `rocprim/detail/radix_sort.hpp`, functionality can now be found in `rocprim/thread/radix_key_codec.hpp`.
 * Removed C++14 support, only C++17 is supported.
@@ -1330,44 +1743,104 @@ when the input or inital type was smaller than the output type.
   * `ROCPRIM_WAVEFRONT_SIZE`
     * Use `rocprim::arch::wavefront::min_size()` or `rocprim::arch::wavefront::max_size()` instead.
   * `__AMDGCN_WAVEFRONT_SIZE`
-    * This was a fallback define for the compiler&#39;s removed symbol, having the same name. 
+    * This was a fallback define for the compiler's removed symbol, having the same name. 
 * This release removes support for custom builds on gfx940 and gfx941.
 
-#### Resolved Issues
+#### Resolved issues
 
 * Fixed an issue where `device_batch_memcpy` reported benchmarking throughput being 2x lower than it was in reality.
 * Fixed an issue where `device_segmented_reduce` reported autotuning throughput being 5x lower than it was in reality.
 * Fixed device radix sort not returning the correct required temporary storage when a double buffer contains `nullptr`.
 * Fixed constness of equality operators (`==` and `!=`) in `rocprim::key_value_pair`.
-* Fixed an issue for the comparison operators in `arg_index_iterator` and `texture_cache_iterator`, where `&lt;` and `&gt;` comparators were swapped.
+* Fixed an issue for the comparison operators in `arg_index_iterator` and `texture_cache_iterator`, where `<` and `>` comparators were swapped.
 * Fixed an issue for the `rocprim::thread_reduce` not working correctly with a prefix value.
 
-#### Known Issues
+#### Known issues
 
-* When using `rocprim::deterministic_inclusive_scan_by_key` and `rocprim::deterministic_exclusive_scan_by_key` the intermediate values can change order on Navi3x
-  * However if a commutative scan operator is used then the final scan value (output array) will still always be consistent between runs
+* * When using `rocprim::deterministic_inclusive_scan_by_key` and `rocprim::deterministic_exclusive_scan_by_key` the intermediate values can change order on Navi3x. However, if a commutative scan operator is used then the final scan value (output array) will still always be consistent between runs.
+
+### **ROCprofiler-SDK** (1.0.0)
+
+### Added
+
+- Support for [rocJPEG](https://rocm.docs.amd.com/projects/rocJPEG/en/latest/index.html) API Tracing.
+- Support for AMD Instinct MI350X and MI355X accelerators.
+- `rocprofiler_create_counter` to facilitate adding custom derived counters at runtime.
+- Support in `rocprofv3` for iteration based counter multiplexing.
+- Perfetto support for counter collection.
+- Support for negating `rocprofv3` tracing options when using aggregate options such as `--sys-trace --hsa-trace=no`.
+- `--agent-index` option in `rocprofv3` to specify the agent naming convention in the output:
+  - absolute == node_id
+  - relative == logical_node_id
+  - type-relative == logical_node_type_id
+- MI300 and MI350 stochastic (hardware-based) PC sampling support in ROCProfiler-SDK and `rocprofv3`.
+- Python bindings for `rocprofiler-sdk-roctx`
+- SQLite3 output support for `rocprofv3` using `--output-format rocpd`.
+- `rocprofiler-sdk-rocpd` package:
+  - Public API in `include/rocprofiler-sdk-rocpd/rocpd.h`.
+  - Library implementation in `librocprofiler-sdk-rocpd.so`.
+  - Support for `find_package(rocprofiler-sdk-rocpd)`.
+  - `rocprofiler-sdk-rocpd` DEB and RPM packages.
+- `--version` option in `rocprofv3`.
+- `rocpd` Python package.
+- Thread trace as experimental API.
+- ROCprof Trace Decoder as experimental API:
+  - Requires [ROCprof Trace Decoder plugin](https://github.com/rocm/rocprof-trace-decoder).
+- Thread trace option in the `rocprofv3` tool under the `--att` parameters:
+  - See [using thread trace with rocprofv3](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/amd-mainline/how-to/using-thread-trace.html)
+  - Requires [ROCprof Trace Decoder plugin](https://github.com/rocm/rocprof-trace-decoder).
+- `rocpd` output format documentation:
+  - Requires [ROCprof Trace Decoder plugin](https://github.com/rocm/rocprof-trace-decoder).
+- Perfetto support for scratch memory.
+- Support in the `rocprofv3` avail tool for command-line arguments.
+- Documentation for `rocprofv3` advanced options.
+
+### Changed
+
+- SDK to NOT to create a background thread when every tool returns a nullptr from `rocprofiler_configure`.
+- `vaddr-to-file-offset` mapping in `disassembly.hpp` to use the dedicated comgr API.
+- `rocprofiler_uuid_t` ABI to hold 128 bit value.
+- `rocprofv3` shorthand argument for `--collection-period` to `-P` (upper-case) while `-p` (lower-case) is reserved for later use.
+- Default output format for `rocprofv3` to `rocpd` (SQLite3 database).
+- `rocprofv3` avail tool to be renamed from `rocprofv3_avail` to `rocprofv3-avail` tool.
+- `rocprofv3` tool to facilitate thread trace and PC sampling on the same agent.
+
+#### Removed
+
+* Support for compilation of gfx940 and gfx941 targets.
+
+### Resolved issues
+
+- Fixed missing callbacks around internal thread creation within counter collection service.
+- Fixed potential data race in the ROCprofiler-SDK double buffering scheme.
+- Fixed usage of std::regex in the core ROCprofiler-SDK library that caused segfaults or exceptions when used under dual ABI.
+- Fixed Perfetto counter collection by introducing accumulation per dispatch.
+- Fixed code object disassembly for missing function inlining information.
+- Fixed queue preemption error and `HSA_STATUS_ERROR_INVALID_PACKET_FORMAT` error for stochastic PC-sampling in MI300X, leading to stabler runs.
+- Fixed the system hang issue for host-trap PC-sampling on AMD Instinct MI300X.
+- Fixed `rocpd` counter collection issue when counter collection alone is enabled. `rocpd_kernel_dispatch` table is updated to be populated by counters data instead of kernel_dispatch data.
+- Fixed `rocprofiler_*_id_t` structs for inconsistency related to a "null" handle:
+  - The correct definition for a null handle is `.handle = 0` while some definitions previously used `UINT64_MAX`.
+- Fixed kernel trace csv output generated by `rocpd`.
+
+### **rocPyDecode** (0.6.0)
+
+#### Added
+
+* ``rocpyjpegdecode`` package.
+* Added ``src/rocjpeg`` source new subfolder.
+* Added ``samples/rocjpeg`` new subfolder.
+
+#### Changed
+* Minimum version for rocdecode and rocjpeg updated to V1.0.0
 
 ### **rocRAND** (4.0.0)
 
 #### Added
 
-* gfx950 support
-* Additional unit tests for `test_log_normal_distribution.cpp`
-* Additional unit tests for `test_normal_distribution.cpp`
-* Additional unit tests for `test_rocrand_mtgp32_prng.cpp`
-* Additional unit tests for `test_rocrand_scrambled_sobol32_qrng.cpp`
-* Additional unit tests for `test_rocrand_scrambled_sobol64_qrng.cpp`
-* Additional unit tests for `test_rocrand_sobol32_qrng.cpp`
-* Additional unit tests for `test_rocrand_sobol64_qrng.cpp`
-* Additional unit tests for `test_rocrand_threefry2x32_20_prng.cpp`
-* Additional unit tests for `test_rocrand_threefry2x64_20_prng.cpp`
-* Additional unit tests for `test_rocrand_threefry4x32_20_prng.cpp`
-* Additional unit tests for `test_rocrand_threefry4x64_20_prng.cpp`
-* Additional unit tests for `test_uniform_distribution.cpp`
-* New unit tests for `include/rocrand/rocrand_discrete.h` in `test_rocrand_discrete.cpp`
-* New unit tests for `include/rocrand/rocrand_mrg31k3p.h` in `test_rocrand_mrg31k3p_prng.cpp`
-* New unit tests for `include/rocrand/rocrand_mrg32k3a.h` in `test_rocrand_mrg32k3a_prng.cpp`
-* New unit tests for `include/rocrand/rocrand_poisson.h` in `test_rocrand_poisson.cpp`
+* gfx950 support.
+* Additional unit tests for `test_log_normal_distribution.cpp`, `test_normal_distribution.cpp`, `test_rocrand_mtgp32_prng.cpp`, `test_rocrand_scrambled_sobol32_qrng.cpp`, `test_rocrand_scrambled_sobol64_qrng.cpp`, `test_rocrand_sobol32_qrng.cpp`, `test_rocrand_sobol64_qrng.cpp`, `test_rocrand_threefry2x32_20_prng.cpp`, `test_rocrand_threefry2x64_20_prng.cpp`, `test_rocrand_threefry4x32_20_prng.cpp`, `test_rocrand_threefry4x64_20_prng.cpp`, and `test_uniform_distribution.cpp`.
+* New unit tests for `include/rocrand/rocrand_discrete.h` in `test_rocrand_discrete.cpp`, `include/rocrand/rocrand_mrg31k3p.h` in `test_rocrand_mrg31k3p_prng.cpp`, `include/rocrand/rocrand_mrg32k3a.h` in `test_rocrand_mrg32k3a_prng.cpp`, and `include/rocrand/rocrand_poisson.h` in `test_rocrand_poisson.cpp`.
 
 #### Changed
 
@@ -1378,7 +1851,7 @@ when the input or inital type was smaller than the output type.
 
 #### Removed
 
-* Removed inline assembly and the `ENABLE_INLINE_ASM` CMake option. Inline assembly was used to optimizate of multiplications in the Mrg32k3a and Philox 4x32-10 generators. It is no longer needed because the current HIP compiler is able to produce code with the same or better performance.
+* Removed inline assembly and the `ENABLE_INLINE_ASM` CMake option. Inline assembly was used to optimize multiplication in the Mrg32k3a and Philox 4x32-10 generators. It is no longer needed because the current HIP compiler is able to produce code with the same or better performance.
 * Removed instances of the deprecated clang definition `__AMDGCN_WAVEFRONT_SIZE`.
 * Removed C++14 support. Beginning with this release, only C++17 is supported.
 * Directly accessing the (scrambled) sobol32 and sobol64 constants and direction vectors is no longer supported. For:
@@ -1389,46 +1862,37 @@ when the input or inital type was smaller than the output type.
   * `rocrand_h_scrambled_sobol32_direction_vectors`, use `rocrand_get_direction_vectors32` instead.
   * `rocrand_h_scrambled_sobol64_direction_vectors`, use `rocrand_get_direction_vectors64` instead.
 
-#### Resolved Issues
+#### Resolved isues
 
 * Fixed an issue where `mt19937.hpp` would cause kernel errors during auto tuning.
 
-#### Upcoming Changes
+#### Upcoming canges
 
 * Deprecated the rocRAND Fortran API in favor of hipfort.
+
+### **ROCr Debug Agent** (2.1.0)
+
+#### Added
+
+* Added the `-e` and `--precise-alu-exceptions` flags to enable precise ALU exceptions reporting on supported configurations.
 
 ### **rocSHMEM** (3.0.0)
 
 #### Added
 
-* Added the Reverse Offload conduit
-* Added new APIs:
-   * `rocshmem_ctx_barrier`
-   * `rocshmem_ctx_barrier_wave`
-   * `rocshmem_ctx_barrier_wg`
-   * `rocshmem_barrier_all`
-   * `rocshmem_barrier_all_wave`
-   * `rocshmem_barrier_all_wg`
-   * `rocshmem_ctx_sync`
-   * `rocshmem_ctx_sync_wave`
-   * `rocshmem_ctx_sync_wg`
-   * `rocshmem_sync_all`
-   * `rocshmem_sync_all_wave`
-   * `rocshmem_sync_all_wg`
-   * `rocshmem_init_attr`
-   * `rocshmem_get_uniqueid`
-   * `rocshmem_set_attr_uniqueid_args`
-* Added dlmalloc based allocator
-* Added XNACK support
-* Added support for initialization with MPI communicators other than `MPI_COMM_WORLD`
+* Added the Reverse Offload conduit.
+* Added new APIs: `rocshmem_ctx_barrier`, `rocshmem_ctx_barrier_wave`, `rocshmem_ctx_barrier_wg`, `rocshmem_barrier_all`, `rocshmem_barrier_all_wave`, `rocshmem_barrier_all_wg`, `rocshmem_ctx_sync`, `rocshmem_ctx_sync_wave`, `rocshmem_ctx_sync_wg`, `rocshmem_sync_all`, `rocshmem_sync_all_wave`, `rocshmem_sync_all_wg`, `rocshmem_init_attr`, `rocshmem_get_uniqueid`, and `rocshmem_set_attr_uniqueid_args`.
+* Added dlmalloc based allocator.
+* Added XNACK support.
+* Added support for initialization with MPI communicators other than `MPI_COMM_WORLD`.
 
 #### Changed
 
-* Changed collective APIs to use `_wg` suffix rather than `_wg_` infix
+* Changed collective APIs to use `_wg` suffix rather than `_wg_` infix.
 
-#### Resolved Issues
+#### Resolved issues
 
-* Resolved segfault in `rocshmem_wg_ctx_create`, now provides nullptr if ctx cannot be created
+* Resolved segfault in `rocshmem_wg_ctx_create`, now provides nullptr if ctx cannot be created.
 
 ### **rocSOLVER** (3.30.0)
 
@@ -1439,120 +1903,109 @@ when the input or inital type was smaller than the output type.
 
 #### Optimized
 
-* Improved the performance of BDSQR and downstream functions such as GESVD
-* Improved the performance of STEQR and downstream functions such as SYEV/HEEV
-* Improved the performance of LARFT and downstream functions such as GEQR2 and GEQRF
+* Fixed corner cases that can produce NaNs in SYEVD, for valid input matrices.
+* Improved the performance of BDSQR and downstream functions, such as GESVD.
+* Improved the performance of STEQR and downstream functions, such as SYEV/HEEV.
+* Improved the performance of LARFT and downstream functions, such as GEQR2 and GEQRF.
+	
+#### Resolved issues
 
-#### Resolved Issues
-
-* Fixed corner cases that can produce NaNs in SYEVD, for valid input matrices
+* Fixed corner cases that can produce NaNs in SYEVD for valid input matrices.
 
 ### **rocSPARSE** (4.0.2)
 
 #### Added
 
-* Adds `SpGEAM` generic routine for computing sparse matrix addition in CSR format
-* Adds `v2_SpMV` generic routine for computing sparse matrix vector multiplication. As opposed to the deprecated `rocsparse_spmv` routine, this routine does not use a fallback algorithm if a non-implemented configuration is encountered and will return an error in such a case. For the deprecated routine `rocsparse_spmv`, the user can enable warning messages in situations where a fallback algorithm is used by either calling upfront the routine `rocsparse_enable_debug` or exporting the variable `ROCSPARSE_DEBUG` (with the shell command `export ROCSPARSE_DEBUG=1`).
-* Adds half float mixed precision to `rocsparse_axpby` where X and Y use float16 and result and the compute type use float
-* Adds half float mixed precision to `rocsparse_spvv` where X and Y use float16 and result and the compute type use float
-* Adds half float mixed precision to `rocsparse_spmv` where A and X use float16 and Y and the compute type use float
-* Adds half float mixed precision to `rocsparse_spmm` where A and B use float16 and C and the compute type use float
-* Adds half float mixed precision to `rocsparse_sddmm` where A and B use float16 and C and the compute type use float
-* Adds half float uniform precision to `rocsparse_scatter` and `rocsparse_gather` routines
-* Adds half float uniform precision to `rocsparse_sddmm` routine
-* Added `rocsparse_spmv_alg_csr_rowsplit` algorithm.
-* Added support for gfx950
-* Add ROC-TX instrumentation support in rocSPARSE (not available on Windows or in the static library version on Linux).
-* Added the `almalinux` OS name to correct the gfortran dependency
+* Added the `SpGEAM` generic routine for computing sparse matrix addition in CSR format.
+* Added the `v2_SpMV` generic routine for computing sparse matrix vector multiplication. As opposed to the deprecated `rocsparse_spmv` routine, this routine does not use a fallback algorithm if a non-implemented configuration is encountered and will return an error in such a case. For the deprecated `rocsparse_spmv` routine, the user can enable warning messages in situations where a fallback algorithm is used by either calling the `rocsparse_enable_debug` routine upfront or exporting the variable `ROCSPARSE_DEBUG` (with the shell command `export ROCSPARSE_DEBUG=1`).
+* Added half float mixed precision to `rocsparse_axpby` where X and Y use `float16` and the result and compute type use `float`.
+* Added half float mixed precision to `rocsparse_spvv` where X and Y use `float16` and the result and compute type use `float`.
+* Added half float mixed precision to `rocsparse_spmv` where A and X use `float16` and Y and the compute type use `float`.
+* Added half float mixed precision to `rocsparse_spmm` where A and B use `float16` and C and the compute type use `float`.
+* Added half float mixed precision to `rocsparse_sddmm` where A and B use `float16` and C and the compute type use `float`.
+* Added half float uniform precision to the `rocsparse_scatter` and `rocsparse_gather` routines.
+* Added half float uniform precision to the `rocsparse_sddmm` routine.
+* Added the `rocsparse_spmv_alg_csr_rowsplit` algorithm.
+* Added support for gfx950.
+* Added ROC-TX instrumentation support in rocSPARSE (not available on Windows or in the static library version on Linux).
+* Added the `almalinux` operating system name to correct the GFortran dependency.
 
 #### Changed
 
 * Switch to defaulting to C++17 when building rocSPARSE from source. Previously rocSPARSE was using C++14 by default.
 
-#### Optimized
-
-* Reduced the number of template instantiations in the library to further reduce the shared library binary size and improve compile times
-* Allow SpGEMM routines to use more shared memory when available. This can speed up performance for matrices with a large number of intermediate products.
-* Use of the `rocsparse_spmv_alg_csr_adaptive` or `rocsparse_spmv_alg_csr_default` algorithms in `rocsparse_spmv` to perform transposed sparse matrix multiplication (`C=alpha*A^T*x+beta*y`) resulted in unnecessary analysis on A and needless slowdown during the analysis phase. This has been fixed by skipping the analysis when performing the transposed sparse matrix multiplication.
-* Improved the user documentation
-
-#### Resolved Issues
-
-* Fixed an issue in the public headers where `extern &#34;C&#34;` was not wrapped by `#ifdef __cplusplus`, which caused failures when building C programs with rocSPARSE.
-* Fixed a memory access fault in the `rocsparse_Xbsrilu0` routines.
-* Fixed failures that could occur in `rocsparse_Xbsrsm_solve` or `rocsparse_spsm` with BSR format when using host pointer mode.
-* Fixed ASAN compilation failures
-* Fixed failure that occurred when using const descriptor `rocsparse_create_const_csr_descr` with the generic routine `rocsparse_sparse_to_sparse`. Issue was not observed when using non-const descriptor `rocsparse_create_csr_descr` with `rocsparse_sparse_to_sparse`.
-* Fixed a memory leak in the rocsparse handle
-
 #### Removed
 
-* The deprecated `rocsparse_spmv_ex` routine
-* The deprecated `rocsparse_sbsrmv_ex`, `rocsparse_dbsrmv_ex`, `rocsparse_cbsrmv_ex`, and `rocsparse_zbsrmv_ex`  routines
-* The deprecated `rocsparse_sbsrmv_ex_analysis`, `rocsparse_dbsrmv_ex_analysis`, `rocsparse_cbsrmv_ex_analysis`, and `rocsparse_zbsrmv_ex_analysis`  routines
+* The deprecated `rocsparse_spmv_ex` routine.
+* The deprecated `rocsparse_sbsrmv_ex`, `rocsparse_dbsrmv_ex`, `rocsparse_cbsrmv_ex`, and `rocsparse_zbsrmv_ex` routines.
+* The deprecated `rocsparse_sbsrmv_ex_analysis`, `rocsparse_dbsrmv_ex_analysis`, `rocsparse_cbsrmv_ex_analysis`, and `rocsparse_zbsrmv_ex_analysis` routines.
 
-#### Upcoming Changes
+#### Optimized
 
-* Deprecated the `rocsparse_spmv` routine. Users should use the `rocsparse_v2_spmv` routine going forward.
-* Deprecated `rocsparse_spmv_alg_csr_stream` algorithm. Users should use the `rocsparse_spmv_alg_csr_rowsplit` algorithm going forward.
-* Deprecated the `rocsparse_itilu0_alg_sync_split_fusion` algorithm. Users should use one of `rocsparse_itilu0_alg_async_inplace`, `rocsparse_itilu0_alg_async_split`, or `rocsparse_itilu0_alg_sync_split` going forward.
+* Reduced the number of template instantiations in the library to further reduce the shared library binary size and improve compile times.
+* Allow SpGEMM routines to use more shared memory when available. This can speed up performance for matrices with a large number of intermediate products.
+* Use of the `rocsparse_spmv_alg_csr_adaptive` or `rocsparse_spmv_alg_csr_default` algorithms in `rocsparse_spmv` to perform transposed sparse matrix multiplication (`C=alpha*A^T*x+beta*y`) resulted in unnecessary analysis on A and needless slowdown during the analysis phase. This has been improved by skipping the analysis when performing the transposed sparse matrix multiplication.
+* Improved the user documentation.
+
+#### Resolved issues
+	
+* Fixed an issue in the public headers where `extern "C"` was not wrapped by `#ifdef __cplusplus`, which caused failures when building C programs with rocSPARSE.
+* Fixed a memory access fault in the `rocsparse_Xbsrilu0` routines.
+* Fixed failures that could occur in `rocsparse_Xbsrsm_solve` or `rocsparse_spsm` with BSR format when using host pointer mode.
+* Fixed ASAN compilation failures.
+* Fixed a failure that occurred when using const descriptor `rocsparse_create_const_csr_descr` with the generic routine `rocsparse_sparse_to_sparse`. The issue was not observed when using non-const descriptor `rocsparse_create_csr_descr` with `rocsparse_sparse_to_sparse`.
+* Fixed a memory leak in the rocSPARSE handle.
+
+#### Upcoming changes
+
+* Deprecated the `rocsparse_spmv` routine. Use the `rocsparse_v2_spmv` routine instead.
+* Deprecated the `rocsparse_spmv_alg_csr_stream` algorithm. Use the `rocsparse_spmv_alg_csr_rowsplit` algorithm instead.
+* Deprecated the `rocsparse_itilu0_alg_sync_split_fusion` algorithm. Use one of `rocsparse_itilu0_alg_async_inplace`, `rocsparse_itilu0_alg_async_split`, or `rocsparse_itilu0_alg_sync_split` instead.
 
 ### **rocThrust** (4.0.0)
 
 #### Changed
 
 * Updated the required version of Google Benchmark from 1.8.0 to 1.9.0.
-* Drop `c++14` support for rocthrust.
-* Renamed `cpp14_required.h` to `cpp_version_check.h`
-* Refactored `test_header.hpp` into separte modules `test_param_fixtures.hpp`, `test_real_assertions.hpp`, `test_imag_assertions.hpp`, and `test_utils.hpp`.
-  * This is done to prevent unit tests from having access to modules that they&#39;re not testing. This will improve the accuracy of code coverage reports.
+* Renamed `cpp14_required.h` to `cpp_version_check.h`.
+* Refactored `test_header.hpp` into `test_param_fixtures.hpp`, `test_real_assertions.hpp`, `test_imag_assertions.hpp`, and `test_utils.hpp`. This is done to prevent unit tests from having access to modules that they're not testing. This will improve the accuracy of code coverage reports.
 
 #### Added
 
-* Additional unit tests for:
-  * binary_search
-  * complex
-  * c99math
-  * catrig
-  * ccosh
-  * cexp
-  * clog
-  * csin
-  * csqrt
-  * ctan
+* Additional unit tests for: binary_search, complex, c99math, catrig, ccosh, cexp, clog, csin, csqrt, and ctan.
 * Added `test_param_fixtures.hpp` to store all the parameters for typed test suites.
 * Added `test_real_assertions.hpp` to handle unit test assertions for real numbers.
 * Added `test_imag_assertions.hpp` to handle unit test assertions for imaginary numbers.
 * `clang++` is now used to compile google benchmarks on Windows.
 * Added gfx950 support.
-* Merged changes from upstream CCCL/thrust 2.6.0
+* Merged changes from upstream CCCL/thrust 2.6.0.
 
 #### Removed
 
 * `device_malloc_allocator.h` has been removed. This header file was unused and should not impact users.
-* Removed C++14 support, only C++17 is supported.
+* Removed C++14 support. Only C++17 is now supported.
 * `test_header.hpp` has been removed. The `HIP_CHECK` function, as well as the `test` and `inter_run_bwr` namespaces, have been moved to `test_utils.hpp`.
 * `test_assertions.hpp` has been split into `test_real_assertions.hpp` and `test_imag_assertions.hpp`.
 
-#### Upcoming Changes
+#### Upcoming changes
 
 * `thrust::device_malloc_allocator` is deprecated as of this version. It will be removed in an upcoming version.
 
-#### Resolved Issues
+#### Resolved issues
 
 * Fixed an issue with internal calls to unqualified `distance()` which would be ambigious due to also visibile implementation through ADL.
 
-#### Known Issues
+#### Known issues
 
-* The order of the values being compared by thrust::exclusive_scan_by_key and thrust::inclusive_scan_by_key can change between runs when integers are being compared. This can cause incorrect output when a non-commutative operator such as division is being used.
+* The order of the values being compared by `thrust::exclusive_scan_by_key` and `thrust::inclusive_scan_by_key` can change between runs when integers are being compared. This can cause incorrect output when a non-commutative operator such as division is being used.
 
 ### **rocWMMA** (2.0.0)
 
 #### Added
 
-* Added internal register layout transforms to support interleaved MMA layouts
-* Added support for the gfx950 target
-* Added mixed input `bf8` / `fp8` types for MMA support
+* Added internal register layout transforms to support interleaved MMA layouts.
+* Added support for the gfx950 target.
+* Added mixed input `BF8` / `FP8` types for MMA support.
 * Added fragment scheduler API objects to embed thread block cooperation properties in fragments
 
 #### Changed
@@ -1575,76 +2028,80 @@ when the input or inital type was smaller than the output type.
 * Removed the rocWMMA cooperative API
 * Removed wave count template parameters from transforms APIs
 
-#### Resolved Issues
+#### Resolved issues
 
-* Fixed a validation issue for small precision compute types `&lt; B32` on gfx9
-* Fixed CMake validation of compiler support for `bf8` / `fp8` types
+* Fixed a validation issue for small precision compute types `< B32` on gfx9
+* Fixed CMake validation of compiler support for `BF8` / `FP8` types
 * Fixed linkage of rocwmma::synchronize_workgroup to inline
 
-### **rpp** (2.0.0)
+### **RPP** (2.0.0)
 
 #### Added
 
-* Bitwise NOT, Bitwise AND, Bitwise OR augmentations on HOST (CPU) and HIP backends. (#520)
-* Tensor Concat augmentation on HOST (CPU) and HIP backends. (#530)
-* JPEG Compression Distortion augmentation on HIP backend. (#538)
+* Bitwise NOT, Bitwise AND, and Bitwise OR augmentations on HOST (CPU) and HIP backends.
+* Tensor Concat augmentation on HOST (CPU) and HIP backends.
+* JPEG Compression Distortion augmentation on HIP backend. 
 * `log1p`, defined as `log (1 + x)`, tensor augmentation support on HOST (CPU) and HIP backends.
-* JPEG Compression Distortion augmentation on HOST (CPU) backend. (#531)
+* JPEG Compression Distortion augmentation on HOST (CPU) backend. 
 
 #### Changed
 
-* All handle creation and destruction APIs have been consolidated to `rppCreate()`, for handle initialization, and `rppDestroy()`,  for handle destruction (#513)
-* RPP function category &#34;logical_operations&#34; more appropriately renamed to &#34;bitwise_operations&#34;. (#520)
-* TurboJPEG package installation enabled for RPP Test Suite with `sudo apt-get install libturbojpeg0-dev`. Instructions updated in utilities/test_suite/README.md. (#518)
-* Changed API of swap_channels augmentation to be called channel_permute, which now accepts one new argument, &#34;permutationTensor&#34; (pointer to a unsigned int tensor) that provides the permutation order to swap the RGB channels of each input image in the batch in any order. (#547)
-  * Old API - `RppStatus rppt_swap_channels_host(RppPtr_t srcPtr, RpptDescPtr srcDescPtr, RppPtr_t dstPtr, RpptDescPtr dstDescPtr, rppHandle_t rppHandle);`
-  * New API - `RppStatus rppt_channel_permute_host(RppPtr_t srcPtr, RpptDescPtr srcDescPtr, RppPtr_t dstPtr, RpptDescPtr dstDescPtr, Rpp32u *permutationTensor , rppHandle_t rppHandle);`
+* Handle creation and destruction APIs have been consolidated. Use `rppCreate()` for handle initialization and `rppDestroy()` for handle destruction.
+* The `logical_operations` function category has been renamed to `bitwise_operations`.
+* TurboJPEG package installation enabled for RPP Test Suite with `sudo apt-get install libturbojpeg0-dev`. Instructions have been updated in utilities/test_suite/README.md.
+* The `swap_channels` augmentation has been changed to `channel_permute`. `channel_permute` now also accepts a new argument, `permutationTensor` (pointer to a unsigned int tensor) that provides the permutation order to swap the RGB channels of each input image in the batch in any order:
+
+    `RppStatus rppt_swap_channels_host(RppPtr_t srcPtr, RpptDescPtr srcDescPtr, RppPtr_t dstPtr, RpptDescPtr dstDescPtr, rppHandle_t rppHandle);`
+
+    changed to:
+
+    `RppStatus rppt_channel_permute_host(RppPtr_t srcPtr, RpptDescPtr srcDescPtr, RppPtr_t dstPtr, RpptDescPtr dstDescPtr, Rpp32u *permutationTensor , rppHandle_t rppHandle);`
 
 #### Removed
 
-* Older versions of RPP handle creation inlcuding `rppCreateWithBatchSize()`, `rppCreateWithStream()`, and `rppCreateWithStreamAndBatchSize()` are now removed and replaced with `rppCreate()`.
-* Older versions of RPP handle destruction API including `rppDestroyGPU()` and `rppDestroyHost()` are now removed and replaced with `rppDestroy()`.
+* Older versions of RPP handle creation inlcuding `rppCreateWithBatchSize()`, `rppCreateWithStream()`, and `rppCreateWithStreamAndBatchSize()`. These have been replaced with `rppCreate()`.
+* Older versions of RPP handle destruction API including `rppDestroyGPU()` and `rppDestroyHost()`. These have been replaced with `rppDestroy()`.
 
-#### Resolved Issues
+#### Resolved issues
 
-* Test package - debian packages will install required dependencies
+* Test package - debian packages will install required dependencies.
 
 ### **Tensile** (4.44.0)
 
 #### Added
 
-- Added support for gfx950
-- Added code object compression via bundling
-- Added support for non-default HIP SDK installations on Windows
-- Added master solution library documentation
-- Added compiler version dependent assembler and architecture capabilities
-- Added documentation from GitHub Wiki to ROCm docs
+- Added support for gfx950.
+- Added code object compression via bundling.
+- Added support for non-default HIP SDK installations on Windows.
+- Added master solution library documentation.
+- Added compiler version dependent assembler and architecture capabilities.
+- Added documentation from GitHub Wiki to ROCm docs.
 
 #### Changed
 
-- Loosened check for CLI compiler choices
-- Introduced 4-tuple targets for bundler invocations
-- Introduced PATHEXT extensions on Windows when searching for toolchain components
-- Enabled passing fully qualified paths to toolchain components
-- Enabled environment variable overrides when searching for a ROCm stack 
-- Improved default toolchain configuration
-- Ignored f824 flake errors
+- Loosened check for CLI compiler choices.
+- Introduced 4-tuple targets for bundler invocations.
+- Introduced PATHEXT extensions on Windows when searching for toolchain components.
+- Enabled passing fully qualified paths to toolchain components.
+- Enabled environment variable overrides when searching for a ROCm stack.
+- Improved default toolchain configuration.
+- Ignored f824 flake errors.
 
 #### Removed
 
-- Removed support for the gfx940 and gfx941 targets
-- Removed unused tuning files
-- Removed disabled tests
+- Removed support for the gfx940 and gfx941 targets.
+- Removed unused tuning files.
+- Removed disabled tests.
 
-#### Resolved Issues
+#### Resolved issues
 
-- Fixed configure time path not being invoked at build
-- Fixed find_package for msgpack to work with versions 5 and 6
-- Fixed rhel9 testing
-- Fixed gfx908 builds
-- Fixed &#34;argument list too long&#34; error
-- Fixed version typo in 6.3 changelog
-- Fixed improper use of aliases as nested namespace specifiers
+- Fixed configure time path not being invoked at build.
+- Fixed find_package for msgpack to work with versions 5 and 6.
+- Fixed rhel9 testing.
+- Fixed gfx908 builds.
+- Fixed the 'argument list too long' error.
+- Fixed version typo in 6.3 changelog.
+- Fixed improper use of aliases as nested namespace specifiers.
 
 ## ROCm known issues
 
@@ -1686,8 +2143,7 @@ It's anticipated that ROCTracer, ROCProfiler, `rocprof`, and `rocprofv2` will re
 ### AMDGPU wavefront size compiler macro deprecation
 
 Access to the wavefront size as a compile-time constant via the `__AMDGCN_WAVEFRONT_SIZE`
-and `__AMDGCN_WAVEFRONT_SIZE__` macros or the `constexpr warpSize` variable is deprecated
-and will be disabled in a future release. 
+and `__AMDGCN_WAVEFRONT_SIZE__` macros are deprecated and will be disabled in a future release. In ROCm 7.0.0 `warpSize` is only availble as a non-`constextpr` variable.
 
 * The `__AMDGCN_WAVEFRONT_SIZE__` macro and `__AMDGCN_WAVEFRONT_SIZE` alias will be removed in an upcoming release.
   It is recommended to remove any use of this macro. For more information, see
@@ -1708,10 +2164,6 @@ and will be disabled in a future release.
    #endif
 ```
 
-### HIPCC Perl scripts deprecation
-
-The HIPCC Perl scripts (`hipcc.pl` and `hipconfig.pl`) will be removed in an upcoming release.
-
 ### Changes to ROCm Object Tooling
 
 ROCm Object Tooling tools ``roc-obj-ls``, ``roc-obj-extract``, and ``roc-obj`` are
@@ -1722,11 +2174,3 @@ or executables passed as input.  The ``llvm-objdump --offloading`` tool option a
 supports the ``--arch-name`` option, and only extracts code objects found with
 the specified target architecture. See [llvm-objdump](https://llvm.org/docs/CommandGuide/llvm-objdump.html)
 for more information. 
-
-### HIP runtime API changes
- 
-There are a number of upcoming changes planned for HIP runtime API in an upcoming major release 
-that are not backward compatible with prior releases. Most of these changes increase 
-alignment between HIP and CUDA APIs or behavior. Some of the upcoming changes are to 
-clean up header files, remove namespace collision, and have a clear separation between 
-`hipRTC` and HIP runtime. For more information, see [HIP 7.0 Is Coming: What You Need to Know to Stay Ahead](https://rocm.blogs.amd.com/ecosystems-and-partners/transition-to-hip-7.0-blog/README.html).
