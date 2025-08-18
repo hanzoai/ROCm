@@ -9,17 +9,21 @@ import shutil
 import sys
 from pathlib import Path
 
-shutil.copy2("../RELEASE.md", "./about/release-notes.md")
-shutil.copy2("../CHANGELOG.md", "./release/changelog.md")
+gh_release_path = os.path.join("..", "RELEASE.md")
+gh_changelog_path = os.path.join("..", "CHANGELOG.md")
+sphinx_release_path = os.path.join("about", "release-notes.md")
+sphinx_changelog_path = os.path.join("release", "changelog.md")
+shutil.copy2(gh_release_path, sphinx_release_path)
+shutil.copy2(gh_changelog_path, sphinx_changelog_path)
 
 # Mark the consolidated changelog as orphan to prevent Sphinx from warning about missing toctree entries
-with open("./release/changelog.md", "r+") as file:
+with open(sphinx_changelog_path, "r+", encoding="utf-8") as file:
     content = file.read()
     file.seek(0)
     file.write(":orphan:\n" + content)
 
 # Replace GitHub-style [!ADMONITION]s with Sphinx-compatible ```{admonition} blocks
-with open("./release/changelog.md", "r") as file:
+with open(sphinx_changelog_path, "r", encoding="utf-8") as file:
     lines = file.readlines()
 
     modified_lines = []
@@ -57,11 +61,14 @@ with open("./release/changelog.md", "r") as file:
 
     file.close()
 
-    with open("./release/changelog.md", 'w') as file:
+    with open(sphinx_changelog_path, "w", encoding="utf-8") as file:
         file.writelines(modified_lines)
 
-os.system("mkdir -p ../_readthedocs/html/downloads")
-os.system("cp compatibility/compatibility-matrix-historical-6.0.csv ../_readthedocs/html/downloads/compatibility-matrix-historical-6.0.csv")
+matrix_path = os.path.join("compatibility", "compatibility-matrix-historical-6.0.csv")
+rtd_path = os.path.join("..", "_readthedocs", "html", "downloads")
+if not os.path.exists(rtd_path):
+    os.makedirs(rtd_path)
+shutil.copy2(matrix_path, rtd_path)
 
 latex_engine = "xelatex"
 latex_elements = {
