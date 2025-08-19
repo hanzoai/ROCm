@@ -927,7 +927,6 @@ HIP runtime has the following functional improvements which greatly improve runt
 * Compilation failure, HIP runtime refactored the vector type alignment with `__hip_vec_align_v`
 * A numerical error/corruption found in Pytorch  during graph replay. HIP runtime fixed the input sizes of kernel launch dimensions in hipExtModuleLaunchKernel for the execution of hipGraph capture.
 * A crash during kernel execution in a customer application. The structure of kernel arguments was updated via adding the size of kernel arguments, and HIP runtime does validation before launch kernel with the structured arguments.
-* A permission related error during execution of `hipLaunchHostFunc`. The API is now supported and allowed to run during stream capture, to match the behavior of CUDA.
 
 ### **hipBLAS** (3.0.0)
 
@@ -2074,6 +2073,15 @@ The previous default accumulator types could lead to situations in which unexpec
 #### Resolved issues
 
 * Test package - debian packages will install required dependencies.
+
+### **ROCr Runtime** (1.18.0)
+
+#### Added
+
+* New API `hsa_amd_memory_get_preferred_copy_engine` to get preferred copy engine that can be used to when calling `hsa_amd_memory_async_copy_on_engine`.
+* New API `hsa_amd_portable_export_dmabuf_v2` extension of existing `hsa_amd_portable_export_dmabuf` API to support new flags parameter. This allows specifying the new `HSA_AMD_DMABUF_MAPPING_TYPE_PCIE` flag when exporting dma-bufs.
+* New flag `HSA_AMD_VMEM_ADDRESS_NO_REGISTER` adds support for new `HSA_AMD_VMEM_ADDRESS_NO_REGISTER` when calling `hsa_amd_vmem_address_reserve` API. This allows virtual address range reservations for SVM allocations to be tracked when running in ASAN mode.
+* New sub query `HSA_AMD_AGENT_INFO_CLOCK_COUNTERS` returns a snapshot of the underlying driver's clock counters that can be used for profiling.
 
 ### **Tensile** (4.44.0)
 
