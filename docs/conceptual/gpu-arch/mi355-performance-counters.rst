@@ -86,7 +86,7 @@ Shader pipe interpolators (SPI) counters
       - Number of clocks with outstanding waves for PIPE0 (SPI or SH).
 
     * - SPI_CS0_NUM_THREADGROUPS
-      - Number of threadgroups launched for PIPE0.
+      - Number of thread groups launched for PIPE0.
 
     * - SPI_CS0_CRAWLER_STALL
       - Number of clocks when PIPE0 event or wave order FIFO is full.
@@ -104,7 +104,7 @@ Shader pipe interpolators (SPI) counters
       - Number of clocks with outstanding waves for PIPE1 (SPI or SH).
 
     * - SPI_CS1_NUM_THREADGROUPS
-      - Number of threadgroups launched for PIPE1.
+      - Number of thread groups launched for PIPE1.
 
     * - SPI_CS1_CRAWLER_STALL
       - Number of clocks when PIPE1 event or wave order FIFO is full.
@@ -122,7 +122,7 @@ Shader pipe interpolators (SPI) counters
       - Number of clocks with outstanding waves for PIPE2 (SPI or SH).
 
     * - SPI_CS2_NUM_THREADGROUPS
-      - Number of threadgroups launched for PIPE2.
+      - Number of thread groups launched for PIPE2.
 
     * - SPI_CS2_CRAWLER_STALL
       - Number of clocks when PIPE2 event or wave order FIFO is full.
@@ -140,7 +140,7 @@ Shader pipe interpolators (SPI) counters
       - Number of clocks with outstanding waves for PIPE3 (SPI or SH).
 
     * - SPI_CS3_NUM_THREADGROUPS
-      - Number of threadgroups launched for PIPE3.
+      - Number of thread groups launched for PIPE3.
 
     * - SPI_CS3_CRAWLER_STALL
       - Number of clocks when PIPE3 event or wave order FIFO is full.
