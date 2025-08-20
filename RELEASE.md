@@ -16,7 +16,7 @@ The release notes provide a summary of notable changes since the previous ROCm r
 
 - [Release highlights](#release-highlights)
 
-- [Operating system and hardware support changes](#operating-system-and-hardware-support-changes)
+- [Operating system, hardware, and virtualization support changes](#operating-system-hardware-and-virtualization-support-changes)
 
 - [ROCm components versioning](#rocm-components)
 
@@ -40,77 +40,109 @@ The following are notable new features and improvements in ROCm 7.0.0. For chang
 
 ### HIP API compatibility improvements
 
-HIP API 7.0 introduces changes to make it align more closely with NVIDIA CUDA. These change are incompatible with prior releases,
-and might require recompiling existing HIP applications for use in the ROCm 7.0 release. For more information, see the [HIP API 7.0 changes](../hip-7-changes) and the [HIP changelog](#hip-7-0-0) below.
+To improve code portability between AMD ROCm and other programming models, HIP API has been updated in ROCm 7.0 to simplify cross-platform programming. These changes are incompatible with prior ROCm releases and might require recompiling existing HIP applications for use with ROCm 7.0. For more information, see the [HIP API 7.0 changes](https://rocm.docs.amd.com/projects/HIP/en/docs-develop/hip-7-changes.html) and the [HIP changelog](#hip-7-0-0) below.
 
-### New machine learning programming language for AMD accelerators
+### HIP runtime updates
 
-Wave is a high-performance domain-specific Python programming language (DSL) designed to accelerate the development and optimization of machine learning kernels on AMD GPUs. It introduces a subgroup-level (wave) programming model that deliberately separates the mathematical formulation of computation from subgroup and thread distribution strategies. ROCm 7.0 supports the library on AMD Instinct MI300 and MI350 series accelerators. Wave is now integrated into SGLang, also enabling a broader user base. For more information, see its [GitHub repository](https://github.com/iree-org/wave).
+The HIP runtime now includes support for:
 
-```{note}
-Wave for ROCm is in an early access state. Running production workloads is not recommended.
-```
+* Open Compute Project (OCP) MX floating-point `FP4`, `FP6`, and `FP8` data types and APIs.
+* Improved logging by adding more precise pointer information and launch arguments for better tracking and debugging in dispatch methods.
+* `constexpr` operators for `FP16` and `BF16`.
+* `__syncwarp` operation.
+* The `_sync()` version of crosslane builtins such as `shfl_sync()` and `__reduce_add_sync` are enabled by default. These can be disabled by setting the preprocessor macro `HIP_DISABLE_WARP_SYNC_BUILTINS`.
+
+In addition, the HIP runtime includes functional improvements, which improves functionality, runtime performance, and user experience. For more information, see [HIP changelog](#hip-7-0-0) below.
 
 ### Instinct Driver/ROCm packaging separation
 
 The Instinct Driver is now distributed separately from the ROCm software stack and is stored under in its own location ``/amdgpu/`` in the package repository at [repo.radeon.com](https://repo.radeon.com/amdgpu/). The first release is designated as Instinct Driver version 30.10. See [ROCm Gets Modular: Meet the Instinct Datacenter GPU Driver](https://rocm.blogs.amd.com/ecosystems-and-partners/instinct-gpu-driver/README.html) for more information.
 
-Forward and backward compatibility between the Instinct Driver and ROCm is not supported in the Beta release. See the [installation instructions](https://rocm.docs.amd.com/en/docs-7.0-beta/preview/install/index.html).
+### Deep learning and AI framework support improvements
 
-### Deep learning framework support improvements
+ROCm 7.0 introduces several newly supported versions of Deep learning and AI frameworks. For more information, see [Installting Deep learning frameworks for ROCm](https://rocm.docs.amd.com/en/latest/how-to/deep-learning-rocm.html).
 
-ROCm 7.0 supports PyTorch 2.7, TensorFlow 2.19, and Triton 3.3.0.
+See the [Compatibility
+matrix](../../docs/compatibility/compatibility-matrix.rst)
+for the complete list of Deep learning and AI framework versions tested for compatibility with ROCm.
 
-### ROCprofiler-SDK and rocprofv3 improvements
+#### PyTorch
 
-#### rocpd
+ROCm 7.0 enables the following PyTorch features:
 
-Support has been added for the ROCm Profiling Data (rocpd) output format, which is now the default format for ``rocprofv3``. A subproject of the ROCprofiler-SDK, rocpd enables saving profiling results to a SQLite3 database, providing a structured and efficient foundation for analysis and post-processing.
+* Support for PyTorch 2.7.
+* Integrated Fused Rope kernels in APEX.
+* Compilation of Python C++ extensions using ``amdclang++``.
+* Support for channels-last NHWC format for convolutions via MIOpen.
 
-#### Core SDK enhancements
+#### JAX
 
-* ROCprofiler-SDK is now compatible with the HIP 7.0 API.
-* Added stochastic and host-trap PC sampling support for all MI300 series accelerators.
-* Added support for tracing KFD events.
+ROCm 7.0 enables support for JAX 0.6.0.
 
-#### rocprofv3 CLI tool enhancements
+#### Megatron-LM
 
-* Added stochastic and host-trap PC sampling support for all MI300 series accelerators.
-* HIP streams translate to Queues in Time Traces in Perfetto output.
+Megatron-LM for ROCm now supports:
 
-For more information about ROCprofiler-SDK changes, see the [detailed component changelog](#rocprofiler-sdk-1-0-0) below
+* Fused Gradient Accumulation via APEX.
 
-### Compilers changes and improvements
+* Fused Rope Kernel in APEX.
 
-ROCm 7.0 introduces the AMD Next-Gen Fortran compiler. ``llvm-flang`` (sometimes called new-flang or flang-18) is a re-implementation of the Fortran frontend. It is a strategic replacement for classic-flang and is developed in LLVM’s upstream repo at [llvm/llvm-project](https://github.com/llvm/llvm-project/tree/main/flang).
+* Fused_bias_swiglu kernel.
 
-Key enhancements include:
+For more information, see [Training a model with Megatron-LM for ROCm](https://rocm.docs.amd.com/en/latest/how-to/rocm-for-ai/training/benchmark-docker/megatron-lm.html?model=pyt_megatron_lm_train_llama-3.3-70b).
+
+#### Tensorflow
+
+ROCm 7.0 enables support for TensorFlow 2.19.1.
+
+#### vLLM
+
+* Support for Open Compute Project (OCP) `FP8` data type.
+* `FP4` precision for Llama 3.1 405B.
+
+#### Triton
+
+ROCm 7.0 enables support for support for Triton 3.3.0.
+
+### Compiler changes and improvements
+
+ROCm 7.0 introduces the AMD Next-Gen Fortran compiler. ``llvm-flang`` (sometimes called ``new-flang`` or ``flang-18``) is a re-implementation of the Fortran frontend. It is a strategic replacement for ``classic-flang`` and is developed in LLVM’s upstream repo at [llvm/llvm-project](https://github.com/llvm/llvm-project/tree/main/flang).
+
+Key compiler enhancements include:
 
 * Compiler:
     * Improved memory load and store instructions.
     * Updated clang/llvm to AMD clang version 20.0.0git (equivalent to LLVM 20.0.0 with additional out-of-tree patches).
     * Support added for separate debug file generation for device code.
-
+    * `llvm-strip` now supports AMD GPU device code objects (EM_AMDGPU).
 * Comgr:
     * Added support for an in-memory virtual file system (VFS) for storing temporary files generated during intermediate compilation steps. This is designed to improve performance by reducing on-disk file I/O. Currently, VFS is supported only for the device library link step, with plans for expanded support in future releases.
-
 * SPIR-V:
     * Improved [target-specific extensions](https://github.com/ROCm/llvm-project/blob/c2535466c6e40acd5ecf6ba1676a4e069c6245cc/clang/docs/LanguageExtensions.rst):
         * Added a new target-specific builtin ``__builtin_amdgcn_processor_is`` for late or deferred queries of the current target processor.
         * Added a new target-specific builtin ``__builtin_amdgcn_is_invocable``, enabling fine-grained, per-builtin feature availability.
+* The compiler driver now uses parallel code generation by default when compiling using full LTO (including when using the `-fgpu-rdc` option) for HIP. This divides the optimized LLVM IR module into roughly equal partitions before instruction selection and lowering, which can help improve build times. 
+
+  Each kernel in the linked LTO module can be put in a separate partition, and any non-inlined function it depends on may be copied alongside it. Thus, while parallel code generation can improve build time, it can duplicate non-inlined, non-kernel functions across multiple partitions, potentially increasing the binary size of the final object file.
+
+    * Compiler option `-flto-partitions=<num>`:
+    
+      Equivalent to the `--lto-partitions=<num>` LLD option. Controls the number of partitions used for parallel code generation when using full LTO (including when using `-fgpu-rdc`). The number of partitions must be greater than 0, and a value of 1 disables the feature. The default value is 8.
+
+      Developers are encouraged to experiment with different numbers of partitions using the `-flto-partitions` Clang command line option. Recommended values are 1 to 16 partitions, with especially large projects containing many kernels potentially benefiting from up to 64 partitions. It is not recommended to use a value greater than the number of threads on the machine. Smaller projects, or those containing only a few kernels, might not benefit at all from partitioning and might even experience a slight increase in build time due to the small overhead of analyzing and partitioning the modules.
+
 * HIPIFY now supports NVIDIA CUDA 12.9.1 APIs:
     * Added support for all new device and host APIs, including `FP4`, `FP6`, and `FP128`– including support for the corresponding ROCm HIP equivalents.
 
-Deprecated features:
+* The HIPCC Perl scripts (`hipcc.pl` and `hipconfig.pl`) have been removed in this release.
 
-* ROCm components no longer use the ``__AMDGCN_WAVEFRONT_SIZE`` and ``__AMDGCN_WAVEFRONT_SIZE__`` macros nor HIP’s ``warpSize`` variable as ``constexpr``. These macros and reliance on ``warpSize`` as a ``constexpr`` are deprecated and will be disabled in a future release. Users are encouraged to update their code if needed to ensure future compatibility.
-
-### Libraries changes and improvements
+### Library changes and improvements
 
 #### New data type support
 
-MX-compliant data types bring microscaling support to ROCm. For more information, see the [OCP Microscaling (MX) Formats Specification](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf). The ROCm 7.0 Alpha enables functional support for MX data types `FP4`, `FP6`, and `FP8` on MI355X systems in these ROCm libraries:
-*	Composable Kernel (`FP4` and `FP8` only)
+MX-compliant data types bring microscaling support to ROCm. For more information, see the [OCP Microscaling (MX) Formats Specification](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf). The ROCm 7.0 enables functional support for MX data types `FP4`, `FP6`, and `FP8` on AMD MI355X systems in these ROCm libraries:
+
+*	Composable Kernel (`FP4`, `FP6`, and `FP8` only)
 *	hipBLASLt
 *	MIGraphX (`FP4` only)
 
@@ -124,33 +156,46 @@ The following libraries are updated to support the Open Compute Project (OCP) fl
 
 MIGraphX now also supports `BF16`.
 
-#### RCCL support
+For more information about data types, see [Data types and precision support](https://rocm.docs.amd.com/en/latest/reference/precision-support.html).
 
-RCCL is supported for single-node functional usage only. Multi-node communication capabilities will be supported in future preview releases.
+#### hipBLASLt improvement
+
+GEMM performance has been improved for `FP8`, `FP16`, `BF16`, and `FP32` data types.
+
+For more information about hipBLASLt changes, see the [hipBLASLt changelog](#hipblaslt-1-0-0) below.
 
 #### MIGraphX support
 
-*	Support for OCP `FP8` and MX `FP4` data types on MI355X
+*	Support for OCP `FP8` and MX `FP4` data types on AMD Instinct MI350X and MI355X accelerators.
 *	Support for `BF16` on all hardware
 *	Support for PyTorch 2.7 via Torch-MIGraphX
 
-### Tools changes and improvements
+For more information about MIGraphX changes, see the [MIGraphX changelog](migraphx-2-13-0) below.
+
+#### rocSHMEM Reverse Offload conduit inter-node support
+
+The rocSHMEM communications library has added the RO (Reverse Offload) inter-node communication backend which enables communication between GPUs on different nodes through a NIC, using a host-based CPU proxy to forward communication orders to and from the GPU.  Inter-node communication requires MPI, and is tested with Open MPI and CX7 IB NICs. For more information, see [available network backends](https://rocm.docs.amd.com/projects/rocSHMEM/en/develop/install.html#available-network-backends) for installting rocSHMEM.
+
+See the [rocSHMEM changelog](#rocshmem-3-0-0) for more details.
+
+### Tool changes and improvements
 
 #### AMD SMI
 
-* The default output of the ``amd-smi`` CLI now displays a simple table view.
-* New APIs: CPU affinity shows GPUs’ affinitization to each CPU in a system.
+Key enhancements to AMD SMI include the ability to reload the AMD GPU driver from the
+CLI or API. The `amd-smi` command-line interface gains a new default view, `amd-smi` topology support
+in guest environments, and performance optimizations. Additionally, AMD SMI library APIs
+have been refined for improved usability. See the [AMDSMI changelog](#amdsmi-26-0-0) for more details.
 
 #### ROCgdb
-* MX data types support: `FP4`, `FP6`, and `FP8`.
 
-#### ROCprof Compute Viewer
-* Initial release: ``rocprof-compute-viewer`` allows the visualization of ``rocprofv3``’s thread trace output.
+The MX data types now support `FP4`, `FP6`, and `FP8`.
 
-#### ROCprof Trace Decoder
-* Initial release: ``rocprof-trace-decoder`` a plugin API for decoding thread traces.
+See the [ROCgdb changelog](#rocgdb-16-3) for more details.
 
 #### ROCm Compute Profiler
+
+ROCm Compute Profiler includes the following key changes:
 
 * MX data types support: `FP4`, `FP6`, and `FP8`.
 * AMD Instinct MI355X and MI350X performance counters: CPC, SPI, SQ, TA/TD/TCP, and TCC.
@@ -158,18 +203,47 @@ RCCL is supported for single-node functional usage only. Multi-node communicatio
 * Roofline distinction for `FP32` and `FP64` data types.
 * Selective kernel profiling.
 
+See the [ROCm Compute Profiler changelog](#rocm-compute-profiler-3-2-1) for more details.
+
+#### ROCm Data Center (RDC) improvements
+
+The ROCm Data Center tool (RDC) streamlines the administration of AMD GPUs in cluster data center environments. ROCm 7.0 introduces new data center management and monitoring tools for system administrators. For more information, see [ROCm Data Center (RDC) tool documentation](https://rocm.docs.amd.com/projects/rdc/en/latest/index.html).
+
 #### ROCm Systems Profiler
+
+ROCm Systems Profiler includes the following key changes:
+
 * Trace support for computer vision APIs: H264, H265, AV1, VP9, and JPEG.
 * Trace support for computer vision engine activity.
 * OpenMP for C++ language and kernel activity support.
 
+See the [ROCm Systems Profiler changelog](#rocm-systems-profiler-1-1-0) for more details.
+
 #### ROCm Validation Suite
-* AMD Instinct MI355X and MI350X accelerator support in the IET (Integrated Execution Test), GST (GPU Stress Test), and Babel (memory bandwidth test) modules.
+AMD Instinct MI355X and MI350X accelerator support in the IET (Integrated Execution Test), GST (GPU Stress Test), and Babel (memory bandwidth test) modules.
+
+See the [ROCm Validation Suite changelog](#rocm-validation-suite-1-2-0) for more details.
 
 #### ROCprofiler-SDK
-* Program counter (PC) sampling (host trap-based).
+
+##### Core SDK enhancements
+
+* ROCprofiler-SDK is now compatible with the HIP 7.0 API.
+* Added stochastic and host-trap PC sampling support for all AMD Instinct MI300 series accelerators.
+* Added support for tracing KFD events.
 * API for profiling applications using thread traces (beta).
-* Support in ``rocprofv3`` CLI tool for thread trace service.
+
+##### rocpd
+
+Support has been added for the ROCm Profiling Data (rocpd) output format, which is now the default format for ``rocprofv3``. A subproject of the ROCprofiler-SDK, rocpd enables saving profiling results to a SQLite3 database, providing a structured and efficient foundation for analysis and post-processing.
+
+##### rocprofv3 CLI tool enhancements
+
+* Added stochastic and host-trap PC sampling support for all AMD Instinct MI300 series accelerators.
+* HIP streams translate to Queues in Time Traces in Perfetto output.
+* Support for thread trace service.
+
+See the [ROCprofiler-SDK changelog](#rocprofiler-sdk-1-0-0) for more details.
 
 ### ROCm Offline Installer Creator updates
 
@@ -227,17 +301,28 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
 
 * Modern computing tasks often require balancing numerical precision against hardware resources and processing speed. Low precision floating point number formats in HIP include `FP4` (4-bit) and `FP6` (6-bit), which reduce memory and bandwidth requirements. For more information, see the updated [Low precision floating point types](https://rocm.docs.amd.com/projects/HIP/en/docs-develop/reference/low_fp_types.html) topic.
 
-## Operating system and hardware support changes
+## Operating system, hardware, and virtualization support changes
 
-ROCm 7.0.0 adds support for [placeholder]. For more information, see installation instructions.
+ROCm 7.0.0 adds support for the following operating systems and kernel versions:
 
-ROCm 7.0.0 marks the end of support (EoS) for [placeholder]
+* Ubuntu 24.04.3 (kernel: 6.8 [GA], 6.14 [HWE])
+* RHEL 10.0 (kernel: 6.12)
+* Oracle Linux 10 (kernel: 6.12 UEK)
+* Rocky 9 (kernel: 5.14+ B/P from 6.11/6.12)
 
-ROCm 7.0.0 adds support for AMD Instinct MI355X and MI350X. For details, see the full list of Supported GPUs (Linux).
+For more information about supported operating systems, see [Supported operating systems](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html).
+
+ROCm 7.0.0 marks the end of support (EoS) for Ubuntu 24.04.2 (kernel: 6.8 [GA], 6.11 [HWE])
+
+ROCm 7.0.0 adds support for [AMD Instinct MI355X](https://www.amd.com/en/products/accelerators/instinct/mi350/mi355x.html) and [MI350X](https://www.amd.com/en/products/accelerators/instinct/mi350/mi350x.html). For details, see the full list of [Supported GPUs (Linux)](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#supported-gpus).
 
 See the [Compatibility
 matrix](../../docs/compatibility/compatibility-matrix.rst)
 for more information about operating system and hardware compatibility.
+
+### Virtualization support
+
+ROCm 7.0 introduces support for KVM-based SR-IOV for select Instinct accelerators. All supported configurations require the GIM SR-IOV driver version 8.3.0K. In addition, support for VMware ESXi 8 has been introduced for select AMD accelerators. For more information, see [Virtualization Support](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#virtualization-support).
 
 ## ROCm components
 
@@ -892,11 +977,12 @@ In order to match the CUDA runtime behavior more closely, HIP APIs with streams 
       * `hipEventRecord`
       * `hipEventRecordWithFlags`
 * `warpSize` Change
+
 In order to match the CUDA specification, the `warpSize` variable is no longer `constexpr`. In general, this should be a transparent change; however, if an application was using `warpSize` as a compile-time constant, it will have to be updated to handle the new definition. For more information, see either the discussion of `warpSize` within the [HIP C++ language extensions](https://rocm.docs.amd.com/projects/HIP/en/latest/how-to/hip_cpp_language_extensions.html#warpsize).
 
 #### Optimized
 
-HIP runtime has the following functional improvements which greatly improve runtime performance and user experience.
+HIP runtime has the following functional improvements which improves runtime performance and user experience.
 
 * Reduced usage of the lock scope in events and kernel handling.
     - Switches to `shared_mutex` for event validation, uses `std::unique_lock` in HIP runtime to create/destroy event, instead of `scopedLock`.
@@ -905,7 +991,7 @@ HIP runtime has the following functional improvements which greatly improve runt
 * Refactored memory validation, creates a unique function to validate a variety of memory copy operations.
 * Improved kernel logging using demangling shader names.
 * Advanced support for SPIRV, now kernel compilation caching is enabled by default. This feature is controlled by the environment variable `AMD_COMGR_CACHE`, for details, see [hip_rtc document](https://rocm.docs.amd.com/projects/HIP/en/latest/how-to/hip_rtc.html).
-* Programmatic support for scratch limits on MI300 and MI350 series up GPU devices. More enumeration values were added in `hipLimit_t` as following,
+* Programmatic support for scratch limits on the AMD Instinct MI300 and MI350 series up GPU devices. More enumeration values were added in `hipLimit_t` as following,
    - `hipExtLimitScratchMin`, minimum allowed value in bytes for scratch limit on the device.
    - `hipExtLimitScratchMax`, maximum allowed value in bytes for scratch limit on the device.
    - `hipExtLimitScratchCurrent`, current scratch limit threshold in bytes on the device. Must be between the value `hipExtLimitScratchMin` and `hipExtLimitScratchMax`.
@@ -985,7 +1071,7 @@ HIP runtime has the following functional improvements which greatly improve runt
 
 #### Added
 
-* Added a new cmake option, `BUILD_OFFLOAD_COMPRESS`. When hipCUB is build with this option enabled, the `--offload-compress` switch is passed to the compiler. This causes the compiler to compress the binary that it generates. Compression can be useful in cases where you are compiling for a large number of targets, since this often results in a large binary. Without compression, in some cases, the generated binary may become so large symbols are placed out of range, resulting in linking errors. The new `BUILD_OFFLOAD_COMPRESS` option is set to `ON` by default.
+* Added a new cmake option, `BUILD_OFFLOAD_COMPRESS`. When hipCUB is built with this option enabled, the `--offload-compress` switch is passed to the compiler. This causes the compiler to compress the binary that it generates. Compression can be useful in cases where you are compiling for a large number of targets, since this often results in a large binary. Without compression, in some cases, the generated binary may become so large symbols are placed out of range, resulting in linking errors. The new `BUILD_OFFLOAD_COMPRESS` option is set to `ON` by default.
 * Added single pass operators in `agent/single_pass_scan_operators.hpp` which contains the following API:
   * `BlockScanRunningPrefixOp`
   * `ScanTileStatus`
@@ -1210,6 +1296,91 @@ HIP runtime has the following functional improvements which greatly improve runt
 
 * `__AMDGCN_WAVEFRONT_SIZE__` macro and HIP’s `warpSize` variable as `constexpr` are deprecated and will be disabled in a future release. Users are encouraged to update their code if needed to ensure future compatibility. For more information, see [AMDGCN_WAVEFRONT_SIZE deprecation](#amdgpu-wavefront-size-compiler-macro-deprecation).
 * The `roc-obj-ls` and `roc-obj-extract` tools are  deprecated. To extract all Clang offload bundles into separate code objects use `llvm-objdump --offloading <file>`. For more information, see [Changes to ROCm Object Tooling](#changes-to-rocm-object-tooling). 
+
+### **MIGraphX** (2.13.0)
+
+### Added
+
+* Support for OCP `FP8` and MX `FP4` data types on AMD Instinct MI350X and MI355X accelerators.
+* Support for `BF16` on all hardware.
+* Support for PyTorch 2.7 via Torch-MIGraphX.
+* Contrib Operators for Microsoft ONNX: Attention, RotaryEmbedding, QuickGelu, BiasAdd, BiasSplitGelu, skipLayerNorm.
+* TensorFlow Operator: Sigmoid, AddN.
+* GroupQuery Attention for LLM support .
+* Added support for edge mode in the ONNX Pad operator.
+* Support additional types for linear Resize operator.
+* Added bitonic topk ONNX operator.
+* Added onnx runtime python driver
+* Added FLUX e2e example.
+* Added API to save and load arguments.
+* Added quantize_bf16 to C api output.
+* Added rocMLIR fusion for kv-cache attention.
+
+### Changed
+
+* Print Kernel/Module in Compile Failure.
+* Use hipblaslt instead of rocBLAS for newer GPU asics.
+* Normalize standard input shapes for rocBLAS.
+* Updated Stable Diffusion example to use torch 6.3.
+* Rewrite 1x1 convolutions to gemm.
+* Make version header public.
+* Represent `BF16::max` by its encoding,  rather than the expected value.
+* Direct warnings to cout, instead into cerr.
+* Use vector instead of `set` for implicit deps.
+* Disable layernorm by default.
+* Update timing in compile_ops() to use common average
+
+### Removed
+
+* DPP for v_add_f64 as it is unsupported.
+* rocBLAS bug workaround for solution index.
+* ROCM_USE_FLOAT8 macro.
+* rocBLAS `FP8`, always use hipBlasLt.
+* Call to hipGetMemoryInfo when checking free memory based on feedback from HIP team.
+
+### Optimized
+
+* Layout convolution as NHWC or NCHW only
+* einsum: conditionally do squeeze before transpose
+* Update problem cache as configs are benchmarked
+* Enable debug assertions in libstdc++
+* Topologically sort onnx models if nodes are unordered
+* Use time_loop function to measure time for exhaustive tune runs
+* Slice Channels Conv Optimization (slice output fusion)
+* Horiz fuse after pointwise
+* GridSample Linear Sampler Refactor
+* find_splits::is_dependent refactor
+* Visually improved the output from Graphviz
+* Print MigraphX consumed Env Variables when using the migraphx-driver
+* Add timestamps and duration when printing the summary of migraphx-driver
+* Add a trim size flag to the verify option for migraphx-driver
+* Print node names, to track parsing within the onnx graph when using the MIGRAPHX_TRACE_ONNX_PARSER flag
+* Embed onnx/tf files for api tests
+* Fuse multiple outputs for pointwise ops
+* Fuse reshapes on pointwise inputs for mlir output fusion
+* Print MIGRAPHX ENV Variables at end of summary
+* Update accuracy checker to spit out test data with --show-test-data flag
+* Dont fold mul with gemm when the gemm is used more than once
+* Detect when parallel stl is not parallel and enable when it is in parallel
+* Dont fuse broadcast after conv/gemm in mlir
+* Avoid the fusion (in reduction) when operator data-types mismatch
+
+### Resolved issues
+
+* Workaround ICE in clang 20 when using views::transform.
+* Fix bug with reshape_lazy in MLIR.
+* Quantizelinear nearbyint fix.
+* Add case for empty strings in node inputs for ops like resize.
+* Parse resize fix: only check "keep_aspect_ratio_policy" attribute for sizes input.
+* Fix Layernorm and SimplifiedLayernorm onnx parsers.
+* nonmaxsuppression: identical boxes/scores not ordered correctly.
+* Gcc/G++ compilation fix.
+* Bug fix: events would get created on the wrong device in a multi-gpu scenario.
+* Check for file-write errors.
+* Fix out of order keys in value for comparisons and hashes when caching best kernels.
+* Make checking env variables thread-safe again.
+* [controlnet] Fixed mul: Types do not match.
+* Fix check for scales if presenting roi in Resize op.
 
 ### **MIOpen** (3.5.0)
 
@@ -1446,7 +1617,7 @@ HIP runtime has the following functional improvements which greatly improve runt
   - 8192
 * Implemented single-kernel plans for some large 1D problem sizes, on devices with at least 160KiB of LDS.
 
-#### Resolved isues
+#### Resolved issues
 
 * Fixed kernel faults on multi-device transforms that gather to a single device, when the input/output bricks are not 
   contiguous.
@@ -1469,6 +1640,32 @@ HIP runtime has the following functional improvements which greatly improve runt
 * Fixed a bug that prevented copying the decoded image into the output buffer when the output buffer is larger than the input image.
 * Resolved an issue with resizing the internal memory pool by utilizing the explicit constructor of the vector's type during the resizing process.
 * Addressed and resolved CMake configuration warnings.
+
+### **ROCm Bandwidth Test** (2.6.0)
+
+### Added
+
+* Plugin architecture:
+  * `rocm_bandwidth_test` is now the **framework** for individual `plugins` and features. The `framework` is available at: `/opt/rocm/bin/`
+
+  * Individual `plugins`: The **plugins (shared libraries)** are available at: `/opt/rocm/lib/rocm_bandwidth_test/plugins/`
+
+```{note}
+Review the [README](https://github.com/ROCm/rocm_bandwidth_test/blob/release/rocm-rel-7.0/README.md) file for details about the new options and outputs.
+```
+
+### Changed
+
+* The `CLI` and options/parameters have changed due to the new plugin architecture, where the plugin parameters are parsed by the plugin.
+
+### Removed
+
+- The old CLI, parameters, and switches used.
+
+### Known Issues
+
+- MI350: Crashes due to HIP gfx support.
+
 
 ### **ROCm SMI** (7.8.0)
 
@@ -1825,6 +2022,7 @@ The previous default accumulator types could lead to situations in which unexpec
 - Perfetto support for scratch memory.
 - Support in the `rocprofv3` avail tool for command-line arguments.
 - Documentation for `rocprofv3` advanced options.
+- AQLprofile is now available as open source.
 
 ### Changed
 
@@ -1893,11 +2091,11 @@ The previous default accumulator types could lead to situations in which unexpec
   * `rocrand_h_scrambled_sobol32_direction_vectors`, use `rocrand_get_direction_vectors32` instead.
   * `rocrand_h_scrambled_sobol64_direction_vectors`, use `rocrand_get_direction_vectors64` instead.
 
-#### Resolved isues
+#### Resolved issues
 
 * Fixed an issue where `mt19937.hpp` would cause kernel errors during auto tuning.
 
-#### Upcoming canges
+#### Upcoming changes
 
 * Deprecated the rocRAND Fortran API in favor of hipfort.
 
@@ -2153,6 +2351,14 @@ issues related to individual components, review the [Detailed component changes]
 The following are previously known issues resolved in this release. For resolved issues related to
 individual components, review the [Detailed component changes](#detailed-component-changes).
 
+### Failure when using a generic target with compression and vice versa
+
+An issue where compilation for generic target with compression failing has been resolved in this release. This issue resulted in you being unable to compile for a generic target and use compression simultaneously. See [GitHub issue #4602](https://github.com/ROCm/ROCm/issues/4602).
+
+### Limited support for Sparse API and Pallas functionality in JAX
+
+An issue where due to limited support for Sparse API in JAX, some of the functionality of the Pallas extension were restricted has been resolved. See [GitHub issue #4608](https://github.com/ROCm/ROCm/issues/4608).
+
 ## ROCm upcoming changes
 
 The following changes to the ROCm software stack are anticipated for future releases.
@@ -2183,12 +2389,12 @@ It's anticipated that ROCTracer, ROCProfiler, `rocprof`, and `rocprofv2` will re
 ### AMDGPU wavefront size compiler macro deprecation
 
 Access to the wavefront size as a compile-time constant via the `__AMDGCN_WAVEFRONT_SIZE`
-and `__AMDGCN_WAVEFRONT_SIZE__` macros are deprecated and will be disabled in a future release. In ROCm 7.0.0 `warpSize` is only availble as a non-`constextpr` variable.
+and `__AMDGCN_WAVEFRONT_SIZE__` macros are deprecated and will be disabled in a future release. In ROCm 7.0.0 `warpSize` is only available as a non-`constextpr` variable. You're encougared to update your code if needed to ensure future compatibility.
 
 * The `__AMDGCN_WAVEFRONT_SIZE__` macro and `__AMDGCN_WAVEFRONT_SIZE` alias will be removed in an upcoming release.
   It is recommended to remove any use of this macro. For more information, see
   [AMDGPU support](https://rocm.docs.amd.com/projects/llvm-project/en/docs-6.4.3/LLVM/clang/html/AMDGPUSupport.html).
-* `warpSize` will only be available as a non-`constexpr` variable. Where required,
+* `warpSize` is only available as a non-`constexpr` variable. Where required,
   the wavefront size should be queried via the `warpSize` variable in device code,
   or via `hipGetDeviceProperties` in host code. Neither of these will result in a compile-time constant. For more information, see [warpSize](https://rocm.docs.amd.com/projects/HIP/en/docs-6.4.3/how-to/hip_cpp_language_extensions.html#warpsize).
 * For cases where compile-time evaluation of the wavefront size cannot be avoided,
