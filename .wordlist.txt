@@ -81,6 +81,7 @@ CommonMark
 Concretized
 Conda
 ConnectX
+CountOnes
 CuPy
 da
 Dashboarding

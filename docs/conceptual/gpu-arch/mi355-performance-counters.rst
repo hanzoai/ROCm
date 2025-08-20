@@ -260,10 +260,10 @@ Shader pipe interpolators (SPI) counters
       - Sum of occupancy info for all PIPE3 queues.
 
     * - SPI_VWC0_VDATA_VALID_WR
-      - Number of clocks vgpr bus_0 writes VGPRs.
+      - Number of clocks VGPR bus_0 writes VGPRs.
 
     * - SPI_VWC1_VDATA_VALID_WR
-      - Number of clocks vgpr bus_1 writes VGPRs.
+      - Number of clocks VGPR bus_1 writes VGPRs.
 
     * - SPI_CSC_WAVE_CNT_BUSY
       - Number of cycles when there is any wave in the pipe.
