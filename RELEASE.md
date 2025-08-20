@@ -664,30 +664,35 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 ### **AMD SMI** (26.0.0)
 
-### Added
+#### Added
 
-* The Default command. 
+* Ability to restart the AMD GPU driver from the CLI and API.
+  - `amdsmi_gpu_driver_reload()` API and `amd-smi reset --reload-driver` or `amd-smi reset -r` CLI options.
+  - Driver reload functionality is now separated from memory partition
+    functions; memory partition change requests should now be followed by a driver reload.
+  - Driver reload requires all GPU activity on all devices to be stopped.
 
-    A default view has been added. The default view provides a snapshot of commonly requested information such as bdf, current partition mode, version information, and more. Users can access that information by simply typing `amd-smi` with no additional commands or arguments. Users may also obtain this information through laternate output formats such as json or csv by using the default command with the respective output format: `amd-smi default --json` or `amd-smi default --csv`.
+* Default command:
 
-* Support for GPU metrics 1.8.  
-  - Added new fields for `amdsmi_gpu_xcp_metrics_t` including:  
-    - Adding the following metrics to allow new calculations for violation status:
-    - Per XCP metrics `gfx_below_host_limit_ppt_acc[XCP][MAX_XCC]` - GFX Clock Host limit Package Power Tracking violation counts
-    - Per XCP metrics `gfx_below_host_limit_thm_acc[XCP][MAX_XCC]` - GFX Clock Host limit Thermal (TVIOL) violation counts
-    - Per XCP metrics `gfx_low_utilization_acc[XCP][MAX_XCC]` - violation counts for how did low utilization caused the GPU to be below application clocks.
-    - Per XCP metrics `gfx_below_host_limit_total_acc[XCP][MAX_XCC]`- violation counts for how long GPU was held below application clocks any limiter (see above new violation metrics).
-  - Increasing available JPEG engines to 40.  
-  Current ASICs may not support all 40. These will be indicated as `UINT16_MAX` or `N/A` in CLI.
+  A default view has been added. The default view provides a snapshot of commonly requested information such as bdf, current partition mode, version information, and more. Users can access that information by simply typing `amd-smi` with no additional commands or arguments. Users may also obtain this information through laternate output formats such as json or csv by using the default command with the respective output format: `amd-smi default --json` or `amd-smi default --csv`.
 
-* Bad page threshold count.  
+* Support for GPU metrics 1.8:
+  - Added new fields for `amdsmi_gpu_xcp_metrics_t` including:
+    - Metrics to allow new calculations for violation status:
+      - Per XCP metrics `gfx_below_host_limit_ppt_acc[XCP][MAX_XCC]` - GFX Clock Host limit Package Power Tracking violation counts
+      - Per XCP metrics `gfx_below_host_limit_thm_acc[XCP][MAX_XCC]` - GFX Clock Host limit Thermal (TVIOL) violation counts
+      - Per XCP metrics `gfx_low_utilization_acc[XCP][MAX_XCC]` - violation counts for how did low utilization caused the GPU to be below application clocks.
+      - Per XCP metrics `gfx_below_host_limit_total_acc[XCP][MAX_XCC]`- violation counts for how long GPU was held below application clocks any limiter (see above new violation metrics).
+  - Increased available JPEG engines to 40. Current ASICs may not support all 40. These are indicated as `UINT16_MAX` or `N/A` in CLI.
+
+* Bad page threshold count.
   - Added `amdsmi_get_gpu_bad_page_threshold` to Python API and CLI; root/sudo permissions required to display the count.
 
-* CPU model name for RDC.  
+* CPU model name for RDC.
   - Added new C and Python API `amdsmi_get_cpu_model_name`.
   - Not sourced from esmi library.
 
-* Added `amdsmi_get_cpu_affinity_with_scope()`.  
+* Added `amdsmi_get_cpu_affinity_with_scope()`.
 
 * `socket power` to `amdsmi_get_power_info`
   - Previously the C API had the value in the `amdsmi_power_info` structure, but was unused
@@ -706,26 +711,28 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
   - `AMDSMI_EVT_NOTIF_PROCESS_START`
   - `AMDSMI_EVT_NOTIF_PROCESS_END`
 
-- Power Cap to `amd-smi monitor`.  
+- Power cap to `amd-smi monitor`.  
   - `amd-smi monitor -p` will display the power cap along with power.
 
-### Changed
+#### Changed
 
-* Updated `amdsmi_get_clock_info` in `amdsmi_interface.py`.  
-  - The `clk_deep_sleep` field now returns the sleep integer value.  
+* Separated driver reload functionality from `amdsmi_set_gpu_memory_partition()` and
+  `amdsmi_set_gpu_memory_partition_mode()` APIs -- and from the CLI `amd-smi set -M <NPS mode>`.
 
-* Updated `amdsmi_get_gpu_asic_info` in `amdsmi.h`.  
-  - Added `subsystem_id` structure member.
+* Disabled `amd-smi monitor --violation` on guest. Modified `amd-smi metric --throttle` to alias to `amd-smi metric --violation`.
 
-* The `amd-smi topology` command has been enabled for Guest environments.  
-  - `amd-smi topology` is now available in Guest environments. This includes full functionality so users can use the command just as they would in Bare Metal environments.
+* Updated `amdsmi_get_clock_info` in `amdsmi_interface.py`.
+  - The `clk_deep_sleep` field now returns the sleep integer value.
 
-* Expanded Violation Status tracking for GPU metrics 1.8.  
-  - The driver will no longer be supporting existing single-value GFX Clk Below Host Limit fields (`acc_gfx_clk_below_host_limit`, `per_gfx_clk_below_host_limit`, `active_gfx_clk_below_host_limit`), they are now changed in favor of new per-XCP/XCC arrays.
+* The `amd-smi topology` command has been enabled for guest environments.
+  - This includes full functionality so users can use the command just as they would in bare metal environments.
+
+* Expanded violation status tracking for GPU metrics 1.8.
+  - The driver will no longer be supporting existing single-value GFX clock below host limit fields (`acc_gfx_clk_below_host_limit`, `per_gfx_clk_below_host_limit`, `active_gfx_clk_below_host_limit`), they are now changed in favor of new per-XCP/XCC arrays.
   - Added new fields to `amdsmi_violation_status_t` and related interfaces for enhanced violation breakdown:
     - Per-XCP/XCC accumulators and status for:
-      - GFX Clock Below Host Limit (Power, Thermal, and Total)
-      - Low Utilization
+      - GFX clock below host limit (power, thermal, and total)
+      - Low utilization
     - Added 2D arrays to track per-XCP/XCC accumulators, percentage, and active status:
       - `acc_gfx_clk_below_host_limit_pwr`, `acc_gfx_clk_below_host_limit_thm`, `acc_gfx_clk_below_host_limit_total`
       - `per_gfx_clk_below_host_limit_pwr`, `per_gfx_clk_below_host_limit_thm`, `per_gfx_clk_below_host_limit_total`
@@ -738,41 +745,34 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
   - `amdsmi_dpm_policy_entry_t` member `policy_description` changed from `AMDSMI_MAX_NAME` to `AMDSMI_MAX_STRING_LENGTH`.
   - `amdsmi_name_value_t` member `name` changed from `AMDSMI_MAX_NAME` to `AMDSMI_MAX_STRING_LENGTH`.
 
-* Updated `amdsmi_get_clock_info` in `amdsmi_interface.py`.  
-  - The `clk_deep_sleep` field now returns the sleep integer value.  
+* Updated `amdsmi_get_clock_info` in `amdsmi_interface.py`.
+  - The `clk_deep_sleep` field now returns the sleep integer value.
 
-* Updated `amdsmi_bdf_t` in `amdsmi.h`.  
-  - The `amdsmi_bdf_t` union was changed to have an identical unnamed struct for backwards compatiblity
+* For backwards compatibility, updated `amdsmi_bdf_t` union to have an identical unnamed struct.
 
-### Removed
+#### Removed
 
-- Removed unnecessary API, `amdsmi_free_name_value_pairs(),` from amdsmi.h
-  - This API is only used internally to free up memory from the python interface and does not need to be
-  exposed to the User.
+- Removed unnecessary API, `amdsmi_free_name_value_pairs()`
+  - This API is only used internally to free up memory from the Python interface and does not need to be
+    exposed to the user.
 
-- Removed unused definitions:  
-  - `AMDSMI_MAX_NAME`
-  - `AMDSMI_256_LENGTH`
-  - `AMDSMI_MAX_DATE_LENGTH`
-  - `MAX_AMDSMI_NAME_LENGTH`
-  - `AMDSMI_LIB_VERSION_YEAR`
-  - `AMDSMI_DEFAULT_VARIANT`
-  - `AMDSMI_MAX_NUM_POWER_PROFILES`
-  - `AMDSMI_MAX_DRIVER_VERSION_LENGTH`
+- Removed unused definitions:
+  - `AMDSMI_MAX_NAME`, `AMDSMI_256_LENGTH`, `AMDSMI_MAX_DATE_LENGTH`, `MAX_AMDSMI_NAME_LENGTH`, `AMDSMI_LIB_VERSION_YEAR`,
+   `AMDSMI_DEFAULT_VARIANT`, `AMDSMI_MAX_NUM_POWER_PROFILES`, `AMDSMI_MAX_DRIVER_VERSION_LENGTH`.
 
-- Removed unused member `year` in struct `amdsmi_version_t`.  
+- Removed unused member `year` in struct `amdsmi_version_t`.
 
-- Removed `amdsmi_io_link_type_t` and replaced with `amdsmi_link_type_t`**  
+- Removed `amdsmi_io_link_type_t` and replaced with `amdsmi_link_type_t`.
   - `amdsmi_io_link_type_t` is no longer needed as `amdsmi_link_type_t` is sufficient.
   - `amdsmi_link_type_t` enum has changed.
   - This change will also affect `amdsmi_link_metrics_t`, where the link_type field changes from `amdsmi_io_link_type_t` to `amdsmi_link_type_t`.
 
-- Removed `amdsmi_get_power_info_v2()`.  
-  - The ``amdsmi_get_power_info()`` has been unified and the v2 function is no longer needed/used.
+- Removed `amdsmi_get_power_info_v2()`.
+  - The ``amdsmi_get_power_info()`` has been unified and the v2 function is no longer needed or used.
 
-- Removed `AMDSMI_EVT_NOTIF_RING_HANG` event notification type in `amdsmi_evt_notification_type_t`.  
+- Removed `AMDSMI_EVT_NOTIF_RING_HANG` event notification type in `amdsmi_evt_notification_type_t`.
 
-- The `amdsmi_get_gpu_vram_info` now provides vendor names as a string.  
+- The `amdsmi_get_gpu_vram_info` now provides vendor names as a string.
   - `amdsmi_vram_vendor_type_t` enum structure is removed.
   - `amdsmi_vram_info_t` member named `amdsmi_vram_vendor_type_t` is changed to a character string.
   - `amdsmi_get_gpu_vram_info` now no longer requires decoding the vendor name as an enum.
@@ -782,23 +782,23 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
   - Providing both `vcn_activity`/`jpeg_activity` and XCP (partition) stats `vcn_busy`/`jpeg_busy` caused confusion about which field to use. By removing backward compatibility, it is easier to identify the relevant field.
   - The `jpeg_busy` field increased in size (for supported ASICs), making backward compatibility unable to fully copy the structure into `jpeg_activity`.
 
-### Optimized
+#### Optimized
 
-- Reduced ``amd-smi`` CLI API calls needed to be called before reading or (re)setting GPU features.  
-  - Now when users call any amd-smi CLI command, we have reduced the APIs needed to be called. Previously,
-  when a user would read a GPU's status, (for example) we would poll for other information helpful for our sets/reset
-  CLI calls. This change will increase overall run-time performance of the CLI tool.
+- Reduced ``amd-smi`` CLI API calls needed to be called before reading or (re)setting GPU features. This
+  improves overall runtime performance of the CLI.
 
-- Removed partition information from the default `amd-smi static` CLI command.  
-  - Users can still retrieve the same data by calling `amd-smi`, `amd-smi static -p`, or `amd-smi partition -c -m`/`sudo amd-smi partition -a`.   
+- Removed partition information from the default `amd-smi static` CLI command.
+  - Users can still retrieve the same data by calling `amd-smi`, `amd-smi static -p`, or `amd-smi partition -c -m`/`sudo amd-smi partition -a`.
   - Reading ``current_compute_partition`` may momentarily wake the GPU up. This is due to reading XCD registers, which is expected behavior. Changing partitions is not a trivial operation, `current_compute_partition` SYSFS controls this action.
 
-- Optimized CLI command `amd-smi topology` in partition mode.  
-  - Reduced the number of `amdsmi_topo_get_p2p_status` API calls to one fourth.  
+- Optimized CLI command `amd-smi topology` in partition mode.
+  - Reduced the number of `amdsmi_topo_get_p2p_status` API calls to one fourth.
 
-### Resolved issues
+#### Resolved issues
 
 - Removed duplicated GPU IDs when receiving events using the `amd-smi event` command.
+
+- Fixed `amd-smi monitor` decoder utilization (`DEC%`) not showing up on MI300 series ASICs.
 
 ```{note}
 See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/rocm-rel-7.0/CHANGELOG.md) for details, examples, and in-depth descriptions.
