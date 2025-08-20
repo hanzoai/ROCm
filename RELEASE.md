@@ -98,7 +98,7 @@ Key enhancements include:
     * Improved [target-specific extensions](https://github.com/ROCm/llvm-project/blob/c2535466c6e40acd5ecf6ba1676a4e069c6245cc/clang/docs/LanguageExtensions.rst):
         * Added a new target-specific builtin ``__builtin_amdgcn_processor_is`` for late or deferred queries of the current target processor.
         * Added a new target-specific builtin ``__builtin_amdgcn_is_invocable``, enabling fine-grained, per-builtin feature availability.
-* HIPIFY now supports NVIDIA CUDA 12.8.0 APIs:
+* HIPIFY now supports NVIDIA CUDA 12.9.1 APIs:
     * Added support for all new device and host APIs, including `FP4`, `FP6`, and `FP128`– including support for the corresponding ROCm HIP equivalents.
 
 Deprecated features:
@@ -1187,6 +1187,29 @@ HIP runtime has the following functional improvements which greatly improve runt
 * Replaced `hiptensorElementwiseBinary` with `hiptensorElementwiseBinaryExecute`.
 * Replaced `hiptensorElementwiseTrinary` with `hiptensorElementwiseTrinaryExecute`.
 * Removed function `hiptensorReductionGetWorkspaceSize`.
+
+### **llvm-project** (20.0.0)
+
+#### Added
+
+* Added compiler support for separate debug file generation for device code.
+* Added `llvm-flang`, AMD's next generation Fortran compiler is a re-implementation of the Fortran frontend that can be found at `llvm/llvm-project/flang` on GitHub.
+* Added Comgr support for an in-memory virtual file system (VFS) for storing temporary files generated during intermediate compilation steps to improve performance in the device library link step.
+* Added compiler support of a new target-specific builtin `__builtin_amdgcn_processor_is` for late or deferred queries of the current target processor, and  `__builtin_amdgcn_is_invocable` enabling fine-grained target-specific feature availability.
+* Added HIPIFY support for NVIDIA CUDA 12.9.1 APIs. Added support for all new device and host APIs, including FP4, FP6, and FP128, and support for the corresponding ROCm HIP equivalents.
+
+#### Changed
+
+* Updated clang/llvm to AMD clang version 20.0.0 (equivalent to LLVM 20.0.0 with additional out-of-tree patches).
+
+#### Optimized
+
+* Improved compiler memory load and store instructions. 
+
+#### Upcoming changes
+
+* `__AMDGCN_WAVEFRONT_SIZE__` macro and HIP’s `warpSize` variable as `constexpr` are deprecated and will be disabled in a future release. Users are encouraged to update their code if needed to ensure future compatibility. For more information, see [AMDGCN_WAVEFRONT_SIZE deprecation](#amdgpu-wavefront-size-compiler-macro-deprecation).
+* The `roc-obj-ls` and `roc-obj-extract` tools are  deprecated. To extract all Clang offload bundles into separate code objects use `llvm-objdump --offloading <file>`. For more information, see [Changes to ROCm Object Tooling](#changes-to-rocm-object-tooling). 
 
 ### **MIOpen** (3.5.0)
 
