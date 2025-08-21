@@ -1248,14 +1248,14 @@ HIP runtime has the following functional improvements which improves runtime per
 * Added `hiptensorDestroyPlanPreference` to free all resources related to the provided preference.
 * Added `hiptensorPlanPreferenceSetAttribute` to set attribute of a `hiptensorPlanPreference_t` object.
 * Added `hiptensorPlanGetAttribute` to retrieve information about an already-created plan.
-* Added `hiptensorEstimateWorkspaceSize` to determine the required workspaceSize for the given operation.
+* Added `hiptensorEstimateWorkspaceSize` to determine the required workspace size for the given operation.
 * Added `hiptensorCreatePlan` to allocate a `hiptensorPlan_t` object, select an appropriate kernel for a given operation and prepare a plan that encodes the execution.
 * Added `hiptensorDestroyPlan` to free all resources related to the provided plan.
 
 #### Changed
 
 * Removed architecture support for gfx940 and gfx941.
-* Generalized opaque buffer now for any descriptor.
+* Generalized opaque buffer for any descriptor.
 * Replaced `hipDataType` with `hiptensorDataType_t` for all supported types, for example, `HIP_R_32F` to `HIPTENSOR_R_32F`.
 * Replaced `hiptensorComputeType_t` with `hiptensorComputeDescriptor_t` for all supported types.
 * Replaced `hiptensorInitTensorDescriptor` with `hiptensorCreateTensorDescriptor`.
@@ -1873,14 +1873,14 @@ See the full [ROCm SMI changelog](https://github.com/ROCm/rocm_smi_lib/blob/rele
 - Fixed incorrect kernel names shown for kernel dispatch tracks in Perfetto.
 - Fixed formatting of some output logs.
 
-### **ROCmValidationSuite** (1.2.0)
+### **ROCm Validation Suite** (1.2.0)
 
 #### Added
 
-- Support for new platforms: MI350X and MI355X.
+- Support for AMD Instinct MI350X and MI355X accelerators.
 - Introduced rotating buffer mechanism for GEMM operations.
 - Support for read and write tests in Babel.
-- Support for new platforms: RX9070 and RX9070GRE.
+- Support for AMD Radeon RX9070 and RX9070GRE graphics cards.
 
 #### Changed
 
@@ -2123,7 +2123,7 @@ The previous default accumulator types could lead to situations in which unexpec
 
 #### Resolved issues
 
-* Resolved segfault in `rocshmem_wg_ctx_create`, now provides nullptr if ctx cannot be created.
+* Resolved segfault in `rocshmem_wg_ctx_create`, now provides `nullptr` if `ctx` cannot be created.
 
 ### **rocSOLVER** (3.30.0)
 
@@ -2236,34 +2236,34 @@ The previous default accumulator types could lead to situations in which unexpec
 
 * Added internal register layout transforms to support interleaved MMA layouts.
 * Added support for the gfx950 target.
-* Added mixed input `BF8` / `FP8` types for MMA support.
-* Added fragment scheduler API objects to embed thread block cooperation properties in fragments
+* Added mixed input `BF8`/`FP8` types for MMA support.
+* Added fragment scheduler API objects to embed thread block cooperation properties in fragments.
 
 #### Changed
 
-* Augmented load / store / MMA internals with static loop unrolling
-* rocWMMA mma_sync API now supports `wave tile` fragment sizes
-* rocWMMA cooperative fragments are now expressed with fragment scheduler template arguments
-* rocWMMA cooperative fragments now use the same base API as non-cooperative fragments
-* rocWMMA cooperative fragments register usage footprint has been reduced
-* rocWMMA fragments now support partial tile sizes with padding
+* Augmented load/store/MMA internals with static loop unrolling.
+* Updated linkage of `rocwmma::synchronize_workgroup` to inline.
+* rocWMMA `mma_sync` API now supports `wave tile` fragment sizes.
+* rocWMMA cooperative fragments are now expressed with fragment scheduler template arguments.
+* rocWMMA cooperative fragments now use the same base API as non-cooperative fragments.
+* rocWMMA cooperative fragments register usage footprint has been reduced.
+* rocWMMA fragments now support partial tile sizes with padding.
 
 #### Optimized
 
-* Added internal flow control barriers to improve assembly code generation and overall performance
-* Enabled interleaved layouts by default in MMA to improve overall performance
+* Added internal flow control barriers to improve assembly code generation and overall performance.
+* Enabled interleaved layouts by default in MMA to improve overall performance.
 
 #### Removed
 
-* Removed support for the gfx940 and gfx941 targets
-* Removed the rocWMMA cooperative API
-* Removed wave count template parameters from transforms APIs
+* Removed support for the gfx940 and gfx941 targets.
+* Removed the rocWMMA cooperative API.
+* Removed wave count template parameters from transforms APIs.
 
 #### Resolved issues
 
-* Fixed a validation issue for small precision compute types `< B32` on gfx9
-* Fixed CMake validation of compiler support for `BF8` / `FP8` types
-* Fixed linkage of rocwmma::synchronize_workgroup to inline
+* Fixed a validation issue for small precision compute types `< B32` on gfx9.
+* Fixed CMake validation of compiler support for `BF8`/`FP8` types.
 
 ### **RPP** (2.0.0)
 
