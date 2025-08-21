@@ -90,7 +90,7 @@ all_article_info_author = ""
 
 # pages with specific settings
 article_pages = [
-    {"file": "about/release-notes", "os": ["linux"], "date": "2025-08-26"},
+    {"file": "about/release-notes", "os": ["linux"], "date": "2025-08-28"},
     {"file": "release/changelog", "os": ["linux"],},
     {"file": "compatibility/compatibility-matrix", "os": ["linux"]},
     {"file": "compatibility/ml-compatibility/pytorch-compatibility", "os": ["linux"]},
