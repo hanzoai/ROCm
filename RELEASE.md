@@ -1044,18 +1044,21 @@ HIP runtime has the following functional improvements which improves runtime per
 #### Added
 
 * Stream-K GEMM support has been enabled for the `FP32`, `FP16`, `BF16`, `FP8`, and `BF8` data types on the Instinct MI300A APU. To activate this feature, set the `TENSILE_SOLUTION_SELECTION_METHOD` environment variable to `2`, for example, `export TENSILE_SOLUTION_SELECTION_METHOD=2`.
-* Fused Swish/SiLU GEMM in hipBLASLt (enabled by ``HIPBLASLT_EPILOGUE_SWISH_EXT`` and ``HIPBLASLT_EPILOGUE_SWISH_BIAS_EXT``)
+* Added fused Swish/SiLU GEMM (enabled by ``HIPBLASLT_EPILOGUE_SWISH_EXT`` and ``HIPBLASLT_EPILOGUE_SWISH_BIAS_EXT``).
 * Added support for ``HIPBLASLT_EPILOGUE_GELU_AUX_BIAS`` for gfx942.
 * Added `HIPBLASLT_TUNING_USER_MAX_WORKSPACE` to constrain the maximum workspace size for user offline tuning.
 * Added ``HIPBLASLT_ORDER_COL16_4R16`` and ``HIPBLASLT_ORDER_COL16_4R8`` to ``hipblasLtOrder_t`` to support `FP16`/`BF16` swizzle GEMM and `FP8` / `BF8` swizzle GEMM respectively.
 * Added TF32 emulation on gfx950.
-* Added support for `FP6`, `BF6`, and `FP4` on gfx950
+* Added support for `FP6`, `BF6`, and `FP4` on gfx950.
 * Added support for block scaling by setting `HIPBLASLT_MATMUL_DESC_A_SCALE_MODE` and `HIPBLASLT_MATMUL_DESC_B_SCALE_MODE` to `HIPBLASLT_MATMUL_MATRIX_SCALE_VEC32_UE8M0`.
 
 #### Changed
 
-* ``HIPBLASLT_MATMUL_DESC_A_SCALE_POINTER_VEC_EXT`` and ``HIPBLASLT_MATMUL_DESC_B_SCALE_POINTER_VEC_EXT`` are removed. Use the ``HIPBLASLT_MATMUL_DESC_A_SCALE_MODE`` and ``HIPBLASLT_MATMUL_DESC_B_SCALE_MODE`` attributes to set scalar (``HIPBLASLT_MATMUL_MATRIX_SCALE_SCALAR_32F``) or vector (``HIPBLASLT_MATMUL_MATRIX_SCALE_OUTER_VEC_32F``) attributes.
 * The non-V2 APIs (``GemmPreference``, ``GemmProblemType``, ``GemmEpilogue``, ``GemmTuning``, ``GemmInputs``) in the cpp header are now the same as the V2 APIs (``GemmPreferenceV2``, ``GemmProblemTypeV2``, ``GemmEpilogueV2``, ``GemmTuningV2``, ``GemmInputsV2``). The original non-V2 APIs are removed.
+
+#### Removed
+
+* ``HIPBLASLT_MATMUL_DESC_A_SCALE_POINTER_VEC_EXT`` and ``HIPBLASLT_MATMUL_DESC_B_SCALE_POINTER_VEC_EXT`` are removed. Use the ``HIPBLASLT_MATMUL_DESC_A_SCALE_MODE`` and ``HIPBLASLT_MATMUL_DESC_B_SCALE_MODE`` attributes to set scalar (``HIPBLASLT_MATMUL_MATRIX_SCALE_SCALAR_32F``) or vector (``HIPBLASLT_MATMUL_MATRIX_SCALE_OUTER_VEC_32F``) attributes.
 * The `hipblasltExtAMaxWithScale` API is removed.
 
 #### Optimized
@@ -1177,7 +1180,7 @@ HIP runtime has the following functional improvements which improves runtime per
 
 * Added compatibility-only functions
   * csrlsvqr
-    * hipsolverSpCcsrlsvqr, hipsolverSpZcsrlsvqr
+    * `hipsolverSpCcsrlsvqr`, `hipsolverSpZcsrlsvqr`
 
 #### Resolved issues
 	
@@ -1209,7 +1212,7 @@ HIP runtime has the following functional improvements which improves runtime per
 
 #### Known issues
 	
-* In `hipsparseSpSM_solve()`, the external buffer is passed as a parameter. This does not match the NVIDIA CUDA cuSPARSE API. This extra external buffer parameter will be removed in a future release. For now, this extra parameter can be ignored and nullptr passed in, because it is unused internally.
+* In `hipsparseSpSM_solve()`, the external buffer is passed as a parameter. This does not match the NVIDIA CUDA cuSPARSE API. This extra external buffer parameter will be removed in a future release. For now, this extra parameter can be ignored and nullptr passed in because it is unused internally.
 
 ### **hipSPARSELt** (0.2.4)
 
@@ -1403,9 +1406,9 @@ HIP runtime has the following functional improvements which improves runtime per
 
 #### Optimized
 
-* [BatchNorm] Optimized NHWC OpenCL kernels and improved heuristics
+* [BatchNorm] Optimized NHWC OpenCL kernels and improved heuristics.
 * [RNN] Dynamic algorithm optimization.
-* [Conv] Eliminated redundant clearing of output buffers
+* [Conv] Eliminated redundant clearing of output buffers.
 * [RNN] Updated selection heuristics.
 * Updated tuning for the AMD Instinct MI300 series.
 
@@ -1447,10 +1450,10 @@ HIP runtime has the following functional improvements which improves runtime per
 * Set a default of 112 channels for a single node with `8 * gfx950`.
 * Enabled LL128 protocol on the gfx950.
 * Added the ability to choose the unroll factor at runtime using `RCCL_UNROLL_FACTOR`.  This can be set at runtime to 1, 2, or 4.  This change currently increases compilation and linking time because it triples the number of kernels generated.
-* Added MSCCL support for AllGather multinode gfx942/gfx950 (for instance, 16 and 32 GPUs). To enable this feature, set the environment variable `RCCL_MSCCL_FORCE_ENABLE=1`. The maximum message size for MSCCL AllGather usage is `12292 * sizeof(datatype) * nGPUs`.
-* Thread thresholds for LL/LL128 are selected in Tuning Models for the AMD Instinct MI300X. This impacts the number of channels used for AG and RS. The channel tuning model is bypassed if `NCCL_THREAD_THRESHOLDS`, `NCCL_MIN_NCHANNELS`, or `NCCL_MAX_NCHANNELS` are set.
+* Added MSCCL support for AllGather multinode on the gfx942 and gfx950 (for instance, 16 and 32 GPUs). To enable this feature, set the environment variable `RCCL_MSCCL_FORCE_ENABLE=1`. The maximum message size for MSCCL AllGather usage is `12292 * sizeof(datatype) * nGPUs`.
+* Thread thresholds for LL/LL128 are selected in Tuning Models for the AMD Instinct MI300X. This impacts the number of channels used for AllGather and ReduceScatter. The channel tuning model is bypassed if `NCCL_THREAD_THRESHOLDS`, `NCCL_MIN_NCHANNELS`, or `NCCL_MAX_NCHANNELS` are set.
 * Multi-node tuning for AllGather, AllReduce, and ReduceScatter that leverages LL/LL64/LL128 protocols to use nontemporal vector load/store for tunable message size ranges.
-* LL/LL128 usage ranges for AR, AG, and RS are part of the tuning models, which enable architecture-specific tuning in conjunction with the existing Rome Models scheme in RCCL.
+* LL/LL128 usage ranges for AllReduce, AllGather, and ReduceScatter are part of the tuning models, which enable architecture-specific tuning in conjunction with the existing Rome Models scheme in RCCL.
 * Two new APIs are exposed as part of an initiative to separate RCCL code. These APIs are `rcclGetAlgoInfo` and `rcclFuncMaxSendRecvCount`. However, user-level invocation requires that RCCL be built with `RCCL_EXPOSE_STATIC` enabled.
 
 #### Changed
@@ -1465,7 +1468,7 @@ HIP runtime has the following functional improvements which improves runtime per
 * Resolved an issue when using more than 64 channels when multiple collectives are used in the same `ncclGroup()` call.
 * Fixed unit test failures in tests ending with the `ManagedMem` and `ManagedMemGraph` suffixes.
 * Fixed a suboptimal algorithmic switching point for AllReduce on the AMD Instinct MI300X.
-* Fixed the known issue "When splitting a communicator using `ncclCommSplit` in some GPU configurations, MSCCL initialization can cause a segmentation fault" with a design change to use `comm` instead of `rank` for `mscclStatus`. The Global map for `comm` to `mscclStatus` is still not thread safe but should be explicitly handled by mutexes for read-write operations. This is tested for correctness, but there is a plan to use a thread-safe map data structure in an upcoming release.
+* Fixed the known issue "When splitting a communicator using `ncclCommSplit` in some GPU configurations, MSCCL initialization can cause a segmentation fault" with a design change to use `comm` instead of `rank` for `mscclStatus`. The global map for `comm` to `mscclStatus` is still not thread safe but should be explicitly handled by mutexes for read-write operations. This is tested for correctness, but there is a plan to use a thread-safe map data structure in an upcoming release.
 
 ### **rocAL** (2.3.0)
 
@@ -1513,22 +1516,13 @@ HIP runtime has the following functional improvements which improves runtime per
 
 * gfx950 support.
 * Internal API logging for `gemm` debugging using `ROCBLAS_LAYER = 8`.
-* Support for AOCL 5.0 gcc build as a client reference library.
-* Allowing the use of `PkgConfig` for client reference library fallback detection.
+* Support for the AOCL 5.0 gcc build as a client reference library.
+* The use of `PkgConfig` for client reference library fallback detection.
 
 #### Changed
 
 * `CMAKE_CXX_COMPILER` is now passed on during compilation for a Tensile build.
 * The default atomics mode is changed from `allowed` to `not allowed`.
-
-#### Optimized
-
-* Optimized `gemm` by using `gemv` kernels when applicable.
-* Optimized `gemv` for small `m` and `n` with a large batch count on gfx942.
-* Improved the performance of Level 1 `dot` for all precisions and variants when `N > 100000000` on gfx942.
-* Improved the performance of Level 1 `asum` and `nrm2` for all precisions and variants on gfx942.
-* Improved the performance of Level 2 `sger` (single precision) on gfx942.
-* Improved the performance of Level 3 `dgmm` for all precisions and variants on gfx942.
 
 #### Removed
 
@@ -1538,6 +1532,15 @@ HIP runtime has the following functional improvements which improves runtime per
 * The use of deprecated behavior of `hipPeekLastError`.
 * `rocblas_float8.h` and `rocblas_hip_f8_impl.h` files.
 * `rocblas_gemm_ex3`, `rocblas_gemm_batched_ex3`, and `rocblas_gemm_strided_batched_ex3` API functions.
+
+#### Optimized
+
+* Optimized `gemm` by using `gemv` kernels when applicable.
+* Optimized `gemv` for small `m` and `n` with a large batch count on gfx942.
+* Improved the performance of Level 1 `dot` for all precisions and variants when `N > 100000000` on gfx942.
+* Improved the performance of Level 1 `asum` and `nrm2` for all precisions and variants on gfx942.
+* Improved the performance of Level 2 `sger` (single precision) on gfx942.
+* Improved the performance of Level 3 `dgmm` for all precisions and variants on gfx942.
 
 #### Resolved issues
 	
@@ -2134,7 +2137,6 @@ The previous default accumulator types could lead to situations in which unexpec
 
 #### Optimized
 
-* Fixed corner cases that can produce NaNs in SYEVD, for valid input matrices.
 * Improved the performance of BDSQR and downstream functions, such as GESVD.
 * Improved the performance of STEQR and downstream functions, such as SYEV/HEEV.
 * Improved the performance of LARFT and downstream functions, such as GEQR2 and GEQRF.
