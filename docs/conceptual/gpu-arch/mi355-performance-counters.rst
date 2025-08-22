@@ -74,202 +74,202 @@ Shader pipe interpolators (SPI) counters
 =========================================
 
 .. list-table:: SPI counters
-    :header-row: 1
+  :header-row: 1
 
-    * - Hardware counter
-      - Definition
+  * - Hardware counter
+    - Definition
 
-    * - SPI_CS0_WINDOW_VALID
-      - Clock count enabled by PIPE0 perfcounter_start event.
+  * - SPI_CS0_WINDOW_VALID
+    - Clock count enabled by PIPE0 perfcounter_start event.
 
-    * - SPI_CS0_BUSY
-      - Number of clocks with outstanding waves for PIPE0 (SPI or SH).
+  * - SPI_CS0_BUSY
+    - Number of clocks with outstanding waves for PIPE0 (SPI or SH).
 
-    * - SPI_CS0_NUM_THREADGROUPS
-      - Number of thread groups launched for PIPE0.
+  * - SPI_CS0_NUM_THREADGROUPS
+    - Number of thread groups launched for PIPE0.
 
-    * - SPI_CS0_CRAWLER_STALL
-      - Number of clocks when PIPE0 event or wave order FIFO is full.
+  * - SPI_CS0_CRAWLER_STALL
+    - Number of clocks when PIPE0 event or wave order FIFO is full.
 
-    * - SPI_CS0_EVENT_WAVE
-      - Number of PIPE0 events and waves.
+  * - SPI_CS0_EVENT_WAVE
+    - Number of PIPE0 events and waves.
 
-    * - SPI_CS0_WAVE
-      - Number of PIPE0 waves.
+  * - SPI_CS0_WAVE
+    - Number of PIPE0 waves.
 
-    * - SPI_CS1_WINDOW_VALID
-      - Clock count enabled by PIPE1 perfcounter_start event.
+  * - SPI_CS1_WINDOW_VALID
+    - Clock count enabled by PIPE1 perfcounter_start event.
 
-    * - SPI_CS1_BUSY
-      - Number of clocks with outstanding waves for PIPE1 (SPI or SH).
+  * - SPI_CS1_BUSY
+    - Number of clocks with outstanding waves for PIPE1 (SPI or SH).
 
-    * - SPI_CS1_NUM_THREADGROUPS
-      - Number of thread groups launched for PIPE1.
+  * - SPI_CS1_NUM_THREADGROUPS
+    - Number of thread groups launched for PIPE1.
 
-    * - SPI_CS1_CRAWLER_STALL
-      - Number of clocks when PIPE1 event or wave order FIFO is full.
+  * - SPI_CS1_CRAWLER_STALL
+    - Number of clocks when PIPE1 event or wave order FIFO is full.
 
-    * - SPI_CS1_EVENT_WAVE
-      - Number of PIPE1 events and waves.
+  * - SPI_CS1_EVENT_WAVE
+    - Number of PIPE1 events and waves.
 
-    * - SPI_CS1_WAVE
-      - Number of PIPE1 waves.
+  * - SPI_CS1_WAVE
+    - Number of PIPE1 waves.
 
-    * - SPI_CS2_WINDOW_VALID
-      - Clock count enabled by PIPE2 perfcounter_start event.
+  * - SPI_CS2_WINDOW_VALID
+    - Clock count enabled by PIPE2 perfcounter_start event.
 
-    * - SPI_CS2_BUSY
-      - Number of clocks with outstanding waves for PIPE2 (SPI or SH).
+  * - SPI_CS2_BUSY
+    - Number of clocks with outstanding waves for PIPE2 (SPI or SH).
 
-    * - SPI_CS2_NUM_THREADGROUPS
-      - Number of thread groups launched for PIPE2.
+  * - SPI_CS2_NUM_THREADGROUPS
+    - Number of thread groups launched for PIPE2.
 
-    * - SPI_CS2_CRAWLER_STALL
-      - Number of clocks when PIPE2 event or wave order FIFO is full.
+  * - SPI_CS2_CRAWLER_STALL
+    - Number of clocks when PIPE2 event or wave order FIFO is full.
 
-    * - SPI_CS2_EVENT_WAVE
-      - Number of PIPE2 events and waves.
+  * - SPI_CS2_EVENT_WAVE
+    - Number of PIPE2 events and waves.
 
-    * - SPI_CS2_WAVE
-      - Number of PIPE2 waves.
+  * - SPI_CS2_WAVE
+    - Number of PIPE2 waves.
 
-    * - SPI_CS3_WINDOW_VALID
-      - Clock count enabled by PIPE3 perfcounter_start event.
+  * - SPI_CS3_WINDOW_VALID
+    - Clock count enabled by PIPE3 perfcounter_start event.
 
-    * - SPI_CS3_BUSY
-      - Number of clocks with outstanding waves for PIPE3 (SPI or SH).
+  * - SPI_CS3_BUSY
+    - Number of clocks with outstanding waves for PIPE3 (SPI or SH).
 
-    * - SPI_CS3_NUM_THREADGROUPS
-      - Number of thread groups launched for PIPE3.
+  * - SPI_CS3_NUM_THREADGROUPS
+    - Number of thread groups launched for PIPE3.
 
-    * - SPI_CS3_CRAWLER_STALL
-      - Number of clocks when PIPE3 event or wave order FIFO is full.
+  * - SPI_CS3_CRAWLER_STALL
+    - Number of clocks when PIPE3 event or wave order FIFO is full.
 
-    * - SPI_CS3_EVENT_WAVE
-      - Number of PIPE3 events and waves.
+  * - SPI_CS3_EVENT_WAVE
+    - Number of PIPE3 events and waves.
 
-    * - SPI_CS3_WAVE
-      - Number of PIPE3 waves.
+  * - SPI_CS3_WAVE
+    - Number of PIPE3 waves.
 
-    * - SPI_CSQ_P0_Q0_OCCUPANCY
-      - Sum of occupancy info for PIPE0 Queue0.
+  * - SPI_CSQ_P0_Q0_OCCUPANCY
+    - Sum of occupancy info for PIPE0 Queue0.
 
-    * - SPI_CSQ_P0_Q1_OCCUPANCY
-      - Sum of occupancy info for PIPE0 Queue1.
+  * - SPI_CSQ_P0_Q1_OCCUPANCY
+    - Sum of occupancy info for PIPE0 Queue1.
 
-    * - SPI_CSQ_P0_Q2_OCCUPANCY
-      - Sum of occupancy info for PIPE0 Queue2.
+  * - SPI_CSQ_P0_Q2_OCCUPANCY
+    - Sum of occupancy info for PIPE0 Queue2.
 
-    * - SPI_CSQ_P0_Q3_OCCUPANCY
-      - Sum of occupancy info for PIPE0 Queue3.
+  * - SPI_CSQ_P0_Q3_OCCUPANCY
+    - Sum of occupancy info for PIPE0 Queue3.
 
-    * - SPI_CSQ_P0_Q4_OCCUPANCY
-      - Sum of occupancy info for PIPE0 Queue4.
+  * - SPI_CSQ_P0_Q4_OCCUPANCY
+    - Sum of occupancy info for PIPE0 Queue4.
 
-    * - SPI_CSQ_P0_Q5_OCCUPANCY
-      - Sum of occupancy info for PIPE0 Queue5.
+  * - SPI_CSQ_P0_Q5_OCCUPANCY
+    - Sum of occupancy info for PIPE0 Queue5.
 
-    * - SPI_CSQ_P0_Q6_OCCUPANCY
-      - Sum of occupancy info for PIPE0 Queue6.
+  * - SPI_CSQ_P0_Q6_OCCUPANCY
+    - Sum of occupancy info for PIPE0 Queue6.
 
-    * - SPI_CSQ_P0_Q7_OCCUPANCY
-      - Sum of occupancy info for PIPE0 Queue7.
+  * - SPI_CSQ_P0_Q7_OCCUPANCY
+    - Sum of occupancy info for PIPE0 Queue7.
 
-    * - SPI_CSQ_P1_Q0_OCCUPANCY
-      - Sum of occupancy info for PIPE1 Queue0.
+  * - SPI_CSQ_P1_Q0_OCCUPANCY
+    - Sum of occupancy info for PIPE1 Queue0.
 
-    * - SPI_CSQ_P1_Q1_OCCUPANCY
-      - Sum of occupancy info for PIPE1 Queue1.
+  * - SPI_CSQ_P1_Q1_OCCUPANCY
+    - Sum of occupancy info for PIPE1 Queue1.
 
-    * - SPI_CSQ_P1_Q2_OCCUPANCY
-      - Sum of occupancy info for PIPE1 Queue2.
+  * - SPI_CSQ_P1_Q2_OCCUPANCY
+    - Sum of occupancy info for PIPE1 Queue2.
 
-    * - SPI_CSQ_P1_Q3_OCCUPANCY
-      - Sum of occupancy info for PIPE1 Queue3.
+  * - SPI_CSQ_P1_Q3_OCCUPANCY
+    - Sum of occupancy info for PIPE1 Queue3.
 
-    * - SPI_CSQ_P1_Q4_OCCUPANCY
-      - Sum of occupancy info for PIPE1 Queue4.
+  * - SPI_CSQ_P1_Q4_OCCUPANCY
+    - Sum of occupancy info for PIPE1 Queue4.
 
-    * - SPI_CSQ_P1_Q5_OCCUPANCY
-      - Sum of occupancy info for PIPE1 Queue5.
+  * - SPI_CSQ_P1_Q5_OCCUPANCY
+    - Sum of occupancy info for PIPE1 Queue5.
 
-    * - SPI_CSQ_P1_Q6_OCCUPANCY
-      - Sum of occupancy info for PIPE1 Queue6.
+  * - SPI_CSQ_P1_Q6_OCCUPANCY
+    - Sum of occupancy info for PIPE1 Queue6.
 
-    * - SPI_CSQ_P1_Q7_OCCUPANCY
-      - Sum of occupancy info for PIPE1 Queue7.
+  * - SPI_CSQ_P1_Q7_OCCUPANCY
+    - Sum of occupancy info for PIPE1 Queue7.
 
-    * - SPI_CSQ_P2_Q0_OCCUPANCY
-      - Sum of occupancy info for PIPE2 Queue0.
+  * - SPI_CSQ_P2_Q0_OCCUPANCY
+    - Sum of occupancy info for PIPE2 Queue0.
 
-    * - SPI_CSQ_P2_Q1_OCCUPANCY
-      - Sum of occupancy info for PIPE2 Queue1.
+  * - SPI_CSQ_P2_Q1_OCCUPANCY
+    - Sum of occupancy info for PIPE2 Queue1.
 
-    * - SPI_CSQ_P2_Q2_OCCUPANCY
-      - Sum of occupancy info for PIPE2 Queue2.
+  * - SPI_CSQ_P2_Q2_OCCUPANCY
+    - Sum of occupancy info for PIPE2 Queue2.
 
-    * - SPI_CSQ_P2_Q3_OCCUPANCY
-      - Sum of occupancy info for PIPE2 Queue3.
+  * - SPI_CSQ_P2_Q3_OCCUPANCY
+    - Sum of occupancy info for PIPE2 Queue3.
 
-    * - SPI_CSQ_P2_Q4_OCCUPANCY
-      - Sum of occupancy info for PIPE2 Queue4.
+  * - SPI_CSQ_P2_Q4_OCCUPANCY
+    - Sum of occupancy info for PIPE2 Queue4.
 
-    * - SPI_CSQ_P2_Q5_OCCUPANCY
-      - Sum of occupancy info for PIPE2 Queue5.
+  * - SPI_CSQ_P2_Q5_OCCUPANCY
+    - Sum of occupancy info for PIPE2 Queue5.
 
-    * - SPI_CSQ_P2_Q6_OCCUPANCY
-      - Sum of occupancy info for PIPE2 Queue6.
+  * - SPI_CSQ_P2_Q6_OCCUPANCY
+    - Sum of occupancy info for PIPE2 Queue6.
 
-    * - SPI_CSQ_P2_Q7_OCCUPANCY
-      - Sum of occupancy info for PIPE2 Queue7.
+  * - SPI_CSQ_P2_Q7_OCCUPANCY
+    - Sum of occupancy info for PIPE2 Queue7.
 
-    * - SPI_CSQ_P3_Q0_OCCUPANCY
-      - Sum of occupancy info for PIPE3 Queue0.
+  * - SPI_CSQ_P3_Q0_OCCUPANCY
+    - Sum of occupancy info for PIPE3 Queue0.
 
-    * - SPI_CSQ_P3_Q1_OCCUPANCY
-      - Sum of occupancy info for PIPE3 Queue1.
+  * - SPI_CSQ_P3_Q1_OCCUPANCY
+    - Sum of occupancy info for PIPE3 Queue1.
 
-    * - SPI_CSQ_P3_Q2_OCCUPANCY
-      - Sum of occupancy info for PIPE3 Queue2.
+  * - SPI_CSQ_P3_Q2_OCCUPANCY
+    - Sum of occupancy info for PIPE3 Queue2.
 
-    * - SPI_CSQ_P3_Q3_OCCUPANCY
-      - Sum of occupancy info for PIPE3 Queue3.
+  * - SPI_CSQ_P3_Q3_OCCUPANCY
+    - Sum of occupancy info for PIPE3 Queue3.
 
-    * - SPI_CSQ_P3_Q4_OCCUPANCY
-      - Sum of occupancy info for PIPE3 Queue4.
+  * - SPI_CSQ_P3_Q4_OCCUPANCY
+    - Sum of occupancy info for PIPE3 Queue4.
 
-    * - SPI_CSQ_P3_Q5_OCCUPANCY
-      - Sum of occupancy info for PIPE3 Queue5.
+  * - SPI_CSQ_P3_Q5_OCCUPANCY
+    - Sum of occupancy info for PIPE3 Queue5.
 
-    * - SPI_CSQ_P3_Q6_OCCUPANCY
-      - Sum of occupancy info for PIPE3 Queue6.
+  * - SPI_CSQ_P3_Q6_OCCUPANCY
+    - Sum of occupancy info for PIPE3 Queue6.
 
-    * - SPI_CSQ_P3_Q7_OCCUPANCY
-      - Sum of occupancy info for PIPE3 Queue7.
+  * - SPI_CSQ_P3_Q7_OCCUPANCY
+    - Sum of occupancy info for PIPE3 Queue7.
 
-    * - SPI_CSQ_P0_OCCUPANCY
-      - Sum of occupancy info for all PIPE0 queues.
+  * - SPI_CSQ_P0_OCCUPANCY
+    - Sum of occupancy info for all PIPE0 queues.
 
-    * - SPI_CSQ_P1_OCCUPANCY
-      - Sum of occupancy info for all PIPE1 queues.
+  * - SPI_CSQ_P1_OCCUPANCY
+    - Sum of occupancy info for all PIPE1 queues.
 
-    * - SPI_CSQ_P2_OCCUPANCY
-      - Sum of occupancy info for all PIPE2 queues.
+  * - SPI_CSQ_P2_OCCUPANCY
+    - Sum of occupancy info for all PIPE2 queues.
 
-    * - SPI_CSQ_P3_OCCUPANCY
-      - Sum of occupancy info for all PIPE3 queues.
+  * - SPI_CSQ_P3_OCCUPANCY
+    - Sum of occupancy info for all PIPE3 queues.
 
-    * - SPI_VWC0_VDATA_VALID_WR
-      - Number of clocks VGPR bus_0 writes VGPRs.
+  * - SPI_VWC0_VDATA_VALID_WR
+    - Number of clocks VGPR bus_0 writes VGPRs.
 
-    * - SPI_VWC1_VDATA_VALID_WR
-      - Number of clocks VGPR bus_1 writes VGPRs.
+  * - SPI_VWC1_VDATA_VALID_WR
+    - Number of clocks VGPR bus_1 writes VGPRs.
 
-    * - SPI_CSC_WAVE_CNT_BUSY
-      - Number of cycles when there is any wave in the pipe.
+  * - SPI_CSC_WAVE_CNT_BUSY
+    - Number of cycles when there is any wave in the pipe.
 
-Compute unit counters
-======================
+Compute unit (SQ) counters
+===========================
 
 .. list-table:: SQ counters
   :header-row: 1
@@ -346,8 +346,8 @@ Compute unit counters
   * - SQC_DCACHE_MISSES_DUPLICATE
     - Number of duplicate misses (access to a non-resident, miss pending CL) (per-SQ, per-Bank, nondeterministic).
 
-Texture addressing unit counters
-=================================
+Texture addressing (TA) unit counters
+======================================
 
 .. list-table:: TA counters
   :header-row: 1
@@ -361,8 +361,8 @@ Texture addressing unit counters
   * - TA_FLAT_READ_LDS_WAVEFRONTS
     - Number of flat opcode reads for LDS return processed by the TA.
 
-Texture data unit counters
-===========================
+Texture data (TD) unit counters
+================================
 
 .. list-table:: TD counters
   :header-row: 1
@@ -376,8 +376,8 @@ Texture data unit counters
   * - TD_TD_SP_TRAFFIC
     - Number of times this TD sends data to the SP.
 
-Texture cache per pipe counters
-================================
+Texture cache per pipe (TCP) counters
+======================================
 
 .. list-table:: TCP counters
   :header-row: 1
@@ -457,8 +457,8 @@ Texture cache per pipe counters
   * - TCP_TCC_WRITE_REQ_HOLE_LATENCY
     - Total TCP req to TCC hole latency for writes and atomics. Not Windowed.
 
-Texture cache per channel counters
-===================================
+Texture cache per channel (TCC) counters
+=========================================
 
 .. list-table:: TCC counters
   :header-row: 1
