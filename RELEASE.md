@@ -49,7 +49,7 @@ ROCm 7.0.0 adds support for the following operating systems and kernel versions:
 * Oracle Linux 10 (kernel: 6.12.0 UEK)
 * Rocky 9 (kernel: 5.14.0-570)
 
-ROCm 7.0.0 marks the end of support (EoS) for Ubuntu 24.04.2 (kernel: 6.8 [GA], 6.11 [HWE]).
+ROCm 7.0.0 marks the end of support (EoS) for Ubuntu 24.04.2 (kernel: 6.8 [GA], 6.11 [HWE]) and SLES 15 SP6.
 
 For more information about supported operating systems, see [Supported operating systems](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#supported-operating-systems) and [install instructions](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/).
 
@@ -111,6 +111,8 @@ ROCm 7.0 enables support for Triton 3.3.0.
 ### Instinct Driver/ROCm packaging separation
 
 The Instinct Driver is now distributed separately from the ROCm software stack and is stored under in its own location ``/amdgpu/`` in the package repository at [repo.radeon.com](https://repo.radeon.com/amdgpu/). The first release is designated as Instinct Driver version 30.10. See [ROCm Gets Modular: Meet the Instinct Datacenter GPU Driver](https://rocm.blogs.amd.com/ecosystems-and-partners/instinct-gpu-driver/README.html) for more information.
+
+[AMD SMI](https://github.com/ROCm/amdsmi) continues to stay with the ROCm software stack under the ROCm organization repository.
 
 ### HIP API compatibility improvements
 
