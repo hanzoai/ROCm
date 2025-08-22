@@ -173,7 +173,7 @@ MX-compliant data types bring microscaling support to ROCm. For more information
 *	hipBLASLt
 *	MIGraphX (`FP4` only)
 
-The following libraries are updated to support the Open Compute Project (OCP) floating-point `FP8` format on AMD Instinct MI350 series accelerators instead of the NANOO `FP8` format:
+The following libraries are updated to support the Open Compute Project (OCP) floating-point `FP8` format on MI350 series accelerators instead of the NANOO `FP8` format:
 
 *	Composable Kernel
 *	hipBLASLt
@@ -211,7 +211,7 @@ See the [rocSHMEM changelog](#rocshmem-3-0-0) for more details.
 Key enhancements to AMD SMI include the ability to reload the AMD GPU driver from the
 CLI or API. The `amd-smi` command-line interface gains a new default view, `amd-smi` topology support
 in guest environments, and performance optimizations. Additionally, AMD SMI library APIs
-have been refined for improved usability. See the [AMD SMI changelog](#amdsmi-26-0-0) for more details.
+have been refined for improved usability. See the [AMD SMI changelog](#amd-smi-26-0-0) for more details.
 
 #### ROCgdb
 
@@ -303,7 +303,7 @@ For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/pro
 
 ROCm documentation continues to be updated to provide clearer and more comprehensive guidance for a wider variety of user needs and use cases.
 
-* Documentation for [rocCV](https://rocm.docs.amd.com/projects/rocCV/en/latest/index.html), an efficient GPU-accelerated library for image pre- and post-processing, has been added. rocCV is in an early access state, and using it on production workloads is not recommended.
+* Documentation for [rocCV](https://advanced-micro-devices-roccv--28.com.readthedocs.build/en/28/), an efficient GPU-accelerated library for image pre- and post-processing, has been added. rocCV is in an early access state, and using it on production workloads is not recommended.
 
 * ROCm Math libraries support a wide range of data types, enabling optimized performance across various precision requirements. The following Math libraries are now updated with new precision content. For more information, click the Math library’s link:
 
@@ -379,7 +379,7 @@ Click {fab}`github` to go to the component's source code on GitHub.
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocAL/en/docs-6.4.3/index.html">rocAL</a></td>
-                <td>2.2.0&nbsp;&Rightarrow;&nbsp;<a href="#rocal-2-2-0">2.3.0</a></td>
+                <td>2.2.0&nbsp;&Rightarrow;&nbsp;<a href="#rocal-2-3-0">2.3.0</a></td>
                 <td><a href="https://github.com/ROCm/rocAL"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
@@ -530,12 +530,12 @@ Click {fab}`github` to go to the component's source code on GitHub.
                 <th rowspan="7">Tools</th>
                 <th rowspan="7">System management</th>
                 <td><a href="https://rocm.docs.amd.com/projects/amdsmi/en/docs-6.4.3/index.html">AMD SMI</a></td>
-                <td>25.5.1&nbsp;&Rightarrow;&nbsp;<a href="#amdsmi-26-0-0">26.0.0</a></td>
+                <td>25.5.1&nbsp;&Rightarrow;&nbsp;<a href="#amd-smi-26-0-0">26.0.0</a></td>
                 <td><a href="https://github.com/ROCm/amdsmi"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rdc/en/docs-6.4.3/index.html">ROCm Data Center Tool</a></td>
-                <td>0.3.0&nbsp;&Rightarrow;&nbsp;<a href="#rdc-1-1-0">1.1.0</a></td>
+                <td>0.3.0&nbsp;&Rightarrow;&nbsp;<a href="#rocm-data-center-tool-1-1-0">1.1.0</a></td>
                 <td><a href="https://github.com/ROCm/rdc"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
@@ -545,7 +545,7 @@ Click {fab}`github` to go to the component's source code on GitHub.
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocm_smi_lib/en/docs-6.4.3/index.html">ROCm SMI</a></td>
-                <td>7.7.0&nbsp;&Rightarrow;&nbsp;<a href="#rocmsmi-7-8-0">7.8.0</a></td>
+                <td>7.7.0&nbsp;&Rightarrow;&nbsp;<a href="#rocm-smi-7-8-0">7.8.0</a></td>
                 <td><a href="https://github.com/ROCm/rocm_smi_lib"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
@@ -1150,7 +1150,7 @@ HIP runtime has the following functional improvements which improves runtime per
 
 * Updated and reorganized documentation for clarity and consistency.
 
-### **HIPIFY** (7.0.0)
+### **HIPIFY** (20.0.0)
 
 #### Added
 
@@ -2347,10 +2347,6 @@ An issue where due to limited support for Sparse API in JAX, some of the functio
 ## ROCm upcoming changes
 
 The following changes to the ROCm software stack are anticipated for future releases.
-
-### AMD SMI migration to AMDGPU driver repository
-
-In a future release, [AMD SMI](https://github.com/ROCm/amdsmi) will be relocated from the ROCm organization repository to a new AMDTools repository to better align with its system-level functionality. `amd-smi-lib` will no longer be included in the `rocm-developer-tools` meta-package included with your standard ROCm installation. Instead, it will be packaged with the AMDGPU driver installation.
 
 ### ROCm SMI deprecation
 
