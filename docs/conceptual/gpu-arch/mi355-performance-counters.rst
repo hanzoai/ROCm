@@ -26,13 +26,13 @@ Command processor packet processor counters (CPC)
       - ADC valid chunk is not available when dispatch walking is in progress in the multi-xcc mode.
 
     * - CPC_ADC_DISPATCH_ALLOC_DONE
-      - ADC dispatch allocation done.
+      - ADC dispatch allocation is done.
 
     * - CPC_ADC_VALID_CHUNK_END
       - ADC crawler's valid chunk end in the multi-xcc mode.
 
     * - CPC_SYNC_FIFO_FULL_LEVEL
-      - Level count SYNC FIFO full last cycles.
+      - SYNC FIFO full last cycles.
 
     * - CPC_SYNC_FIFO_FULL
       - SYNC FIFO full times.
