@@ -884,11 +884,12 @@ functions added for logical reduction. For details, see [Warp cross-lane functio
     - HIP APIs for `FP4`/`FP6`/`FP8`, which are compatible with corresponding CUDA APIs.
     - HIP Extensions APIs for microscaling formats, which are supported on AMD GPUs.
 * New `wptr` and `rptr` values in `ClPrint`, for better logging in dispatch barrier methods.
-* New debug mask, to print precise code object information for logging.
 * The `_sync()` version of crosslane builtins such as `shfl_sync()` are enabled by default. These can be disabled by setting the preprocessor macro `HIP_DISABLE_WARP_SYNC_BUILTINS`.
 * Added `constexpr` operators for `fp16`/`bf16`.
 * Added warp level primitives: `__syncwarp` and reduce intrinsics (e.g. `__reduce_add_sync()`)
-* Extended fine grained system memory pool.
+* Support for the flags in APIs as following, now allows uncached memory allocation.
+    - `hipExtHostRegisterUncached`, used in `hipHostRegister`.
+    - `hipHostMallocUncached` and `hipHostAllocUncached`, used in `hipHostMalloc` and `hipHostAlloc`.
 * `num_threads`  total number of threads in the group. The legacy API size is alias.
 * Added PCI CHIP ID information as the device attribute.
 * Added new tests applications for OCP data types `FP4`/`FP6`/`FP8`.
@@ -898,6 +899,8 @@ functions added for logical reduction. For details, see [Warp cross-lane functio
 * Some unsupported GPUs such as gfx9, gfx8 and gfx7 are deprecated on Microsoft Windows.
 * Removal of beta warnings in HIP Graph APIs
 All Beta warnings in usage of HIP Graph APIs are removed, they are now officially and fully supported.
+* `warpSize` has changed. 
+In order to match the CUDA specification, the `warpSize` variable is no longer `constexpr`. In general, this should be a transparent change; however, if an application was using `warpSize` as a compile-time constant, it will have to be updated to handle the new definition. For more information, see the discussion of `warpSize` within the [HIP C++ language extensions](https://rocm.docs.amd.com/projects/HIP/en/latest/how-to/hip_cpp_language_extensions.html#warpsize).
 * Behavior changes
     - `hipGetLastError`  now returns the error code which is the last actual error caught in the current thread during the application execution.
     - Cooperative groups  in `hipLaunchCooperativeKernelMultiDevice` and `hipLaunchCooperativeKernel` functions, additional input parameter validation checks are added.
@@ -999,9 +1002,6 @@ In order to match the CUDA runtime behavior more closely, HIP APIs with streams 
     - Event Management Related APIs
       * `hipEventRecord`
       * `hipEventRecordWithFlags`
-* `warpSize` Change
-
-In order to match the CUDA specification, the `warpSize` variable is no longer `constexpr`. In general, this should be a transparent change; however, if an application was using `warpSize` as a compile-time constant, it will have to be updated to handle the new definition. For more information, see either the discussion of `warpSize` within the [HIP C++ language extensions](https://rocm.docs.amd.com/projects/HIP/en/latest/how-to/hip_cpp_language_extensions.html#warpsize).
 
 #### Optimized
 
@@ -1021,7 +1021,6 @@ HIP runtime has the following functional improvements which improves runtime per
  Developers can now use the environment variable `HSA_SCRATCH_SINGLE_LIMIT_ASYNC` to change the default allocation size with expected scratch limit in ROCR runtime. On top of it, this value can also be overwritten programmatically in the application using the HIP API `hipDeviceSetLimit(hipExtLimitScratchCurrent, value)` to reset the scratch limit value.
 * HIP runtime now enables peer-to-peer (P2P) memory copies to utilize all available SDMA engines, rather than being limited to a single engine. It also selects the best engine first to give optimal bandwidth.
 * Improved launch latency for `D2D` copies and `memset` on MI300 series.
-* Memory manager was implemented to improve the efficiency of memory usage and speed-up memory allocation/free in memory pools.
 * Introduced a threshold to handle the command submission patch to the GPU device(s), considering the synchronization with CPU, for performance improvement.
 
 #### Resolved issues
@@ -1036,6 +1035,11 @@ HIP runtime has the following functional improvements which improves runtime per
 * Compilation failure, HIP runtime refactored the vector type alignment with `__hip_vec_align_v`
 * A numerical error/corruption found in Pytorch  during graph replay. HIP runtime fixed the input sizes of kernel launch dimensions in hipExtModuleLaunchKernel for the execution of hipGraph capture.
 * A crash during kernel execution in a customer application. The structure of kernel arguments was updated via adding the size of kernel arguments, and HIP runtime does validation before launch kernel with the structured arguments.
+
+#### Known issues
+
+* `hipLaunchHostFunc` returns an error during stream capture. Any application using `hipLaunchHostFunc` might fail to capture graphs during stream capture, instead, it returns `hipErrorStreamCaptureUnsupported`.
+* Compilation failure in kernels via hiprtc when use option `std=c++11`.
 
 ### **hipBLAS** (3.0.0)
 
