@@ -108,7 +108,7 @@ ROCm 7.0 enables support for TensorFlow 2.19.1.
 
 ##### ONNX Runtime
 
-ROCm 7.0 enables support for ONNX Runtime 1.22.1.
+ROCm 7.0 enables support for ONNX Runtime 1.22.0.
 
 ##### vLLM
 
