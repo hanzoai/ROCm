@@ -45,6 +45,10 @@ Machine Learning & Computer Vision
   ":doc:`rocJPEG <rocjpeg:index>`", "Library for decoding JPG images on AMD GPUs"
   ":doc:`rocPyDecode <rocpydecode:index>`", "Provides access to rocDecode APIs in both Python and C/C++ languages"
 
+.. note::
+
+  `rocCV <https://rocm.docs.amd.com/projects/rocCV/en/latest/index.html>`_  is an efficient GPU-accelerated library for image pre- and post-processing. rocCV is in an early access state. Using it on production workloads is not recommended.
+
 Communication
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
