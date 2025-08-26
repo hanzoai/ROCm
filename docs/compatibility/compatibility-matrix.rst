@@ -28,14 +28,13 @@ compatibility and system requirements.
 
       :ref:`Operating systems & kernels <OS-kernel-versions>`,Ubuntu 24.04.3,Ubuntu 24.04.2,Ubuntu 24.04.2
       ,Ubuntu 22.04.5,Ubuntu 22.04.5,Ubuntu 22.04.5
-      ,RHEL 10,,
       ,"RHEL 9.6, 9.4","RHEL 9.6, 9.4","RHEL 9.5, 9.4"
       ,RHEL 8.10,RHEL 8.10,RHEL 8.10
       ,SLES 15 SP7,"SLES 15 SP7, SP6","SLES 15 SP6, SP5"
       ,"Oracle Linux 10, 9, 8 [#ol-700-mi300x]_","Oracle Linux 9, 8 [#ol-mi300x]_",Oracle Linux 8.10 [#ol-mi300x]_
       ,Debian 12,Debian 12 [#single-node]_,
       ,Azure Linux 3.0 [#az-mi300x]_,Azure Linux 3.0 [#az-mi300x]_,
-      ,Rocky 9,,
+      ,Rocky Linux 9,,
       ,.. _architecture-support-compatibility-matrix:,,
       :doc:`Architecture <rocm-install-on-linux:reference/system-requirements>`,CDNA4,,
       ,CDNA3,CDNA3,CDNA3
@@ -64,11 +63,11 @@ compatibility and system requirements.
       :doc:`DGL <../compatibility/ml-compatibility/dgl-compatibility>` [#dgl_compat]_,N/A,N/A,N/A
       :doc:`Megablocks <../compatibility/ml-compatibility/megablocks-compatibility>`,N/A,N/A,0.7.0
       :doc:`Taichi <../compatibility/ml-compatibility/taichi-compatibility>` [#taichi_compat]_,N/A,N/A,N/A
-      `ONNX Runtime <https://onnxruntime.ai/docs/build/eps.html#amd-migraphx>`_,1.22.1,1.20.0,1.17.3
+      `ONNX Runtime <https://onnxruntime.ai/docs/build/eps.html#amd-migraphx>`_,1.22.0,1.20.0,1.17.3
       ,,,
       THIRD PARTY COMMS,.. _thirdpartycomms-support-compatibility-matrix:,,
-      `UCC <https://github.com/ROCm/ucc>`_,>=1.3.0,>=1.3.0,>=1.3.0
-      `UCX <https://github.com/ROCm/ucx>`_,>=1.15.0,>=1.15.0,>=1.15.0
+      `UCC <https://github.com/ROCm/ucc>`_,>=1.4.0,>=1.3.0,>=1.3.0
+      `UCX <https://github.com/ROCm/ucx>`_,>=1.17.0,>=1.15.0,>=1.15.0
       ,,,
       THIRD PARTY ALGORITHM,.. _thirdpartyalgorithm-support-compatibility-matrix:,,
       Thrust,2.6.0,2.5.0,2.3.2
@@ -188,8 +187,6 @@ Use this lookup table to confirm which operating system and kernel versions are 
    ,,
    `Ubuntu <https://ubuntu.com/about/release-cycle#ubuntu-kernel-release-cycle>`_, 22.04.5, "5.15 [GA], 6.8 [HWE]", 2.35
    ,,
-   `Red Hat Enterprise Linux (RHEL 10) <https://access.redhat.com/articles/3078#RHEL10>`_, 10, 6.12.0-55, 2.39
-   ,,
    `Red Hat Enterprise Linux (RHEL 9) <https://access.redhat.com/articles/3078#RHEL9>`_, 9.6, 5.14.0-570, 2.34
    ,9.5, 5.14+, 2.34
    ,9.4, 5.14.0-427, 2.34
@@ -200,7 +197,7 @@ Use this lookup table to confirm which operating system and kernel versions are 
    ,15 SP6, "6.5.0+, 6.4.0", 2.38
    ,15 SP5, 5.14.21, 2.31
    ,,
-   `Rocky <https://wiki.rockylinux.org/rocky/version/>`_, 9, 5.14.0-570, 2.34
+   `Rocky Linux <https://wiki.rockylinux.org/rocky/version/>`_, 9, 5.14.0-570, 2.34
    ,,
    `Oracle Linux <https://blogs.oracle.com/scoter/post/oracle-linux-and-unbreakable-enterprise-kernel-uek-releases>`_, 10, 6.12.0 (UEK), 2.39
    ,9, 6.12.0 (UEK), 2.34
