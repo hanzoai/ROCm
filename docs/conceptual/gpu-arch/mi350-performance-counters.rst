@@ -2,9 +2,9 @@
   :description: MI355 series performance counters and metrics
   :keywords: MI355, MI355X, MI3XX
 
-**********************************************
-MI350 and MI355 series performance counters
-**********************************************
+***********************************
+MI350 series performance counters
+***********************************
 
 This topic lists and describes the hardware performance counters and derived metrics available on the AMD Instinct MI350 and MI355 series GPUs. These counters are available for profiling using `ROCprofiler-SDK <https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/index.html>`_ and `ROCm Compute Profiler <https://rocm.docs.amd.com/projects/rocprofiler-compute/en/latest/>`_.
 
@@ -13,7 +13,7 @@ The following sections list the performance counters based on the IP blocks.
 Command processor packet processor counters (CPC)
 ==================================================
 
-.. list-table:: CPC counters
+.. list-table::
     :header-rows: 1
 
     * - Hardware counter
@@ -73,7 +73,7 @@ Command processor packet processor counters (CPC)
 Shader pipe interpolators (SPI) counters
 =========================================
 
-.. list-table:: SPI counters
+.. list-table::
     :header-rows: 1
 
     * - Hardware counter
@@ -271,7 +271,7 @@ Shader pipe interpolators (SPI) counters
 Compute unit (SQ) counters
 ===========================
 
-.. list-table:: SQ counters
+.. list-table::
     :header-rows: 1
 
     * - Hardware counter
@@ -349,7 +349,7 @@ Compute unit (SQ) counters
 Texture addressing (TA) unit counters
 ======================================
 
-.. list-table:: TA counters
+.. list-table::
     :header-rows: 1
 
     * - Hardware counter
@@ -364,7 +364,7 @@ Texture addressing (TA) unit counters
 Texture data (TD) unit counters
 ================================
 
-.. list-table:: TD counters
+.. list-table::
     :header-rows: 1
 
     * - Hardware counter
@@ -379,7 +379,7 @@ Texture data (TD) unit counters
 Texture cache per pipe (TCP) counters
 ======================================
 
-.. list-table:: TCP counters
+.. list-table::
     :header-rows: 1
 
     * - Hardware counter
@@ -460,7 +460,7 @@ Texture cache per pipe (TCP) counters
 Texture cache per channel (TCC) counters
 =========================================
 
-.. list-table:: TCC counters
+.. list-table::
     :header-rows: 1
 
     * - Hardware counter
