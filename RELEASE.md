@@ -337,9 +337,6 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
 
     * [hipBLASLt](https://rocm.docs.amd.com/projects/hipBLASLt/en/develop/reference/env-variables.html)
     * [hipSPARSELt](https://rocm.docs.amd.com/projects/hipSPARSELt/en/develop/reference/env-variables.html)
-    * [MIVisionX](https://rocm.docs.amd.com/projects/MIVisionX/en/develop/reference/MIVisionX-env-variables.html)
-    * [MIOpen](https://rocm.docs.amd.com/projects/MIOpen/en/develop/reference/env_variables.html)
-    * [rocBLAS](https://rocm.docs.amd.com/projects/rocBLAS/en/develop/reference/env-variables.html)
     * [ROCm Performance Primitives (RPP)](https://rocm.docs.amd.com/projects/rpp/en/develop/reference/rpp-env-variables.html)
     * [rocSOLVER](https://rocm.docs.amd.com/projects/rocSOLVER/en/develop/reference/env_variables.html)
     * [rocSPARSE](https://rocm.docs.amd.com/projects/rocSPARSE/en/develop/reference/env_variables.html)
@@ -2349,6 +2346,10 @@ The previous default accumulator types could lead to situations in which unexpec
 ROCm known issues are noted on {fab}`github` [GitHub](https://github.com/ROCm/ROCm/labels/Verified%20Issue). For known
 issues related to individual components, review the [Detailed component changes](#detailed-component-changes).
 
+### A memory error in the kernel might lead to applications using the ROCr library being unresponsive
+
+Applications using the ROCr library may become unresponsive if a memory error occurs in the launched kernel when the queue from which it was launched is destroyed. The application is unable to receive further signal, resulting in the stall condition. The issue will be fixed in a future ROCm release.
+
 ## ROCm resolved issues
 
 The following are previously known issues resolved in this release. For resolved issues related to
@@ -2361,6 +2362,10 @@ An issue where compiling of a generic target with compression failing has been r
 ### Limited support for Sparse API and Pallas functionality in JAX
 
 An issue where due to limited support for Sparse API in JAX, some of the functionality of the Pallas extension were restricted has been resolved. See [GitHub issue #4608](https://github.com/ROCm/ROCm/issues/4608).
+
+### Failure to use –kokkos-trace option in ROCm Compute Profiler
+
+An issue where using of the ``--kokkos-trace`` option resulted in a difference between the output of the ``--kokkos-trace`` and the ``counter_collection.csv`` output file has been resolved. Due to this issue the program used to exit with a warning message if the ``-kokkos-trace`` option was detected in the ROCm Compute Profiler. This issue resulted due to the partial implementation of ``--kokkos-trace`` in ``rocprofv3`` tool. See [GitHub issue #4604](https://github.com/ROCm/ROCm/issues/4604).
 
 ## ROCm upcoming changes
 
