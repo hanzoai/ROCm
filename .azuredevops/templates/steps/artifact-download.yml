@@ -24,6 +24,7 @@ parameters:
 steps:
 - task: DownloadPipelineArtifact@2
   displayName: Download ${{ parameters.componentName }}
+  retryCountOnTaskFailure: 3
   inputs:
     ${{ if eq(parameters.componentName, 'clr') }}:
       itemPattern: '**/*${{ parameters.componentName }}*${{ parameters.fileFilter }}*amd*' # filter out nvidia clr artifacts
