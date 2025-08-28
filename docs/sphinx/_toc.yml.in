@@ -146,7 +146,7 @@ subtrees:
             title: White paper
           - file: conceptual/gpu-arch/mi300-mi200-performance-counters.rst
             title: MI300 and MI200 performance counters
-          - file: conceptual/gpu-arch/mi355-performance-counters.rst
+          - file: conceptual/gpu-arch/mi350-performance-counters.rst
             title: MI350 and MI355 series performance counters
       - file: conceptual/gpu-arch/mi250.md
         title: MI250 microarchitecture
