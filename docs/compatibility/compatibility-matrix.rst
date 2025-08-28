@@ -159,7 +159,7 @@ compatibility and system requirements.
 .. rubric:: Footnotes
 
 .. [#ol-700-mi300x] **For ROCm 7.0** - Oracle Linux 9 is supported only on AMD Instinct MI300X, MI350X, and MI355X. Oracle Linux 8 is only supported on AMD Instinct MI300X.
-.. [#ol-mi300x] **Prior ROCm 7.0** - Oracle Linux is only on AMD Instinct MI300X.
+.. [#ol-mi300x] **Prior ROCm 7.0** - Oracle Linux is supported only on AMD Instinct MI300X.
 .. [#single-node] Debian 12 is supported only on AMD Instinct MI300X for single-node functionality.
 .. [#az-mi300x] Starting ROCm 6.4.0, Azure Linux 3.0 is supported only on AMD Instinct MI300X and AMD Radeon PRO V710.
 .. [#RDNA-OS] Radeon AI PRO R9700, Radeon RX 9070 XT (gfx1201), Radeon RX 9060 XT (gfx1200), Radeon PRO W7700 (gfx1101), and Radeon RX 7800 XT (gfx1101) are supported only on Ubuntu 24.04.2, Ubuntu 22.04.5, RHEL 9.6, and RHEL 9.4.

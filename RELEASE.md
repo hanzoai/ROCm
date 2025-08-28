@@ -317,6 +317,10 @@ For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/pro
 
 ROCm documentation continues to be updated to provide clearer and more comprehensive guidance for a wider variety of user needs and use cases.
 
+* [Tutorials for AI developers](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/) have been expanded with the following new inference tutorial: [PD disaggregation with SGLang](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU.html)
+ 
+  In addition, the [AI agent with MCPs using vLLM and PydanticAI](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/inference/build_airbnb_agent_mcp.html) tutorial has been updated. For more information about the changes, see [Changelog for the AI Developer Hub](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/changelog.html).
+
 * Documentation for [rocCV](https://advanced-micro-devices-roccv--28.com.readthedocs.build/en/28/), an efficient GPU-accelerated library for image pre- and post-processing, has been added. rocCV is in an early access state, and using it on production workloads is not recommended.
 
 * ROCm Math libraries support a wide range of data types, enabling optimized performance across various precision requirements. The following Math libraries are now updated with new precision content. For more information, click the Math library’s link:
@@ -2367,7 +2371,7 @@ Starting with GCC 5.1, GNU `libstdc++` introduced a dual Application Binary Inte
 
 ### Decline in performance of batched GEMM operation for applications using hipBLASLT kernels
 
-Default batched General Matrix Multiplications (GEMM) operations for rocBLAS and hipBLAS on gfx1200 and gfx1201 may have a decline in performance in comparison with non-batched and strided_batched GEMM operations. By default, the batched GEMM uses hipBLASLT kernels, and switching to the Tensile kernel resolves the performance decline issue. The issue will be fixed in a future ROCm release. As a workaround, you can set the environment variable `ROCBLAS_USE_HIPBLASLT=0` before the batched GEMM operation is performed on gfx1200 and gfx1201. After completing the batched operation, reset the variable to `ROCBLAS_USE_HIPBLASLT=1` before calling non-batched or strided_batched.
+Default batched General Matrix Multiplications (GEMM) operations for rocBLAS and hipBLAS on gfx1200 and gfx1201 may have a decline in performance in comparison with non-batched and strided_batched GEMM operations. By default, the batched GEMM uses hipBLASLT kernels, and switching to the Tensile kernel resolves the performance decline issue. The issue will be fixed in a future ROCm release. As a workaround, you can set the environment variable `ROCBLAS_USE_HIPBLASLT=0` before the batched GEMM operation is performed on gfx1200 and gfx1201. After completing the batched operation, reset the variable to `ROCBLAS_USE_HIPBLASLT=1` before calling non-batched or strided_batched operations.
 
 ## ROCm resolved issues
 
