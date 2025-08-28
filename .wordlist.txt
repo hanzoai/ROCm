@@ -98,6 +98,7 @@ DIMM
 DKMS
 DL
 DMA
+DOMContentLoaded
 DNN
 DNNL
 DPM
@@ -552,6 +553,7 @@ ZenDNN
 accuracies
 activations
 addr
+addEventListener
 ade
 ai
 alloc
@@ -585,6 +587,7 @@ boson
 bosons
 br
 BrainFloat
+btn
 buildable
 bursty
 bzip
@@ -596,6 +599,7 @@ centric
 changelog
 checkpointing
 chiplet
+classList
 cmake
 cmd
 coalescable
@@ -607,6 +611,7 @@ composable
 concretization
 config
 conformant
+const
 constructible
 convolutional
 convolves
@@ -670,6 +675,7 @@ exascale
 executables
 ffmpeg
 filesystem
+forEach
 fortran
 fp
 framebuffer
@@ -678,6 +684,7 @@ galb
 gcc
 gdb
 gemm
+getAttribute
 gfortran
 gfx
 githooks
@@ -829,6 +836,8 @@ recommenders
 quantile
 quantizer
 quasirandom
+querySelector
+querySelectorAll
 queueing
 qwen
 radeon
@@ -891,9 +900,11 @@ scalability
 scalable
 scipy
 seealso
+selectedTag
 sendmsg
 seqs
 serializers
+setAttribute
 sglang
 shader
 sharding
@@ -920,6 +931,7 @@ symlink
 symlinks
 sys
 tabindex
+targetContainer
 td
 tensorfloat
 th

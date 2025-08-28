@@ -19,7 +19,7 @@ subtrees:
 
 - caption: Install
   entries:
-  - url: https://rocm.docs.amd.com/projects/install-on-linux/en/latest/
+  - url: https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/
     title: ROCm on Linux
   - url: https://rocm.docs.amd.com/projects/install-on-windows/en/latest/
     title: HIP SDK on Windows
@@ -182,7 +182,7 @@ subtrees:
   - file: reference/gpu-arch-specs.rst
   - file: reference/gpu-atomics-operation.rst
   - file: reference/precision-support.rst
-    title: Precision support
+    title: Data types and precision support
   - file: reference/graph-safe-support.rst
     title: Graph safe support
 
