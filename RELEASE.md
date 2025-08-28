@@ -120,7 +120,7 @@ ROCm 7.0 enables support for Triton 3.3.0.
 
 ### Instinct Driver/ROCm packaging separation
 
-The Instinct Driver is now distributed separately from the ROCm software stack and is stored under in its own location ``/amdgpu/`` in the package repository at [repo.radeon.com](https://repo.radeon.com/amdgpu/). The first release is designated as Instinct Driver version 30.10. See the [ROCm Gets Modular: Meet the Instinct Datacenter GPU Driver](https://rocm.blogs.amd.com/ecosystems-and-partners/instinct-gpu-driver/README.html) blog and [User and kernel-space support matrix](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/user-kernel-space-compat-matrix.html)for more information.
+The Instinct Driver is now distributed separately from the ROCm software stack and is stored under in its own location ``/amdgpu/`` in the package repository at [repo.radeon.com](https://repo.radeon.com/amdgpu/). The first release is designated as Instinct Driver version 30.10. See the [ROCm Gets Modular: Meet the Instinct Datacenter GPU Driver](https://rocm.blogs.amd.com/ecosystems-and-partners/instinct-gpu-driver/README.html) blog and [User and kernel-space support matrix](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/user-kernel-space-compat-matrix.html) for more information.
 
 [AMD SMI](https://github.com/ROCm/amdsmi) continues to stay with the ROCm software stack under the ROCm organization repository.
 
@@ -2364,6 +2364,10 @@ Compiling from a device kernel or function results in failure when attempting to
 ### Segmentation fault in ROCprofiler-SDK due to ABI mismatch affecting std::regex
 
 Starting with GCC 5.1, GNU `libstdc++` introduced a dual Application Binary Interface (ABI) to adopt `C++11`, primarily affecting the `std::string` and its dependencies, including `std::regex`. If your code is compiled against headers expecting one ABI but linked or run with the other, it can cause problems with `std::string` and `std::regex`, leading to a segmentation fault in ROCprofiler-SDK, which uses `std::regex`. This issue is resolved in the [ROCm Systems `develop` branch](https://github.com/ROCm/rocm-systems) and will be part of a future ROCm release.
+
+### Decline in performance of batched GEMM operation for applications using hipBLASLT kernels
+
+Default batched General Matrix Multiplications (GEMM) operations for rocBLAS and hipBLAS on gfx1200 and gfx1201 may have a decline in performance in comparison with non-batched and strided_batched GEMM operations. By default, the batched GEMM uses hipBLASLT kernels, and switching to the Tensile kernel resolves the performance decline issue. The issue will be fixed in a future ROCm release. As a workaround, you can set the environment variable `ROCBLAS_USE_HIPBLASLT=0` before the batched GEMM operation is performed on gfx1200 and gfx1201. After completing the batched operation, reset the variable to `ROCBLAS_USE_HIPBLASLT=1` before calling non-batched or strided_batched.
 
 ## ROCm resolved issues
 
