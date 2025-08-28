@@ -45,7 +45,6 @@ ROCm 7.0.0 adds support for [AMD Instinct MI355X](https://www.amd.com/en/product
 ROCm 7.0.0 adds support for the following operating systems and kernel versions:
 
 * Ubuntu 24.04.3 (kernel: 6.8 [GA], 6.14 [HWE])
-* Oracle Linux 10 (kernel: 6.12.0 UEK)
 * Rocky Linux 9 (kernel: 5.14.0-570)
 
 ROCm 7.0.0 marks the end of support (EoS) for Ubuntu 24.04.2 (kernel: 6.8 [GA], 6.11 [HWE]) and SLES 15 SP6.
@@ -121,7 +120,7 @@ ROCm 7.0 enables support for Triton 3.3.0.
 
 ### Instinct Driver/ROCm packaging separation
 
-The Instinct Driver is now distributed separately from the ROCm software stack and is stored under in its own location ``/amdgpu/`` in the package repository at [repo.radeon.com](https://repo.radeon.com/amdgpu/). The first release is designated as Instinct Driver version 30.10. See the [ROCm Gets Modular: Meet the Instinct Datacenter GPU Driver](https://rocm.blogs.amd.com/ecosystems-and-partners/instinct-gpu-driver/README.html) blog for more information.
+The Instinct Driver is now distributed separately from the ROCm software stack and is stored under in its own location ``/amdgpu/`` in the package repository at [repo.radeon.com](https://repo.radeon.com/amdgpu/). The first release is designated as Instinct Driver version 30.10. See the [ROCm Gets Modular: Meet the Instinct Datacenter GPU Driver](https://rocm.blogs.amd.com/ecosystems-and-partners/instinct-gpu-driver/README.html) blog and [User and kernel-space support matrix](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/user-kernel-space-compat-matrix.html)for more information.
 
 [AMD SMI](https://github.com/ROCm/amdsmi) continues to stay with the ROCm software stack under the ROCm organization repository.
 
@@ -295,7 +294,7 @@ See the [ROCprofiler-SDK changelog](#rocprofiler-sdk-1-0-0) for more details.
 
 The ROCm Offline Installer Creator 7.0.0 includes the following features and improvements:
  
-* Added support for Oracle 10.0, and Rocky Linux 9.6.
+* Added support for Rocky Linux 9.6.
 * Added support for the new graphics repo structure for graphics/Mesa related packages.
 * Improvements to kernel header version matching for AMDGPU driver installation.
 * Added support for creating an offline installer when the kernel version of the target operating system differs from the operating system of the host creating the installer (for Ubuntu 22.04 and 24.04 only).
@@ -306,7 +305,7 @@ See [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-
 
 The ROCm Runfile Installer 7.0.0 adds the following features and improvements:
  
-* Added support for Oracle 10.0, and Rocky Linux 9.6.
+* Added support for Rocky Linux 9.6.
 * Added `untar` mode for the `.run` file to allow extraction of ROCm to a given directory, similar to a normal tarball.
 * Added an RVS test script.
 * Fixes to the rocm-examples test script.
@@ -2349,6 +2348,22 @@ issues related to individual components, review the [Detailed component changes]
 ### A memory error in the kernel might lead to applications using the ROCr library being unresponsive
 
 Applications using the ROCr library may become unresponsive if a memory error occurs in the launched kernel when the queue from which it was launched is destroyed. The application is unable to receive further signal, resulting in the stall condition. The issue will be fixed in a future ROCm release.
+
+### Applications using stream capture APIs may fail during stream capture
+
+Applications using ``hipLaunchHostFunc`` with stream capture APIs may fail to capture graphs during stream capture, and return `hipErrorStreamCaptureUnsupported`. This issue resulted from an update in ``hipStreamAddCallback``. This issue will be fixed in a future ROCm release.
+
+### Compilation failure via hipRTC when compiling with std=c++11
+
+Applications compiling kernels using `hipRTC` might fail while passing the `std=c++11` compiler option. This issue will be fixed in a future ROCm release. 
+
+### Compilation failure when referencing std::array if _GLIBCXX_ASSERTIONS is defined
+
+Compiling from a device kernel or function results in failure when attempting to reference `std::array` if `_GLIBCXX_ASSERTIONS` is defined. The issue occurs because there's no device definition for `std::__glibcxx_asert_fail()`. This issue will be resolved in a future ROCm release with the implementation of `std::__glibcxx_assert_fail()`.
+
+### Segmentation fault in ROCprofiler-SDK due to ABI mismatch affecting std::regex
+
+Starting with GCC 5.1, GNU `libstdc++` introduced a dual Application Binary Interface (ABI) to adopt `C++11`, primarily affecting the `std::string` and its dependencies, including `std::regex`. If your code is compiled against headers expecting one ABI but linked or run with the other, it can cause problems with `std::string` and `std::regex`, leading to a segmentation fault in ROCprofiler-SDK, which uses `std::regex`. This issue is resolved in the [ROCm Systems `develop` branch](https://github.com/ROCm/rocm-systems) and will be part of a future ROCm release.
 
 ## ROCm resolved issues
 

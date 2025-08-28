@@ -31,7 +31,7 @@ compatibility and system requirements.
       ,"RHEL 9.6, 9.4","RHEL 9.6, 9.4","RHEL 9.5, 9.4"
       ,RHEL 8.10,RHEL 8.10,RHEL 8.10
       ,SLES 15 SP7,"SLES 15 SP7, SP6","SLES 15 SP6, SP5"
-      ,"Oracle Linux 10, 9, 8 [#ol-700-mi300x]_","Oracle Linux 9, 8 [#ol-mi300x]_",Oracle Linux 8.10 [#ol-mi300x]_
+      ,"Oracle Linux 9, 8 [#ol-700-mi300x]_,"Oracle Linux 9, 8 [#ol-mi300x]_",Oracle Linux 8.10 [#ol-mi300x]_
       ,Debian 12,Debian 12 [#single-node]_,
       ,Azure Linux 3.0 [#az-mi300x]_,Azure Linux 3.0 [#az-mi300x]_,
       ,Rocky Linux 9,,
@@ -74,7 +74,7 @@ compatibility and system requirements.
       CUB,2.6.0,2.5.0,2.3.2
       ,,,
       KMD & USER SPACE [#kfd_support]_,.. _kfd-userspace-support-compatibility-matrix:,,
-      :doc:`KMD versions <rocm-install-on-linux:reference/user-kernel-space-compat-matrix>`,"7.0.x, 6.4.x, 6.3.x, 6.2.x","6.4.x, 6.3.x, 6.2.x, 6.1.x","6.4.x, 6.3.x, 6.2.x, 6.1.x"
+      :doc:`KMD versions <rocm-install-on-linux:reference/user-kernel-space-compat-matrix>`,"30.10, 6.4.x, 6.3.x, 6.2.x","6.4.x, 6.3.x, 6.2.x, 6.1.x","6.4.x, 6.3.x, 6.2.x, 6.1.x"
       ,,,
       ML & COMPUTER VISION,.. _mllibs-support-compatibility-matrix:,,
       :doc:`Composable Kernel <composable_kernel:index>`,1.1.0,1.1.0,1.1.0
@@ -159,7 +159,7 @@ compatibility and system requirements.
 
 .. rubric:: Footnotes
 
-.. [#ol-700-mi300x] **For ROCm 7.0** - Oracle Linux 10 and 9 are supported only on AMD Instinct MI300X, MI350X, and MI355X. Oracle Linux 8 is only supported on AMD Instinct MI300X.
+.. [#ol-700-mi300x] **For ROCm 7.0** - Oracle Linux 9 is supported only on AMD Instinct MI300X, MI350X, and MI355X. Oracle Linux 8 is only supported on AMD Instinct MI300X.
 .. [#ol-mi300x] **Prior ROCm 7.0** - Oracle Linux is only on AMD Instinct MI300X.
 .. [#single-node] Debian 12 is supported only on AMD Instinct MI300X for single-node functionality.
 .. [#az-mi300x] Starting ROCm 6.4.0, Azure Linux 3.0 is supported only on AMD Instinct MI300X and AMD Radeon PRO V710.
@@ -199,8 +199,7 @@ Use this lookup table to confirm which operating system and kernel versions are 
    ,,
    `Rocky Linux <https://wiki.rockylinux.org/rocky/version/>`_, 9, 5.14.0-570, 2.34
    ,,
-   `Oracle Linux <https://blogs.oracle.com/scoter/post/oracle-linux-and-unbreakable-enterprise-kernel-uek-releases>`_, 10, 6.12.0 (UEK), 2.39
-   ,9, 6.12.0 (UEK), 2.34
+   `Oracle Linux <https://blogs.oracle.com/scoter/post/oracle-linux-and-unbreakable-enterprise-kernel-uek-releases>`_, 9, 6.12.0 (UEK), 2.34
    ,8, 5.15.0 (UEK), 2.28
    ,,
    `Debian <https://www.debian.org/download>`_,12, 6.1.0, 2.36
@@ -238,7 +237,7 @@ Expand for full historical view of:
 
    .. rubric:: Footnotes
 
-   .. [#ol-700-mi300x-past-60] **For ROCm 7.0** - Oracle Linux 10 and 9 are supported only on AMD Instinct MI300X, MI350X, and MI355X. Oracle Linux 8 is only supported on AMD Instinct MI300X.
+   .. [#ol-700-mi300x-past-60] **For ROCm 7.0** - Oracle Linux 9 is supported only on AMD Instinct MI300X, MI350X, and MI355X. Oracle Linux 8 is only supported on AMD Instinct MI300X.
    .. [#mi300x-past-60] **Prior ROCm 7.0** - Oracle Linux is supported only on AMD Instinct MI300X.
    .. [#single-node-past-60] Debian 12 is supported only on AMD Instinct MI300X for single-node functionality.
    .. [#az-mi300x-past-60] Starting ROCm 6.4.0, Azure Linux 3.0 is supported only on AMD Instinct MI300X and AMD Radeon PRO V710.
