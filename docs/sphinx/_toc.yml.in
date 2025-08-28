@@ -125,7 +125,7 @@ subtrees:
   - file: how-to/setting-cus
     title: Set the number of CUs
   - file: how-to/Bar-Memory.rst
-    title: Troubleshoot BAR access limitation  
+    title: Troubleshoot BAR access limitation
   - url: https://github.com/amd/rocm-examples
     title: ROCm examples
 
@@ -145,7 +145,9 @@ subtrees:
           - url: https://www.amd.com/content/dam/amd/en/documents/instinct-tech-docs/white-papers/amd-cdna-3-white-paper.pdf
             title: White paper
           - file: conceptual/gpu-arch/mi300-mi200-performance-counters.rst
-            title: MI300 and MI200 Performance counter
+            title: MI300 and MI200 performance counters
+          - file: conceptual/gpu-arch/mi350-performance-counters.rst
+            title: MI350 series performance counters
       - file: conceptual/gpu-arch/mi250.md
         title: MI250 microarchitecture
         subtrees:
