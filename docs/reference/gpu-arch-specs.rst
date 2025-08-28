@@ -33,6 +33,7 @@ For more information about ROCm hardware compatibility, see the ROCm `Compatibil
           - VGPR File (KiB)
           - SGPR File (KiB)
           - GFXIP Major version
+          - GFXIP Minor version
         *
           - MI355X
           - CDNA4

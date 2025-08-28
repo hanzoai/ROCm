@@ -31,7 +31,7 @@ compatibility and system requirements.
       ,"RHEL 9.6, 9.4","RHEL 9.6, 9.4","RHEL 9.5, 9.4"
       ,RHEL 8.10,RHEL 8.10,RHEL 8.10
       ,SLES 15 SP7,"SLES 15 SP7, SP6","SLES 15 SP6, SP5"
-      ,"Oracle Linux 9, 8 [#ol-700-mi300x]_,"Oracle Linux 9, 8 [#ol-mi300x]_",Oracle Linux 8.10 [#ol-mi300x]_
+      ,"Oracle Linux 9, 8 [#ol-700-mi300x]_","Oracle Linux 9, 8 [#ol-mi300x]_",Oracle Linux 8.10 [#ol-mi300x]_
       ,Debian 12,Debian 12 [#single-node]_,
       ,Azure Linux 3.0 [#az-mi300x]_,Azure Linux 3.0 [#az-mi300x]_,
       ,Rocky Linux 9,,
@@ -145,7 +145,6 @@ compatibility and system requirements.
       :doc:`ROCr Debug Agent <rocr_debug_agent:index>`,2.1.0,2.0.4,2.0.3
       ,,,
       COMPILERS,.. _compilers-support-compatibility-matrix:,,
-      `clang-ocl <https://github.com/ROCm/clang-ocl>`_,N/A,N/A,N/A
       :doc:`hipCC <hipcc:index>`,1.1.1,1.1.1,1.1.1
       `Flang <https://github.com/ROCm/flang>`_,20.0.0.25314,19.0.0.25224,18.0.0.24455
       :doc:`llvm-project <llvm-project:index>`,20.0.0.25314,19.0.0.25224,18.0.0.24491
