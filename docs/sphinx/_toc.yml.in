@@ -180,7 +180,7 @@ subtrees:
   - file: reference/gpu-arch-specs.rst
   - file: reference/gpu-atomics-operation.rst
   - file: reference/precision-support.rst
-    title: Precision support
+    title: Data types and precision support
   - file: reference/graph-safe-support.rst
     title: Graph safe support
 
