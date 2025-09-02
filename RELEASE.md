@@ -138,7 +138,9 @@ The HIP runtime now includes support for:
 * `__syncwarp` operation.
 * The `_sync()` version of crosslane builtins such as `shfl_sync()` are enabled by default. These can be disabled by setting the preprocessor macro `HIP_DISABLE_WARP_SYNC_BUILTINS`.
 * Added warp level primitives: `__syncwarp` and reduce intrinsics (for example, `__reduce_add_sync()`).
-* Extended fine grained system memory pool.
+* Support for the flags in APIs as following, now allows uncached memory allocation.
+    - `hipExtHostRegisterUncached`, used in `hipHostRegister`.
+    - `hipHostMallocUncached` and `hipHostAllocUncached`, used in `hipHostMalloc` and `hipHostAlloc`.
 * A new attribute in HIP runtime was implemented which exposes a new device capability of how many compute dies (chiplets, xcc) are available on a given GPU. Developers can get this attribute via the API `hipDeviceGetAttribute`, to make use of the best cache locality in a kernel, and optimize the Kernel launch grid layout, for performance improvement.
 
 Additionally, the HIP runtime includes functional improvements, which improve functionality, runtime performance, and the user experience. For more information, see [HIP changelog](#hip-7-0-0) below.
