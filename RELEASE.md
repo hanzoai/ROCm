@@ -124,6 +124,15 @@ The Instinct Driver is now distributed separately from the ROCm software stack a
 
 [AMD SMI](https://github.com/ROCm/amdsmi) continues to stay with the ROCm software stack under the ROCm organization repository.
 
+### Consolidation of ROCm library repositories
+
+The following ROCm library repositories are migrating from multiple repositories under {fab}`github` [ROCm](https://github.com/ROCm) to a single repository under {fab}`github` [rocm-libraries](https://github.com/ROCm/rocm-libraries) in the ROCm organization GitHub: [hipBLAS](https://github.com/ROCm/rocm-libraries/tree/develop/projects/hipblas), [hipBLASLt](https://github.com/ROCm/rocm-libraries/tree/develop/projects/hipblaslt)
+, [hipCUB](https://github.com/ROCm/rocm-libraries/tree/develop/projects/hipcub), [hipFFT](https://github.com/ROCm/rocm-libraries/tree/develop/projects/hipfft), [hipRAND](https://github.com/ROCm/rocm-libraries/tree/develop/projects/hiprand), [hipSPARSE](https://github.com/ROCm/rocm-libraries/tree/develop/projects/hipsparse), [hipSPARSELt](https://github.com/ROCm/rocm-libraries/tree/develop/projects/hipsparselt), [MIOpen](https://github.com/ROCm/rocm-libraries/tree/develop/projects/miopen), [rocBLAS](https://github.com/ROCm/rocm-libraries/tree/develop/projects/rocblas), [rocFFT](https://github.com/ROCm/rocm-libraries/tree/develop/projects/rocfft), [rocPRIM](https://github.com/ROCm/rocm-libraries/tree/develop/projects/rocprim), [rocRAND](https://github.com/ROCm/rocm-libraries/tree/develop/projects/rocrand), [rocSPARSE](https://github.com/ROCm/rocm-libraries/tree/develop/projects/rocsparse), [rocThrust](https://github.com/ROCm/rocm-libraries/tree/develop/projects/rocthrust), and [Tensile](https://github.com/ROCm/rocm-libraries/tree/develop/shared/tensile).
+
+Use the new ROCm Libraries repository to access source code, clone projects, and contribute to the code base and documentation.The change helps to streamline development, CI, and integration. For more information about working with the ROCm Libraries repository, see [Contributing to the ROCm Libraries](https://github.com/ROCm/rocm-libraries/blob/develop/CONTRIBUTING.md) in GitHub.
+ 
+Other ROCm libraries are also in the process of migration along with ROCm tools to {fab}`github` [rocm-systems](https://github.com/ROCm/rocm-systems). For latest status information, see the [README file](https://github.com/ROCm/rocm-systems/blob/develop/README.md). The official completion of migration will be communicated in a future ROCm release.
+
 ### HIP API compatibility improvements
 
 To improve code portability between AMD ROCm and other programming models, HIP API has been updated in ROCm 7.0 to simplify cross-platform programming. These changes are incompatible with prior ROCm releases and might require recompiling existing HIP applications for use with ROCm 7.0. For more information, see the [HIP API 7.0 changes](https://rocm.docs.amd.com/projects/HIP/en/docs-develop/hip-7-changes.html) and the [HIP changelog](#hip-7-0-0) below.
@@ -1862,6 +1871,7 @@ See the full [ROCm SMI changelog](https://github.com/ROCm/rocm_smi_lib/blob/rele
 
 - Replaced ROCm SMI backend with AMD SMI backend for collecting GPU metrics.
 - ROCprofiler-SDK is now used to trace RCCL API and collect communication counters.
+  - Use the setting `ROCPROFSYS_USE_RCCLP = ON` to enable profiling and tracing of RCCL application data.
 - Updated the Dyninst submodule to v13.0.
 - Set the default value of `ROCPROFSYS_SAMPLING_CPUS` to `none`.
 
@@ -2344,13 +2354,13 @@ The previous default accumulator types could lead to situations in which unexpec
 ROCm known issues are noted on {fab}`github` [GitHub](https://github.com/ROCm/ROCm/labels/Verified%20Issue). For known
 issues related to individual components, review the [Detailed component changes](#detailed-component-changes).
 
-### A memory error in the kernel might lead to applications using the ROCr library being unresponsive
+### A memory error in the kernel might lead to applications using the ROCr library becoming unresponsive
 
-Applications using the ROCr library may become unresponsive if a memory error occurs in the launched kernel when the queue from which it was launched is destroyed. The application is unable to receive further signal, resulting in the stall condition. The issue will be fixed in a future ROCm release.
+Applications using the ROCr library might become unresponsive if a memory error occurs in the launched kernel when the queue from which it was launched is destroyed. The application is unable to receive further signal, resulting in the stall condition. The issue will be fixed in a future ROCm release.
 
-### Applications using stream capture APIs may fail during stream capture
+### Applications using stream capture APIs might fail during stream capture
 
-Applications using ``hipLaunchHostFunc`` with stream capture APIs may fail to capture graphs during stream capture, and return `hipErrorStreamCaptureUnsupported`. This issue resulted from an update in ``hipStreamAddCallback``. This issue will be fixed in a future ROCm release.
+Applications using ``hipLaunchHostFunc`` with stream capture APIs might fail to capture graphs during stream capture, and return `hipErrorStreamCaptureUnsupported`. This issue resulted from an update in ``hipStreamAddCallback``. This issue will be fixed in a future ROCm release.
 
 ### Compilation failure via hipRTC when compiling with std=c++11
 
@@ -2375,7 +2385,7 @@ individual components, review the [Detailed component changes](#detailed-compone
 
 ### Failure when using a generic target with compression and vice versa
 
-An issue where compiling of a generic target with compression failing has been resolved in this release. This issue prevented you from compiling a generic target and using compression simultaneously. See [GitHub issue #4602](https://github.com/ROCm/ROCm/issues/4602).
+An issue where compiling a generic target resulted in compression failing has been resolved in this release. This issue prevented you from compiling a generic target and using compression simultaneously. See [GitHub issue #4602](https://github.com/ROCm/ROCm/issues/4602).
 
 ### Limited support for Sparse API and Pallas functionality in JAX
 
@@ -2383,7 +2393,7 @@ An issue where due to limited support for Sparse API in JAX, some of the functio
 
 ### Failure to use –kokkos-trace option in ROCm Compute Profiler
 
-An issue where using of the ``--kokkos-trace`` option resulted in a difference between the output of the ``--kokkos-trace`` and the ``counter_collection.csv`` output file has been resolved. Due to this issue the program used to exit with a warning message if the ``-kokkos-trace`` option was detected in the ROCm Compute Profiler. This issue resulted due to the partial implementation of ``--kokkos-trace`` in ``rocprofv3`` tool. See [GitHub issue #4604](https://github.com/ROCm/ROCm/issues/4604).
+An issue where using of the ``--kokkos-trace`` option resulted in a difference between the output of the ``--kokkos-trace`` and the ``counter_collection.csv`` output file has been resolved. Due to this issue, the program exited with a warning message if the ``-kokkos-trace`` option was detected in the ROCm Compute Profiler. This issue was due to the partial implementation of ``--kokkos-trace`` in ``rocprofv3`` tool. See [GitHub issue #4604](https://github.com/ROCm/ROCm/issues/4604).
 
 ## ROCm upcoming changes
 
