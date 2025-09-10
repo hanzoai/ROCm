@@ -720,20 +720,19 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
   - Increased available JPEG engines to 40. Current ASICs might not support all 40. These are indicated as `UINT16_MAX` or `N/A` in CLI.
 
 * Bad page threshold count.
-  - Added `amdsmi_get_gpu_bad_page_threshold` to Python API and CLI; root/sudo permissions required to display the count.
+  - Added `amdsmi_get_gpu_bad_page_threshold` to Python API and CLI; root/sudo permissions are required to display the count.
 
 * CPU model name for RDC.
   - Added new C and Python API `amdsmi_get_cpu_model_name`.
   - Not sourced from esmi library.
 
-* Added `amdsmi_get_cpu_affinity_with_scope()`.
+* New API `amdsmi_get_cpu_affinity_with_scope()`.
 
 * `socket power` to `amdsmi_get_power_info`
-  - Previously the C API had the value in the `amdsmi_power_info` structure, but was unused
-  - Now we populate the value in both C and Python APIs
+  - Previously, the C API had the value in the `amdsmi_power_info` structure, but was unused.
   - The value is representative of the socket's power agnostic of the the GPU version.
 
-* New event notification types to `amdsmi_evt_notification_type_t`.  
+* New event notification types to `amdsmi_evt_notification_type_t`.
   The following values were added to the `amdsmi_evt_notification_type_t` enum:
   - `AMDSMI_EVT_NOTIF_EVENT_MIGRATE_START`
   - `AMDSMI_EVT_NOTIF_EVENT_MIGRATE_END`
@@ -745,7 +744,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
   - `AMDSMI_EVT_NOTIF_PROCESS_START`
   - `AMDSMI_EVT_NOTIF_PROCESS_END`
 
-- Power cap to `amd-smi monitor`.  
+- Power cap to `amd-smi monitor`.
   - `amd-smi monitor -p` will display the power cap along with power.
 
 #### Changed
@@ -753,7 +752,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 * Separated driver reload functionality from `amdsmi_set_gpu_memory_partition()` and
   `amdsmi_set_gpu_memory_partition_mode()` APIs -- and from the CLI `amd-smi set -M <NPS mode>`.
 
-* Disabled `amd-smi monitor --violation` on guest. Modified `amd-smi metric --throttle` to alias to `amd-smi metric --violation`.
+* Disabled `amd-smi monitor --violation` on guests. Modified `amd-smi metric -T/--throttle` to alias to `amd-smi metric -v/--violation`.
 
 * Updated `amdsmi_get_clock_info` in `amdsmi_interface.py`.
   - The `clk_deep_sleep` field now returns the sleep integer value.
@@ -774,12 +773,16 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
       - `acc_low_utilization`, `per_low_utilization`, `active_low_utilization`
   - Python API and CLI now report these expanded fields.
 
-* The char arrays in the following structures have been changed.  
+* The char arrays in the following structures have been changed.
   - `amdsmi_vbios_info_t` member `build_date` changed from `AMDSMI_MAX_DATE_LENGTH` to `AMDSMI_MAX_STRING_LENGTH`.
   - `amdsmi_dpm_policy_entry_t` member `policy_description` changed from `AMDSMI_MAX_NAME` to `AMDSMI_MAX_STRING_LENGTH`.
   - `amdsmi_name_value_t` member `name` changed from `AMDSMI_MAX_NAME` to `AMDSMI_MAX_STRING_LENGTH`.
 
 * For backwards compatibility, updated `amdsmi_bdf_t` union to have an identical unnamed struct.
+
+* Updated `amdsmi_get_temp_metric` and `amdsmi_temperature_type_t` with new values.
+  - Added new values to `amdsmi_temperature_type_t` representing various baseboard and GPU board temperature measures.
+  - Updated `amdsmi_get_temp_metric` API to be able to take in and return the respective values for the new temperature types.
 
 #### Removed
 
@@ -793,9 +796,9 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 - Unused member `year` in struct `amdsmi_version_t`.
 
-- `amdsmi_io_link_type_t` and replaced with `amdsmi_link_type_t`.
+- `amdsmi_io_link_type_t` has been replaced with `amdsmi_link_type_t`.
   - `amdsmi_io_link_type_t` is no longer needed as `amdsmi_link_type_t` is sufficient.
-  - `amdsmi_link_type_t` enum has changed.
+  - `amdsmi_link_type_t` enum has changed; primarily, the ordering of the PCI and XGMI types.
   - This change will also affect `amdsmi_link_metrics_t`, where the link_type field changes from `amdsmi_io_link_type_t` to `amdsmi_link_type_t`.
 
 - `amdsmi_get_power_info_v2()`.
@@ -820,7 +823,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 - Removed partition information from the default `amd-smi static` CLI command.
   - Users can still retrieve the same data by calling `amd-smi`, `amd-smi static -p`, or `amd-smi partition -c -m`/`sudo amd-smi partition -a`.
-  - Reading ``current_compute_partition`` may momentarily wake the GPU up. This is due to reading XCD registers, which is expected behavior. Changing partitions is not a trivial operation, `current_compute_partition` SYSFS controls this action.
+  - Reading `current_compute_partition` may momentarily wake the GPU up. This is due to reading XCD registers, which is expected behavior. Changing partitions is not a trivial operation, `current_compute_partition` SYSFS controls this action.
 
 - Optimized CLI command `amd-smi topology` in partition mode.
   - Reduced the number of `amdsmi_topo_get_p2p_status` API calls to one fourth.
@@ -830,6 +833,10 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 - Removed duplicated GPU IDs when receiving events using the `amd-smi event` command.
 
 - Fixed `amd-smi monitor` decoder utilization (`DEC%`) not showing up on MI300 series ASICs.
+
+#### Known issues
+
+- `amd-smi monitor` on Linux Guest systems triggers an attribute error.
 
 ```{note}
 See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/rocm-rel-7.0/CHANGELOG.md) for details, examples, and in-depth descriptions.
