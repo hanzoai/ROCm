@@ -328,6 +328,28 @@ For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/pro
 
 ROCm documentation continues to be updated to provide clearer and more comprehensive guidance for a wider variety of user needs and use cases.
 
+* The ROCm AI [training](https://rocm.docs.amd.com/en/latest/how-to/rocm-for-ai/training/index.html) and
+  [inference](https://rocm.docs.amd.com/en/latest/how-to/rocm-for-ai/inference/index.html)
+  benchmarking guides have been updated with expanded model coverage and 
+  optimized Docker environments. Highlights include:
+
+  * The [Training a model with Primus and Megatron](https://rocm.docs.amd.com/en/latest/how-to/rocm-for-ai/training/benchmark-docker/primus-megatron.html) benchmarking guide
+    now leverages the unified AMD Primus framework with the Megatron backend. See [Primus: A Lightweight, Unified Training Framework for Large Models on AMD
+    GPUs](https://rocm.blogs.amd.com/software-tools-optimization/primus/README.html) for an introduction to Primus.
+
+  * The [Training a model with PyTorch](https://rocm.docs.amd.com/en/latest/how-to/rocm-for-ai/training/benchmark-docker/pytorch-training.html) benchmarking guide
+    now includes fine-tuning for OpenAI GPT OSS and Qwen models. It also includes a multi-node training example.
+
+  * The [Training a model with JAX MaxText](https://rocm.docs.amd.com/en/latest/how-to/rocm-for-ai/training/benchmark-docker/pytorch-training.html) benchmarking guide
+    now supports [MAD](https://github.com/ROCm/MAD)-integrated benchmarking. The MaxText training environment now uses JAX 0.6.0 or 0.5.0. FP8 quantized training is supported with JAX 0.5.0.
+
+  * The [vLLM inference performance testing](https://rocm.docs.amd.com/en/latest/how-to/rocm-for-ai/inference/benchmark-docker/vllm.html) documentation
+    now features clearer serving and throughput benchmarking commands -- for improved transparency of model benchmarking configurations. The vLLM inference
+    environment now uses vLLM 0.10.1 and includes improved default configurations.
+
+  These training and inference resources will continue to grow with ongoing improvements and expanded model coverage.
+  For a searchable view of supported frameworks and models, see [AMD Infinity Hub](https://www.amd.com/en/developer/resources/infinity-hub.html).
+
 * [Tutorials for AI developers](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/) have been expanded with the following new inference tutorial: [PD disaggregation with SGLang](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU.html)
  
   In addition, the [AI agent with MCPs using vLLM and PydanticAI](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/inference/build_airbnb_agent_mcp.html) tutorial has been updated. For more information about the changes, see [Changelog for the AI Developer Hub](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/changelog.html).
