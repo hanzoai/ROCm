@@ -358,25 +358,49 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
 
 * ROCm Math libraries support a wide range of data types, enabling optimized performance across various precision requirements. The following Math libraries are now updated with new precision content. For more information, click the Math library’s link:
 
-    * [hipBLAS](https://rocm.docs.amd.com/projects/hipBLAS/en/develop/reference/data-type-support.html)
-    * [hipBLASLt](https://rocm.docs.amd.com/projects/hipBLASLt/en/develop/reference/data-type-support.html)
-    * [hipSPARSE](https://rocm.docs.amd.com/projects/hipSPARSE/en/develop/reference/precision.html)
-    * [rocSPARSE](https://rocm.docs.amd.com/projects/rocSPARSE/en/develop/reference/precision.html)
-    * [Tensile](https://rocm.docs.amd.com/projects/Tensile/en/develop/src/reference/precision-support.html#precision-support)
+  ::::{grid} 2
+  :margin: auto 0 auto auto
+  :::{grid}
+  :margin: auto 0 auto auto
+  * [hipBLAS](https://rocm.docs.amd.com/projects/hipBLAS/en/develop/reference/data-type-support.html)
+  * [hipBLASLt](https://rocm.docs.amd.com/projects/hipBLASLt/en/develop/reference/data-type-support.html)
+  * [hipSPARSE](https://rocm.docs.amd.com/projects/hipSPARSE/en/develop/reference/precision.html)
+  :::
+  :::{grid}
+  :margin: auto 0 auto auto
+  * [rocSPARSE](https://rocm.docs.amd.com/projects/rocSPARSE/en/develop/reference/precision.html)
+  * [Tensile](https://rocm.docs.amd.com/projects/Tensile/en/develop/src/reference/precision-support.html#precision-support)
+  :::
+  ::::
 
 * ROCm offers a comprehensive ecosystem for deep learning development, featuring libraries optimized for deep learning operations and ROCm-aware versions of popular deep learning frameworks and libraries. The following deep learning frameworks' content now includes release notes and known issues:
 
-    * [PyTorch](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/pytorch-compatibility.html)
-    * [JAX](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/jax-compatibility.html)
+  ::::{grid} 1
+  :margin: auto 0 auto auto
+  :::{grid-item}
+  :margin: auto 0 auto auto
+  * [PyTorch](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/pytorch-compatibility.html)
+  * [JAX](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/jax-compatibility.html)
+  :::
+  ::::
 
 * ROCm components support a wide range of environment variables that can be used for testing, logging, debugging, experimental features, and more. The following components have been updated with new environment variable content. For more information, click the component’s link:
 
-    * [hipBLASLt](https://rocm.docs.amd.com/projects/hipBLASLt/en/develop/reference/env-variables.html)
-    * [hipSPARSELt](https://rocm.docs.amd.com/projects/hipSPARSELt/en/develop/reference/env-variables.html)
-    * [ROCm Performance Primitives (RPP)](https://rocm.docs.amd.com/projects/rpp/en/develop/reference/rpp-env-variables.html)
-    * [rocSOLVER](https://rocm.docs.amd.com/projects/rocSOLVER/en/develop/reference/env_variables.html)
-    * [rocSPARSE](https://rocm.docs.amd.com/projects/rocSPARSE/en/develop/reference/env_variables.html)
-    * [Tensile](https://rocm.docs.amd.com/projects/Tensile/en/develop/src/reference/environment-variables.html)
+  ::::{grid} 2
+  :margin: auto 0 auto auto
+  :::{grid-item}
+  :margin: auto 0 auto auto
+  * [hipBLASLt](https://rocm.docs.amd.com/projects/hipBLASLt/en/develop/reference/env-variables.html)
+  * [hipSPARSELt](https://rocm.docs.amd.com/projects/hipSPARSELt/en/develop/reference/env-variables.html)
+  * [ROCm Performance Primitives (RPP)](https://rocm.docs.amd.com/projects/rpp/en/develop/reference/rpp-env-variables.html)
+  :::
+  :::{grid-item}
+  :margin: auto 0 auto auto
+  * [rocSOLVER](https://rocm.docs.amd.com/projects/rocSOLVER/en/develop/reference/env_variables.html)
+  * [rocSPARSE](https://rocm.docs.amd.com/projects/rocSPARSE/en/develop/reference/env_variables.html)
+  * [Tensile](https://rocm.docs.amd.com/projects/Tensile/en/develop/src/reference/environment-variables.html)
+  :::
+  ::::
 
 * Modern computing tasks often require balancing numerical precision against hardware resources and processing speed. Low precision floating point number formats in HIP include `FP4` (4-bit) and `FP6` (6-bit), which reduce memory and bandwidth requirements. For more information, see the updated [Low precision floating point types](https://rocm.docs.amd.com/projects/HIP/en/docs-develop/reference/low_fp_types.html) topic.
 
