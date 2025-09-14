@@ -18,6 +18,8 @@ The release notes provide a summary of notable changes since the previous ROCm r
 
 - [Operating system, hardware, and virtualization support changes](#operating-system-hardware-and-virtualization-support-changes)
 
+- [User space, driver, and firmware dependent changes](#user-space-driver-and-firmware-dependent-changes)
+
 - [ROCm components versioning](#rocm-components)
 
 - [Detailed component changes](#detailed-component-changes)
@@ -57,9 +59,9 @@ for more information about operating system and hardware compatibility.
 
 #### Virtualization support
 
-ROCm 7.0 introduces support for KVM Passthrough for AMD Instinct MI350X and MI355X accelerators.
+ROCm 7.0 introduces support for KVM Passthrough for AMD Instinct MI350X and MI355X GPUs.
 
-All KVM-based SR-IOV supported configurations require the GIM SR-IOV driver version 8.4.0.K. In addition, support for VMware ESXi 8 has been introduced for select AMD accelerators. For more information, see  [Virtualization Support](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#virtualization-support).
+All KVM-based SR-IOV supported configurations require the GIM SR-IOV driver version 8.4.0.K. In addition, support for VMware ESXi 8 has been introduced for select AMD GPUs. For more information, see  [Virtualization Support](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#virtualization-support).
 
 ### Deep learning and AI framework updates
 
@@ -190,12 +192,12 @@ Key compiler enhancements include:
 
 #### New data type support
 
-MX-compliant data types bring microscaling support to ROCm. For more information, see the [OCP Microscaling (MX) Formats Specification](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf). ROCm 7.0 enables functional support for MX data types `FP4`, `FP6`, and `FP8` on AMD Instinct MI350 series accelerators in these ROCm libraries:
+MX-compliant data types bring microscaling support to ROCm. For more information, see the [OCP Microscaling (MX) Formats Specification](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf). ROCm 7.0 enables functional support for MX data types `FP4`, `FP6`, and `FP8` on AMD Instinct MI350 series GPUs in these ROCm libraries:
 
 *	Composable Kernel (`FP4`, `FP6`, and `FP8` only)
 *	hipBLASLt
 
-The following libraries are updated to support the Open Compute Project (OCP) floating-point `FP8` format on MI350 series accelerators instead of the NANOO `FP8` format:
+The following libraries are updated to support the Open Compute Project (OCP) floating-point `FP8` format on MI350 series GPUs instead of the NANOO `FP8` format:
 
 *	Composable Kernel
 *	hipBLASLt
@@ -213,7 +215,7 @@ For more information about hipBLASLt changes, see the [hipBLASLt changelog](#hip
 
 #### MIGraphX improvements
 
-*	Support for OCP `FP8` on AMD Instinct MI350X and MI355X accelerators.
+*	Support for OCP `FP8` on AMD Instinct MI350X and MI355X GPUs.
 *	Support for PyTorch 2.7 via Torch-MIGraphX.
 * Improved performance of Generative AI models. 
 * Added additional MSFT Contrib Operators for improved ONNX Runtime Experience. 
@@ -250,8 +252,8 @@ ROCm Compute Profiler includes the following key changes:
 * Support for AMD Instinct MI355X and MI350X with addition of performance counters: CPC, SPI, SQ, TA/TD/TCP, and TCC.
 * Roofline enhancement added for AMD Instinct MI350 series.
 * Improved support for Selective Kernel profiling.
-* Program Counter (PC) sampling (Software-based) feature has been enabled for AMD Instinct MI200, MI300X, MI350X, and MI355X accelerators. This feature helps in GPU profiling to understand code execution patterns and hotspots during GPU kernel execution. For more details, see [Using PC sampling in ROCm Compute Profiler](https://rocm.docs.amd.com/projects/rocprofiler-compute/en/amd-staging/how-to/pc_sampling.html).
-* Program Counter (PC) sampling (Hardware-based, Stochastic) feature has been enabled for AMD Instinct MI300X, MI350, and MI355X accelerators.
+* Program Counter (PC) sampling (Software-based) feature has been enabled for AMD Instinct MI200, MI300X, MI350X, and MI355X GPUs. This feature helps in GPU profiling to understand code execution patterns and hotspots during GPU kernel execution. For more details, see [Using PC sampling in ROCm Compute Profiler](https://rocm.docs.amd.com/projects/rocprofiler-compute/en/amd-staging/how-to/pc_sampling.html).
+* Program Counter (PC) sampling (Hardware-based, Stochastic) feature has been enabled for AMD Instinct MI300X, MI350, and MI355X GPUs.
 * Docker files has been added to package the application and dependencies into a single portable and executable standalone binary file.
 
 See the [ROCm Compute Profiler changelog](#rocm-compute-profiler-3-2-3) for more details.
@@ -271,7 +273,7 @@ ROCm Systems Profiler includes the following key changes:
 See the [ROCm Systems Profiler changelog](#rocm-systems-profiler-1-1-0) for more details.
 
 #### ROCm Validation Suite
-In ROCm 7.0, ROCm Validation Suite includes support for the AMD Instinct MI355X and MI350X accelerators in the IET (Integrated Execution Test), GST (GPU Stress Test), and Babel (memory bandwidth test) modules.
+In ROCm 7.0, ROCm Validation Suite includes support for the AMD Instinct MI355X and MI350X GPUs in the IET (Integrated Execution Test), GST (GPU Stress Test), and Babel (memory bandwidth test) modules.
 
 See the [ROCm Validation Suite changelog](#rocm-validation-suite-1-2-0) for more details.
 
@@ -280,8 +282,8 @@ See the [ROCm Validation Suite changelog](#rocm-validation-suite-1-2-0) for more
 ##### Core SDK enhancements
  
 * ROCprofiler-SDK is now compatible with the HIP 7.0 API.
-* ROCprofiler-SDK adds support for AMD Instinct MI350X and MI355X accelerators.
-* The stochastic and host-trap PC sampling support has been added for all AMD Instinct MI300 and MI350 series accelerators, which
+* ROCprofiler-SDK adds support for AMD Instinct MI350X and MI355X GPUs.
+* The stochastic and host-trap PC sampling support has been added for all AMD Instinct MI300 and MI350 series GPUs, which
 provides information particularly useful for understanding stalls during kernel execution.
 * The added support for tracing  events surfaced by AMD's Kernel Fusion Driver (KFD) captures low-level driver routines involved in mapping, invalidation, and migration of data between CPU and GPU memories. Such events are central to the support for [Unified Memory](https://rocm.docs.amd.com/projects/HIP/en/latest/how-to/hip_runtime_api/memory_management/unified_memory.html) on AMD systems. Tracing of KFD events helps to detect performance problems arising from excessive data migration.
 * New APIs are added for profiling applications using thread traces (beta)
@@ -295,7 +297,7 @@ efficient foundation for analysis and post-processing.
  
 ##### rocprofv3 CLI tool enhancements
  
-* Added stochastic and host-trap PC sampling support for all AMD Instinct MI300 and MI350 series accelerators.
+* Added stochastic and host-trap PC sampling support for all AMD Instinct MI300 and MI350 series GPUs.
 * HIP streams translate to Queues in Time Traces in Perfetto output.
 * Support for thread trace service.
 
@@ -403,6 +405,136 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
   ::::
 
 * Modern computing tasks often require balancing numerical precision against hardware resources and processing speed. Low precision floating point number formats in HIP include `FP4` (4-bit) and `FP6` (6-bit), which reduce memory and bandwidth requirements. For more information, see the updated [Low precision floating point types](https://rocm.docs.amd.com/projects/HIP/en/docs-develop/reference/low_fp_types.html) topic.
+
+## User space, driver, and firmware dependent changes
+
+GPU Software for AMD datacenter GPU products requires you to maintain a hardware and software stack with interdependencies between the GPU and baseboard firmware, AMD GPU drivers, and the ROCm user space software. Starting ROCm 7.0 release, we are publicly documenting these interdependencies. Note that while AMD publishes drivers and ROCm user space, your server or infrastructure provider publishes the GPU and baseboard firmware by bundling AMD’s firmware releases via AMD's Platform Level Data Model (PLDM) bundle (Firmware), which includes Integrated Firmware Image (IFWI).
+
+The GPU and baseboard firmware releases numbering may vary by GPU family. Note that, ROCm 7.0 release is the first release where the AMD GPU driver is versioned independently of ROCm.
+
+<div class="pst-scrollable-table-container">
+  <table class="table" align="left" valign="middle">
+    <thead>
+      <tr>
+          <th class="head">
+            <p>ROCm Version</p>
+          </th>
+          <th class="head">
+            <p>GPU</p>
+          </th>
+          <th class="head">
+            <p>PLDM Bundle (Firmware)</p>
+          </th>
+          <th class="head">
+            <p>AMD GPU Driver</p>
+          </th>
+          <th class="head">
+            <p>AMD GPU <br>
+              Virtualization Driver (GIM)</p>
+          </th>
+      </tr>
+    </thead>
+    <style>
+        tbody#virtualization-support-instinct tr:last-child {
+          border-bottom: 2px solid var(--pst-color-primary);
+        }
+    </style>
+      <tr>
+          <td rowspan="9" style="vertical-align: middle;">ROCm 7.0.0</td>
+          <td>MI355X</td>
+          <td>
+              01.25.13.04 (or later)<br>
+              01.25.11.02
+          </td>
+          <td>30.10</td>
+          <td rowspan="3" style="vertical-align: middle;">8.4.0.K</td>
+      </tr>
+      <tr>
+          <td>MI350X</td>
+          <td>
+              01.25.13.04 (or later)<br>
+              01.25.11.02
+          </td>
+          <td>30.10</td>
+      </tr>
+      <tr>
+          <td>MI325X</td>
+          <td>
+              01.25.04.00 (or later)<br>
+              01.25.03.03
+          </td>
+          <td>
+              30.10<br>
+              6.4.z where z (0-3)<br>
+              6.3.y where y (1-3)
+          </td>
+      </tr>
+      <tr>
+          <td>MI300X</td>
+          <td>01.25.03.02 (or later)</td>
+          <td rowspan="6" style="vertical-align: middle;">
+              30.10<br>
+              6.4.z where z (0–3)<br>
+              6.3.y where y (0–3)<br>
+              6.2.x where x (1–4)
+          </td>
+          <td>8.4.0.K</td>
+      </tr>
+      <tr>
+          <td>MI300A</td>
+          <td>26 (or later)</td>
+          <td rowspan="3" style="vertical-align: middle;">Not Applicable</td>
+      </tr>
+      <tr>
+          <td>MI250X</td>
+          <td>IFWI 47 (or later)</td>
+      </tr>
+      <tr>
+          <td>MI250</td>
+          <td>MU5 w/ IFWI 75 (or later)</td>
+      </tr>
+      <tr>
+          <td>MI210</td>
+          <td>MU5 w/ IFWI 75</td>
+          <td>8.4.0.K</td>
+      </tr>
+      <tr>
+          <td>MI100</td>
+          <td>VBIOS D3430401-037</td>
+          <td>Not Applicable</td>
+      </tr>
+  </table>
+</div>
+
+### New feature details
+
+#### AMD SMI changes dependent on PLDM bundles
+
+New APIs introduced in AMD SMI for ROCm 7.0 provide additional data for the AMD Instinct products. To support these features, the following firmware for each GPUs are required:
+
+* AMD Instinct MI355x - PLDM bundle 01.25.13.04
+
+* AMD Instinct MI350x - PLDM bundle 01.25.13.04
+
+* AMD Instinct MI325x - PLDM bundle 01.25.04.00
+
+* AMD Instinct MI300x - PLDM bundle 01.25.03.12
+
+If ROCm 7.0 is applied on system with prior version of PLDM bundles (firmware), the new APIs will return `N/A` to indicate lack of support for these items. 
+
+#### Enhanced temperature telemetry introduced in AMD SMI for MI355X and MI350X GPUs
+
+AMD SMI in ROCm 7.0 provides support for enhanced temperature metrics and temperature anomaly detection for AMD Instinct MI350X and MI355X GPUs when paired with: AMD Instinct MI355x/MI350X - PLDM bundle 01.25.13.04.
+
+For more information on these features, see [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/rocm-rel-7.0/CHANGELOG.md).
+
+#### KVM SR-IOV virtualization changes dependent on open source AMD GPU Virtualization Driver (GIM)
+
+KVM SR-IOV support for all Instinct GPUs require the open source AMD GPU Virtualization Driver (GIM) 8.4.0.K. For detailed support information, see [virtualization support](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#virtualization-support) and [GIM Release Note](https://github.com/amd/MxGPU-Virtualization/releases).
+
+#### GPU partitioning support for AMD Instinct MI355X and MI350X GPUs
+
+NPS2 and DPX partitioning on bare metal is enabled on AMD Instinct MI355X and MI350X GPUs on ROCm 7.0 when paired with: AMD Instinct MI355x/MI350X - PLDM bundle 01.25.13.04.
 
 ## ROCm components
 
@@ -1108,7 +1240,7 @@ HIP runtime has the following functional improvements which improves runtime per
 
 * Added the `hipblasSetWorkspace()` API.
 * Support for codecoverage tests.
-	
+  
 #### Changed
 
 * HIPBLAS_V2 API is the only available API using the `hipComplex` and `hipDatatype` types.
@@ -1256,9 +1388,9 @@ HIP runtime has the following functional improvements which improves runtime per
 #### Changed
 
 * Deprecated the hipRAND Fortran API in favor of hipfort.
-	
+  
 #### Removed
-	
+  
 * Removed C++14 support, so only C++17 is supported.
 
 ### **hipSOLVER** (3.0.0)
@@ -1270,7 +1402,7 @@ HIP runtime has the following functional improvements which improves runtime per
     * `hipsolverSpCcsrlsvqr`, `hipsolverSpZcsrlsvqr`
 
 #### Resolved issues
-	
+  
 * Corrected the value of `lwork` returned by various `bufferSize` functions to be consistent with NVIDIA cuSOLVER. The following functions now return `lwork` so that the workspace size (in bytes) is `sizeof(T) * lwork`, rather than `lwork`. To restore the original behavior, set the environment variable `HIPSOLVER_BUFFERSIZE_RETURN_BYTES`.
   * `hipsolverXorgbr_bufferSize`, `hipsolverXorgqr_bufferSize`, `hipsolverXorgtr_bufferSize`, `hipsolverXormqr_bufferSize`, `hipsolverXormtr_bufferSize`, `hipsolverXgesvd_bufferSize`, `hipsolverXgesvdj_bufferSize`, `hipsolverXgesvdBatched_bufferSize`, `hipsolverXgesvdaStridedBatched_bufferSize`, `hipsolverXsyevd_bufferSize`, `hipsolverXsyevdx_bufferSize`, `hipsolverXsyevj_bufferSize`, `hipsolverXsyevjBatched_bufferSize`, `hipsolverXsygvd_bufferSize`, `hipsolverXsygvdx_bufferSize`, `hipsolverXsygvj_bufferSize`, `hipsolverXsytrd_bufferSize`, `hipsolverXsytrf_bufferSize`.
 
@@ -1291,14 +1423,14 @@ HIP runtime has the following functional improvements which improves runtime per
 #### Changed
 
 * Switched to defaulting to C++17 when building hipSPARSE from source. Previously hipSPARSE was using C++14 by default.
-	
+  
 #### Resolved issues
 
 * Fixed a compilation [issue](https://github.com/ROCm/hipSPARSE/issues/555) related to using `std::filesystem` and C++14.
 * Fixed an issue where the clients-common package was empty by moving the `hipsparse_clientmatrices.cmake` and `hipsparse_mtx2csr` files to it.
 
 #### Known issues
-	
+  
 * In `hipsparseSpSM_solve()`, the external buffer is passed as a parameter. This does not match the NVIDIA CUDA cuSPARSE API. This extra external buffer parameter will be removed in a future release. For now, this extra parameter can be ignored and nullptr passed in because it is unused internally.
 
 ### **hipSPARSELt** (0.2.4)
@@ -1313,10 +1445,10 @@ HIP runtime has the following functional improvements which improves runtime per
 * Support for the cuSPARSELt v0.6.3 backend.
 
 #### Removed
-	
+  
 * Support for LLVM targets gfx940 and gfx941 has been removed.
 * `hipsparseLtDatatype_t` has been removed.
-	
+  
 #### Optimized
 
 * Improved the library loading time.
@@ -1393,7 +1525,7 @@ HIP runtime has the following functional improvements which improves runtime per
 
 #### Added
 
-* Support for OCP `FP8` on AMD Instinct MI350X accelerators.
+* Support for OCP `FP8` on AMD Instinct MI350X GPUs.
 * Support for PyTorch 2.7 via Torch-MIGraphX.
 * Support for the Microsoft ONNX Contrib Operators (Self) Attention, RotaryEmbedding, QuickGelu, BiasAdd, BiasSplitGelu, SkipLayerNorm.
 * Support for Sigmoid and AddN TensorFlow operators.
@@ -1458,7 +1590,7 @@ HIP runtime has the following functional improvements which improves runtime per
 ### **MIOpen** (3.5.0)
 
 #### Added
-	
+  
 * [Conv] Misa kernels for gfx950.
 * [Conv] Enabled Split-K support for CK backward data solvers (2D).
 * [Conv] Enabled CK wrw solver on gfx950 for the `BF16` data type.
@@ -1611,7 +1743,7 @@ HIP runtime has the following functional improvements which improves runtime per
 * Improved the performance of Level 3 `dgmm` for all precisions and variants on gfx942.
 
 #### Resolved issues
-	
+  
 * Fixed environment variable path-based logging to append multiple handle outputs to the same file.
 * Support numerics when `trsm` is running with `rocblas_status_perf_degraded`.
 * Fixed the build dependency installation of `joblib` on some operating systems.
@@ -1767,7 +1899,7 @@ Review the [README](https://github.com/ROCm/rocm_bandwidth_test/blob/amd-mainlin
   * L2 to EA stalls
   * L2 to EA stalls per channel
 
-* Roofline support for AMD Instinct MI350 series accelerators.
+* Roofline support for AMD Instinct MI350 series GPUs.
 
 ##### Textual User Interface (TUI) (beta version)
 
@@ -1777,9 +1909,9 @@ Review the [README](https://github.com/ROCm/rocm_bandwidth_test/blob/amd-mainlin
 
 ##### PC Sampling (beta version)
 
-* Stochastic (hardware-based) PC sampling has been enabled for AMD Instinct MI300X series and later accelerators.
+* Stochastic (hardware-based) PC sampling has been enabled for AMD Instinct MI300X series and later GPUs.
 
-* Host-trap PC Sampling has been enabled for AMD Instinct MI200 series and later accelerators.
+* Host-trap PC Sampling has been enabled for AMD Instinct MI200 series and later GPUs.
 
 * Support for sorting of PC sampling by type: offset or count.
 
@@ -1940,7 +2072,7 @@ See the full [ROCm SMI changelog](https://github.com/ROCm/rocm_smi_lib/blob/rele
 
 #### Added
 
-- Support for AMD Instinct MI350X and MI355X accelerators.
+- Support for AMD Instinct MI350X and MI355X GPUs.
 - Introduced rotating buffer mechanism for GEMM operations.
 - Support for read and write tests in Babel.
 - Support for AMD Radeon RX9070 and RX9070GRE graphics cards.
@@ -2056,7 +2188,7 @@ The previous default accumulator types could lead to situations in which unexpec
 #### Added
 
 - Support for [rocJPEG](https://rocm.docs.amd.com/projects/rocJPEG/en/latest/index.html) API Tracing.
-- Support for AMD Instinct MI350X and MI355X accelerators.
+- Support for AMD Instinct MI350X and MI355X GPUs.
 - `rocprofiler_create_counter` to facilitate adding custom derived counters at runtime.
 - Support in `rocprofv3` for iteration based counter multiplexing.
 - Perfetto support for counter collection.
@@ -2207,7 +2339,7 @@ The previous default accumulator types could lead to situations in which unexpec
 * Improved the performance of BDSQR and downstream functions, such as GESVD.
 * Improved the performance of STEQR and downstream functions, such as SYEV/HEEV.
 * Improved the performance of LARFT and downstream functions, such as GEQR2 and GEQRF.
-	
+  
 #### Resolved issues
 
 * Fixed corner cases that can produce NaNs in SYEVD for valid input matrices.
@@ -2248,7 +2380,7 @@ The previous default accumulator types could lead to situations in which unexpec
 * Improved the user documentation.
 
 #### Resolved issues
-	
+  
 * Fixed an issue in the public headers where `extern "C"` was not wrapped by `#ifdef __cplusplus`, which caused failures when building C programs with rocSPARSE.
 * Fixed a memory access fault in the `rocsparse_Xbsrilu0` routines.
 * Fixed failures that could occur in `rocsparse_Xbsrsm_solve` or `rocsparse_spsm` with BSR format when using host pointer mode.
