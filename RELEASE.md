@@ -68,13 +68,6 @@ All KVM-based SR-IOV supported configurations require the GIM SR-IOV driver vers
 ROCm provides a comprehensive ecosystem for deep learning development. For more information, see [Deep learning frameworks for ROCm](https://rocm.docs.amd.com/en/latest/how-to/deep-learning-rocm.html) and the [Compatibility
 matrix](../../docs/compatibility/compatibility-matrix.rst) for the complete list of Deep learning and AI framework versions tested for compatibility with ROCm.
 
-#### New frameworks
-
-AMD ROCm has officially added support for the following Deep learning and AI frameworks:
-
-* Ray is a unified framework for scaling AI and Python applications from your laptop to a full cluster, without changing your code. Ray consists of a core distributed runtime and a set of AI libraries for simplifying machine learning computations. It is currently supported on ROCm 6.4.1. For more information, see [Ray compatibility](https://advanced-micro-devices-rocm-internal--500.com.readthedocs.build/en/500/compatibility/ml-compatibility/ray-compatibility.html).
-
-* llama.cpp is an open-source framework for Large Language Model (LLM) inference that runs on both central processing units (CPUs) and graphics processing units (GPUs). It is written in plain C/C++, providing a simple, dependency-free setup. It is currently supported on ROCm 6.4.0. For more information, see [llama.cpp compatibility](https://advanced-micro-devices-rocm-internal--500.com.readthedocs.build/en/500/compatibility/ml-compatibility/llama-cpp-compatibility.html).
 
 #### Updated framework support
 
@@ -119,6 +112,15 @@ ROCm 7.0 enables support for ONNX Runtime 1.22.0.
 ##### Triton
 
 ROCm 7.0 enables support for Triton 3.3.0.
+
+#### New frameworks
+
+AMD ROCm has officially added support for the following Deep learning and AI frameworks:
+
+* Ray is a unified framework for scaling AI and Python applications from your laptop to a full cluster, without changing your code. Ray consists of a core distributed runtime and a set of AI libraries for simplifying machine learning computations. It is currently supported on ROCm 6.4.1. For more information, see [Ray compatibility](https://advanced-micro-devices-rocm-internal--500.com.readthedocs.build/en/500/compatibility/ml-compatibility/ray-compatibility.html).
+
+* llama.cpp is an open-source framework for Large Language Model (LLM) inference that runs on both central processing units (CPUs) and graphics processing units (GPUs). It is written in plain C/C++, providing a simple, dependency-free setup. It is currently supported on ROCm 6.4.0. For more information, see [llama.cpp compatibility](https://advanced-micro-devices-rocm-internal--500.com.readthedocs.build/en/500/compatibility/ml-compatibility/llama-cpp-compatibility.html).
+
 
 ### Instinct Driver/ROCm packaging separation
 
