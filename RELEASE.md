@@ -128,7 +128,7 @@ AMD ROCm has officially added support for the following Deep learning and AI fra
 
 ### AMD GPU Driver/ROCm packaging separation
 
-The AMD GPU Driver is now distributed separately from the ROCm software stack and is stored under in its own location ``/amdgpu/`` in the package repository at [repo.radeon.com](https://repo.radeon.com/amdgpu/). The first release is designated as AMD GPU Driver version 30.10. See the [User and kernel-space support matrix](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/user-kernel-space-compat-matrix.html) for more information.
+The AMD GPU Driver (amdgpu) is now distributed separately from the ROCm software stack and is stored under in its own location ``/amdgpu/`` in the package repository at [repo.radeon.com](https://repo.radeon.com/amdgpu/). The first release is designated as AMD GPU Driver (amdgpu) version 30.10. See the [User and kernel-space support matrix](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/user-kernel-space-compat-matrix.html) for more information.
 
 [AMD SMI](https://github.com/ROCm/amdsmi) continues to stay with the ROCm software stack under the ROCm organization repository.
 
@@ -416,7 +416,7 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
 
 GPU Software for AMD datacenter GPU products requires you to maintain a hardware and software stack with interdependencies between the GPU and baseboard firmware, AMD GPU drivers, and the ROCm user space software. Starting ROCm 7.0.0 release, we are publicly documenting these interdependencies. Note that while AMD publishes drivers and ROCm user space, your server or infrastructure provider publishes the GPU and baseboard firmware by bundling AMD’s firmware releases via AMD's Platform Level Data Model (PLDM) bundle (Firmware), which includes Integrated Firmware Image (IFWI).
 
-The GPU and baseboard firmware releases numbering may vary by GPU family. Note that, ROCm 7.0.0 release is the first release where the AMD GPU driver is versioned independently of ROCm.
+The GPU and baseboard firmware releases numbering may vary by GPU family. Note that, ROCm 7.0.0 release is the first release where the AMD GPU Driver (amdgpu) is versioned independently of ROCm.
 
 <div class="pst-scrollable-table-container">
   <table class="table" align="left" valign="middle">
@@ -432,7 +432,7 @@ The GPU and baseboard firmware releases numbering may vary by GPU family. Note t
             <p>PLDM Bundle (Firmware)</p>
           </th>
           <th class="head">
-            <p>AMD GPU Driver</p>
+            <p>AMD GPU Driver (amdgpu)</p>
           </th>
           <th class="head">
             <p>AMD GPU <br>
@@ -2572,7 +2572,7 @@ Default batched General Matrix Multiplications (GEMM) operations for rocBLAS and
 
 ### Failure to declare out-of-bound CPERs for bad memory page
 
-Exceeding of bad memory page threshold fails to declare Out-Of-Band Common Platform Error Records (CPERs). This issue affects all MI300 series GPUs, including MI300X, MI325, MI350X, and MI355X. This issue will be fixed in a future AMD GPU Driver releases.
+Exceeding of bad memory page threshold fails to declare Out-Of-Band Common Platform Error Records (CPERs). This issue affects all AMD Instinct MI300 series and MI350 series GPUs and will be fixed in a future AMD GPU Driver release.
 
 ## ROCm resolved issues
 
