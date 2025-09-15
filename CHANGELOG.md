@@ -145,7 +145,7 @@ for a complete overview of this release.
 
 - Removed duplicated GPU IDs when receiving events using the `amd-smi event` command.
 
-- Fixed `amd-smi monitor` decoder utilization (`DEC%`) not showing up on MI300 series ASICs.
+- Fixed `amd-smi monitor` decoder utilization (`DEC%`) not showing up on MI300 Series ASICs.
 
 #### Known issues
 
@@ -341,13 +341,13 @@ HIP runtime has the following functional improvements which improves runtime per
 * Refactored memory validation, creates a unique function to validate a variety of memory copy operations.
 * Improved kernel logging using demangling shader names.
 * Advanced support for SPIRV, now kernel compilation caching is enabled by default. This feature is controlled by the environment variable `AMD_COMGR_CACHE`, for details, see [hip_rtc document](https://rocm.docs.amd.com/projects/HIP/en/latest/how-to/hip_rtc.html).
-* Programmatic support for scratch limits on the AMD Instinct MI300 and MI350 series up GPU devices. More enumeration values were added in `hipLimit_t` as following:
+* Programmatic support for scratch limits on the AMD Instinct MI300 and MI350 Series up GPU devices. More enumeration values were added in `hipLimit_t` as following:
    - `hipExtLimitScratchMin`, minimum allowed value in bytes for scratch limit on the device.
    - `hipExtLimitScratchMax`, maximum allowed value in bytes for scratch limit on the device.
    - `hipExtLimitScratchCurrent`, current scratch limit threshold in bytes on the device. Must be between the value `hipExtLimitScratchMin` and `hipExtLimitScratchMax`.
  Developers can now use the environment variable `HSA_SCRATCH_SINGLE_LIMIT_ASYNC` to change the default allocation size with expected scratch limit in ROCR runtime. On top of it, this value can also be overwritten programmatically in the application using the HIP API `hipDeviceSetLimit(hipExtLimitScratchCurrent, value)` to reset the scratch limit value.
 * HIP runtime now enables peer-to-peer (P2P) memory copies to utilize all available SDMA engines, rather than being limited to a single engine. It also selects the best engine first to give optimal bandwidth.
-* Improved launch latency for `D2D` copies and `memset` on MI300 series.
+* Improved launch latency for `D2D` copies and `memset` on MI300 Series.
 * Introduced a threshold to handle the command submission patch to the GPU device(s), considering the synchronization with CPU, for performance improvement.
 
 #### Resolved issues
@@ -745,7 +745,7 @@ HIP runtime has the following functional improvements which improves runtime per
 * [RNN] Dynamic algorithm optimization.
 * [Conv] Eliminated redundant clearing of output buffers.
 * [RNN] Updated selection heuristics.
-* Updated tuning for the AMD Instinct MI300 series.
+* Updated tuning for the AMD Instinct MI300 Series.
 
 #### Resolved issues
 
@@ -1015,7 +1015,7 @@ Review the [README](https://github.com/ROCm/rocm_bandwidth_test/blob/amd-mainlin
 
 ##### CDNA4 (AMD Instinct MI350/MI355) support
 
-* Support for AMD Instinct MI350 series GPUs with the addition of the following counters:
+* Support for AMD Instinct MI350 Series GPUs with the addition of the following counters:
   * VALU co-issue (Two VALUs are issued instructions) efficiency
   * Stream Processor Instruction (SPI) Wave Occupancy
   * Scheduler-Pipe Wave Utilization
@@ -1034,7 +1034,7 @@ Review the [README](https://github.com/ROCm/rocm_bandwidth_test/blob/amd-mainlin
   * L2 to EA stalls
   * L2 to EA stalls per channel
 
-* Roofline support for AMD Instinct MI350 series GPUs.
+* Roofline support for AMD Instinct MI350 Series GPUs.
 
 ##### Textual User Interface (TUI) (beta version)
 
@@ -1044,9 +1044,9 @@ Review the [README](https://github.com/ROCm/rocm_bandwidth_test/blob/amd-mainlin
 
 ##### PC Sampling (beta version)
 
-* Stochastic (hardware-based) PC sampling has been enabled for AMD Instinct MI300X series and later GPUs.
+* Stochastic (hardware-based) PC sampling has been enabled for AMD Instinct MI300X Series and later GPUs.
 
-* Host-trap PC Sampling has been enabled for AMD Instinct MI200 series and later GPUs.
+* Host-trap PC Sampling has been enabled for AMD Instinct MI200 Series and later GPUs.
 
 * Support for sorting of PC sampling by type: offset or count.
 
@@ -1056,7 +1056,7 @@ Review the [README](https://github.com/ROCm/rocm_bandwidth_test/blob/amd-mainlin
 
 * Support for Roofline plot on CLI (single run) analysis.
 
-* `FP4` and `FP6` data types have been added for roofline profiling on AMD Instinct MI350 series.
+* `FP4` and `FP6` data types have been added for roofline profiling on AMD Instinct MI350 Series.
 
 ##### rocprofv3 support
 
@@ -1105,7 +1105,7 @@ Review the [README](https://github.com/ROCm/rocm_bandwidth_test/blob/amd-mainlin
 * Fixed peak FLOPS of `F8`, `I8`, `F16`, and `BF16` on AMD Instinct MI300.
 * Fixed not detecting memory clock issue when using ``amd-smi``.
 * Fixed standalone GUI crashing.
-* Fixed L2 read/write/atomic bandwidths on AMD Instinct MI350 series.
+* Fixed L2 read/write/atomic bandwidths on AMD Instinct MI350 Series.
 
 #### Known issues
 
@@ -1299,7 +1299,7 @@ The previous default accumulator types could lead to situations in which unexpec
 
 #### Optimized
 
-* Improved performance of `rocprim::device_select` and `rocprim::device_partition` when using multiple streams on the AMD Instinct MI300 series.
+* Improved performance of `rocprim::device_select` and `rocprim::device_partition` when using multiple streams on the AMD Instinct MI300 Series.
 
 #### Resolved issues
 
@@ -2040,7 +2040,7 @@ for a complete overview of this release.
 - Changed the name of the `power` field to `energy_accumulator` in the Python API for `amdsmi_get_energy_count()`.
 
 - Added violation status output for Graphics Clock Below Host Limit to `amd-smi` CLI: `amdsmi_get_violation_status()`, `amd-smi metric  --throttle`, and `amd-smi monitor --violation`.
-  Users can retrieve violation status through either our Python or C++ APIs. Only available for MI300 series+ ASICs.
+  Users can retrieve violation status through either our Python or C++ APIs. Only available for MI300 Series+ ASICs.
 
 - Updated API `amdsmi_get_violation_status()` structure and CLI `amdsmi_violation_status_t` to include GFX Clk below host limit.
 
@@ -2060,7 +2060,7 @@ for a complete overview of this release.
 
 #### Resolved issues
 
-- Fixed `amdsmi_get_gpu_asic_info` and `amd-smi static --asic` not displaying graphics version correctly for Instinct MI200 series, Instinct MI100 series, and RDNA3-based GPUs.
+- Fixed `amdsmi_get_gpu_asic_info` and `amd-smi static --asic` not displaying graphics version correctly for Instinct MI200 Series, Instinct MI100 Series, and RDNA3-based GPUs.
 
 #### Known issues
 
@@ -2699,7 +2699,7 @@ The following lists the backward incompatible changes planned for upcoming major
 
 #### Resolved issues
 
-- Fixed `rsmi_dev_target_graphics_version_get`, `rocm-smi --showhw`, and `rocm-smi --showprod` not displaying graphics version correctly for Instinct MI200 series, MI100 series, and RDNA3-based GPUs. 
+- Fixed `rsmi_dev_target_graphics_version_get`, `rocm-smi --showhw`, and `rocm-smi --showprod` not displaying graphics version correctly for Instinct MI200 Series, MI100 Series, and RDNA3-based GPUs. 
 
 > [!NOTE]
 > See the full [ROCm SMI changelog](https://github.com/ROCm/rocm_smi_lib/blob/release/rocm-rel-6.4/CHANGELOG.md) for details, examples, and in-depth descriptions.
@@ -6035,7 +6035,7 @@ for a complete overview of this release.
 #### Resolved issues
 
 * Fixed an issue causing ROCm SMI to incorrectly report GPU utilization for RDNA3 GPUs. See the issue on [GitHub](https://github.com/ROCm/ROCm/issues/3112).
-* Fixed the parsing of `pp_od_clk_voltage` in `get_od_clk_volt_info` to work better with MI-series hardware.
+* Fixed the parsing of `pp_od_clk_voltage` in `get_od_clk_volt_info` to work better with MI-Series hardware.
 
 ## ROCm 6.1.1
 
@@ -6476,8 +6476,8 @@ for a complete overview of this release.
 #### Added
 
 * Added support for additional GPU architectures.
-  * Navi 3 series: gfx1100, gfx1101, and gfx1102.
-  * MI300 series: gfx942.
+  * Navi 3 Series: gfx1100, gfx1101, and gfx1102.
+  * MI300 Series: gfx942.
 
 ### **ROCm SMI** (6.0.0)
 

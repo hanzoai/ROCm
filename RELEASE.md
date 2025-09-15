@@ -61,7 +61,7 @@ for more information about operating system and hardware compatibility.
 
 ROCm 7.0.0 introduces support for KVM Passthrough for AMD Instinct MI350X and MI355X GPUs.
 
-All KVM-based SR-IOV supported configurations require the GIM SR-IOV driver version 8.4.0.K. In addition, support for VMware ESXi 8 has been introduced for select AMD GPUs. For more information, see  [Virtualization Support](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#virtualization-support).
+All KVM-based SR-IOV supported configurations require the GIM SR-IOV driver version 8.4.0.K. In addition, support for VMware ESXi 8 has been introduced for AMD Instinct MI300X GPUs. For more information, see  [Virtualization Support](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#virtualization-support).
 
 ### Deep learning and AI framework updates
 
@@ -98,11 +98,7 @@ Megatron-LM for ROCm now supports:
 
 ##### TensorFlow
 
-ROCm 7.0.0 enables the following TensorFlow support:
-
-* Support for TensorFlow 2.19.1.
-* MX data type support for AMD Instinct MI350 series GPUs.
-* Triton autotuner. 
+ROCm 7.0.0 enables support for TensorFlow 2.19.1.
 
 ##### ONNX Runtime
 
@@ -198,12 +194,12 @@ Key compiler enhancements include:
 
 #### New data type support
 
-MX-compliant data types bring microscaling support to ROCm. For more information, see the [OCP Microscaling (MX) Formats Specification](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf). ROCm 7.0.0 enables functional support for MX data types `FP4`, `FP6`, and `FP8` on AMD Instinct MI350 series GPUs in these ROCm libraries:
+MX-compliant data types bring microscaling support to ROCm. For more information, see the [OCP Microscaling (MX) Formats Specification](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf). ROCm 7.0.0 enables functional support for MX data types `FP4`, `FP6`, and `FP8` on AMD Instinct MI350 Series GPUs in these ROCm libraries:
 
 *	Composable Kernel (`FP4`, `FP6`, and `FP8` only)
 *	hipBLASLt
 
-The following libraries are updated to support the Open Compute Project (OCP) floating-point `FP8` format on MI350 series GPUs instead of the NANOO `FP8` format:
+The following libraries are updated to support the Open Compute Project (OCP) floating-point `FP8` format on MI350 Series GPUs instead of the NANOO `FP8` format:
 
 *	Composable Kernel
 *	hipBLASLt
@@ -245,7 +241,7 @@ have been refined for improved usability. See the [AMD SMI changelog](#amd-smi-2
 
 #### ROCgdb
 
-ROCgdb now supports `FP4`, `FP6`, and `FP8` micro-scaling (MX) data types with AMD Instinct MI350 series GPUs.
+ROCgdb now supports `FP4`, `FP6`, and `FP8` micro-scaling (MX) data types with AMD Instinct MI350 Series GPUs.
 
 See the [ROCgdb changelog](#rocgdb-16-3) for more details.
 
@@ -256,7 +252,7 @@ ROCm Compute Profiler includes the following key changes:
 * Interactive command line with a Textual User Interface (TUI) has been added to analyze mode. For more details, see [TUI analysis](https://rocm.docs.amd.com/projects/rocprofiler-compute/en/amd-staging/how-to/analyze/tui.html).
 * Support added for advanced data types: `FP4` and `FP6`
 * Support for AMD Instinct MI355X and MI350X with addition of performance counters: CPC, SPI, SQ, TA/TD/TCP, and TCC.
-* Roofline enhancement added for AMD Instinct MI350 series.
+* Roofline enhancement added for AMD Instinct MI350 Series.
 * Improved support for Selective Kernel profiling.
 * Program Counter (PC) sampling (Software-based) feature has been enabled for AMD Instinct MI200, MI300X, MI350X, and MI355X GPUs. This feature helps in GPU profiling to understand code execution patterns and hotspots during GPU kernel execution. For more details, see [Using PC sampling in ROCm Compute Profiler](https://rocm.docs.amd.com/projects/rocprofiler-compute/en/amd-staging/how-to/pc_sampling.html).
 * Program Counter (PC) sampling (Hardware-based, Stochastic) feature has been enabled for AMD Instinct MI300X, MI350, and MI355X GPUs.
@@ -289,7 +285,7 @@ See the [ROCm Validation Suite changelog](#rocm-validation-suite-1-2-0) for more
  
 * ROCprofiler-SDK is now compatible with the HIP 7.0.0 API.
 * ROCprofiler-SDK adds support for AMD Instinct MI350X and MI355X GPUs.
-* The stochastic and host-trap PC sampling support has been added for all AMD Instinct MI300 and MI350 series GPUs, which
+* The stochastic and host-trap PC sampling support has been added for all AMD Instinct MI300 and MI350 Series GPUs, which
 provides information particularly useful for understanding stalls during kernel execution.
 * The added support for tracing  events surfaced by AMD's Kernel Fusion Driver (KFD) captures low-level driver routines involved in mapping, invalidation, and migration of data between CPU and GPU memories. Such events are central to the support for [Unified Memory](https://rocm.docs.amd.com/projects/HIP/en/latest/how-to/hip_runtime_api/memory_management/unified_memory.html) on AMD systems. Tracing of KFD events helps to detect performance problems arising from excessive data migration.
 * New APIs are added for profiling applications using thread traces (beta)
@@ -303,7 +299,7 @@ efficient foundation for analysis and post-processing.
  
 ##### rocprofv3 CLI tool enhancements
  
-* Added stochastic and host-trap PC sampling support for all AMD Instinct MI300 and MI350 series GPUs.
+* Added stochastic and host-trap PC sampling support for all AMD Instinct MI300 and MI350 Series GPUs.
 * HIP streams translate to Queues in Time Traces in Perfetto output.
 * Support for thread trace service.
 
@@ -1016,7 +1012,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 - Removed duplicated GPU IDs when receiving events using the `amd-smi event` command.
 
-- Fixed `amd-smi monitor` decoder utilization (`DEC%`) not showing up on MI300 series ASICs.
+- Fixed `amd-smi monitor` decoder utilization (`DEC%`) not showing up on MI300 Series ASICs.
 
 #### Known issues
 
@@ -1212,13 +1208,13 @@ HIP runtime has the following functional improvements which improves runtime per
 * Refactored memory validation, creates a unique function to validate a variety of memory copy operations.
 * Improved kernel logging using demangling shader names.
 * Advanced support for SPIRV, now kernel compilation caching is enabled by default. This feature is controlled by the environment variable `AMD_COMGR_CACHE`, for details, see [hip_rtc document](https://rocm.docs.amd.com/projects/HIP/en/latest/how-to/hip_rtc.html).
-* Programmatic support for scratch limits on the AMD Instinct MI300 and MI350 series up GPU devices. More enumeration values were added in `hipLimit_t` as following:
+* Programmatic support for scratch limits on the AMD Instinct MI300 and MI350 Series up GPU devices. More enumeration values were added in `hipLimit_t` as following:
    - `hipExtLimitScratchMin`, minimum allowed value in bytes for scratch limit on the device.
    - `hipExtLimitScratchMax`, maximum allowed value in bytes for scratch limit on the device.
    - `hipExtLimitScratchCurrent`, current scratch limit threshold in bytes on the device. Must be between the value `hipExtLimitScratchMin` and `hipExtLimitScratchMax`.
  Developers can now use the environment variable `HSA_SCRATCH_SINGLE_LIMIT_ASYNC` to change the default allocation size with expected scratch limit in ROCR runtime. On top of it, this value can also be overwritten programmatically in the application using the HIP API `hipDeviceSetLimit(hipExtLimitScratchCurrent, value)` to reset the scratch limit value.
 * HIP runtime now enables peer-to-peer (P2P) memory copies to utilize all available SDMA engines, rather than being limited to a single engine. It also selects the best engine first to give optimal bandwidth.
-* Improved launch latency for `D2D` copies and `memset` on MI300 series.
+* Improved launch latency for `D2D` copies and `memset` on MI300 Series.
 * Introduced a threshold to handle the command submission patch to the GPU device(s), considering the synchronization with CPU, for performance improvement.
 
 #### Resolved issues
@@ -1616,7 +1612,7 @@ HIP runtime has the following functional improvements which improves runtime per
 * [RNN] Dynamic algorithm optimization.
 * [Conv] Eliminated redundant clearing of output buffers.
 * [RNN] Updated selection heuristics.
-* Updated tuning for the AMD Instinct MI300 series.
+* Updated tuning for the AMD Instinct MI300 Series.
 
 #### Resolved issues
 
@@ -1886,7 +1882,7 @@ Review the [README](https://github.com/ROCm/rocm_bandwidth_test/blob/amd-mainlin
 
 ##### CDNA4 (AMD Instinct MI350/MI355) support
 
-* Support for AMD Instinct MI350 series GPUs with the addition of the following counters:
+* Support for AMD Instinct MI350 Series GPUs with the addition of the following counters:
   * VALU co-issue (Two VALUs are issued instructions) efficiency
   * Stream Processor Instruction (SPI) Wave Occupancy
   * Scheduler-Pipe Wave Utilization
@@ -1905,7 +1901,7 @@ Review the [README](https://github.com/ROCm/rocm_bandwidth_test/blob/amd-mainlin
   * L2 to EA stalls
   * L2 to EA stalls per channel
 
-* Roofline support for AMD Instinct MI350 series GPUs.
+* Roofline support for AMD Instinct MI350 Series GPUs.
 
 ##### Textual User Interface (TUI) (beta version)
 
@@ -1915,9 +1911,9 @@ Review the [README](https://github.com/ROCm/rocm_bandwidth_test/blob/amd-mainlin
 
 ##### PC Sampling (beta version)
 
-* Stochastic (hardware-based) PC sampling has been enabled for AMD Instinct MI300X series and later GPUs.
+* Stochastic (hardware-based) PC sampling has been enabled for AMD Instinct MI300X Series and later GPUs.
 
-* Host-trap PC Sampling has been enabled for AMD Instinct MI200 series and later GPUs.
+* Host-trap PC Sampling has been enabled for AMD Instinct MI200 Series and later GPUs.
 
 * Support for sorting of PC sampling by type: offset or count.
 
@@ -1927,7 +1923,7 @@ Review the [README](https://github.com/ROCm/rocm_bandwidth_test/blob/amd-mainlin
 
 * Support for Roofline plot on CLI (single run) analysis.
 
-* `FP4` and `FP6` data types have been added for roofline profiling on AMD Instinct MI350 series.
+* `FP4` and `FP6` data types have been added for roofline profiling on AMD Instinct MI350 Series.
 
 ##### rocprofv3 support
 
@@ -1976,7 +1972,7 @@ Review the [README](https://github.com/ROCm/rocm_bandwidth_test/blob/amd-mainlin
 * Fixed peak FLOPS of `F8`, `I8`, `F16`, and `BF16` on AMD Instinct MI300.
 * Fixed not detecting memory clock issue when using ``amd-smi``.
 * Fixed standalone GUI crashing.
-* Fixed L2 read/write/atomic bandwidths on AMD Instinct MI350 series.
+* Fixed L2 read/write/atomic bandwidths on AMD Instinct MI350 Series.
 
 #### Known issues
 
@@ -2170,7 +2166,7 @@ The previous default accumulator types could lead to situations in which unexpec
 
 #### Optimized
 
-* Improved performance of `rocprim::device_select` and `rocprim::device_partition` when using multiple streams on the AMD Instinct MI300 series.
+* Improved performance of `rocprim::device_select` and `rocprim::device_partition` when using multiple streams on the AMD Instinct MI300 Series.
 
 #### Resolved issues
 
@@ -2572,7 +2568,7 @@ Default batched General Matrix Multiplications (GEMM) operations for rocBLAS and
 
 ### Failure to declare out-of-bound CPERs for bad memory page
 
-Exceeding of bad memory page threshold fails to declare Out-Of-Band Common Platform Error Records (CPERs). This issue affects all AMD Instinct MI300 series and MI350 series GPUs and will be fixed in a future AMD GPU Driver release.
+Exceeding bad memory page threshold fails to declare Out-Of-Band Common Platform Error Records (CPERs). This issue affects all AMD Instinct MI300 Series and MI350 Series GPUs, and will be fixed in a future AMD GPU Driver release.
 
 ## ROCm resolved issues
 
