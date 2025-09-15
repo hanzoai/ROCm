@@ -204,7 +204,6 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
     - `hipLaunchKernelExC`  launches a HIP kernel using a generic function pointer and the specified configuration.
     - `hipDrvLaunchKernelEx`  dispatches the device kernel represented by a HIP function object.
     - `hipMemGetHandleForAddressRange`  gets a handle for the address range requested.
-    - `num_threads`  Total number of threads in the group. The legacy API size is alias.
     - `__reduce_add_sync`, `__reduce_min_sync`, and `__reduce_max_sync` functions added for aritimetic reduction across lanes of a warp, and `__reduce_and_sync`, `__reduce_or_sync`, and `__reduce_xor_sync` 
 functions added for logical reduction. For details, see [Warp cross-lane functions](https://rocm.docs.amd.com/projects/HIP/en/latest/how-to/hip_cpp_language_extensions.html#warp-cross-lane-functions).
 * New support for Open Compute Project (OCP) floating-point `FP4`/`FP6`/`FP8` as follows. For details, see [Low precision floating point document](https://rocm.docs.amd.com/projects/HIP/en/latest/reference/low_fp_types.html).
@@ -363,6 +362,7 @@ HIP runtime has the following functional improvements which improves runtime per
 * Compilation failure, HIP runtime refactored the vector type alignment with `__hip_vec_align_v`.
 * A numerical error/corruption found in Pytorch  during graph replay. HIP runtime fixed the input sizes of kernel launch dimensions in hipExtModuleLaunchKernel for the execution of hipGraph capture.
 * A crash during kernel execution in a customer application. The structure of kernel arguments was updated via adding the size of kernel arguments, and HIP runtime does validation before launch kernel with the structured arguments.
+* Compilation error when using bfloat16 functions. HIP runtime removed the anonymous namespace from FP16 functions to resolve this issue.
 
 #### Known issues
 
