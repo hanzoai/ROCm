@@ -7,7 +7,7 @@ vLLM inference performance testing version history
 This table lists previous versions of the ROCm vLLM inference Docker image for
 inference performance testing. For detailed information about available models
 for benchmarking, see the version-specific documentation. You can find tagged
-previous releases of the ``ROCm/vllm`` Docker image on `Docker Hub <https://hub.docker.com/r/rocm/vllm/tags>`__.
+previous releases of the ``ROCm/vllm`` Docker image on `Docker Hub <https://hub.docker.com/layers/rocm/vllm/rocm6.4.1_vllm_0.10.1_20250909/images/sha256-1113268572e26d59b205792047bea0e61e018e79aeadceba118b7bf23cb3715c>`__.
 
 .. list-table::
    :header-rows: 1
@@ -16,14 +16,23 @@ previous releases of the ``ROCm/vllm`` Docker image on `Docker Hub <https://hub.
      - Components
      - Resources
 
-   * - ``rocm/vllm:rocm6.4.1_vllm_0.9.1_20250715``
+   * - ``rocm/vllm:rocm6.4.1_vllm_0.10.0_20250812``
        (latest)
+     - 
+       * ROCm 6.4.1
+       * vLLM 0.10.0
+       * PyTorch 2.7.0
+     - 
+       * :doc:`Documentation <../vllm>`
+       * `Docker Hub <https://hub.docker.com/layers/rocm/vllm/rocm6.4.1_vllm_0.10.0_20250812/images/sha256-4c277ad39af3a8c9feac9b30bf78d439c74d9b4728e788a419d3f1d0c30cacaa>`__
+
+   * - ``rocm/vllm:rocm6.4.1_vllm_0.9.1_20250715``
      - 
        * ROCm 6.4.1
        * vLLM 0.9.1
        * PyTorch 2.7.0
      - 
-       * :doc:`Documentation <../vllm>`
+       * :doc:`Documentation <vllm-0.9.1-20250715>`
        * `Docker Hub <https://hub.docker.com/layers/rocm/vllm/rocm6.4.1_vllm_0.9.1_20250715/images/sha256-4a429705fa95a58f6d20aceab43b1b76fa769d57f32d5d28bd3f4e030e2a78ea>`__
 
    * - ``rocm/vllm:rocm6.4.1_vllm_0.9.1_20250702``
