@@ -5,6 +5,7 @@ ACEs
 ACS
 AccVGPR
 AccVGPRs
+AITER
 ALU
 AllReduce
 AMD
@@ -118,6 +119,7 @@ Deprecations
 DevCap
 DirectX
 Dockerfile
+Dockerized
 Doxygen
 dropless
 ELMo
@@ -125,6 +127,7 @@ ENDPGM
 EPYC
 ESXi
 EoS
+fas
 FBGEMM
 FIFOs
 FFT
@@ -157,6 +160,7 @@ GEMMs
 GFLOPS
 GFortran
 GFXIP
+GGUF
 Gemma
 GiB
 GIM
@@ -198,6 +202,7 @@ HWE
 HWS
 Haswell
 Higgs
+href
 Hyperparameters
 Huggingface
 IB
@@ -301,6 +306,7 @@ Multicore
 Multithreaded
 MyEnvironment
 MyST
+NANOO
 NBIO
 NBIOs
 NCCL
@@ -373,6 +379,7 @@ PowerEdge
 PowerShell
 Pretrained
 Pretraining
+Primus
 Profiler's
 PyPi
 Pytest
@@ -515,6 +522,7 @@ unwindowed
 VALU
 VBIOS
 VCN
+verl's
 VGPR
 VGPRs
 VM
@@ -546,6 +554,7 @@ Xilinx
 Xnack
 Xteam
 YAML
+YAMLs
 YML
 YModel
 ZeRO
@@ -610,6 +619,7 @@ completers
 composable
 concretization
 config
+configs
 conformant
 const
 constructible
@@ -692,6 +702,7 @@ github
 globals
 gnupg
 grayscale
+gx
 gzip
 heterogenous
 hipBLAS
@@ -764,6 +775,7 @@ logits
 lossy
 macOS
 matchers
+maxtext
 megatron
 microarchitecture
 migraphx
@@ -802,6 +814,7 @@ parallelizing
 param
 parameterization
 passthrough
+pe
 perfcounter
 performant
 perl
@@ -824,11 +837,14 @@ preprocessing
 preprocessor
 prequantized
 prerequisites
+pretrain
 pretraining
+primus
 profiler
 profilers
 protobuf
 pseudorandom
+px
 py
 pytorch
 recommender
@@ -944,6 +960,7 @@ toolchain
 toolchains
 toolset
 toolsets
+torchtitan
 torchvision
 tqdm
 tracebacks
