@@ -70,8 +70,8 @@ compatibility and system requirements.
       Thrust,2.6.0,2.5.0,2.3.2
       CUB,2.6.0,2.5.0,2.3.2
       ,,,
-      AMD GPU Driver (amdgpu) & USER SPACE [#kfd_support]_,.. _kfd-userspace-support-compatibility-matrix:,,
-      :doc:`AMD GPU Driver versions <rocm-install-on-linux:reference/user-kernel-space-compat-matrix>`,"30.10.1 [#driver_patch]_, 30.10, 6.4.x, 6.3.x, 6.2.x","6.4.x, 6.3.x, 6.2.x, 6.1.x","6.4.x, 6.3.x, 6.2.x, 6.1.x"
+      DRIVER & USER SPACE [#kfd_support]_,.. _kfd-userspace-support-compatibility-matrix:,,
+      :doc:`AMD GPU Driver <rocm-install-on-linux:reference/user-kernel-space-compat-matrix>`,"30.10.1 [#driver_patch]_, 30.10, 6.4.x, 6.3.x, 6.2.x","6.4.x, 6.3.x, 6.2.x, 6.1.x","6.4.x, 6.3.x, 6.2.x, 6.1.x"
       ,,,
       ML & COMPUTER VISION,.. _mllibs-support-compatibility-matrix:,,
       :doc:`Composable Kernel <composable_kernel:index>`,1.1.0,1.1.0,1.1.0
