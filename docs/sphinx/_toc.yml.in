@@ -12,14 +12,14 @@ subtrees:
   - file: compatibility/compatibility-matrix.rst
     title: Compatibility matrix
     entries:
-    - url: https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html
+    - url: https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html
       title: Linux system requirements
     - url: https://rocm.docs.amd.com/projects/install-on-windows/en/${branch}/reference/system-requirements.html
       title: Windows system requirements
 
 - caption: Install
   entries:
-  - url: https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/
+  - url: https://rocm.docs.amd.com/projects/install-on-linux/en/${branch}/
     title: ROCm on Linux
   - url: https://rocm.docs.amd.com/projects/install-on-windows/en/latest/
     title: HIP SDK on Windows
@@ -67,9 +67,9 @@ subtrees:
         subtrees:
         - entries:
           - file: how-to/rocm-for-ai/training/benchmark-docker/primus-megatron.rst
-            title: Train a model with Primus and Megatron-Core
-          - file: how-to/rocm-for-ai/training/benchmark-docker/pytorch-training.rst
-            title: Train a model with PyTorch
+            title: Train a model with Primus and Megatron-LM
+          - file: how-to/rocm-for-ai/training/benchmark-docker/primus-pytorch.rst
+            title: Train a model with Primus and PyTorch
           - file: how-to/rocm-for-ai/training/benchmark-docker/jax-maxtext.rst
             title: Train a model with JAX MaxText
           - file: how-to/rocm-for-ai/training/benchmark-docker/mpt-llm-foundry
@@ -106,6 +106,8 @@ subtrees:
             title: PyTorch inference performance testing
           - file: how-to/rocm-for-ai/inference/benchmark-docker/sglang.rst
             title: SGLang inference performance testing
+          - file: how-to/rocm-for-ai/inference/benchmark-docker/sglang-distributed.rst
+            title: SGLang distributed inference with Mooncake
           - file: how-to/rocm-for-ai/inference/deploy-your-model.rst
             title: Deploy your model
 
