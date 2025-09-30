@@ -23,20 +23,20 @@ compatibility and system requirements.
 .. container:: format-big-table
 
   .. csv-table::
-      :header: "ROCm Version", "7.0.1/7.0.0", "6.4.3", "6.3.0"
+      :header: "ROCm Version", "7.0.2", "7.0.1/7.0.0", "6.4.0"
       :stub-columns: 1
 
-      :ref:`Operating systems & kernels <OS-kernel-versions>`,Ubuntu 24.04.3,Ubuntu 24.04.2,Ubuntu 24.04.2
+      :ref:`Operating systems & kernels <OS-kernel-versions>`,Ubuntu 24.04.3,Ubuntu 24.04.3,Ubuntu 24.04.2
       ,Ubuntu 22.04.5,Ubuntu 22.04.5,Ubuntu 22.04.5
-      ,"RHEL 9.6, 9.4","RHEL 9.6, 9.4","RHEL 9.5, 9.4"
-      ,RHEL 8.10 [#rhel-700]_,RHEL 8.10,RHEL 8.10
-      ,SLES 15 SP7 [#sles-db-700]_,"SLES 15 SP7, SP6","SLES 15 SP6, SP5"
-      ,"Oracle Linux 9, 8 [#ol-700-mi300x]_","Oracle Linux 9, 8 [#ol-mi300x]_",Oracle Linux 8.10 [#ol-mi300x]_
-      ,Debian 12 [#sles-db-700]_,Debian 12 [#single-node]_,
-      ,Azure Linux 3.0 [#az-mi300x]_,Azure Linux 3.0 [#az-mi300x]_,
-      ,Rocky Linux 9 [#rl-700]_,,
+      ,"RHEL 10, 9.6, 9.4","RHEL 9.6, 9.4","RHEL 9.5, 9.4"
+      ,RHEL 8.10 [#rhel-700]_,RHEL 8.10 [#rhel-700]_,RHEL 8.10
+      ,SLES 15 SP7 [#sles-db-700]_,SLES 15 SP7 [#sles-db-700]_,SLES 15 SP6
+      ,"Oracle Linux 10, 9, 8 [#ol-700-mi300x]_","Oracle Linux 9, 8 [#ol-700-mi300x]_","Oracle Linux 9, 8 [#mi300x]_"
+      ,"Debian 13, 12 [#sles-db-700]_",Debian 12 [#sles-db-700]_,Debian 12 [#single-node]_
+      ,Azure Linux 3.0 [#az-mi300x]_,Azure Linux 3.0 [#az-mi300x]_,Azure Linux 3.0 [#az-mi300x]_
+      ,Rocky Linux 9 [#rl-700]_,Rocky Linux 9 [#rl-700]_,
       ,.. _architecture-support-compatibility-matrix:,,
-      :doc:`Architecture <rocm-install-on-linux:reference/system-requirements>`,CDNA4,,
+      :doc:`Architecture <rocm-install-on-linux:reference/system-requirements>`,CDNA4,CDNA4,
       ,CDNA3,CDNA3,CDNA3
       ,CDNA2,CDNA2,CDNA2
       ,CDNA,CDNA,CDNA
@@ -44,114 +44,120 @@ compatibility and system requirements.
       ,RDNA3,RDNA3,RDNA3
       ,RDNA2,RDNA2,RDNA2
       ,.. _gpu-support-compatibility-matrix:,,
-      :doc:`GPU / LLVM target <rocm-install-on-linux:reference/system-requirements>`,gfx950 [#mi350x-os]_,,
-      ,gfx1201 [#RDNA-OS-700]_,gfx1201 [#RDNA-OS]_,
-      ,gfx1200 [#RDNA-OS-700]_,gfx1200 [#RDNA-OS]_,
-      ,gfx1101 [#RDNA-OS-700]_ [#rd-v710]_,gfx1101 [#RDNA-OS]_ [#7700XT-OS]_,
-      ,gfx1100 [#RDNA-OS-700]_,gfx1100,gfx1100
-      ,gfx1030 [#RDNA-OS-700]_ [#rd-v620]_,gfx1030,gfx1030
-      ,gfx942 [#mi325x-os]_ [#mi300x-os]_ [#mi300A-os]_,gfx942,gfx942
-      ,gfx90a [#mi200x-os]_,gfx90a,gfx90a
-      ,gfx908 [#mi100-os]_,gfx908,gfx908
+      :doc:`GPU / LLVM target <rocm-install-on-linux:reference/system-requirements>`,gfx950 [#mi350x-os]_,gfx950 [#mi350x-os]_,
+      ,gfx1201 [#RDNA-OS-700]_,gfx1201 [#RDNA-OS-700]_,
+      ,gfx1200 [#RDNA-OS-700]_,gfx1200 [#RDNA-OS-700]_,
+      ,gfx1101 [#RDNA-OS-700]_ [#rd-v710]_,gfx1101 [#RDNA-OS-700]_ [#rd-v710]_,
+      ,gfx1100 [#RDNA-OS-700]_,gfx1100 [#RDNA-OS-700]_,gfx1100
+      ,gfx1030 [#RDNA-OS-700]_ [#rd-v620]_,gfx1030 [#RDNA-OS-700]_ [#rd-v620]_,gfx1030
+      ,gfx942 [#mi325x-os]_ [#mi300x-os]_ [#mi300A-os]_,gfx942 [#mi325x-os]_ [#mi300x-os]_ [#mi300A-os]_,gfx942
+      ,gfx90a [#mi200x-os]_,gfx90a [#mi200x-os]_,gfx90a
+      ,gfx908 [#mi100-os]_,gfx908 [#mi100-os]_,gfx908
       ,,,
       FRAMEWORK SUPPORT,.. _framework-support-compatibility-matrix:,,
-      :doc:`PyTorch <../compatibility/ml-compatibility/pytorch-compatibility>`,"2.7, 2.6, 2.5, 2.4, 2.3","2.6, 2.5, 2.4, 2.3","2.4, 2.3, 2.2, 2.1, 2.0, 1.13"
-      :doc:`TensorFlow <../compatibility/ml-compatibility/tensorflow-compatibility>`,"2.19.1, 2.18.1","2.18.1, 2.17.1, 2.16.2","2.17.0, 2.16.2, 2.15.1"
-      :doc:`JAX <../compatibility/ml-compatibility/jax-compatibility>`,0.6.0,0.4.35,0.4.31
-      :doc:`Stanford Megatron-LM <../compatibility/ml-compatibility/stanford-megatron-lm-compatibility>` [#stanford-megatron-lm_compat]_,N/A,N/A,85f95ae
-      :doc:`Megablocks <../compatibility/ml-compatibility/megablocks-compatibility>` [#megablocks_compat]_,N/A,N/A,0.7.0
-      `ONNX Runtime <https://onnxruntime.ai/docs/build/eps.html#amd-migraphx>`_,1.22.0,1.20.0,1.17.3
+      :doc:`PyTorch <../compatibility/ml-compatibility/pytorch-compatibility>`,"2.7, 2.6, 2.5, 2.4, 2.3","2.7, 2.6, 2.5, 2.4, 2.3","2.6, 2.5, 2.4, 2.3"
+      :doc:`TensorFlow <../compatibility/ml-compatibility/tensorflow-compatibility>`,"2.19.1, 2.18.1","2.19.1, 2.18.1","2.18.1, 2.17.1, 2.16.2"
+      :doc:`JAX <../compatibility/ml-compatibility/jax-compatibility>`,0.6.0,0.6.0,0.4.35
+      :doc:`verl <../compatibility/ml-compatibility/verl-compatibility>` [#verl_compat]_,N/A,N/A,N/A
+      :doc:`Stanford Megatron-LM <../compatibility/ml-compatibility/stanford-megatron-lm-compatibility>` [#stanford-megatron-lm_compat]_,N/A,N/A,N/A
+      :doc:`DGL <../compatibility/ml-compatibility/dgl-compatibility>` [#dgl_compat]_,N/A,N/A,2.4.0
+      :doc:`Megablocks <../compatibility/ml-compatibility/megablocks-compatibility>` [#megablocks_compat]_,N/A,N/A,N/A
+      :doc:`Taichi <../compatibility/ml-compatibility/taichi-compatibility>` [#taichi_compat]_,N/A,N/A,N/A
+      :doc:`Ray <../compatibility/ml-compatibility/ray-compatibility>` [#ray_compat]_,N/A,N/A,N/A
+      :doc:`llama.cpp <../compatibility/ml-compatibility/llama-cpp-compatibility>` [#llama-cpp_compat]_,N/A,N/A,b5997
+      `ONNX Runtime <https://onnxruntime.ai/docs/build/eps.html#amd-migraphx>`_,1.22.0,1.22.0,1.20.0
       ,,,
       THIRD PARTY COMMS,.. _thirdpartycomms-support-compatibility-matrix:,,
-      `UCC <https://github.com/ROCm/ucc>`_,>=1.4.0,>=1.3.0,>=1.3.0
-      `UCX <https://github.com/ROCm/ucx>`_,>=1.17.0,>=1.15.0,>=1.15.0
+      `UCC <https://github.com/ROCm/ucc>`_,>=1.4.0,>=1.4.0,>=1.3.0
+      `UCX <https://github.com/ROCm/ucx>`_,>=1.17.0,>=1.17.0,>=1.15.0
       ,,,
       THIRD PARTY ALGORITHM,.. _thirdpartyalgorithm-support-compatibility-matrix:,,
-      Thrust,2.6.0,2.5.0,2.3.2
-      CUB,2.6.0,2.5.0,2.3.2
+      Thrust,2.6.0,2.6.0,2.5.0
+      CUB,2.6.0,2.6.0,2.5.0
       ,,,
       DRIVER & USER SPACE [#kfd_support]_,.. _kfd-userspace-support-compatibility-matrix:,,
-      :doc:`AMD GPU Driver <rocm-install-on-linux:reference/user-kernel-space-compat-matrix>`,"30.10.1 [#driver_patch]_, 30.10, 6.4.x, 6.3.x, 6.2.x","6.4.x, 6.3.x, 6.2.x, 6.1.x","6.4.x, 6.3.x, 6.2.x, 6.1.x"
+      :doc:`AMD GPU Driver <rocm-install-on-linux:reference/user-kernel-space-compat-matrix>`,"30.10.2, 30.10.1 [#driver_patch]_, 30.10, 6.4.x, 6.3.x","30.10.1 [#driver_patch]_, 30.10, 6.4.x, 6.3.x, 6.2.x","6.4.x, 6.3.x, 6.2.x, 6.1.x"
       ,,,
       ML & COMPUTER VISION,.. _mllibs-support-compatibility-matrix:,,
       :doc:`Composable Kernel <composable_kernel:index>`,1.1.0,1.1.0,1.1.0
-      :doc:`MIGraphX <amdmigraphx:index>`,2.13.0,2.12.0,2.11.0
-      :doc:`MIOpen <miopen:index>`,3.5.0,3.4.0,3.3.0
-      :doc:`MIVisionX <mivisionx:index>`,3.3.0,3.2.0,3.1.0
-      :doc:`rocAL <rocal:index>`,2.3.0,2.2.0,2.1.0
-      :doc:`rocDecode <rocdecode:index>`,1.0.0,0.10.0,0.8.0
-      :doc:`rocJPEG <rocjpeg:index>`,1.1.0,0.8.0,0.6.0
-      :doc:`rocPyDecode <rocpydecode:index>`,0.6.0,0.3.1,0.2.0
-      :doc:`RPP <rpp:index>`,2.0.0,1.9.10,1.9.1
+      :doc:`MIGraphX <amdmigraphx:index>`,2.13.0,2.13.0,2.12.0
+      :doc:`MIOpen <miopen:index>`,3.5.0,3.5.0,3.4.0
+      :doc:`MIVisionX <mivisionx:index>`,3.3.0,3.3.0,3.2.0
+      :doc:`rocAL <rocal:index>`,2.3.0,2.3.0,2.2.0
+      :doc:`rocDecode <rocdecode:index>`,1.0.0,1.0.0,0.10.0
+      :doc:`rocJPEG <rocjpeg:index>`,1.1.0,1.1.0,0.8.0
+      :doc:`rocPyDecode <rocpydecode:index>`,0.6.0,0.6.0,0.3.1
+      :doc:`RPP <rpp:index>`,2.0.0,2.0.0,1.9.10
       ,,,
       COMMUNICATION,.. _commlibs-support-compatibility-matrix:,,
-      :doc:`RCCL <rccl:index>`,2.26.6,2.22.3,2.21.5
-      :doc:`rocSHMEM <rocshmem:index>`,3.0.0,2.0.1,N/A
+      :doc:`RCCL <rccl:index>`,2.26.6,2.26.6,2.22.3
+      :doc:`rocSHMEM <rocshmem:index>`,3.0.0,3.0.0,2.0.0
       ,,,
       MATH LIBS,.. _mathlibs-support-compatibility-matrix:,,
       `half <https://github.com/ROCm/half>`_ ,1.12.0,1.12.0,1.12.0
-      :doc:`hipBLAS <hipblas:index>`,3.0.0,2.4.0,2.3.0
-      :doc:`hipBLASLt <hipblaslt:index>`,1.0.0,0.12.1,0.10.0
-      :doc:`hipFFT <hipfft:index>`,1.0.20,1.0.18,1.0.17
-      :doc:`hipfort <hipfort:index>`,0.7.0,0.6.0,0.5.0
-      :doc:`hipRAND <hiprand:index>`,3.0.0,2.12.0,2.11.0
-      :doc:`hipSOLVER <hipsolver:index>`,3.0.0,2.4.0,2.3.0
-      :doc:`hipSPARSE <hipsparse:index>`,4.0.1,3.2.0,3.1.2
-      :doc:`hipSPARSELt <hipsparselt:index>`,0.2.4,0.2.3,0.2.2
-      :doc:`rocALUTION <rocalution:index>`,4.0.0,3.2.3,3.2.1
-      :doc:`rocBLAS <rocblas:index>`,5.0.0,4.4.1,4.3.0
-      :doc:`rocFFT <rocfft:index>`,1.0.34,1.0.32,1.0.31
-      :doc:`rocRAND <rocrand:index>`,4.0.0,3.3.0,3.2.0
-      :doc:`rocSOLVER <rocsolver:index>`,3.30.0,3.28.2,3.27.0
-      :doc:`rocSPARSE <rocsparse:index>`,4.0.2,3.4.0,3.3.0
-      :doc:`rocWMMA <rocwmma:index>`,2.0.0,1.7.0,1.6.0
-      :doc:`Tensile <tensile:src/index>`,4.44.0,4.43.0,4.42.0
+      :doc:`hipBLAS <hipblas:index>`,3.0.2,3.0.0,2.4.0
+      :doc:`hipBLASLt <hipblaslt:index>`,1.0.0,1.0.0,0.12.0
+      :doc:`hipFFT <hipfft:index>`,1.0.20,1.0.20,1.0.18
+      :doc:`hipfort <hipfort:index>`,0.7.0,0.7.0,0.6.0
+      :doc:`hipRAND <hiprand:index>`,3.0.0,3.0.0,2.12.0
+      :doc:`hipSOLVER <hipsolver:index>`,3.0.0,3.0.0,2.4.0
+      :doc:`hipSPARSE <hipsparse:index>`,4.0.1,4.0.1,3.2.0
+      :doc:`hipSPARSELt <hipsparselt:index>`,0.2.4,0.2.4,0.2.3
+      :doc:`rocALUTION <rocalution:index>`,4.0.0,4.0.0,3.2.2
+      :doc:`rocBLAS <rocblas:index>`,5.0.2,5.0.0,4.4.0
+      :doc:`rocFFT <rocfft:index>`,1.0.34,1.0.34,1.0.32
+      :doc:`rocRAND <rocrand:index>`,4.0.0,4.0.0,3.3.0
+      :doc:`rocSOLVER <rocsolver:index>`,3.30.1,3.30.0,3.28.0
+      :doc:`rocSPARSE <rocsparse:index>`,4.0.2,4.0.2,3.4.0
+      :doc:`rocWMMA <rocwmma:index>`,2.0.0,2.0.0,1.7.0
+      :doc:`Tensile <tensile:src/index>`,4.44.0,4.44.0,4.43.0
       ,,,
       PRIMITIVES,.. _primitivelibs-support-compatibility-matrix:,,
-      :doc:`hipCUB <hipcub:index>`,4.0.0,3.4.0,3.3.0
-      :doc:`hipTensor <hiptensor:index>`,2.0.0,1.5.0,1.4.0
-      :doc:`rocPRIM <rocprim:index>`,4.0.0,3.4.1,3.3.0
-      :doc:`rocThrust <rocthrust:index>`,4.0.0,3.3.0,3.3.0
+      :doc:`hipCUB <hipcub:index>`,4.0.0,4.0.0,3.4.0
+      :doc:`hipTensor <hiptensor:index>`,2.0.0,2.0.0,1.5.0
+      :doc:`rocPRIM <rocprim:index>`,4.0.1,4.0.0,3.4.0
+      :doc:`rocThrust <rocthrust:index>`,4.0.0,4.0.0,3.3.0
       ,,,
       SUPPORT LIBS,,,
-      `hipother <https://github.com/ROCm/hipother>`_,7.0.51830,6.4.43483,6.3.42131
-      `rocm-core <https://github.com/ROCm/rocm-core>`_,7.0.1/7.0.0,6.4.3,6.3.0
+      `hipother <https://github.com/ROCm/hipother>`_,7.0.51830,7.0.51830,6.4.43482
+      `rocm-core <https://github.com/ROCm/rocm-core>`_,7.0.2,7.0.1/7.0.0,6.4.0
       `ROCT-Thunk-Interface <https://github.com/ROCm/ROCT-Thunk-Interface>`_,N/A [#ROCT-rocr]_,N/A [#ROCT-rocr]_,N/A [#ROCT-rocr]_
       ,,,
       SYSTEM MGMT TOOLS,.. _tools-support-compatibility-matrix:,,
-      :doc:`AMD SMI <amdsmi:index>`,26.0.0,25.5.1,24.7.1
-      :doc:`ROCm Data Center Tool <rdc:index>`,1.1.0,0.3.0,0.3.0
+      :doc:`AMD SMI <amdsmi:index>`,26.0.2,26.0.0,25.3.0
+      :doc:`ROCm Data Center Tool <rdc:index>`,1.1.0,1.1.0,0.3.0
       :doc:`rocminfo <rocminfo:index>`,1.0.0,1.0.0,1.0.0
-      :doc:`ROCm SMI <rocm_smi_lib:index>`,7.8.0,7.7.0,7.4.0
-      :doc:`ROCm Validation Suite <rocmvalidationsuite:index>`,1.2.0,1.1.0,1.1.0
+      :doc:`ROCm SMI <rocm_smi_lib:index>`,7.8.0,7.8.0,7.5.0
+      :doc:`ROCm Validation Suite <rocmvalidationsuite:index>`,1.2.0,1.2.0,1.1.0
       ,,,
       PERFORMANCE TOOLS,,,
-      :doc:`ROCm Bandwidth Test <rocm_bandwidth_test:index>`,2.6.0,1.4.0,1.4.0
-      :doc:`ROCm Compute Profiler <rocprofiler-compute:index>`,3.2.3,3.1.1,3.0.0
-      :doc:`ROCm Systems Profiler <rocprofiler-systems:index>`,1.1.0,1.0.2,0.1.0
-      :doc:`ROCProfiler <rocprofiler:index>`,2.0.70000,2.0.60403,2.0.60300
-      :doc:`ROCprofiler-SDK <rocprofiler-sdk:index>`,1.0.0,0.6.0,0.5.0
-      :doc:`ROCTracer <roctracer:index>`,4.1.70000,4.1.60403,4.1.60300
+      :doc:`ROCm Bandwidth Test <rocm_bandwidth_test:index>`,2.6.0,2.6.0,1.4.0
+      :doc:`ROCm Compute Profiler <rocprofiler-compute:index>`,3.2.3,3.2.3,3.1.0
+      :doc:`ROCm Systems Profiler <rocprofiler-systems:index>`,1.1.1,1.1.0,1.0.0
+      :doc:`ROCProfiler <rocprofiler:index>`,2.0.70002,2.0.70000,2.0.60400
+      :doc:`ROCprofiler-SDK <rocprofiler-sdk:index>`,1.0.0,1.0.0,0.6.0
+      :doc:`ROCTracer <roctracer:index>`,4.1.70002,4.1.70000,4.1.60400
       ,,,
       DEVELOPMENT TOOLS,,,
-      :doc:`HIPIFY <hipify:index>`,20.0.0,19.0.0,18.0.0.24455
+      :doc:`HIPIFY <hipify:index>`,20.0.0,20.0.0,19.0.0
       :doc:`ROCm CMake <rocmcmakebuildtools:index>`,0.14.0,0.14.0,0.14.0
-      :doc:`ROCdbgapi <rocdbgapi:index>`,0.77.3,0.77.2,0.77.0
-      :doc:`ROCm Debugger (ROCgdb) <rocgdb:index>`,16.3.0,15.2.0,15.2.0
-      `rocprofiler-register <https://github.com/ROCm/rocprofiler-register>`_,0.5.0,0.4.0,0.4.0
-      :doc:`ROCr Debug Agent <rocr_debug_agent:index>`,2.1.0,2.0.4,2.0.3
+      :doc:`ROCdbgapi <rocdbgapi:index>`,0.77.4,0.77.3,0.77.2
+      :doc:`ROCm Debugger (ROCgdb) <rocgdb:index>`,16.3.0,16.3.0,15.2.0
+      `rocprofiler-register <https://github.com/ROCm/rocprofiler-register>`_,0.5.0,0.5.0,0.4.0
+      :doc:`ROCr Debug Agent <rocr_debug_agent:index>`,2.1.0,2.1.0,2.0.4
       ,,,
       COMPILERS,.. _compilers-support-compatibility-matrix:,,
+      `clang-ocl <https://github.com/ROCm/clang-ocl>`_,N/A,N/A,N/A
       :doc:`hipCC <hipcc:index>`,1.1.1,1.1.1,1.1.1
-      `Flang <https://github.com/ROCm/flang>`_,20.0.0.25314,19.0.0.25224,18.0.0.24455
-      :doc:`llvm-project <llvm-project:index>`,20.0.0.25314,19.0.0.25224,18.0.0.24491
-      `OpenMP <https://github.com/ROCm/llvm-project/tree/amd-staging/openmp>`_,20.0.0.25314,19.0.0.25224,18.0.0.24491
+      `Flang <https://github.com/ROCm/flang>`_,20.0.0.25381,20.0.0.25314,19.0.0.25133
+      :doc:`llvm-project <llvm-project:index>`,20.0.0.25381,20.0.0.25314,19.0.0.25133
+      `OpenMP <https://github.com/ROCm/llvm-project/tree/amd-staging/openmp>`_,20.0.0.25381,20.0.0.25314,19.0.0.25133
       ,,,
       RUNTIMES,.. _runtime-support-compatibility-matrix:,,
-      :doc:`AMD CLR <hip:understand/amd_clr>`,7.0.51830,6.4.43484,6.3.42131
-      :doc:`HIP <hip:index>`,7.0.51830,6.4.43484,6.3.42131
+      :doc:`AMD CLR <hip:understand/amd_clr>`,7.0.51831,7.0.51830,6.4.43482
+      :doc:`HIP <hip:index>`,7.0.51831,7.0.51830,6.4.43482
       `OpenCL Runtime <https://github.com/ROCm/clr/tree/develop/opencl>`_,2.0.0,2.0.0,2.0.0
-      :doc:`ROCr Runtime <rocr-runtime:index>`,1.18.0,1.15.0,1.14.0
+      :doc:`ROCr Runtime <rocr-runtime:index>`,1.18.0,1.18.0,1.15.0
 
 .. rubric:: Footnotes
 
