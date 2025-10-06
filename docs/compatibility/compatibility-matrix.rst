@@ -28,7 +28,7 @@ compatibility and system requirements.
 
       :ref:`Operating systems & kernels <OS-kernel-versions>`,Ubuntu 24.04.3,Ubuntu 24.04.3,Ubuntu 24.04.2
       ,Ubuntu 22.04.5,Ubuntu 22.04.5,Ubuntu 22.04.5
-      ,"RHEL 10, 9.6, 9.4","RHEL 9.6, 9.4","RHEL 9.5, 9.4"
+      ,"RHEL 10.0, 9.6, 9.4","RHEL 9.6, 9.4","RHEL 9.5, 9.4"
       ,RHEL 8.10 [#rhel-700]_,RHEL 8.10 [#rhel-700]_,RHEL 8.10
       ,SLES 15 SP7 [#sles-db-700]_,SLES 15 SP7 [#sles-db-700]_,SLES 15 SP6
       ,"Oracle Linux 10, 9, 8 [#ol-700-mi300x]_","Oracle Linux 9, 8 [#ol-700-mi300x]_","Oracle Linux 9, 8 [#mi300x]_"

@@ -44,87 +44,17 @@ Hardware support remains unchanged in this release. For details, see the full li
 
 ROCm 7.0.2 adds support for the following operating systems and kernel versions:
 
-* Debian 13 (kernel: x.x.x)
-* Oracle Linux 10 (kernel: x.x.x [UEK])
-* RHEL 10 (kernel: x.x.x)
-
-ROCm 7.0.2 marks the end of support (EoS) for [Placeholder].
+* Debian 13 (kernel: 6.12)
+* Oracle Linux 10 (kernel: 6.12.0 [UEK])
+* RHEL 10.0 (kernel: 6.12.0-55)
 
 For more information about supported operating systems, see [Supported operating systems](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#supported-operating-systems) and [install instructions](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/).
 
-See the [Compatibility
-matrix](../../docs/compatibility/compatibility-matrix.rst)
-for more information about operating system and hardware compatibility.
-
 #### Virtualization support
 
-Virtualization support remains unchanged in this release.
+Virtualization support remains unchanged in this release. For more information, see  [Virtualization Support](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#virtualization-support).
 
-For more information, see  [Virtualization Support](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#virtualization-support).
-
-### Introducing ROCm-RAG AI agent
-
-In September 2025, the ROCm Retrieval-Augmented Generation (RAG) AI agent was introduced. This is the first ROCm Agent, and can be used to build and deploy end-to-end AI pipelines on AMD GPUs. RAG enhances the accuracy and reliability of a large language model (LLM) by exposing it to up-to-date, relevant information. When a query is received, RAG retrieves relevant documents or information from its knowledge base, then uses this retrieved context alongside the query to generate accurate and informed responses. This approach helps reduce hallucinations (making up information) common in standard LLMs, while also enabling the model to access current information not present in its original training data.
-For more information, see the [ROCm-RAG documentation](https://rocm.docs.amd.com/projects/rocm-rag-internal/en/docs/index.html).
-
-### Introducing ROCm-enabled gsplat
-
-In September 2025,[Gaussian splatting (gsplat)](https://rocm.docs.amd.com/projects/gsplat/en/latest/index.html) is an open-source library for GPU-accelerated differentiable rasterization of 3D Gaussians with Python bindings. This ROCm-enabled release of gsplat, introduced in September 2025, is built on top of [PyTorch for ROCm](https://rocm.docs.amd.com/projects/install-on-linux/en/docs-6.4.3/install/3rd-party/pytorch-install.html), enabling innovators in computer graphics, machine learning, and 3D vision to leverage GPU acceleration with AMD Instinct™ GPUs. With gsplat, you can build, research, and innovate with Gaussian splatting. To install gsplat on ROCm, see [installation instructions](https://rocm.docs.amd.com/projects/gsplat/en/latest/install/gsplat-install.html).
-
-### Introducing ROCm Life Science (ROCm-LS)
-
-The ROCm Life Science (ROCm-LS) toolkit is a GPU-accelerated library suite developed for life science and healthcare applications, offering a robust set of tools optimized for AMD hardware. It is an open-source software collection for high-performance life science applications built on the core ROCm platform, which helps you accelerate life science processing and analyze workloads on AMD GPUs. ROCm-LS is in an early access state. Running production workloads is not recommended. For more information, see the [AMD ROCm-LS documentation](https://rocm.docs.amd.com/projects/rocm-ls-docs-internal/en/latest/).
-
-ROCm-LS provides the following tools to build a complete workflow for life science acceleration on AMD GPUs:
-
-* The hipCIM library provides powerful support for GPU-accelerated I/O operations, coupled with an array of computer vision and image processing primitives designed for N-dimensional image data in fields such as biomedical imaging. It facilitates efficient loading and processing of images from modalities such as digital pathology, CT, MR, and PET. For more information, see the [hipCIM documentation](https://rocm.docs.amd.com/projects/hipCIM/en/latest/).
-
-* MONAI for AMD ROCm, a ROCm-enabled version of [MONAI](https://monai.io/), is built on top of [PyTorch for ROCm](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/3rd-party/pytorch-install.html), helping healthcare and life science innovators to leverage GPU acceleration with AMD Instinct GPUs for high-performance inference and training of medical AI applications. For more information, see the [MONAI for AMD ROCm documentation](https://rocm.docs.amd.com/projects/monai-internal/en/latest/).
-
-### Deep learning and AI framework updates
-
-ROCm provides a comprehensive ecosystem for deep learning development. For more information, see [Deep learning frameworks for ROCm](https://rocm.docs.amd.com/en/latest/how-to/deep-learning-rocm.html) and the [Compatibility
-matrix](../../docs/compatibility/compatibility-matrix.rst) for the complete list of Deep learning and AI framework versions tested for compatibility with ROCm.
-
-#### New frameworks
-
-AMD ROCm has officially added support for the following Deep learning and AI frameworks:
-
-* FlashInfer is a library and kernel generator for Large Language Models (LLMs) that provides a high-performance implementation of graphics processing units (GPUs) kernels. FlashInfer focuses on LLM serving and inference, as well as advanced performance across diverse scenarios. It is supported on ROCm 6.4.1. For more information, see [FlashInfer compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/flashinfer-compatibility.html).
-
-* llama.cpp is an open-source framework for Large Language Model (LLM) inference that runs on both central processing units (CPUs) and graphics processing units (GPUs). It is written in plain C/C++, providing a simple, dependency-free setup. It is now supported on ROCm 7.0.0 and 6.4.x. For more information, see [llama.cpp compatibility](https://rocm.docs.amd.com/en/docs-7.0.0/compatibility/ml-compatibility/llama-cpp-compatibility.html).
-
-### ROCm Offline Installer Creator updates
-
-The ROCm Offline Installer Creator 7.0.2 includes the following features and improvements:
-
-* Added support for RHEL 10, Oracle Linux 10, and Debian 13.
-* Added support for creating an offline installer for Debian 12 when the kernel version of the target operating system differs from the operating system of the host creating the installer.
-* Removed the restriction requiring the kernels for the host and target systems to match when creating a ROCm-only (no AMD GPU Driver) offline installer.
-
-See [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-offline-installer.html) for more information.
-
-### ROCm Runfile Installer updates
-
-The ROCm Runfile Installer 7.0.2 adds the following features and improvements:
-
-* Added support for RHEL 10, Oracle Linux 10, and Debian 13.
-* Minor fixes for the `untar` mode.
-For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-runfile-installer.html).
-
-### ROCm documentation updates
-
-ROCm documentation continues to be updated to provide clearer and more comprehensive guidance for a wider variety of user needs and use cases.
-
-* [Tutorials for AI developers](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/) have been expanded with the following two new inference tutorials:
-    * [Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/inference/mtp.html)
-    * [Multi-agents with Google ADK and A2A protocol](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs.html)
-
-    For more information about the changes, see the [Changelog for the AI Developer Hub](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/changelog.html).
-
-* ROCm components support a wide range of environment variables that can be used for testing, logging, debugging, experimental features, and more. The [rocBLAS](https://rocm.docs.amd.com/projects/rocBLAS/en/develop/reference/env-variables.html) and [RCCL](https://rocm.docs.amd.com/projects/rccl/en/develop/api-reference/env-variables.html) components have been updated with new environment variable content. 
-
-## User space, driver, and firmware dependent changes
+### User space, driver, and firmware dependent changes
 
 The software for AMD Datacenter GPU products requires maintaining a hardware
 and software stack with interdependencies between the GPU and baseboard
@@ -228,6 +158,74 @@ firmware, AMD GPU drivers, and the ROCm user space software.
       </tr>
   </table>
 </div>
+
+### Improved GPU resiliency
+
+Multimedia Engine Reset has been added to support finer-grain GPU Resiliency on AMD Instinct MI300X GPUs. It allows recovery from VCN/JPEG kernel queue hang cases without requiring a full GPU reset, improving system stability and fault tolerance.
+To support this feature, AMD Instinct MI300X paired with: PLDM bundle 01.25.05.00 (or later) firmware is required.
+
+### RAG AI support enabled for ROCm
+
+In September 2025, Retrieval-Augmented Generation (RAG) was added to the ROCm platform. Use RAG to build and deploy end-to-end AI pipelines on AMD GPUs. It enhances the accuracy and reliability of a large language model (LLM) by exposing it to up-to-date, relevant information. When queried, RAG retrieves relevant data from its knowledge base and uses it in conjunction with the query to generate accurate and informed responses. This approach minimizes hallucinations (the creation of false information) while also enabling the model to access current information not present in its original training data.
+
+For more information, see the [ROCm-RAG documentation](https://rocm.docs.amd.com/projects/rocm-rag-internal/en/docs/index.html).
+
+### gsplat support enabled for ROCm
+
+[Gaussian splatting (gsplat)](https://rocm.docs.amd.com/projects/gsplat/en/latest/index.html) is an open-source library for GPU-accelerated differentiable rasterization of 3D Gaussians with Python bindings. This ROCm-enabled release of gsplat, introduced in September 2025, is built on top of [AMD PyTorch for ROCm](https://rocm.docs.amd.com/projects/install-on-linux/en/docs-6.4.3/install/3rd-party/pytorch-install.html). It enables innovators in computer graphics, machine learning, and 3D vision to leverage GPU acceleration with AMD Instinct™ GPUs. With gsplat, you can build, research, and innovate with Gaussian splatting. To install gsplat, see [gsplat on ROCm installation](https://rocm.docs.amd.com/projects/gsplat/en/latest/install/gsplat-install.html).
+
+### Introducing ROCm Life Science (ROCm-LS) toolkit
+
+The ROCm Life Science (ROCm-LS) toolkit is an open-source software collection for high-performance life science and healthcare applications built on the core ROCm platform. It helps you accelerate life science processing and analyze workloads on AMD GPUs. ROCm-LS is in an early access state. Running production workloads is not recommended. For more information, see the [AMD ROCm-LS documentation](https://rocm.docs.amd.com/projects/rocm-ls-docs-internal/en/latest/).
+
+ROCm-LS provides the following tools to build a complete workflow for life science acceleration on AMD GPUs:
+
+* The hipCIM library provides powerful support for GPU-accelerated I/O operations, coupled with an array of computer vision and image processing primitives designed for N-dimensional image data in fields such as biomedical imaging. For more information, see the [hipCIM documentation](https://rocm.docs.amd.com/projects/hipCIM/en/latest/).
+
+* MONAI for AMD ROCm, a ROCm-enabled version of [MONAI](https://monai.io/), is built on top of [PyTorch for AMD ROCm](https://pytorch.org/blog/pytorch-for-amd-rocm-platform-now-available-as-python-package/), helping healthcare and life science innovators to leverage GPU acceleration with AMD Instinct GPUs for high-performance inference and training of medical AI applications. For more information, see the [MONAI for AMD ROCm documentation](https://rocm.docs.amd.com/projects/monai-internal/en/latest/).
+
+### Deep learning and AI framework updates
+
+ROCm provides a comprehensive ecosystem for deep learning development. For more information, see [Deep learning frameworks for ROCm](https://rocm.docs.amd.com/en/latest/how-to/deep-learning-rocm.html) and the [Compatibility
+matrix](../../docs/compatibility/compatibility-matrix.rst) for the complete list of Deep learning and AI framework versions tested for compatibility with ROCm.
+
+#### New frameworks
+
+AMD ROCm has officially added support for the following Deep learning and AI frameworks:
+
+* FlashInfer is a library and kernel generator for Large Language Models (LLMs) that provides a high-performance implementation of graphics processing units (GPUs) kernels. FlashInfer focuses on LLM serving and inference, as well as advanced performance across diverse scenarios. It is supported on ROCm 6.4.1. For more information, see [FlashInfer compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/flashinfer-compatibility.html).
+
+* llama.cpp is an open-source framework for Large Language Model (LLM) inference that runs on both central processing units (CPUs) and graphics processing units (GPUs). It is written in plain C/C++, providing a simple, dependency-free setup. It is now supported on ROCm 7.0.0 and 6.4.x. For more information, see [llama.cpp compatibility](https://rocm.docs.amd.com/en/docs-7.0.0/compatibility/ml-compatibility/llama-cpp-compatibility.html).
+
+### ROCm Offline Installer Creator updates
+
+The ROCm Offline Installer Creator 7.0.2 includes the following features and improvements:
+
+* Added support for RHEL 10.0, Oracle Linux 10, and Debian 13.
+* Added support for creating an offline installer for Debian 12 when the kernel version of the target operating system differs from the operating system of the host creating the installer.
+* Removed the restriction requiring the kernels for the host and target systems to match when creating a ROCm-only (no AMD GPU Driver) offline installer.
+
+See [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-offline-installer.html) for more information.
+
+### ROCm Runfile Installer updates
+
+The ROCm Runfile Installer 7.0.2 adds the following features and improvements:
+
+* Added support for RHEL 10.0, Oracle Linux 10, and Debian 13.
+* Minor fixes for the `untar` mode.
+For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/rocm-runfile-installer.html).
+
+### ROCm documentation updates
+
+ROCm documentation continues to be updated to provide clearer and more comprehensive guidance for a wider variety of user needs and use cases.
+
+* [Tutorials for AI developers](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/) have been expanded with the following two new inference tutorials:
+    * [Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/inference/mtp.html)
+    * [Multi-agents with Google ADK and A2A protocol](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs.html)
+
+    For more information about the changes, see the [Changelog for the AI Developer Hub](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/changelog.html).
+
+* ROCm components support a wide range of environment variables that can be used for testing, logging, debugging, experimental features, and more. The [rocBLAS](https://rocm.docs.amd.com/projects/rocBLAS/en/develop/reference/env-variables.html) and [RCCL](https://rocm.docs.amd.com/projects/rccl/en/develop/api-reference/env-variables.html) components have been updated with new environment variable content. 
 
 ## ROCm components
 
@@ -569,23 +567,38 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 ### **AMD SMI** (26.0.1)
 
+#### Added
+
+* Added `bad_page_threshold_exceeded` field to `amd-smi static --ras`, which compares retired pages count against bad page threshold. This field displays `True` if retired pages exceed the threshold, `False` if within threshold, or `N/A` if threshold data is unavailable. Note that `sudo` is required to have the `bad_page_threshold_exceeded` field populated.
+
 #### Removed
 
-* `AmdSmiTemperatureType` had issues with referencing the correct attribute. As such, the following duplicate enums have been removed:
-    - `AmdSmiTemperatureType.GPUBOARD_NODE_FIRST`
-    - `AmdSmiTemperatureType.GPUBOARD_VR_FIRST`
-    - `AmdSmiTemperatureType.BASEBOARD_FIRST`
+* Removed gpuboard and baseboard temperatures enums in amdsmi Python Library.
+    * `AmdSmiTemperatureType` had issues with referencing the correct attribute. As such, the following duplicate enums have been removed:
+        - `AmdSmiTemperatureType.GPUBOARD_NODE_FIRST`
+        - `AmdSmiTemperatureType.GPUBOARD_VR_FIRST`
+        - `AmdSmiTemperatureType.BASEBOARD_FIRST`
 
 #### Resolved Issues
 
-- Fixed `attribute error` in `amd-smi monitor` on Linux Guest systems, where the violations argument caused CLI to break.
-- Fixed gpuboard and baseboard temperatures enums in `amdsmi` Python Library.
+* Fixed `attribute error` in `amd-smi monitor` on Linux Guest systems, where the violations argument caused CLI to break.
+* Fixed certain output in `amd-smi monitor` when GPUs are partitioned.  
+  * It fixes the amd-smi monitor such as: `amd-smi monitor -Vqt`, `amd-smi monitor -g 0 -Vqt -w 1`, `amd-smi monitor -Vqt --file /tmp/test1`, etc. These commands will now be able to display as normal in partitioned GPU scenarios.
+
+* Fixed an issue where using `amd-smi ras --folder <folder_name>` was forcing the created folder's name to be lowercase. This fix also allows all string input options to be case insensitive.
+
+* Fixed an issue of some processes not being detected by AMD SMI despite making use of KFD resources. This fix, with the addition of KFD Fallback for process detection, ensures that all KFD processes will be detected.
+
+* Multiple CPER issues were fixed.  
+  - Issue of being unable to query for additional CPERs after 20 were generated on a single device.
+  - Issue where the RAS HBM CRC read was failing due to an incorrect AFID value.
+  - Issue where RAS injections were not consistently producing related CPERs.
 
 ### **HIP** (7.0.2)
 
 #### Added
 
-* Support for rocBLAS and hipBLASL targeting the new AMD GPUs gfx1150 and gfx1151.
+* Support for rocBLAS and hipBLASLt targeting gfx1150 and gfx1151.
 * Support for the `hipMemAllocationTypeUncached` flag, enabling developers to allocate uncached memory. This flag is now supported in the following APIs:
     - `hipMemGetAllocationGranularity` determines the recommended allocation granularity for uncached memory.
     - `hipMemCreate` allocates memory with uncached properties.
@@ -622,6 +635,12 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
  
 * Set the imaginary portion of the main diagonal of the output matrix to zero in syrk and herk.
 
+### **ROCdbgapi** (0.77.4)
+
+#### Added
+
+* ROCdbgapi documentation link in the README.md file.
+
 ### **ROCm Systems Profiler** (1.1.1)
 
 #### Resolved issues
@@ -639,7 +658,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 #### Resolved issues
 
-* Resolved an issue causing premature deallocation of internal buffers while still in use.
+* Fixed an issue causing premature deallocation of internal buffers while still in use.
 
 ### **rocSOLVER** (3.30.1)
 
@@ -659,34 +678,21 @@ issues related to individual components, review the [Detailed component changes]
 
 ### ROCm debugging tools might become unresponsive in SELinux-enabled distributions
 
-Red Hat Enterprise Linux (RHEL) and related distributions automatically enable a security feature named Security-Enhanced Linux (SELinux) that may prevent ROCm debugging tools like ROCgdb, ROCdbgapi, and ROCR Debug Agent from working correctly.
+Red Hat Enterprise Linux (RHEL) and related distributions automatically enable a security feature named Security-Enhanced Linux (SELinux), which may prevent ROCm debugging tools, such as ROCgdb, ROCdbgapi, and ROCR Debug Agent, from working correctly.
  
-The problem occurs when attempting to debug a program that contains code that runs on the GPU. The debugging session may become unresponsive while attempting to reach a breakpoint or doing instruction-stepping in device code. ROCgdb will still be responsive and accept interruption via CTRL-C, but the breakpoint in device code won't be hit, and the instruction-stepping operation will not conclude.
+The problem occurs when attempting to debug a program that contains code that runs on the GPU. The debugging session might become unresponsive while attempting to reach a breakpoint or executing instruction-stepping in device code. ROCgdb will still be responsive and accept interruptions by pressing `Control+C`, but the breakpoint in device code won't be hit, and the instruction-stepping operation will not be completed.
  
-The ROCR Debug Agent might also become unresponsive when attempting to capture data from a program that is running into queue errors, memory faults, and other triggering events.
+The ROCR Debug Agent might also become unresponsive when attempting to capture data from a program that is experiencing queue errors, memory faults, or other triggering events.
  
-As a workaround for this problem, either disable SELinux or configure it to use the permissive setting.
- 
-While ROCgdb or ROCR Debug Agent are being used, setting SELinux to permissive can be accomplished with the following command:
-
-```
-sudo setenforce 0
-```
-After the session is over, it can be switched back to enforcing mode:
-
-```
-sudo setenforce 1
-```
-
-```{note}
-Changing the SELinux settings can have security implications. Ensure you review your system security settings before making any changes.
-```
-
-This issue will be fixed in a future ROCm release.
+For a detailed workaround, see the [Installation troubleshooting](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/install-faq.html#issue-10-rocm-debugging-tools-might-become-unresponsive-in-selinux-enabled-distributions) documentation. This issue will be fixed in a future ROCm release.
 
 ## ROCm upcoming changes
 
 The following changes to the ROCm software stack are anticipated for future releases.
+
+### ROCm Execution Provider (ROCm-EP) deprecation
+
+ROCm 7.0.2 is the last offiical AMD-supported distribution of ROCm Execution Provider (ROCm-EP). ROCm EP will be removed from all upcoming ROCm releases. Refer to this [Pull Request](https://github.com/microsoft/onnxruntime/pull/25181) for more information.Migrate your applications to use the [MIGraphX Execution Provider](https://onnxruntime.ai/docs/execution-providers/MIGraphX-ExecutionProvider.html#migraphx-execution-provider).
 
 ### ROCm SMI deprecation
 
