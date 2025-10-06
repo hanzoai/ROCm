@@ -28,11 +28,11 @@ compatibility and system requirements.
 
       :ref:`Operating systems & kernels <OS-kernel-versions>`,Ubuntu 24.04.3,Ubuntu 24.04.3,Ubuntu 24.04.2
       ,Ubuntu 22.04.5,Ubuntu 22.04.5,Ubuntu 22.04.5
-      ,"RHEL 10.0, 9.6, 9.4","RHEL 9.6, 9.4","RHEL 9.5, 9.4"
+      ,"RHEL 10.0 [#rhel-10-702]_, 9.6, 9.4","RHEL 9.6, 9.4","RHEL 9.5, 9.4"
       ,RHEL 8.10 [#rhel-700]_,RHEL 8.10 [#rhel-700]_,RHEL 8.10
       ,SLES 15 SP7 [#sles-db-700]_,SLES 15 SP7 [#sles-db-700]_,SLES 15 SP6
       ,"Oracle Linux 10, 9, 8 [#ol-700-mi300x]_","Oracle Linux 9, 8 [#ol-700-mi300x]_","Oracle Linux 9, 8 [#mi300x]_"
-      ,"Debian 13, 12 [#sles-db-700]_",Debian 12 [#sles-db-700]_,Debian 12 [#single-node]_
+      ,"Debian 13 [#db-mi300x]_, 12 [#sles-db-700]_",Debian 12 [#sles-db-700]_,Debian 12 [#single-node]_
       ,Azure Linux 3.0 [#az-mi300x]_,Azure Linux 3.0 [#az-mi300x]_,Azure Linux 3.0 [#az-mi300x]_
       ,Rocky Linux 9 [#rl-700]_,Rocky Linux 9 [#rl-700]_,
       ,.. _architecture-support-compatibility-matrix:,,
@@ -161,13 +161,15 @@ compatibility and system requirements.
 
 .. rubric:: Footnotes
 
+.. [#rhel-10-702] RHEL 10.0 is not supported on AMD Radeon PRO V620 GPU.
 .. [#rhel-700] RHEL 8.10 is only supported on AMD Instinct MI300X, MI300A, MI250X, MI250, MI210, and MI100 GPUs.
-.. [#ol-700-mi300x] **For ROCm 7.0.x** - Oracle Linux 9 is supported only on AMD Instinct MI355X, MI350X, and MI300X GPUs. Oracle Linux 8 is supported only on AMD Instinct MI300X GPUs.
-.. [#ol-mi300x] **Prior ROCm 7.0.0** - Oracle Linux is supported only on AMD Instinct MI300X GPUs.
+.. [#ol-700-mi300x] **For ROCm 7.0.x** - Oracle Linux 10 and 9 are supported only on AMD Instinct MI355X, MI350X, and MI300X GPUs. Oracle Linux 8 is supported only on AMD Instinct MI300X GPU.
+.. [#ol-mi300x] **Prior ROCm 7.0.0** - Oracle Linux is supported only on AMD Instinct MI300X GPU.
+.. [#db-mi300x] **For ROCm 7.0.2** - Debian 13 is only supported on AMD Instinct MI300X GPU.
 .. [#sles-db-700] **For ROCm 7.0.x** - SLES 15 SP7 and Debian 12 are only supported on AMD Instinct MI300X, MI300A, MI250X, MI250, and MI210 GPUs.
-.. [#az-mi300x] Starting ROCm 6.4.0, Azure Linux 3.0 is supported only on AMD Instinct MI300X and AMD Radeon PRO V710.
+.. [#az-mi300x] Starting ROCm 6.4.0, Azure Linux 3.0 is supported only on AMD Instinct MI300X and AMD Radeon PRO V710 GPUs.
 .. [#rl-700] Rocky Linux 9 is only supported on AMD Instinct MI300X and MI300A GPUs.
-.. [#single-node] **Prior to ROCm 7.0.0** - Debian 12 is supported only on AMD Instinct MI300X for single-node functionality.
+.. [#single-node] **Prior to ROCm 7.0.0** - Debian 12 is supported only on AMD Instinct MI300X GPU for single-node functionality.
 .. [#mi350x-os] AMD Instinct MI355X (gfx950) and MI350X(gfx950) GPUs are only supported on Ubuntu 24.04.3, Ubuntu 22.04.5, RHEL 9.6, RHEL 9.4, and Oracle Linux 9.
 .. [#RDNA-OS-700] **For ROCm 7.0.x** - AMD Radeon PRO AI PRO R9700 (gfx1201), AMD Radeon RX 9070 XT (gfx1201), AMD Radeon RX 9070 GRE (gfx1201), AMD Radeon RX 9070 (gfx1201), AMD Radeon RX 9060 XT (gfx1200), AMD Radeon RX 7800 XT (gfx1101), AMD Radeon RX 7700 XT (gfx1101), AMD Radeon PRO W7700 (gfx1101), and AMD Radeon PRO W6800 (gfx1030) are only supported on Ubuntu 24.04.3, Ubuntu 22.04.5, and RHEL 9.6.
 .. [#RDNA-OS] **Prior ROCm 7.0.0** - Radeon AI PRO R9700, Radeon RX 9070 XT (gfx1201), Radeon RX 9060 XT (gfx1200), Radeon PRO W7700 (gfx1101), and Radeon RX 7800 XT (gfx1101) are supported only on Ubuntu 24.04.2, Ubuntu 22.04.5, RHEL 9.6, and RHEL 9.4.
@@ -254,13 +256,15 @@ Expand for full historical view of:
 
    .. rubric:: Footnotes
 
+   .. [#rhel-10-702-past-60] RHEL 10.0 is not supported on AMD Radeon PRO V620 GPU.
    .. [#rhel-700-past-60] **For ROCm 7.0.x** - RHEL 8.10 is only supported on AMD Instinct MI300X, MI300A, MI250X, MI250, MI210, and MI100 GPUs.
-   .. [#ol-700-mi300x-past-60] **For ROCm 7.0.x** - Oracle Linux 9 is supported only on AMD Instinct MI300X, MI350X, and MI355X. Oracle Linux 8 is only supported on AMD Instinct MI300X.
-   .. [#mi300x-past-60] **Prior ROCm 7.0.0** - Oracle Linux is supported only on AMD Instinct MI300X.
+   .. [#ol-700-mi300x-past-60] **For ROCm 7.0.x** - Oracle Linux 10 and 9 are supported only on AMD Instinct MI300X, MI350X, and MI355X. Oracle Linux 8 is only supported on AMD Instinct MI300X.
+   .. [#mi300x-past-60] **Prior ROCm 7.0.0** - Oracle Linux is supported only on AMD Instinct MI300X GPU.
+   .. [#db-mi300x-past-60] **For ROCm 7.0.2** - Debian 13 is only supported on AMD Instinct MI300X GPU.
    .. [#sles-db-700-past-60] **For ROCm 7.0.x** - SLES 15 SP7 and Debian 12 are only supported on AMD Instinct MI300X, MI300A, MI250X, MI250, and MI210 GPUs.
-   .. [#single-node-past-60] **Prior to ROCm 7.0.0** - Debian 12 is supported only on AMD Instinct MI300X for single-node functionality.
-   .. [#az-mi300x-past-60] Starting from ROCm 6.4.0, Azure Linux 3.0 is supported only on AMD Instinct MI300X and AMD Radeon PRO V710.
-   .. [#az-mi300x-630-past-60] **Prior ROCm 6.4.0**- Azure Linux 3.0 is supported only on AMD Instinct MI300X.
+   .. [#single-node-past-60] **Prior to ROCm 7.0.0** - Debian 12 is supported only on AMD Instinct MI300X GPU for single-node functionality.
+   .. [#az-mi300x-past-60] Starting from ROCm 6.4.0, Azure Linux 3.0 is supported only on AMD Instinct MI300X and AMD Radeon PRO V710 GPUs.
+   .. [#az-mi300x-630-past-60] **Prior ROCm 6.4.0**- Azure Linux 3.0 is supported only on AMD Instinct MI300X GPU.
    .. [#rl-700-past-60] Rocky Linux 9 is only supported on AMD Instinct MI300X and MI300A GPUs.
    .. [#mi350x-os-past-60] AMD Instinct MI355X (gfx950) and MI350X(gfx950) GPUs are only supported on Ubuntu 24.04.3, Ubuntu 22.04.5, RHEL 9.6, RHEL 9.4, and Oracle Linux 9.
    .. [#RDNA-OS-700-past-60] **For ROCm 7.0.x** AMD Radeon PRO AI PRO R9700 (gfx1201), AMD Radeon RX 9070 XT (gfx1201), AMD Radeon RX 9070 GRE (gfx1201), AMD Radeon RX 9070 (gfx1201), AMD Radeon RX 9060 XT (gfx1200), AMD Radeon RX 7800 XT (gfx1101), AMD Radeon RX 7700 XT (gfx1101), AMD Radeon PRO W7700 (gfx1101), and AMD Radeon PRO W6800 (gfx1030) are only supported on Ubuntu 24.04.3, Ubuntu 22.04.5, and RHEL 9.6.

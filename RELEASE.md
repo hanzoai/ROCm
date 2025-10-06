@@ -166,9 +166,7 @@ To support this feature, AMD Instinct MI300X paired with: PLDM bundle 01.25.05.0
 
 ### RAG AI support enabled for ROCm
 
-In September 2025, Retrieval-Augmented Generation (RAG) was added to the ROCm platform. Use RAG to build and deploy end-to-end AI pipelines on AMD GPUs. It enhances the accuracy and reliability of a large language model (LLM) by exposing it to up-to-date, relevant information. When queried, RAG retrieves relevant data from its knowledge base and uses it in conjunction with the query to generate accurate and informed responses. This approach minimizes hallucinations (the creation of false information) while also enabling the model to access current information not present in its original training data.
-
-For more information, see the [ROCm-RAG documentation](https://rocm.docs.amd.com/projects/rocm-rag-internal/en/docs/index.html).
+In September 2025, Retrieval-Augmented Generation (RAG) was added to the ROCm platform. Use RAG to build and deploy end-to-end AI pipelines on AMD GPUs. It enhances the accuracy and reliability of a large language model (LLM) by exposing it to up-to-date, relevant information. When queried, RAG retrieves relevant data from its knowledge base and uses it in conjunction with the query to generate accurate and informed responses. This approach minimizes hallucinations (the creation of false information) while also enabling the model to access current information not present in its original training data. For more information, see the [ROCm-RAG documentation](https://rocm.docs.amd.com/projects/rocm-rag-internal/en/docs/index.html).
 
 ### gsplat support enabled for ROCm
 
