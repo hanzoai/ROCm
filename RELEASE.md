@@ -722,7 +722,7 @@ The following changes to the ROCm software stack are anticipated for future rele
 
 ### ROCm Execution Provider (ROCm-EP) deprecation
 
-ROCm 7.0.2 is the last offiical AMD-supported distribution of ROCm Execution Provider (ROCm-EP). ROCm EP will be removed from all upcoming ROCm releases. Refer to this [Pull Request](https://github.com/microsoft/onnxruntime/pull/25181) for more information.Migrate your applications to use the [MIGraphX Execution Provider](https://onnxruntime.ai/docs/execution-providers/MIGraphX-ExecutionProvider.html#migraphx-execution-provider).
+ROCm 7.0.2 is the last official AMD-supported distribution of ROCm Execution Provider (ROCm-EP). ROCm EP will be removed from all upcoming ROCm releases. Refer to this [Pull Request](https://github.com/microsoft/onnxruntime/pull/25181) for more information.Migrate your applications to use the [MIGraphX Execution Provider](https://onnxruntime.ai/docs/execution-providers/MIGraphX-ExecutionProvider.html#migraphx-execution-provider).
 
 ### ROCm SMI deprecation
 
@@ -746,7 +746,7 @@ It's anticipated that ROCTracer, ROCProfiler, `rocprof`, and `rocprofv2` will re
 ### AMDGPU wavefront size compiler macro deprecation
 
 Access to the wavefront size as a compile-time constant via the `__AMDGCN_WAVEFRONT_SIZE`
-and `__AMDGCN_WAVEFRONT_SIZE__` macros are deprecated and will be disabled in a future release. In ROCm 7.0.0 `warpSize` is only available as a non-`constextpr` variable. You're encouraged to update your code if needed to ensure future compatibility.
+and `__AMDGCN_WAVEFRONT_SIZE__` macros are deprecated and will be disabled in a future release. In ROCm 7.0.0 `warpSize` is only available as a non-`constexpr` variable. You're encouraged to update your code if needed to ensure future compatibility.
 
 * The `__AMDGCN_WAVEFRONT_SIZE__` macro and `__AMDGCN_WAVEFRONT_SIZE` alias will be removed in an upcoming release.
   It is recommended to remove any use of this macro. For more information, see

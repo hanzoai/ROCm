@@ -31,7 +31,7 @@ compatibility and system requirements.
       ,"RHEL 10.0 [#rhel-10-702]_, 9.6, 9.4","RHEL 9.6, 9.4","RHEL 9.5, 9.4"
       ,RHEL 8.10 [#rhel-700]_,RHEL 8.10 [#rhel-700]_,RHEL 8.10
       ,SLES 15 SP7 [#sles-db-700]_,SLES 15 SP7 [#sles-db-700]_,SLES 15 SP6
-      ,"Oracle Linux 10, 9, 8 [#ol-700-mi300x]_","Oracle Linux 9, 8 [#ol-700-mi300x]_","Oracle Linux 9, 8 [#mi300x]_"
+      ,"Oracle Linux 10, 9, 8 [#ol-700-mi300x]_","Oracle Linux 9, 8 [#ol-700-mi300x]_","Oracle Linux 9, 8 [#ol-mi300x]_"
       ,"Debian 13 [#db-mi300x]_, 12 [#sles-db-700]_",Debian 12 [#sles-db-700]_,Debian 12 [#single-node]_
       ,Azure Linux 3.0 [#az-mi300x]_,Azure Linux 3.0 [#az-mi300x]_,Azure Linux 3.0 [#az-mi300x]_
       ,Rocky Linux 9 [#rl-700]_,Rocky Linux 9 [#rl-700]_,
@@ -55,15 +55,10 @@ compatibility and system requirements.
       ,gfx908 [#mi100-os]_,gfx908 [#mi100-os]_,gfx908
       ,,,
       FRAMEWORK SUPPORT,.. _framework-support-compatibility-matrix:,,
-      :doc:`PyTorch <../compatibility/ml-compatibility/pytorch-compatibility>`,"2.7, 2.6, 2.5, 2.4, 2.3","2.7, 2.6, 2.5, 2.4, 2.3","2.6, 2.5, 2.4, 2.3"
-      :doc:`TensorFlow <../compatibility/ml-compatibility/tensorflow-compatibility>`,"2.19.1, 2.18.1","2.19.1, 2.18.1","2.18.1, 2.17.1, 2.16.2"
+      :doc:`PyTorch <../compatibility/ml-compatibility/pytorch-compatibility>`,"2.8, 2.7, 2.6","2.7, 2.6, 2.5","2.6, 2.5, 2.4, 2.3"
+      :doc:`TensorFlow <../compatibility/ml-compatibility/tensorflow-compatibility>`,"2.19.1, 2.18.1, 2.17.1 [#tf-mi350]_","2.19.1, 2.18.1, 2.17.1 [#tf-mi350]_","2.18.1, 2.17.1, 2.16.2"
       :doc:`JAX <../compatibility/ml-compatibility/jax-compatibility>`,0.6.0,0.6.0,0.4.35
-      :doc:`verl <../compatibility/ml-compatibility/verl-compatibility>` [#verl_compat]_,N/A,N/A,N/A
-      :doc:`Stanford Megatron-LM <../compatibility/ml-compatibility/stanford-megatron-lm-compatibility>` [#stanford-megatron-lm_compat]_,N/A,N/A,N/A
       :doc:`DGL <../compatibility/ml-compatibility/dgl-compatibility>` [#dgl_compat]_,N/A,N/A,2.4.0
-      :doc:`Megablocks <../compatibility/ml-compatibility/megablocks-compatibility>` [#megablocks_compat]_,N/A,N/A,N/A
-      :doc:`Taichi <../compatibility/ml-compatibility/taichi-compatibility>` [#taichi_compat]_,N/A,N/A,N/A
-      :doc:`Ray <../compatibility/ml-compatibility/ray-compatibility>` [#ray_compat]_,N/A,N/A,N/A
       :doc:`llama.cpp <../compatibility/ml-compatibility/llama-cpp-compatibility>` [#llama-cpp_compat]_,N/A,N/A,b5997
       `ONNX Runtime <https://onnxruntime.ai/docs/build/eps.html#amd-migraphx>`_,1.22.0,1.22.0,1.20.0
       ,,,
@@ -172,7 +167,6 @@ compatibility and system requirements.
 .. [#single-node] **Prior to ROCm 7.0.0** - Debian 12 is supported only on AMD Instinct MI300X GPU for single-node functionality.
 .. [#mi350x-os] AMD Instinct MI355X (gfx950) and MI350X(gfx950) GPUs are only supported on Ubuntu 24.04.3, Ubuntu 22.04.5, RHEL 9.6, RHEL 9.4, and Oracle Linux 9.
 .. [#RDNA-OS-700] **For ROCm 7.0.x** - AMD Radeon PRO AI PRO R9700 (gfx1201), AMD Radeon RX 9070 XT (gfx1201), AMD Radeon RX 9070 GRE (gfx1201), AMD Radeon RX 9070 (gfx1201), AMD Radeon RX 9060 XT (gfx1200), AMD Radeon RX 7800 XT (gfx1101), AMD Radeon RX 7700 XT (gfx1101), AMD Radeon PRO W7700 (gfx1101), and AMD Radeon PRO W6800 (gfx1030) are only supported on Ubuntu 24.04.3, Ubuntu 22.04.5, and RHEL 9.6.
-.. [#RDNA-OS] **Prior ROCm 7.0.0** - Radeon AI PRO R9700, Radeon RX 9070 XT (gfx1201), Radeon RX 9060 XT (gfx1200), Radeon PRO W7700 (gfx1101), and Radeon RX 7800 XT (gfx1101) are supported only on Ubuntu 24.04.2, Ubuntu 22.04.5, RHEL 9.6, and RHEL 9.4.
 .. [#rd-v710] **For ROCm 7.0.x** - AMD Radeon PRO V710 (gfx1101) is only supported on Ubuntu 24.04.3, Ubuntu 22.04.5, RHEL 9.6, and Azure Linux 3.0.
 .. [#rd-v620] **For ROCm 7.0.x** - AMD Radeon PRO V620 (gfx1030) is only supported on Ubuntu 24.04.3 and Ubuntu 22.04.5.
 .. [#mi325x-os] **For ROCm 7.0.x** - AMD Instinct MI325X GPU (gfx942) is only supported on Ubuntu 24.04.3, Ubuntu 22.04.5, RHEL 9.6, and RHEL 9.4.
@@ -180,9 +174,9 @@ compatibility and system requirements.
 .. [#mi300A-os] **For ROCm 7.0.x** - AMD Instinct MI300A GPU (gfx942) is supported only on Ubuntu 24.04, Ubuntu 22.04, RHEL 9.6, RHEL 9.4, RHEL 8.10, SLES 15 SP7, Debian 12, and Rocky Linux 9.
 .. [#mi200x-os] **For ROCm 7.0.x** - AMD Instinct MI200 Series GPUs (gfx90a) are supported only on Ubuntu 24.04, Ubuntu 22.04, RHEL 9.6, RHEL 9.4, RHEL 8.10, SLES 15 SP7, and Debian 12.
 .. [#mi100-os] **For ROCm 7.0.x** - AMD Instinct MI100 GPU (gfx908) is only supported on Ubuntu 24.04.3, Ubuntu 22.04.5, RHEL 9.6, RHEL 9.4, and RHEL 8.10.
-.. [#7700XT-OS] **Prior ROCm 7.0.0** - Radeon RX 7700 XT (gfx1101) is supported only on Ubuntu 24.04.2 and RHEL 9.6.
-.. [#stanford-megatron-lm_compat] Stanford Megatron-LM is only supported on ROCm 6.3.0.
-.. [#megablocks_compat] Megablocks is only supported on ROCm 6.3.0.
+.. [#tf-mi350] TensorFlow 2.17.1 is not supported on AMD Instinct MI350 series GPUs. Use TensorFlow 2.19.1 or 2.18.1 with MI350 series GPUs instead.
+.. [#dgl_compat] DGL is only supported on ROCm 6.4.0.
+.. [#llama-cpp_compat] llama.cpp is only supported on ROCm 6.4.0.
 .. [#driver_patch] AMD GPU Driver (amdgpu) 30.10.1 is a quality release that resolves an issue identified in the 30.10 release. There are no other significant changes or feature additions in ROCm 7.0.1 from ROCm 7.0.0. AMD GPU Driver (amdgpu) 30.10.1 is compatible with ROCm 7.0.1 and ROCm 7.0.0.
 .. [#kfd_support] As of ROCm 6.4.0, forward and backward compatibility between the AMD GPU Driver (amdgpu) and its user space software is provided up to a year apart. For earlier ROCm releases, the compatibility is provided for +/- 2 releases. The supported user space versions on this page were accurate as of the time of initial ROCm release. For the most up-to-date information, see the latest version of this information at `User and AMD GPU Driver support matrix <https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/user-kernel-space-compat-matrix.html>`_.
 .. [#ROCT-rocr] Starting from ROCm 6.3.0, the ROCT Thunk Interface is included as part of the ROCr runtime package.
@@ -286,6 +280,7 @@ Expand for full historical view of:
    .. [#mi300_610-past-60] **For ROCm 6.1.0** - MI300A (gfx942) is supported on Ubuntu 22.04.4, RHEL 9.4, RHEL 9.3, RHEL 8.9, and SLES 15 SP5. MI300X (gfx942) is only supported on Ubuntu 22.04.4.
    .. [#mi300_602-past-60] **For ROCm 6.0.2** - MI300A (gfx942) is supported on Ubuntu 22.04.3, RHEL 8.9, and SLES 15 SP5. MI300X (gfx942) is only supported on Ubuntu 22.04.3.
    .. [#mi300_600-past-60] **For ROCm 6.0.0** - MI300A (gfx942) is supported on Ubuntu 22.04.3, RHEL 8.9, and SLES 15 SP5. MI300X (gfx942) is only supported on Ubuntu 22.04.3.
+   .. [#tf-mi350-past-60] TensorFlow 2.17.1 is not supported on AMD Instinct MI350 series GPUs. Use TensorFlow 2.19.1 or 2.18.1 with MI350 series GPUs instead.
    .. [#verl_compat-past-60] verl is only supported on ROCm 6.2.0.
    .. [#stanford-megatron-lm_compat-past-60] Stanford Megatron-LM is only supported on ROCm 6.3.0.
    .. [#dgl_compat-past-60] DGL is only supported on ROCm 6.4.0.

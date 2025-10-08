@@ -670,6 +670,7 @@ detections
 dev
 devicelibs
 devsel
+dgl
 dimensionality
 disambiguates
 distro
@@ -963,6 +964,7 @@ tabindex
 targetContainer
 td
 tensorfloat
+tf
 th
 tokenization
 tokenize
