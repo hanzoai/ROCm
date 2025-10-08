@@ -722,7 +722,7 @@ The following changes to the ROCm software stack are anticipated for future rele
 
 ### ROCm Execution Provider (ROCm-EP) deprecation
 
-ROCm 7.0.2 is the last official AMD-supported distribution of ROCm Execution Provider (ROCm-EP). ROCm EP will be removed from all upcoming ROCm releases. Refer to this [Pull Request](https://github.com/microsoft/onnxruntime/pull/25181) for more information.Migrate your applications to use the [MIGraphX Execution Provider](https://onnxruntime.ai/docs/execution-providers/MIGraphX-ExecutionProvider.html#migraphx-execution-provider).
+ROCm 7.0.2 is the last official AMD-supported distribution of ROCm Execution Provider (ROCm-EP). ROCm EP will be removed from all upcoming ROCm releases. Refer to this [Pull Request](https://github.com/microsoft/onnxruntime/pull/25181) for more information. Migrate your applications to use the [MIGraphX Execution Provider](https://onnxruntime.ai/docs/execution-providers/MIGraphX-ExecutionProvider.html#migraphx-execution-provider).
 
 ### ROCm SMI deprecation
 

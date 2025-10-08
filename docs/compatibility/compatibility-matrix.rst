@@ -59,7 +59,7 @@ compatibility and system requirements.
       :doc:`TensorFlow <../compatibility/ml-compatibility/tensorflow-compatibility>`,"2.19.1, 2.18.1, 2.17.1 [#tf-mi350]_","2.19.1, 2.18.1, 2.17.1 [#tf-mi350]_","2.18.1, 2.17.1, 2.16.2"
       :doc:`JAX <../compatibility/ml-compatibility/jax-compatibility>`,0.6.0,0.6.0,0.4.35
       :doc:`DGL <../compatibility/ml-compatibility/dgl-compatibility>` [#dgl_compat]_,N/A,N/A,2.4.0
-      :doc:`llama.cpp <../compatibility/ml-compatibility/llama-cpp-compatibility>` [#llama-cpp_compat]_,N/A,N/A,b5997
+      :doc:`llama.cpp <../compatibility/ml-compatibility/llama-cpp-compatibility>` [#llama-cpp_compat]_,N/A,b6356,b5997
       `ONNX Runtime <https://onnxruntime.ai/docs/build/eps.html#amd-migraphx>`_,1.22.0,1.22.0,1.20.0
       ,,,
       THIRD PARTY COMMS,.. _thirdpartycomms-support-compatibility-matrix:,,
@@ -176,7 +176,7 @@ compatibility and system requirements.
 .. [#mi100-os] **For ROCm 7.0.x** - AMD Instinct MI100 GPU (gfx908) is only supported on Ubuntu 24.04.3, Ubuntu 22.04.5, RHEL 9.6, RHEL 9.4, and RHEL 8.10.
 .. [#tf-mi350] TensorFlow 2.17.1 is not supported on AMD Instinct MI350 series GPUs. Use TensorFlow 2.19.1 or 2.18.1 with MI350 series GPUs instead.
 .. [#dgl_compat] DGL is only supported on ROCm 6.4.0.
-.. [#llama-cpp_compat] llama.cpp is only supported on ROCm 6.4.0.
+.. [#llama-cpp_compat] llama.cpp is only supported on ROCm 7.0.0 and ROCm 6.4.x.
 .. [#driver_patch] AMD GPU Driver (amdgpu) 30.10.1 is a quality release that resolves an issue identified in the 30.10 release. There are no other significant changes or feature additions in ROCm 7.0.1 from ROCm 7.0.0. AMD GPU Driver (amdgpu) 30.10.1 is compatible with ROCm 7.0.1 and ROCm 7.0.0.
 .. [#kfd_support] As of ROCm 6.4.0, forward and backward compatibility between the AMD GPU Driver (amdgpu) and its user space software is provided up to a year apart. For earlier ROCm releases, the compatibility is provided for +/- 2 releases. The supported user space versions on this page were accurate as of the time of initial ROCm release. For the most up-to-date information, see the latest version of this information at `User and AMD GPU Driver support matrix <https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/user-kernel-space-compat-matrix.html>`_.
 .. [#ROCT-rocr] Starting from ROCm 6.3.0, the ROCT Thunk Interface is included as part of the ROCr runtime package.
@@ -200,6 +200,8 @@ Use this lookup table to confirm which operating system and kernel versions are 
    ,,
    `Ubuntu <https://ubuntu.com/about/release-cycle#ubuntu-kernel-release-cycle>`_, 22.04.5, "5.15 [GA], 6.8 [HWE]", 2.35
    ,,
+   `Red Hat Enterprise Linux (RHEL 10) <https://access.redhat.com/articles/3078#RHEL9>`_, 10.0, 6.12.0-55, 2.39
+   ,,
    `Red Hat Enterprise Linux (RHEL 9) <https://access.redhat.com/articles/3078#RHEL9>`_, 9.6, 5.14.0-570, 2.34
    ,9.5, 5.14+, 2.34
    ,9.4, 5.14.0-427, 2.34
@@ -212,10 +214,12 @@ Use this lookup table to confirm which operating system and kernel versions are 
    ,,
    `Rocky Linux <https://wiki.rockylinux.org/rocky/version/>`_, 9, 5.14.0-570, 2.34
    ,,
-   `Oracle Linux <https://blogs.oracle.com/scoter/post/oracle-linux-and-unbreakable-enterprise-kernel-uek-releases>`_, 9, 6.12.0 (UEK), 2.34
+   `Oracle Linux <https://blogs.oracle.com/scoter/post/oracle-linux-and-unbreakable-enterprise-kernel-uek-releases>`_, 10, 6.12.0 (UEK), 2.39
+   ,9, 6.12.0 (UEK), 2.34
    ,8, 5.15.0 (UEK), 2.28
    ,,
-   `Debian <https://www.debian.org/download>`_,12, 6.1.0, 2.36
+   `Debian <https://www.debian.org/download>`_,13, 6.12, 2.35
+   ,12, 6.1.0, 2.36
    ,,
    `Azure Linux <https://techcommunity.microsoft.com/blog/linuxandopensourceblog/azure-linux-3-0-now-in-preview-on-azure-kubernetes-service-v1-31/4287229>`_,3.0, 6.6.92, 2.38
    ,,
