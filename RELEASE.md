@@ -16,7 +16,7 @@ The release notes provide a summary of notable changes since the previous ROCm r
 
 - [Release highlights](#release-highlights)
 
-- [Operating system, hardware, and virtualization support changes](#operating-system-hardware-and-virtualization-support-changes)
+- [Supported hardware, operating system, and virtualization changes](#supported-hardware-operating-system-hardware-and-virtualization-changes)
 
 - [User space, driver, and firmware dependent changes](#user-space-driver-and-firmware-dependent-changes)
 
@@ -38,9 +38,9 @@ documentation to verify compatibility and system requirements.
 The following are notable new features and improvements in ROCm 7.0.2. For changes to individual components, see
 [Detailed component changes](#detailed-component-changes).
 
-### Operating system, hardware, and virtualization support changes
+### Supported hardware, operating system, and virtualization changes
 
-Hardware support remains unchanged in this release. For details, see the full list of [Supported GPUs (Linux)](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#supported-gpus).
+ROCm 7.0.2 adds support for the RDNA4 architecture-based [AMD Radeon RX 9060](https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9060.html). For more information about supported AMD hardware, see [Supported GPUs (Linux)](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#supported-gpus).
 
 ROCm 7.0.2 adds support for the following operating systems and kernel versions:
 
@@ -91,20 +91,22 @@ firmware, AMD GPU drivers, and the ROCm user space software.
           <td rowspan="9" style="vertical-align: middle;">ROCm 7.0.2</td>
           <td>MI355X</td>
           <td>
-              01.25.13.09 (or later)<br>
-              01.25.11.02
+              01.25.15.02 (or later)<br>
+              01.25.13.09
           </td>
-          <td>30.10.1<br>
+          <td>30.10.2<br>
+              30.10.1<br>
               30.10</td>
-          <td rowspan="3" style="vertical-align: middle;">8.4.0.K</td>
+          <td rowspan="3" style="vertical-align: middle;">8.4.1.K</td>
       </tr>
       <tr>
           <td>MI350X</td>
           <td>
-              01.25.13.09 (or later)<br>
-              01.25.11.02
+              01.25.15.02 (or later)<br>
+              01.25.13.09
           </td>
-          <td>30.10.1<br>
+          <td>30.10.2<br>
+              30.10.1<br>
               30.10</td>
       </tr>
       <tr>
@@ -114,6 +116,7 @@ firmware, AMD GPU drivers, and the ROCm user space software.
               01.25.03.03
           </td>
           <td>
+              30.10.2<br>
               30.10.1<br>
               30.10<br>
               6.4.z where z (0-3)<br>
@@ -122,20 +125,22 @@ firmware, AMD GPU drivers, and the ROCm user space software.
       </tr>
       <tr>
           <td>MI300X</td>
-          <td>01.25.03.12 (or later)<br>
-              01.25.02.04</td>
+          <td>01.25.05.00 (or later)<a href="#footnote1"><sup>[1]</sup></a><br>
+              01.25.03.12</td>
           <td rowspan="6" style="vertical-align: middle;">
+              30.10.2<br>
               30.10.1<br>
               30.10<br>
               6.4.z where z (0–3)<br>
               6.3.y where y (0–3)<br>
               6.2.x where x (1–4)
           </td>
-          <td>8.4.0.K</td>
+          <td>8.4.1.K</td>
       </tr>
       <tr>
           <td>MI300A</td>
-          <td>26 (or later)</td>
+          <td>BKC 26 (or later)<br>
+              BKC 25</td>
           <td rowspan="3" style="vertical-align: middle;">Not Applicable</td>
       </tr>
       <tr>
@@ -159,10 +164,16 @@ firmware, AMD GPU drivers, and the ROCm user space software.
   </table>
 </div>
 
-### Improved GPU resiliency
+<p id="footnote1">[1]: PLDM bundle 01.25.05.00 will be available by October 31, 2025.</p>
+
+#### AMD Instinct MI300X GPU resiliency improvement
 
 Multimedia Engine Reset has been added to support finer-grain GPU Resiliency on AMD Instinct MI300X GPUs. It allows recovery from VCN/JPEG kernel queue hang cases without requiring a full GPU reset, improving system stability and fault tolerance.
-To support this feature, AMD Instinct MI300X paired with: PLDM bundle 01.25.05.00 (or later) firmware is required.
+To support this feature, the AMD Instinct MI300X GPU requires PLDM bundle 01.25.05.00 (or later) firmware and AMD GPU Driver (amdgpu) 30.10.2.
+
+#### New OS support in ROCm dependent on AMD GPU Driver
+
+ROCm support for RHEL 10.0 and Oracle 10 requires AMD GPU Driver 30.10.2 or later.
 
 ### RAG AI support enabled for ROCm
 
@@ -186,6 +197,14 @@ ROCm-LS provides the following tools to build a complete workflow for life scien
 
 ROCm provides a comprehensive ecosystem for deep learning development. For more information, see [Deep learning frameworks for ROCm](https://rocm.docs.amd.com/en/latest/how-to/deep-learning-rocm.html) and the [Compatibility
 matrix](../../docs/compatibility/compatibility-matrix.rst) for the complete list of Deep learning and AI framework versions tested for compatibility with ROCm.
+
+#### Updated framework support
+
+ROCm 7.0.0 introduces several newly supported versions of Deep learning and AI frameworks:
+
+##### PyTorch
+
+ROCm 7.0.2 enables support for PyTorch 2.8.
 
 #### New frameworks
 
@@ -683,6 +702,19 @@ The problem occurs when attempting to debug a program that contains code that ru
 The ROCR Debug Agent might also become unresponsive when attempting to capture data from a program that is experiencing queue errors, memory faults, or other triggering events.
  
 For a detailed workaround, see the [Installation troubleshooting](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/install-faq.html#issue-10-rocm-debugging-tools-might-become-unresponsive-in-selinux-enabled-distributions) documentation. This issue will be fixed in a future ROCm release.
+
+### MIGraphX Python API will fail when running on Python 3.13
+
+Applications using the MIGraphX Python API will fail when running on Python 3.13 and return the error message `AttributeError: module 'migraphx' has no attribute 'parse_onnx'`. The issue does not occur when you manually build MIGraphX. For detailed instructions, see [Building from source](https://rocm.docs.amd.com/projects/AMDMIGraphX/en/latest/install/building_migraphx.html). As a workaround, change the Python version to the one found in the installed location:
+
+```
+ls -l /opt/rocm-7.0.0/lib/libmigraphx_py_*.so
+```
+The issue will be resolved in a future ROCm release.
+
+### Applications using OpenCV might fail due to package incompatibility between the OS
+
+OpenCV packages built on Ubuntu 24.04 are incompatible with Debian 13 due to a version conflict. As a result, applications, tests, and samples that use OpenCV might fail. To avoid the version conflict, rebuild OpenCV with the version corresponding to Debian 13, then rebuild MIVisionX on top of it. As a workaround, rebuild OpenCV from source, followed by the application that uses OpenCV. This issue will be fixed in a future ROCm release.
 
 ## ROCm upcoming changes
 
