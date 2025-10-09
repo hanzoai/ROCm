@@ -42,7 +42,6 @@ for a complete overview of this release.
 
 #### Added
 
-* Support for rocBLAS and hipBLASLt targeting gfx1150 and gfx1151.
 * Support for the `hipMemAllocationTypeUncached` flag, enabling developers to allocate uncached memory. This flag is now supported in the following APIs:
     - `hipMemGetAllocationGranularity` determines the recommended allocation granularity for uncached memory.
     - `hipMemCreate` allocates memory with uncached properties.
