@@ -313,6 +313,7 @@ Mooncake
 Mpops
 Multicore
 Multithreaded
+MXFP
 MyEnvironment
 MyST
 NANOO
@@ -714,6 +715,7 @@ githooks
 github
 globals
 gnupg
+gpu
 grayscale
 gx
 gzip
@@ -768,6 +770,7 @@ invariants
 invocating
 ipo
 jax
+json
 kdb
 kfd
 kv
@@ -981,6 +984,7 @@ toolset
 toolsets
 torchtitan
 torchvision
+tp
 tqdm
 tracebacks
 txt
