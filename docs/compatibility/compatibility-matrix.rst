@@ -174,7 +174,7 @@ compatibility and system requirements.
 .. [#mi300A-os] **For ROCm 7.0.x** - AMD Instinct MI300A GPUs (gfx942) are supported only on Ubuntu 24.04, Ubuntu 22.04, RHEL 9.6, RHEL 9.4, RHEL 8.10, SLES 15 SP7, Debian 12, and Rocky Linux 9.
 .. [#mi200x-os] **For ROCm 7.0.x** - AMD Instinct MI200 Series GPUs (gfx90a) are supported only on Ubuntu 24.04, Ubuntu 22.04, RHEL 9.6, RHEL 9.4, RHEL 8.10, SLES 15 SP7, and Debian 12.
 .. [#mi100-os] **For ROCm 7.0.x** - AMD Instinct MI100 GPUs (gfx908) are supported only on Ubuntu 24.04.3, Ubuntu 22.04.5, RHEL 9.6, RHEL 9.4, and RHEL 8.10.
-.. [#tf-mi350] TensorFlow 2.17.1 is not supported on AMD Instinct MI350 series GPUs. Use TensorFlow 2.19.1 or 2.18.1 with MI350 series GPUs instead.
+.. [#tf-mi350] TensorFlow 2.17.1 is not supported on AMD Instinct MI350 Series GPUs. Use TensorFlow 2.19.1 or 2.18.1 with MI350 Series GPUs instead.
 .. [#dgl_compat] DGL is supported only on ROCm 6.4.0.
 .. [#llama-cpp_compat] llama.cpp is supported only on ROCm 7.0.0 and ROCm 6.4.x.
 .. [#driver_patch] AMD GPU Driver (amdgpu) 30.10.1 is a quality release that resolves an issue identified in the 30.10 release. There are no other significant changes or feature additions in ROCm 7.0.1 from ROCm 7.0.0. AMD GPU Driver (amdgpu) 30.10.1 is compatible with ROCm 7.0.1 and ROCm 7.0.0.
