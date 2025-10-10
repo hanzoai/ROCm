@@ -16,7 +16,7 @@ The release notes provide a summary of notable changes since the previous ROCm r
 
 - [Release highlights](#release-highlights)
 
-- [Supported hardware, operating system, and virtualization changes](#supported-hardware-operating-system-hardware-and-virtualization-changes)
+- [Supported hardware, operating system, and virtualization changes](#supported-hardware-operating-system-and-virtualization-changes)
 
 - [User space, driver, and firmware dependent changes](#user-space-driver-and-firmware-dependent-changes)
 
