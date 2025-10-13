@@ -17,6 +17,7 @@ parameters:
     - libdw-dev
     - libglfw3-dev
     - libmsgpack-dev
+    - libopencv-dev
     - libtbb-dev
     - libtiff-dev
     - libva-amdgpu-dev
