@@ -17,10 +17,14 @@ parameters:
     - libdw-dev
     - libglfw3-dev
     - libmsgpack-dev
+    - libomp-dev
     - libopencv-dev
     - libtbb-dev
     - libtiff-dev
     - libva-amdgpu-dev
+    - libavcodec-dev
+    - libavformat-dev
+    - libavutil-dev
     - ninja-build
     - python3-pip
 - name: rocmDependencies
@@ -40,7 +44,9 @@ parameters:
     - hipTensor
     - llvm-project
     - MIOpen
+    - MIVisionX
     - rocBLAS
+    - rocDecode
     - rocFFT
     - rocJPEG
     - rocPRIM
@@ -70,7 +76,9 @@ parameters:
     - hipTensor
     - llvm-project
     - MIOpen
+    - MIVisionX
     - rocBLAS
+    - rocDecode
     - rocFFT
     - rocminfo
     - rocPRIM
