@@ -675,7 +675,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 * Optimized the way `amd-smi process` validates, which processes are running on a GPU. 
 
-#### Resolved Issues
+#### Resolved issues
 
 * Fixed a CPER record count mismatch issue when using the `amd-smi ras --cper --file-limit`. Updated the deletion calculation to use `files_to_delete = len(folder_files) - file_limit` for exact file count management.
 
@@ -819,7 +819,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * Added tests for large num_items.
 * The previous dependency-related build option `DEPENDENCIES_FORCE_DOWNLOAD` has been renamed `EXTERNAL_DEPS_FORCE_DOWNLOAD` to differentiate it from the new rocPRIM dependency option described above. Its behavior remains the same - it forces non-ROCm dependencies (Google Benchmark and Google Test) to be downloaded rather than searching for installed packages. This option defaults to `OFF`.
 
-#### Known Issues
+#### Known issues
 
 * The `__half` template specializations of Simd operators are currently disabled due to possible build issues with PyTorch.
 
@@ -836,13 +836,13 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 * Support for building with CMake 4.0.
 
-#### Resolved Issues
+#### Resolved issues
 
 * Fixed a potential integer overflow issue in `hipMalloc` interfaces.
 
 ### **hipRAND** (3.1.0)
 
-#### Resolved Issues
+#### Resolved issues
 
 * Updated error handling for several hipRAND unit tests to accomodate the new hipGetLastError behaviour that was introduced in ROCm 7.0.0. As of ROCm 7.0.0, the internal error state is cleared on each call to `hipGetLastError` rather than on every HIP API call.
 
@@ -880,6 +880,70 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 * Provided more kernels for the `FP16` and `BF16` data types.
 
+### **MIGraphX** (2.14.0)
+
+#### Added
+
+* Python 3.13 support.
+* PyTorch wheels to the Dockerfile.
+* Python API for returning serialized bytes.
+* `fixed_pad` operator for padding dynamic shapes to the maximum static shape.
+* Matcher to upcast base `Softmax` operations.
+* Support for the `convolution_backwards` operator through rocMLIR.
+* `LSE` output to attention fusion.
+* Flags to `EnableControlFlowGuard` due to BinSkim errors.
+* New environment variable documentation and reorganized structure.
+* `stash_type` attribute for `LayerNorm` and expanded test coverage.
+* Operator builders (phase 2).
+* `MIGRAPHX_GPU_HIP_FLAGS` to allow extra HIP compile flags.
+
+#### Changed
+
+* Updated C API to include `current()` caller information in error reporting.
+* Updated documentation dependencies:
+  * **rocm-docs-core** bumped from 1.21.1 → 1.25.0 across releases.
+  * **Doxygen** updated to 1.14.0.
+  * **urllib3** updated from 2.2.2 → 2.5.0.
+* Updated `src/CMakeLists.txt` to support `msgpack` 6.x (`msgpack-cxx`).
+* Updated model zoo test generator to fix test issues and add summary logging.
+* Updated `rocMLIR` and `ONNXRuntime` mainline references across commits.
+* Updated module sorting algorithm for improved reliability.
+* Restricted FP8 quantization to `dot` and `convolution` operators.
+* Moved ONNX Runtime launcher script into MIGraphX and updated build scripts.
+* Simplified ONNX `Resize` operator parser for correctness and maintainability.
+* Updated `any_ptr` assertion to avoid failure on default HIP stream.
+* Print kernel and module information on compile failure.
+
+#### Removed
+
+* Removed Perl dependency from SLES builds.
+* Removed redundant includes and unused internal dependencies.
+
+#### Optimized
+
+* Reduced nested visits in reference operators to improve compile time.
+* Avoided dynamic memory allocation during kernel launches.
+* Removed redundant NOP instructions for GFX11/12 platforms.
+* Improved `Graphviz` output (node color and layout updates).
+* Optimized interdependency checking during compilation.
+* Skip hipBLASLt solutions requiring workspace size larger than 128 MB for efficient memory utilization.
+
+#### Resolved issues
+
+* Error in `MIGRAPHX_GPU_COMPILE_PARALLEL` documentation (#4337).
+* rocMLIR `rewrite_reduce` issue (#4218).
+* Bug with `invert_permutation` on GPU (#4194).
+* Compile error when `MIOPEN` is disabled (missing `std` includes) (#4281).
+* ONNX `Resize` parsing when input and output shapes are identical (#4133, #4161).
+* Issue with MHA in attention refactor (#4152).
+* Synchronization issue from upstream ONNX Runtime (#4189).
+* Spelling error in “Contiguous” (#4287).
+* Tidy complaint about duplicate header (#4245).
+* `reshape`, `transpose`, and `broadcast` rewrites between pointwise and reduce operators (#3978).
+* Extraneous include file in HIPRTC-based compilation (#4130).
+* CI Perl dependency issue for SLES builds (#4254).
+* Compiler warnings for ROCm 7.0 of ``error: unknown warning option '-Wnrvo'``(#4192).
+
 ### **MIOpen** (3.5.1)
 
 #### Added
@@ -896,7 +960,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 * [Conv] Enabled Composable Kernel (CK) implicit gemms on gfx950.
 
-#### Resolved Issues
+#### Resolved issues
 
 * [BatchNorm] Fixed a bug for the NHWC layout when a variant was not applicable.
 * Fixed a bug that caused a zero-size LDS array to be defined on Navi.
@@ -913,17 +977,17 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * AMD Custom V1.1.0 - OpenMP updates
 * HALF - Fix half.hpp path updates
 
-#### Resolved Issues
+#### Resolved issues
 
 * AMD Custom - dependency linking errors resolved
 * VX_RPP - Fix memory leak
 * Packaging - Remove Meta Package dependency for HIP
 
-#### Known Issues
+#### Known issues
 
 * Installation on CentOS/RedHat/SLES requires the manual installation of the `FFMPEG` &amp; `OpenCV` dev packages.
 
-#### Upcoming Changes
+#### Upcoming changes
 
 * VX_AMD_MEDIA - rocDecode support for hardware decode
 
@@ -943,14 +1007,32 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 * Improved small message performance for `alltoall` by enabling and optimizing batched P2P operations.
 
-#### Resolved Issues
+#### Resolved issues
 
 * Improve small message performance for alltoall by enabling and optimizing batched P2P operations.
 
-#### Known Issues
+#### Known issues
 
 * Symmetric memory kernels are currently disabled due to ongoing CUMEM enablement work.
 * When running this version of RCCL using ROCm versions earlier than 6.4.0, the user must set the environment flag `HSA_NO_SCRATCH_RECLAIM=1`.
+
+### **rocAL** (2.4.0)
+
+#### Added
+* JAX iterator support in rocAL
+* rocJPEG - Fused Crop decoding support
+
+#### Changed
+* CropResize - updates and fixes
+* Packaging - Remove Meta Package dependency for HIP
+
+#### Resolved issues
+* OpenMP - dependency linking errors resolved.
+* Bugfix - memory leaks in rocAL.
+
+#### Known issues
+* Package installation on SLES requires manually installing `TurboJPEG`.
+* Package installation on CentOS, RedHat, and SLES requires manually installing the `FFMPEG Dev` package.
 
 ### **rocALUTION** (4.0.1)
 
@@ -966,7 +1048,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 * Improved and expanded user documentation.
 
-#### Resolved Issues
+#### Resolved issues
 
 * Fixed a bug in the GPU hashing algorithm that occurred when not compiling with -O2/-O3.
 * Fixed an issue with the SPAI preconditioner when using complex numbers.
@@ -995,7 +1077,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * FFmpeg version support for 5.1 and 6.1
 * Find package - rocdecode-host
 
-#### Resolved Issues
+#### Resolved issues
 
 * rocdecode-host - failure to build debuginfo packages without FFmpeg resolved.
 * Fix a memory leak for rocDecodeNegativeTests
@@ -1203,11 +1285,11 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
   * 891 specializations have been improved.
   * 399 specializations have been added.
 
-#### Upcoming Changes
+#### Upcoming changes
 
 * Deprecated the `-&gt;` operator for the `zip_iterator`.
 
-#### Resolved Issues
+#### Resolved issues
 
 * Fixed `device_select`, `device_merge`, and `device_merge_sort` not allocating the correct amount of virtual shared memory on the host.
 * Fixed the `-&gt;` operator for the `transform_iterator`, the `texture_cache_iterator`, and the `arg_index_iterator`, by now returning a proxy pointer.
@@ -1234,7 +1316,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 ### **rocRAND** (4.1.0)
 
-#### Resolved Issues
+#### Resolved issues
 
 * Updated error handling for several rocRAND unit tests to accommodate the new `hipGetLastError` behavior that was introduced in ROCm 7.0.
 As of ROCm 7.0, the internal error state is cleared on each call to `hipGetLastError` rather than on every HIP API call.
@@ -1275,7 +1357,7 @@ Improved the performance of:
 
 * Improved the user documentation.
 
-#### Upcoming Changes
+#### Upcoming changes
 
 * Deprecate trace, debug, and bench logging using the environment variable `ROCSPARSE_LAYER`.
 
@@ -1287,7 +1369,7 @@ Improved the performance of:
 * Introduced `libhipcxx` as a soft dependency. When `liphipcxx` can be included, rocThrust can use structs and methods defined in `libhipcxx`. This allows for a more complete behavior parity with CCCL and mirrors CCCL's thrust own dependency on `libcudacxx`.
 * Added a new CMake option `-DUSE_SYSTEM_LIB` to allow tests to be built from `ROCm` libraries provided by the system.
 
-#### Known Issues
+#### Known issues
 
 * `event` test is failing on CI and local runs on MI300, MI250 and MI210.
 
@@ -1326,7 +1408,7 @@ Improved the performance of:
 * Packaging - Remove Meta Package dependency for HIP
 * SLES 15 SP6 support
 
-#### Resolved Issues
+#### Resolved issues
 
 * Test Suite - Fixes for accuracy
 * HIP Backend - Check return status warning fixes
