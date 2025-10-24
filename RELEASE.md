@@ -124,7 +124,7 @@ firmware, AMD GPU drivers, and the ROCm user space software.
       </tr>
       <tr>
           <td>MI300X</td>
-          <td>01.25.05.04 (or later)<a href="#footnote1"><sup>[1]</sup></a><br>
+          <td>01.25.05.00 (or later)<a href="#footnote1"><sup>[1]</sup></a><br>
               01.25.03.12</td>
           <td rowspan="6" style="vertical-align: middle;">
               30.20.0<br>
@@ -164,7 +164,21 @@ firmware, AMD GPU drivers, and the ROCm user space software.
   </table>
 </div>
 
-<p id="footnote1">[1]: PLDM bundle 01.25.05.04 will be available by November 2025.</p>
+<p id="footnote1">[1]: PLDM bundle 01.25.05.00 will be available by November 2025.</p>
+
+#### AMD-SMI improvement: Set power cap
+
+AMD Instinct MI300X is enabled to provide the capability to set power cap in 1VF. The system is designed to select the lowest power cap value from those provided by the host, VM, and Advanced Platform Management Link (APML). This feature allows you to have enhanced control over power management in virtualized environments, particularly in single VM configurations. By allowing the VM to set a power cap, you can optimize power usage and efficiency according to your specific needs. This feature requires PLDM bundle 01.25.05.00 (or later) firmware.
+
+#### Virtualization update for AMD Instinct MI350 Series GPUs
+
+* Enabled SPX/NPS1 support for multi-tenant (1VM, 2VM, 4VM, and 8VM). This feature depends on PLDM bundle 01.25.15.04
+
+* Enabled CPX/NPS2 support (1VF/OAM). This feature depends on PLDM bundle 01.25.15.04.
+
+* Enabled DPX/NPS2 support (1VF/OAM). This feature depends on PLDM bundle 01.25.15.04. 
+
+* Enabled Guest OS support for RHEL 10 and RHEL 9.6. This feature depends on PLDM bundle 01.25.15.04. 
 
 ### HIP runtime compatibility improvements
 
@@ -1096,6 +1110,15 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * Improved performance of unit-strided, complex-interleaved, forward/inverse FFTs for lengths: (64,64,128), (64,64,52), (60,60,60)
 , (32,32,128), (32,32,64), (64,32,128)
 * Improved performance of 3D MPI pencil decompositions by using sub-communicators for global transpose operations.
+
+### **rocJPEG** (1.2.0)
+
+#### Changed
+* HIP meta package has been changed. Use `hip-dev/devel` to bring required hip dev deps.
+
+#### Resolved issues
+* Fixed an issue where extra padding was incorrectly included when saving decoded JPEG images to files.
+* Resolved a memory leak in the jpegDecode application.
 
 ### **ROCm Compute Profiler** (3.3.0)
 

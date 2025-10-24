@@ -12,7 +12,8 @@ You can also refer to the :ref:`past versions of ROCm compatibility matrix<past-
 
 GPUs listed in the following table support compute workloads (no display
 information or graphics). If you’re using ROCm with AMD Radeon GPUs or Ryzen APUs for graphics
-workloads, see the :docs:`Use ROCm on Radeon and Ryzen <radeon:index.html>` to verify
+workloads, see the `Use ROCm on Radeon and Ryzen
+<https://rocm.docs.amd.com/projects/radeon-ryzen/en/latest/index.html>`_ to verify
 compatibility and system requirements.
 
 .. |br| raw:: html
@@ -55,9 +56,8 @@ compatibility and system requirements.
       ,,,
       FRAMEWORK SUPPORT,.. _framework-support-compatibility-matrix:,,
       :doc:`PyTorch <../compatibility/ml-compatibility/pytorch-compatibility>`,"2.8, 2.7, 2.6","2.8, 2.7, 2.6","2.6, 2.5, 2.4, 2.3"
-      :doc:`TensorFlow <../compatibility/ml-compatibility/tensorflow-compatibility>`,"2.20.0, 2.19.1, 2.18.1[#tf-mi350]_","2.19.1, 2.18.1, 2.17.1 [#tf-mi350]_","2.18.1, 2.17.1, 2.16.2"
+      :doc:`TensorFlow <../compatibility/ml-compatibility/tensorflow-compatibility>`,"2.20.0, 2.19.1, 2.18.1","2.19.1, 2.18.1, 2.17.1 [#tf-mi350]_","2.18.1, 2.17.1, 2.16.2"
       :doc:`JAX <../compatibility/ml-compatibility/jax-compatibility>`,0.6.0,0.6.0,0.4.35
-      :doc:`Stanford Megatron-LM <../compatibility/ml-compatibility/stanford-megatron-lm-compatibility>` [#stanford-megatron-lm_compat]_,N/A,N/A,N/A
       :doc:`DGL <../compatibility/ml-compatibility/dgl-compatibility>` [#dgl_compat]_,N/A,N/A,2.4.0
       :doc:`llama.cpp <../compatibility/ml-compatibility/llama-cpp-compatibility>` [#llama-cpp_compat]_,N/A,N/A,b5997
       `ONNX Runtime <https://onnxruntime.ai/docs/build/eps.html#amd-migraphx>`_,1.22.0,1.22.0,1.20.0
@@ -70,8 +70,8 @@ compatibility and system requirements.
       Thrust,2.6.0,2.6.0,2.5.0
       CUB,2.6.0,2.6.0,2.5.0
       ,,,
-     DRIVER & USER SPACE [#kfd_support]_,.. _kfd-userspace-support-compatibility-matrix:,,
-      :doc:`AMD GPU Driver <rocm-install-on-linux:reference/user-kernel-space-compat-matrix>`,"30.20.0, 30.10.2, 30.10.1 [#driver_patch]_, 30.10, 6.4.x",,"6.4.x, 6.3.x, 6.2.x, 6.1.x"
+      DRIVER & USER SPACE [#kfd_support]_,.. _kfd-userspace-support-compatibility-matrix:,,
+      :doc:`AMD GPU Driver <rocm-install-on-linux:reference/user-kernel-space-compat-matrix>`,"30.20.0, 30.10.2, |br| 30.10.1 [#driver_patch]_, 30.10, 6.4.x","30.10.2, 30.10.1 [#driver_patch]_, |br| 30.10, 6.4.x, 6.3.x","6.4.x, 6.3.x, 6.2.x, 6.1.x"
       ,,,
       ML & COMPUTER VISION,.. _mllibs-support-compatibility-matrix:,,
       :doc:`Composable Kernel <composable_kernel:index>`,1.1.0,1.1.0,1.1.0

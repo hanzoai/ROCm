@@ -80,7 +80,7 @@ latex_elements = {
 }
 
 html_baseurl = os.environ.get("READTHEDOCS_CANONICAL_URL", "rocm.docs.amd.com")
-html_context = {}
+html_context = {"docs_header_version": "7.1.0"}
 if os.environ.get("READTHEDOCS", "") == "True":
     html_context["READTHEDOCS"] = True
 
@@ -212,7 +212,7 @@ external_projects_current_project = "rocm"
 # external_projects_remote_repository = ""
 
 html_baseurl = os.environ.get("READTHEDOCS_CANONICAL_URL", "https://rocm-stg.amd.com/")
-html_context = {}
+html_context = {"docs_header_version": "7.1.0"}
 if os.environ.get("READTHEDOCS", "") == "True":
     html_context["READTHEDOCS"] = True
 
