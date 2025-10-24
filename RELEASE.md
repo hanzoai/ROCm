@@ -178,7 +178,6 @@ In ROCm 7.1.0, new functionalities were added in HIP runtime including the follo
     * Device Management: `hipSetValidDevices` 
     * Driver Entry Point Access: `hipGetDriverEntryPoint`
 * New HIP flag `hipMemLocationTypeHost` enables handling virtual memory management in host memory location, in addition to device memory.
-* `hipHostRegisterIoMemory` is supported in `hipHostRegister`. Previously, it was used to register I/O memory with HIP runtime so it can be accessed by the GPU.
 * HIP runtime now supports nested tile partitioning within cooperative groups, matching CUDA functionality.  
 
 For detailed enhancements and updates refer to the [HIP Changelog](#hip-7-1-0).
@@ -726,9 +725,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
     - `hipGetDriverEntryPoint ` gets function pointer of a HIP API.
     - `hipSetValidDevices`      sets a default list of devices that can be used by HIP
     - `hipStreamGetId`          queries the ID of a stream
-* New HIP flags
-    - `hipMemLocationTypeHost` enables handling virtual memory management in host memory location, in addition to device memory.
-    - `hipHostRegisterIoMemory` is supported in `hipHostRegister`. It's used to register I/O memory with HIP runtime so the GPU can access it.
+* Support for the flag `hipMemLocationTypeHost`, enables handling virtual memory management in host memory location, in addition to device memory.
 * Support for nested tile partitioning within cooperative groups, matching NVIDIA CUDA functionality.
 
 #### Resolved issues
@@ -745,6 +742,10 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
     - Makes efficient packet batching for HIP graph launch
     - Dynamic packet copying based on a defined maximum threshold or power-of-2 staggered copy pattern
     - If timestamps are not collected for a signal for reuse, it creates a new signal. This can potentially increase the signal footprint if the handler doesn't run fast enough
+
+#### Known issues
+
+* SPIR-V-enabled applications may encounter an issue of segmentation fault. The problem disappears when SPIR-V is disabled. The issue will be fixed in the next ROCm release. 
 
 ### **hipBLAS** (3.1.0)
 
