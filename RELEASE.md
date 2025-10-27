@@ -190,7 +190,7 @@ AMD Instinct MI300X is enabled to provide the capability to set power cap in 1VF
 
 ### HIP runtime compatibility improvements
 
-In ROCm 7.1.0, new functionalities were added in HIP runtime including the following, in correspondence with NVIDIA CUDA.  
+ROCm 7.1.0 improves the compatibility between the HIP runtime and NVIDIA CUDA.
 
 * New HIP APIs added for: 
 
@@ -1015,8 +1015,8 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Added
 
-* Added `RCCL_P2P_BATCH_THRESHOLD` to set the message size limit for batching P2P operations. This mainly affects small message performance for alltoall at a large scale but also applies to alltoallv.
-* Added `RCCL_P2P_BATCH_ENABLE` to enable batching P2P operations to receive performance gains for smaller messages up to 4MB for alltoall when the workload requires it. This is to avoid performance dips for larger messages.
+* `RCCL_P2P_BATCH_THRESHOLD` to set the message size limit for batching P2P operations. This mainly affects small message performance for alltoall at a large scale but also applies to alltoallv.
+* `RCCL_P2P_BATCH_ENABLE` to enable batching P2P operations to receive performance gains for smaller messages up to 4MB for alltoall when the workload requires it. This is to avoid performance dips for larger messages.
 
 #### Changed
 
@@ -1026,10 +1026,6 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 #### Optimized
 
 * Improved small message performance for `alltoall` by enabling and optimizing batched P2P operations.
-
-#### Resolved issues
-
-* Improve small message performance for alltoall by enabling and optimizing batched P2P operations.
 
 #### Known issues
 
