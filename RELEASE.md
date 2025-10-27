@@ -751,10 +751,10 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 * Improved hip module loading latency.
 * Optimized kernel metadata retrieval during module post load.
-* Optimized doorbell ring in HIP runtime, advantages the following for performance improvement:
-    - Makes efficient packet batching for HIP graph launch.
-    - Dynamic packet copying based on a defined maximum threshold or power-of-2 staggered copy pattern.
-    - If timestamps are not collected for a signal for reuse, it creates a new signal. This can potentially increase the signal footprint if the handler doesn't run fast enough.
+* Optimized doorbell ring in HIP runtime for the following performance improvements:
+    - Makes efficient packet batching for HIP graph launch
+    - Dynamic packet copying based on a defined maximum threshold or power-of-2 staggered copy pattern
+    - If timestamps are not collected for a signal for reuse, it creates a new signal. This can potentially increase the signal footprint if the handler doesn't run fast enough
 
 #### Resolved issues
 
