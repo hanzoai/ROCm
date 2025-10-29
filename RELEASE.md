@@ -246,7 +246,7 @@ This enhancement improves preprocessing efficiency and simplifies the setup of d
 
 ROCm Compute Profiler has the following enhancements:
 
-* Single‑Pass Counter Collection feature has been added and can be used by adding the `set` filtering option to the profile. It allows profiling kernels in a single pass using a predefined metric set, reducing profiling overhead and session time. For more information, see [Filtering options]https://rocm.docs.amd.com/projects/rocprofiler-compute/en/develop/how-to/profile/mode.html#filtering-options
+* Single‑Pass Counter Collection feature has been added and can be used by adding the `set` filtering option to the profile. It allows profiling kernels in a single pass using a predefined metric set, reducing profiling overhead and session time. For more information, see [Filtering options](https://rocm.docs.amd.com/projects/rocprofiler-compute/en/develop/how-to/profile/mode.html#filtering-options).
 * Dynamic process attachment feature has been added. It allows starting or stopping profiling on a running application without restarting, enabling flexible analysis for long‑running jobs. For more information, see [Dynamic process attachment in ROCm Compute Profiler](https://rocm.docs.amd.com/projects/rocprofiler-compute/en/develop/how-to/live_attach_detach.html).
 * Enhanced TUI Experience feature has been added. It allows for interactive exploration of metrics with descriptions and view high‑level compute and memory throughput panels for quick insights. For more information, see [Text-based User Interface (TUI) analysis](https://rocm.docs.amd.com/projects/rocprofiler-compute/en/latest/how-to/analyze/tui.html).
 
@@ -254,8 +254,8 @@ ROCm Compute Profiler has the following enhancements:
 
 ROCm Systems Profiler has the following enhancements:
 
-* Validated support for virtualized Hyper-V environment, JAX AI framework, and PyTorch AI framework.
-* Transitioned to using AMD SMI by default, instead of ROCm SMI.
+* Validated JAX AI and PyTorch AI frameworks.
+* Transitioned to using AMD SMI by default, instead of ROCm SMI to ensure the best support for the latest AMD GPUs.
 * Integrated with ROCm Profiling Data (rocpd), enabling profiling results to be stored in a SQLite3 database. This provides a structured and efficient foundation for in-depth analysis and post-processing. For more information, see [ROCm Profiling Data (rocpd) output](https://rocm.docs.amd.com/projects/rocprofiler-systems/en/develop/how-to/understanding-rocprof-sys-output.html#rocm-profiling-data-rocpd-output).
 * Ability to generate an aggregated report for multi-processes has been added. For more information, see [Generating performance summary using rocpd](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/develop/how-to/using-rocpd-output-format.html#generating-performance-summary-using-rocpd).
 * Support for OpenMP (Open Multi-Processing) in Fortran has been added.
@@ -634,7 +634,7 @@ Click {fab}`github` to go to the component's source code on GitHub.
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/ROCdbgapi/en/docs-7.0.2/index.html">ROCdbgapi</a></td>
-                <td>0.77.4</td>
+                <td>0.77.4&nbsp;&Rightarrow;&nbsp;<a href="#rocdbgapi-0-77-4">0.77.4</a></td> 
                 <td><a href="https://github.com/ROCm/ROCdbgapi/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
@@ -647,7 +647,7 @@ Click {fab}`github` to go to the component's source code on GitHub.
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/ROCgdb/en/docs-7.0.2/index.html">ROCm Debugger (ROCgdb)</a>
                 </td>
-                <td>16.3&nbsp;&Rightarrow;&nbsp;<a href="#rocgdb-16-3">16.3</a></td> 
+                <td>16.3&nbsp;&Rightarrow;&nbsp;<a href="#rocm-debugger-rocgdb-16-3">16.3</a></td> 
                 <td><a href="https://github.com/ROCm/ROCgdb/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
@@ -1123,6 +1123,12 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 #### Optimized
 
 * Improved the performance of Level 2 gemv transposed (`TransA != N`) for the problem sizes where `m` is small and `n` is large on gfx90a and gfx942.
+
+### **ROCdbgapi** (0.77.4)
+
+#### Added
+
+* gfx1150 and gfx1151 enabled.
 
 ### **rocDecode** (1.4.0)
 
