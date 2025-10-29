@@ -201,8 +201,8 @@ ROCm 7.1.0 improves the compatibility between the HIP runtime and NVIDIA CUDA.
     * Stream Management: `hipStreamSetAttribute`, `hipStreamGetAttribute`, and `hipStreamGetId` 
     * Device Management: `hipSetValidDevices` 
     * Driver Entry Point Access: `hipGetDriverEntryPoint`
-* New HIP flag `hipMemLocationTypeHost` enables handling virtual memory management in host memory location, in addition to device memory.
-* HIP runtime now supports nested tile partitioning within cooperative groups, matching CUDA functionality.  
+* HIP runtime now supports nested tile partitioning within cooperative groups, matching CUDA functionality.
+* Improved HIP module loading latency.
 
 For detailed enhancements and updates refer to the [HIP Changelog](#hip-7-1-0).
 
@@ -758,32 +758,30 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 * New HIP APIs
     - `hipModuleGetFunctionCount` returns the number of functions within a module
-    - `hipMemsetD2D8` used for setting 2D memory range with specified 8-bit values
-    - `hipMemsetD2D8Async` used for setting 2D memory range with specified 8-bit values asynchronously
-    - `hipMemsetD2D16` used for setting 2D memory range with specified 16-bit values
-    - `hipMemsetD2D16Async` used for setting 2D memory range with specified 16-bit values asynchronously
-    - `hipMemsetD2D32` used for setting 2D memory range with specified 32-bit values
-    - `hipMemsetD2D32Async` used for setting 2D memory range with specified 32-bit values asynchronously
+    - `hipMemsetD2D8` sets 2D memory range with specified 8-bit values
+    - `hipMemsetD2D8Async` asynchronously sets 2D memory range with specified 8-bit values
+    - `hipMemsetD2D16` sets 2D memory range with specified 16-bit values
+    - `hipMemsetD2D16Async` asynchronously sets 2D memory range with specified 16-bit values
+    - `hipMemsetD2D32` sets 2D memory range with specified 32-bit values
+    - `hipMemsetD2D32Async` asynchronously sets 2D memory range with specified 32-bit values
     - `hipStreamSetAttribute` sets attributes such as synchronization policy for a given stream
     - `hipStreamGetAttribute` returns attributes such as priority for a given stream
     - `hipModuleLoadFatBinary`  loads fatbin binary to a module
-    - `hipMemcpyBatchAsync` performs a batch of 1D or 2D memory copied asynchronously
-    - `hipMemcpy3DBatchAsync` performs a batch of 3D memory copied asynchronously
+    - `hipMemcpyBatchAsync` asynchronously performs a batch copy of 1D or 2D memory
+    - `hipMemcpy3DBatchAsync` asynchronously performs a batch copy of 3D memory
     - `hipMemcpy3DPeer` copies memory between devices
-    - `hipMemcpy3DPeerAsync`copies memory between devices asynchronously
-    - `hipMemsetD2D32Async` used for setting 2D memory range with specified 32-bit values
-      asynchronously
+    - `hipMemcpy3DPeerAsync` asynchronously copies memory between devices
+    - `hipMemsetD2D32Async` asynchronously sets 2D memory range with specified 32-bit values
     - `hipMemPrefetchAsync_v2`  prefetches memory to the specified location
-    - `hipMemAdvise_v2`         advise about the usage of a given memory range
+    - `hipMemAdvise_v2`         advises about the usage of a given memory range
     - `hipGetDriverEntryPoint ` gets function pointer of a HIP API.
     - `hipSetValidDevices`      sets a default list of devices that can be used by HIP
-    - `hipStreamGetId`          queries the ID of a stream
-* Support for the flag `hipMemLocationTypeHost`, enables handling virtual memory management in host memory location, in addition to device memory.
+    - `hipStreamGetId`          queries the id of a stream
 * Support for nested tile partitioning within cooperative groups, matching CUDA functionality.
 
 #### Optimized
 
-* Improved hip module loading latency.
+* Improved HIP module loading latency.
 * Optimized kernel metadata retrieval during module post load.
 * Optimized doorbell ring in HIP runtime for the following performance improvements:
     - Makes efficient packet batching for HIP graph launch
