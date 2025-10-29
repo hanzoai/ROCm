@@ -435,6 +435,12 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 * Improved the performance of Level 2 gemv transposed (`TransA != N`) for the problem sizes where `m` is small and `n` is large on gfx90a and gfx942.
 
+### **ROCdbgapi** (0.77.4)
+
+#### Added
+
+* gfx1150 and gfx1151 enabled.
+
 ### **rocDecode** (1.4.0)
 
 #### Added
