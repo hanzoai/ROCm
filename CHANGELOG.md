@@ -140,6 +140,11 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 * ``hipblasLtMatmul()`` now returns an error when the workspace size is insufficient, rather than causing a segmentation fault.
 
+#### Optimized
+
+* `TF32` kernel optimization for the AMD Instinct MI355X GPU to enhance training and inference efficiency.
+* Meta Model optimization for the AMD Instinct MI350X GPU to enable better performance across transformer-based models.
+
 #### Resolved issues
 
 * Fixed incorrect results when using ldd and ldc dimension parameters with some solutions.
@@ -368,9 +373,10 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * The MSCCL++ feature is now disabled by default. The `--disable-mscclpp` build flag is replaced with `--enable-mscclpp` in the `rccl/install.sh` script.
 * Compatibility with NCCL 2.27.7.
 
-#### Optimized
-
-* Improved small message performance for `alltoall` by enabling and optimizing batched P2P operations.
+### Optimized
+* Enabled and optimized batched P2P operations to improve small message performance for `AllToAll` and `AllGather`.
+* Optimized channel count selection to improve efficiency for small-to-medium message sizes in `ReduceScatter`.
+* Changed code inlining to improve latency for small message sizes for `AllReduce`, `AllGather`, and `ReduceScatter`.
 
 #### Known issues
 

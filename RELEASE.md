@@ -255,7 +255,7 @@ Optimized the tuning workflow for the SpMM kernel, resulting in improved perform
 ROCm Compute Profiler has the following enhancements:
 
 * Single‑Pass Counter Collection feature has been added. It allows profiling kernels in a single pass using a predefined metric set, reducing profiling overhead and session time.
-* Dynamic Attach/Detach feature has been added. It allows starting or stopping profiling on a running application without restarting, enabling flexible analysis for long‑running jobs.
+* Live Attach/Detach feature has been added. It allows starting or stopping profiling on a running application without restarting, enabling flexible analysis for long‑running jobs.
 * Enhanced TUI Experience feature has been added. It allows for interactive exploration of metrics with descriptions and view high‑level compute and memory throughput panels for quick insights.
 
 ### ROCm Systems Profiler updates
@@ -265,6 +265,17 @@ ROCm Systems Profiler has the following enhancements:
 * Validated support for virtualized Hyper-V environment, JAX AI framework, and PyTorch AI framework.
 * Transitioned to using AMD SMI by default, instead of ROCm SMI.
 * Integrated with ROCm Profiling Data (rocpd), enabling profiling results to be stored in a SQLite3 database. This provides a structured and efficient foundation for in-depth analysis and post-processing.
+
+### ROCprofiler-SDK updates
+
+ROCprofiler-SDK and `rocprofv3` include the following enhancements:
+
+* Dynamic process attachment feature has been added. This feature in ROCprofiler-SDK and `rocprofv3` allows dynamic profiling of a running GPU application by attaching to its process ID (PID), rather than launching the application through the profiler itself. This allows real-time data collection without interrupting execution, making it ideal for profiling long-running, containerized, or multiprocess workloads. For more details, refer to [Dynamic process attachment](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/how-to/using-rocprofv3-process-attachment.html) documentation for `rocprofv3` and [Implementing Process Attachment Tools](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/api-reference/process_attachment.html) for `ROCprofiler-SDK`.
+* Scratch-memory trace information has been added to the Perfetto output in `rocprofv3`, enhancing visibility into memory usage during profiling. Additionally, derived metrics and the required counters have been successfully integrated for gfx12XX series GPUs, enabling users to collect performance counters through `rocprofv3` on these platforms.
+* Host-trap (software-based) PC sampling is now available on RDNA4 architecture-based gfx12xx series GPUs. It uses the kernel threads to interrupt GPU waves and capture PC states. For more details, see [Using PC sampling](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/how-to/using-pc-sampling.html).
+* Real-time clock support has been added to the thread trace in `rocprofv3` for thread trace alignment on gfx9xx GPUs, enabling high-resolution clock computation and better synchronization across shader engines. 
+* `MultiKernelDispatch` thread trace support is now available across all ASICs, allowing users to profile multiple kernel dispatches within a single thread trace session. This enhances the timeline accuracy and enables deeper analysis of concurrent GPU workloads.
+* Stability and robustness of the `rocpd` output format for `rocprofv3` has been improved. For details, see [Using rocpd output format](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/how-to/using-rocpd-output-format.html).
 
 ### Device-side assertion support and atomic metadata control in Clang
 
@@ -578,7 +589,7 @@ Click {fab}`github` to go to the component's source code on GitHub.
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/docs-7.0.2/index.html">ROCprofiler-SDK</a></td>
-                <td>1.0.0</td>
+                <td>1.0.0&nbsp;&Rightarrow;&nbsp;<a href="#rocprofiler-sdk-1-0-0">1.0.0</a></td>
                 <td><a href="https://github.com/ROCm/rocprofiler-sdk/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
@@ -794,6 +805,11 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 #### Changed
 
 * ``hipblasLtMatmul()`` now returns an error when the workspace size is insufficient, rather than causing a segmentation fault.
+
+#### Optimized
+
+* `TF32` kernel optimization for the AMD Instinct MI355X GPU to enhance training and inference efficiency.
+* Meta Model optimization for the AMD Instinct MI350X GPU to enable better performance across transformer-based models.
 
 #### Resolved issues
 
@@ -1024,8 +1040,9 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * Compatibility with NCCL 2.27.7.
 
 #### Optimized
-
-* Improved small message performance for `alltoall` by enabling and optimizing batched P2P operations.
+* Enabled and optimized batched P2P operations to improve small message performance for `AllToAll` and `AllGather`.
+* Optimized channel count selection to improve efficiency for small-to-medium message sizes in `ReduceScatter`.
+* Changed code inlining to improve latency for small message sizes for `AllReduce`, `AllGather`, and `ReduceScatter`.
 
 #### Known issues
 
@@ -1141,7 +1158,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 ### **ROCm Compute Profiler** (3.3.0)
 
 #### Added
-* Live attach/detach feature that allows coupling with a workload process, without controlling its start or end.
+* Live Attach/Detach feature that allows coupling with a workload process, without controlling its start or end.
   * Use '--attach-pid' to specify the target process ID.
   * Use '--attach-duration-msec' to specify time duration.
 * `rocpd` choice for `--format-rocprof-output` option in profile mode.
@@ -1293,7 +1310,22 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Removed
 
-* `rocprofv2` doesn't support gfx12. For gfx12, use `rocprofv3` tool.
+* `rocprofv2` doesn't support gfx12xx Series GPUs. For gfx12xx Series GPUs, use `rocprofv3` tool.
+
+### **ROCprofiler-SDK** (1.0.0)
+
+#### Added
+* Dynamic process attachment- ROCprofiler-SDK and `rocprofv3` now facilitate dynamic profiling of a running GPU applications by attaching to its process ID (PID), rather than launching the application through the profiler itself.
+* Scratch-memory trace information to the Perfetto output in `rocprofv3`.
+* New capabilities to the thread trace support in `rocprofv3`:
+    * Real-time clock support for thread trace alignment on gfx9 architecture. This enables high-resolution clock computation and better synchronization across shader engines. 
+    * `MultiKernelDispatch` thread trace support is now available across all ASICs.
+* Documentation for dynamic process attachment.
+* Documentation for `rocpd` summaries.
+
+
+### Optimized
+* Improved the stability and robustness of the `rocpd` output.
 
 ### **rocPyDecode** (0.7.0)
 
