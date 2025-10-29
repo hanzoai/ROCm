@@ -1490,7 +1490,6 @@ The issue will be resolved in a future ROCm release. See [GitHub issue #5500](ht
 
 ## ROCm resolved issues
 
-<<<<<<< HEAD
 The following are previously known issues resolved in this release. For resolved issues related to
 individual components, review the [Detailed component changes](#detailed-component-changes).
 
@@ -1501,9 +1500,6 @@ An issue of segmentation fault in ROCprofiler-SDK that uses `std::regex` has bee
 ### Clang compilation failure might occur due to incorrectly installed GNU C++ runtime
 
 An issue of Clang compilation failing with the error `fatal error: 'cmath' file not found` if the GNU C++ runtime was not installed correctly has been resolved. The error indicated that the `libstdc++-dev` package, compatible with the latest installed GNU Compiler Collection (GCC) version, was missing. This issue was a result of Clang being unable to find the newest GNU C++ runtimes it recognizes and the associated header files. See [GitHub issue #4612](https://github.com/ROCm/ROCm/issues/4612).
-=======
-OpenCV packages built on Ubuntu 24.04 are incompatible with Debian 13 due to a version conflict. As a result, applications, tests, and samples that use OpenCV might fail. As a workaround, rebuild OpenCV with the version corresponding to Debian 13 from source, followed by the application that uses OpenCV. This issue will be fixed in a future ROCm release. See [GitHub issue #5501](https://github.com/ROCm/ROCm/issues/5501).
->>>>>>> external/develop
 
 ## ROCm upcoming changes
 
