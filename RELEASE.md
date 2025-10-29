@@ -206,30 +206,6 @@ ROCm 7.1.0 improves the compatibility between the HIP runtime and NVIDIA CUDA.
 
 For detailed enhancements and updates refer to the [HIP Changelog](#hip-7-1-0).
 
-### hipSPARSELt: SpMM performance improvements
-
-hipSPARSELt introduces significant performance enhancements for structured sparsity matrix multiplication (SpMM) on AMD Instinct MI300X GPUs:
-
-* New feature support -- Enabled multiple buffer single kernel execution for SpMM, improving efficiency in Split-K method scenarios.
-* Kernel optimization -- Added multiple high-performance kernels optimized for `FP16` and `BF16` data types, enhancing heuristic-based execution.
-* Tuning efficiency -- Improved the tuning process for SpMM kernels, resulting in better runtime adaptability and performance.
-
-### RPP: New hue and saturation augmentations
-
-RPP adds support for hue and saturation augmentations in the ROCm
-Performance Primitives (RPP) library. These enhancements are available for both
-HIP and HOST backends and support multiple data types — ``U8``, ``F16``,
-``F32``, and ``I8`` — with layout toggle variants for NCHW and NHWC.
-
-### rocAL: Enhancements for vision transformer model training
-
-ROCm 7.1.0 introduces new capabilities in rocAL to support training of Vision Transformer (ViT) models:
-
-* Added support for CropResize augmentation and the CIFAR10 dataloader, commonly used in ViT training workflows.
-* These updates enable seamless integration of rocAL into open-source PyTorch Vision Transformer models.
-
-This enhancement improves preprocessing efficiency and simplifies the setup of data pipelines for ViT-based deep learning applications.
-
 ### hipBLASLt: Kernel optimizations and model support enhancements
 
 hipBLASlt introduces several performance and model compatibility improvements for AMD Instinct MI350 Series GPUs:
@@ -239,10 +215,24 @@ hipBLASlt introduces several performance and model compatibility improvements fo
 * Meta Model Optimization for MI350X, enabling better performance across transformer-based models.
 * Llama 2 70B model support fix: Removed incorrect kernel to ensure accurate and stable execution.
 * For AMD Instinct MI350X GPUs specific, added multiple high-performance kernels optimized for `FP16` and `BF16` data types, enhancing heuristic-based execution.
+* FP8 low-precision data type operations on AMD Instinct MI350X GPUs. This update adds FP8 support for MI350X using hipBLASLt’s low-precision data type functionality.
 
-### TensileLite: Enhanced SpMM kernel tuning efficiency
+### hipSPARSELt: SpMM performance improvements
 
-Optimized the tuning workflow for the SpMM kernel, resulting in improved performance and streamlined configuration.
+hipSPARSELt introduces significant performance enhancements for structured sparsity matrix multiplication (SpMM) on AMD Instinct MI300X GPUs:
+
+* New feature support -- Enabled multiple buffer single kernel execution for SpMM, improving efficiency in Split-K method scenarios.
+* Kernel optimization -- Added multiple high-performance kernels optimized for `FP16` and `BF16` data types, enhancing heuristic-based execution.
+* Tuning efficiency -- Improved the tuning process for SpMM kernels, resulting in better runtime adaptability and performance.
+
+### rocAL: Enhancements for vision transformer model training
+
+ROCm 7.1.0 introduces new capabilities in rocAL to support training of Vision Transformer (ViT) models:
+
+* Added support for CropResize augmentation and the CIFAR10 dataloader, commonly used in ViT training workflows.
+* These updates enable seamless integration of rocAL into open-source PyTorch Vision Transformer models.
+
+This enhancement improves preprocessing efficiency and simplifies the setup of data pipelines for ViT-based deep learning applications.
 
 ### RCCL: AMD Instinct MI350 Series enhancements
 
@@ -256,9 +246,9 @@ Optimized the tuning workflow for the SpMM kernel, resulting in improved perform
 
 ROCm Compute Profiler has the following enhancements:
 
-* Single‑Pass Counter Collection feature has been added. It allows profiling kernels in a single pass using a predefined metric set, reducing profiling overhead and session time.
-* Dynamic process attachment feature has been added. It allows starting or stopping profiling on a running application without restarting, enabling flexible analysis for long‑running jobs.
-* Enhanced TUI Experience feature has been added. It allows for interactive exploration of metrics with descriptions and view high‑level compute and memory throughput panels for quick insights.
+* Single‑Pass Counter Collection feature has been added and can be used by adding the `set` filtering option to the profile. It allows profiling kernels in a single pass using a predefined metric set, reducing profiling overhead and session time. For more information, see [Filtering options]https://rocm.docs.amd.com/projects/rocprofiler-compute/en/develop/how-to/profile/mode.html#filtering-options
+* Dynamic process attachment feature has been added. It allows starting or stopping profiling on a running application without restarting, enabling flexible analysis for long‑running jobs. For more information, see [Dynamic process attachment in ROCm Compute Profiler](https://rocm.docs.amd.com/projects/rocprofiler-compute/en/develop/how-to/live_attach_detach.html).
+* Enhanced TUI Experience feature has been added. It allows for interactive exploration of metrics with descriptions and view high‑level compute and memory throughput panels for quick insights. For more information, see [Text-based User Interface (TUI) analysis](https://rocm.docs.amd.com/projects/rocprofiler-compute/en/latest/how-to/analyze/tui.html).
 
 ### ROCm Systems Profiler updates
 
@@ -266,18 +256,36 @@ ROCm Systems Profiler has the following enhancements:
 
 * Validated support for virtualized Hyper-V environment, JAX AI framework, and PyTorch AI framework.
 * Transitioned to using AMD SMI by default, instead of ROCm SMI.
-* Integrated with ROCm Profiling Data (rocpd), enabling profiling results to be stored in a SQLite3 database. This provides a structured and efficient foundation for in-depth analysis and post-processing.
+* Integrated with ROCm Profiling Data (rocpd), enabling profiling results to be stored in a SQLite3 database. This provides a structured and efficient foundation for in-depth analysis and post-processing. For more information, see [ROCm Profiling Data (rocpd) output](https://rocm.docs.amd.com/projects/rocprofiler-systems/en/develop/how-to/understanding-rocprof-sys-output.html#rocm-profiling-data-rocpd-output).
+* Ability to generate an aggregated report for multi-processes has been added. For more information, see [Generating performance summary using rocpd](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/develop/how-to/using-rocpd-output-format.html#generating-performance-summary-using-rocpd).
+* Support for OpenMP (Open Multi-Processing) in Fortran has been added.
 
 ### ROCprofiler-SDK updates
 
 ROCprofiler-SDK and `rocprofv3` include the following enhancements:
 
-* Dynamic process attachment feature has been added. This feature in ROCprofiler-SDK and `rocprofv3` allows dynamic profiling of a running GPU application by attaching to its process ID (PID), rather than launching the application through the profiler itself. This allows real-time data collection without interrupting execution, making it ideal for profiling long-running, containerized, or multiprocess workloads. For more details, refer to [Dynamic process attachment](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/how-to/using-rocprofv3-process-attachment.html) documentation for `rocprofv3` and [Implementing Process Attachment Tools](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/api-reference/process_attachment.html) for `ROCprofiler-SDK`.
+* Dynamic process attachment feature has been added. This feature in ROCprofiler-SDK and `rocprofv3` allows dynamic profiling of a running GPU application by attaching to its process ID (PID), rather than launching the application through the profiler itself. This allows real-time data collection without interrupting execution, making it ideal for profiling long-running, containerized, or multiprocess workloads. For more details, refer to [Dynamic process attachment](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/develop/how-to/using-rocprofv3-process-attachment.html) documentation for `rocprofv3` and [Implementing Process Attachment Tools](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/api-reference/process_attachment.html) for `ROCprofiler-SDK`.
 * Scratch-memory trace information has been added to the Perfetto output in `rocprofv3`, enhancing visibility into memory usage during profiling. Additionally, derived metrics and the required counters have been successfully integrated for gfx12XX series GPUs, enabling users to collect performance counters through `rocprofv3` on these platforms.
 * Host-trap (software-based) PC sampling is now available on RDNA4 architecture-based gfx12xx series GPUs. It uses the kernel threads to interrupt GPU waves and capture PC states. For more details, see [Using PC sampling](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/how-to/using-pc-sampling.html).
 * Real-time clock support has been added to the thread trace in `rocprofv3` for thread trace alignment on gfx9xx GPUs, enabling high-resolution clock computation and better synchronization across shader engines. 
 * `MultiKernelDispatch` thread trace support is now available across all ASICs, allowing users to profile multiple kernel dispatches within a single thread trace session. This enhances the timeline accuracy and enables deeper analysis of concurrent GPU workloads.
 * Stability and robustness of the `rocpd` output format for `rocprofv3` has been improved. For details, see [Using rocpd output format](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/how-to/using-rocpd-output-format.html).
+* Ability to generate an aggregated report for multi-processes has been added. For more information, see [Generating performance summary using rocpd](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/develop/how-to/using-rocpd-output-format.html#generating-performance-summary-using-rocpd).
+
+### ROCm Data Center tool: Enhanced CPU metrics
+
+ROCm Data Center tool (RDC) hardware monitoring capabilities has been expanded by integrating the new `AMDSMI` API. This enhancement enables more comprehensive visibility into CPU performance and topology. 
+
+### RPP: New hue and saturation augmentations
+
+RPP adds support for hue and saturation augmentations in the ROCm
+Performance Primitives (RPP) library. These enhancements are available for both
+HIP and HOST backends and support multiple data types — ``U8``, ``F16``,
+``F32``, and ``I8`` — with layout toggle variants for NCHW and NHWC.
+
+### TensileLite: Enhanced SpMM kernel tuning efficiency
+
+Optimized the tuning workflow for the SpMM kernel, resulting in improved performance and streamlined configuration.
 
 ### Device-side assertion support and atomic metadata control in Clang
 
@@ -302,8 +310,21 @@ ROCm 7.1.0 introduces two key compiler enhancements:
 ROCm provides a comprehensive ecosystem for deep learning development. For more information, see [Deep learning frameworks for ROCm](https://rocm.docs.amd.com/en/docs-7.0.2/how-to/deep-learning-rocm.html) and the [Compatibility
 matrix](../../docs/compatibility/compatibility-matrix.rst) for the complete list of Deep learning and AI framework versions tested for compatibility with ROCm.
 
+#### PyTorch
+
+Torch-MIGraphX integrates AMD's graph inference engine with the PyTorch ecosystem. It provides a `mgx_module` object that may be invoked in the same manner as any other torch module, but utilizes the MIGraphX inference engine internally. This feature has existed for a few releases but now Torch-MIGraphX has published installable WHL files.
+
+#### JAX
+
+* JAX customers can now use Llama-2 with JAX efficiently.
+* The latest public JAX repo is {fab}`github` [rocm-jax](https://github.com/ROCm/rocm-jax/tree/master).
+
 #### TensorFlow
 ROCm 7.1.0 enables support for TensorFlow 2.20.0.
+
+#### ONNX Runtime
+
+The latest ONNX Runtime version (ONNX RT 1.23.1) is supported by the MIGraphX Execution Provider.
 
 ### ROCm Offline Installer Creator updates
 
@@ -538,22 +559,22 @@ Click {fab}`github` to go to the component's source code on GitHub.
                 <th rowspan="7">System management</th>
                 <td><a href="https://rocm.docs.amd.com/projects/amdsmi/en/docs-7.0.2/index.html">AMD SMI</a></td>
                 <td>26.0.2&nbsp;&Rightarrow;&nbsp;<a href="#amd-smi-26-1-0">26.1.0</a></td>
-                <td><a href="https://github.com/ROCm/amdsmi"><i class="fab fa-github fa-lg"></i></a></td>
+                <td><a href="https://github.com/ROCm/amdsmi/"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rdc/en/docs-7.0.2/index.html">ROCm Data Center Tool</a></td>
                 <td>1.1.0&nbsp;&Rightarrow;&nbsp;<a href="#rocm-data-center-tool-1-2-0">1.2.0</a></td>
-                <td><a href="https://github.com/ROCm/rdc"><i class="fab fa-github fa-lg"></i></a></td>
+                <td><a href="https://github.com/ROCm/rocm-systems/tree/develop/projects/rdc/"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocminfo/en/docs-7.0.2/index.html">rocminfo</a></td>
                 <td>1.0.0</td>
-                <td><a href="https://github.com/ROCm/rocminfo"><i class="fab fa-github fa-lg"></i></a></td>
+                <td><a href="https://github.com/ROCm/rocm-systems/tree/develop/projects/rocminfo/"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocm_smi_lib/en/docs-7.0.2/index.html">ROCm SMI</a></td>
                 <td>7.8.0</td>
-                <td><a href="https://github.com/ROCm/rocm_smi_lib"><i class="fab fa-github fa-lg"></i></a></td>
+                <td><a href="https://github.com/ROCm/rocm-systems/tree/develop/projects/rocm-smi-lib/"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/ROCmValidationSuite/en/docs-7.0.2/index.html">ROCm Validation Suite</a></td>
@@ -574,31 +595,31 @@ Click {fab}`github` to go to the component's source code on GitHub.
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocprofiler-compute/en/docs-7.0.2/index.html">ROCm Compute Profiler</a></td>
                 <td>3.2.3&nbsp;&Rightarrow;&nbsp;<a href="#rocm-compute-profiler-3-3-0">3.3.0</a></td>
-                <td><a href="https://github.com/ROCm/rocprofiler-compute"><i
+                <td><a href="https://github.com/ROCm/rocm-systems/tree/develop/projects/rocprofiler-compute"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocprofiler-systems/en/docs-7.0.2/index.html">ROCm Systems Profiler</a></td>
                 <td>1.1.1&nbsp;&Rightarrow;&nbsp;<a href="#rocm-systems-profiler-1-2-0">1.2.0</a></td>
-                <td><a href="https://github.com/ROCm/rocprofiler-systems"><i
+                <td><a href="https://github.com/ROCm/rocm-systems/tree/develop/projects/rocprofiler-systems/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocprofiler/en/docs-7.0.2/index.html">ROCProfiler</a></td>
                 <td>2.0.0&nbsp;&Rightarrow;&nbsp;<a href="#rocprofiler-2-0-0">2.0.0</a></td>
-                <td><a href="https://github.com/ROCm/ROCProfiler/"><i
+                <td><a href="https://github.com/ROCm/rocm-systems/tree/develop/projects/rocprofiler/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/docs-7.0.2/index.html">ROCprofiler-SDK</a></td>
                 <td>1.0.0&nbsp;&Rightarrow;&nbsp;<a href="#rocprofiler-sdk-1-0-0">1.0.0</a></td>
-                <td><a href="https://github.com/ROCm/rocprofiler-sdk/"><i
+                <td><a href="https://github.com/ROCm/rocm-systems/tree/develop/projects/rocprofiler-sdk/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr >
                 <td><a href="https://rocm.docs.amd.com/projects/roctracer/en/docs-7.0.2/index.html">ROCTracer</a></td>
                 <td>4.1.0</td>
-                <td><a href="https://github.com/ROCm/ROCTracer/"><i
+                <td><a href="https://github.com/ROCm/rocm-systems/tree/develop/projects/roctracer/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
         </tbody>
@@ -626,7 +647,7 @@ Click {fab}`github` to go to the component's source code on GitHub.
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/ROCgdb/en/docs-7.0.2/index.html">ROCm Debugger (ROCgdb)</a>
                 </td>
-                <td>16.3</td>
+                <td>16.3&nbsp;&Rightarrow;&nbsp;<a href="#rocgdb-16-3">16.3</a></td> 
                 <td><a href="https://github.com/ROCm/ROCgdb/"><i
                             class="fab fa-github fa-lg"></i></a></td>
             </tr>
@@ -658,12 +679,12 @@ Click {fab}`github` to go to the component's source code on GitHub.
                 <th rowspan="2" colspan="2">Runtimes</th>
                 <td><a href="https://rocm.docs.amd.com/projects/HIP/en/docs-7.0.2/index.html">HIP</a></td>
                 <td>7.0.2&nbsp;&Rightarrow;&nbsp;<a href="#hip-7-1-0">7.1.0</a></td>
-                <td><a href="https://github.com/ROCm/HIP/"><i class="fab fa-github fa-lg"></i></a></td>
+                <td><a href="https://github.com/ROCm/rocm-systems/tree/develop/projects/hip"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/ROCR-Runtime/en/docs-7.0.2/index.html">ROCr Runtime</a></td>
                 <td>1.18.0</td>
-                <td><a href="https://github.com/ROCm/ROCR-Runtime/"><i class="fab fa-github fa-lg"></i></a></td>
+                <td><a href="https://github.com/ROCm/rocm-systems/tree/develop/projects/rocr-runtime"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
         </tbody>
     </table>
@@ -784,7 +805,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 #### Added
 
 * `--clients-only` build option to only build clients against a prebuilt library.
-* gfx1103, gfx1150, gfx1151, gfx1200, and gfx1201 support to clients.
+* gfx1103, gfx1150, gfx1151, gfx1200, and gfx1201 support enabled.
 * FORTRAN enabled for the Microsoft Windows build and tests.
 * Additional reference library fallback options added.
 
@@ -1051,23 +1072,6 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * Symmetric memory kernels are currently disabled due to ongoing CUMEM enablement work.
 * When running this version of RCCL using ROCm versions earlier than 6.4.0, the user must set the environment flag `HSA_NO_SCRATCH_RECLAIM=1`.
 
-### **ROCm Data Center Tool** (1.2.0)
-
-#### Added
-
-- CPU monitoring support with 30+ CPU field definitions through AMD SMI integration.
-- CPU partition format support (c0.0, c1.0) for monitoring AMD EPYC processors.
-- Mixed GPU/CPU monitoring in single `rdci dmon` command.
-
-#### Optimized
-
-- Improved profiler metrics path detection for counter definitions.
-
-#### Resolved issues
-
-- Group management issues with listing created/non-created groups.
-- ECC_UNCORRECT field behavior.
-
 ### **rocAL** (2.4.0)
 
 #### Added
@@ -1090,7 +1094,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Added
 
-* Added support for gfx950.
+* Support for gfx950.
 
 #### Changed
 
@@ -1260,6 +1264,29 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 * MI300A/X L2-Fabric 64B read counter may display negative values - The rocprof-compute metric 17.6.1 (Read 64B) can report negative values due to incorrect calculation when TCC_BUBBLE_sum + TCC_EA0_RDREQ_32B_sum exceeds TCC_EA0_RDREQ_sum.
   * A workaround has been implemented using max(0, calculated_value) to prevent negative display values while the root cause is under investigation.
+
+### **ROCm Data Center Tool** (1.2.0)
+
+#### Added
+
+- CPU monitoring support with 30+ CPU field definitions through AMD SMI integration.
+- CPU partition format support (c0.0, c1.0) for monitoring AMD EPYC processors.
+- Mixed GPU/CPU monitoring in single `rdci dmon` command.
+
+#### Optimized
+
+- Improved profiler metrics path detection for counter definitions.
+
+#### Resolved issues
+
+- Group management issues with listing created/non-created groups.
+- ECC_UNCORRECT field behavior.
+
+### **ROCm Debugger (ROCgdb)** (16.3)
+
+#### Added
+
+* gfx1150 and gfx1151 enabled.
 
 ### **ROCm Systems Profiler** (1.2.0)
 

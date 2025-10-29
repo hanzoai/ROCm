@@ -116,7 +116,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 #### Added
 
 * `--clients-only` build option to only build clients against a prebuilt library.
-* gfx1103, gfx1150, gfx1151, gfx1200, and gfx1201 support to clients.
+* gfx1103, gfx1150, gfx1151, gfx1200, and gfx1201 support enabled.
 * FORTRAN enabled for the Microsoft Windows build and tests.
 * Additional reference library fallback options added.
 
@@ -383,23 +383,6 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * Symmetric memory kernels are currently disabled due to ongoing CUMEM enablement work.
 * When running this version of RCCL using ROCm versions earlier than 6.4.0, the user must set the environment flag `HSA_NO_SCRATCH_RECLAIM=1`.
 
-### **ROCm Data Center Tool** (1.2.0)
-
-#### Added
-
-- CPU monitoring support with 30+ CPU field definitions through AMD SMI integration.
-- CPU partition format support (c0.0, c1.0) for monitoring AMD EPYC processors.
-- Mixed GPU/CPU monitoring in single `rdci dmon` command.
-
-#### Optimized
-
-- Improved profiler metrics path detection for counter definitions.
-
-#### Resolved issues
-
-- Group management issues with listing created/non-created groups.
-- ECC_UNCORRECT field behavior.
-
 ### **rocAL** (2.4.0)
 
 #### Added
@@ -422,7 +405,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Added
 
-* Added support for gfx950.
+* Support for gfx950.
 
 #### Changed
 
@@ -592,6 +575,29 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 * MI300A/X L2-Fabric 64B read counter may display negative values - The rocprof-compute metric 17.6.1 (Read 64B) can report negative values due to incorrect calculation when TCC_BUBBLE_sum + TCC_EA0_RDREQ_32B_sum exceeds TCC_EA0_RDREQ_sum.
   * A workaround has been implemented using max(0, calculated_value) to prevent negative display values while the root cause is under investigation.
+
+### **ROCm Data Center Tool** (1.2.0)
+
+#### Added
+
+- CPU monitoring support with 30+ CPU field definitions through AMD SMI integration.
+- CPU partition format support (c0.0, c1.0) for monitoring AMD EPYC processors.
+- Mixed GPU/CPU monitoring in single `rdci dmon` command.
+
+#### Optimized
+
+- Improved profiler metrics path detection for counter definitions.
+
+#### Resolved issues
+
+- Group management issues with listing created/non-created groups.
+- ECC_UNCORRECT field behavior.
+
+### **ROCm Debugger (ROCgdb)** (16.3)
+
+#### Added
+
+* gfx1150 and gfx1151 enabled.
 
 ### **ROCm Systems Profiler** (1.2.0)
 
