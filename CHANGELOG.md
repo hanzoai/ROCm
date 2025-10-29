@@ -96,10 +96,10 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 * Improved hip module loading latency.
 * Optimized kernel metadata retrieval during module post load.
-* Optimized doorbell ring in HIP runtime, advantages the following for performance improvement:
-    - Makes efficient packet batching for HIP graph launch.
-    - Dynamic packet copying based on a defined maximum threshold or power-of-2 staggered copy pattern.
-    - If timestamps are not collected for a signal for reuse, it creates a new signal. This can potentially increase the signal footprint if the handler doesn't run fast enough.
+* Optimized doorbell ring in HIP runtime for the following performance improvements:
+    - Makes efficient packet batching for HIP graph launch
+    - Dynamic packet copying based on a defined maximum threshold or power-of-2 staggered copy pattern
+    - If timestamps are not collected for a signal for reuse, it creates a new signal. This can potentially increase the signal footprint if the handler doesn't run fast enough
 
 #### Resolved issues
 
@@ -373,7 +373,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * The MSCCL++ feature is now disabled by default. The `--disable-mscclpp` build flag is replaced with `--enable-mscclpp` in the `rccl/install.sh` script.
 * Compatibility with NCCL 2.27.7.
 
-### Optimized
+#### Optimized
 * Enabled and optimized batched P2P operations to improve small message performance for `AllToAll` and `AllGather`.
 * Optimized channel count selection to improve efficiency for small-to-medium message sizes in `ReduceScatter`.
 * Changed code inlining to improve latency for small message sizes for `AllReduce`, `AllGather`, and `ReduceScatter`.
@@ -492,7 +492,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 ### **ROCm Compute Profiler** (3.3.0)
 
 #### Added
-* Live attach/detach feature that allows coupling with a workload process, without controlling its start or end.
+* Dynamic process attachment feature that allows coupling with a workload process, without controlling its start or end.
   * Use '--attach-pid' to specify the target process ID.
   * Use '--attach-duration-msec' to specify time duration.
 * `rocpd` choice for `--format-rocprof-output` option in profile mode.
@@ -644,7 +644,21 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Removed
 
-* `rocprofv2` doesn't support gfx12. For gfx12, use `rocprofv3` tool.
+* `rocprofv2` doesn't support gfx12xx Series GPUs. For gfx12xx Series GPUs, use `rocprofv3` tool.
+
+### **ROCprofiler-SDK** (1.0.0)
+
+#### Added
+* Dynamic process attachment- ROCprofiler-SDK and `rocprofv3` now facilitate dynamic profiling of a running GPU applications by attaching to its process ID (PID), rather than launching the application through the profiler itself.
+* Scratch-memory trace information to the Perfetto output in `rocprofv3`.
+* New capabilities to the thread trace support in `rocprofv3`:
+    * Real-time clock support for thread trace alignment on gfx9 architecture. This enables high-resolution clock computation and better synchronization across shader engines. 
+    * `MultiKernelDispatch` thread trace support is now available across all ASICs.
+* Documentation for dynamic process attachment.
+* Documentation for `rocpd` summaries.
+
+#### Optimized
+* Improved the stability and robustness of the `rocpd` output.
 
 ### **rocPyDecode** (0.7.0)
 

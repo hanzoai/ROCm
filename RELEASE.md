@@ -26,6 +26,8 @@ The release notes provide a summary of notable changes since the previous ROCm r
 
 - [ROCm known issues](#rocm-known-issues)
 
+- [ROCm resolved issues](#rocm-resolved-issues)
+
 - [ROCm upcoming changes](#rocm-upcoming-changes)
 
 ```{note}
@@ -255,7 +257,7 @@ Optimized the tuning workflow for the SpMM kernel, resulting in improved perform
 ROCm Compute Profiler has the following enhancements:
 
 * Single‑Pass Counter Collection feature has been added. It allows profiling kernels in a single pass using a predefined metric set, reducing profiling overhead and session time.
-* Live Attach/Detach feature has been added. It allows starting or stopping profiling on a running application without restarting, enabling flexible analysis for long‑running jobs.
+* Dynamic process attachment feature has been added. It allows starting or stopping profiling on a running application without restarting, enabling flexible analysis for long‑running jobs.
 * Enhanced TUI Experience feature has been added. It allows for interactive exploration of metrics with descriptions and view high‑level compute and memory throughput panels for quick insights.
 
 ### ROCm Systems Profiler updates
@@ -1158,7 +1160,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 ### **ROCm Compute Profiler** (3.3.0)
 
 #### Added
-* Live Attach/Detach feature that allows coupling with a workload process, without controlling its start or end.
+* Dynamic process attachment feature that allows coupling with a workload process, without controlling its start or end.
   * Use '--attach-pid' to specify the target process ID.
   * Use '--attach-duration-msec' to specify time duration.
 * `rocpd` choice for `--format-rocprof-output` option in profile mode.
@@ -1323,8 +1325,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * Documentation for dynamic process attachment.
 * Documentation for `rocpd` summaries.
 
-
-### Optimized
+#### Optimized
 * Improved the stability and robustness of the `rocpd` output.
 
 ### **rocPyDecode** (0.7.0)
@@ -1454,6 +1455,18 @@ ls -l /opt/rocm-7.0.0/lib/libmigraphx_py_*.so
 ```
 The issue will be resolved in a future ROCm release. See [GitHub issue #5500](https://github.com/ROCm/ROCm/issues/5500).
 
+## ROCm resolved issues
+
+The following are previously known issues resolved in this release. For resolved issues related to
+individual components, review the [Detailed component changes](#detailed-component-changes).
+
+### Segmentation fault in ROCprofiler-SDK due to ABI mismatch affecting std::regex
+
+An issue of segmentation fault in ROCprofiler-SDK that uses `std::regex` has been resolved. Starting with GCC 5.1, GNU `libstdc++` introduced a dual Application Binary Interface (ABI) to adopt `C++11`, primarily affecting the `std::string` and its dependencies, including `std::regex`. The issue occured if your code was compiled against headers expecting one ABI but linked or run with the other, resulting problems with `std::string` and `std::regex`. See [GitHub issue #5343](https://github.com/ROCm/ROCm/issues/5343).
+
+### Clang compilation failure might occur due to incorrectly installed GNU C++ runtime
+
+An issue of Clang compilation failing with the error `fatal error: 'cmath' file not found` if the GNU C++ runtime was not installed correctly has been resolved. The error indicated that the `libstdc++-dev` package, compatible with the latest installed GNU Compiler Collection (GCC) version, was missing. This issue was a result of Clang being unable to find the newest GNU C++ runtimes it recognizes and the associated header files. See [GitHub issue #4612](https://github.com/ROCm/ROCm/issues/4612).
 
 ## ROCm upcoming changes
 
