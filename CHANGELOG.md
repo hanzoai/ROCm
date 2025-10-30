@@ -6,7 +6,7 @@ different versions of the ROCm software stack and its components.
 
 ## ROCm 7.1.0
 
-See the [ROCm 7.0.2 release notes](https://rocm-stg.amd.com/en/latest/about/release-notes.html#rocm-7-1-0-release-notes)
+See the [ROCm 7.1.0 release notes](https://rocm.docs.amd.com/en/docs-7.1.0/about/release-notes.html#rocm-7-1-0-release-notes)
 for a complete overview of this release.
 
 ### **AMD SMI** (26.1.0)
@@ -93,7 +93,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 #### Optimized
 
 * Improved HIP module loading latency.
-* Optimized kernel metadata retrieval during module post load.
+* Optimized kernel metadata retrieval during module post-load.
 * Optimized doorbell ring in HIP runtime for the following performance improvements:
     - Makes efficient packet batching for HIP graph launch
     - Dynamic packet copying based on a defined maximum threshold or power-of-2 staggered copy pattern
@@ -107,14 +107,14 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Known issues
 
-* SPIR-V-enabled applications may encounter an issue of segmentation fault. The problem disappears when SPIR-V is disabled. The issue will be fixed in the next ROCm release. 
+* SPIR-V-enabled applications might encounter a segmentation fault. The problem doesn't exist when SPIR-V is disabled. The issue will be fixed in the next ROCm release. 
 
 ### **hipBLAS** (3.1.0)
 
 #### Added
 
 * `--clients-only` build option to only build clients against a prebuilt library.
-* gfx1103, gfx1150, gfx1151, gfx1200, and gfx1201 support enabled.
+* gfx1150, gfx1151, gfx1200, and gfx1201 support enabled.
 * FORTRAN enabled for the Microsoft Windows build and tests.
 * Additional reference library fallback options added.
 
@@ -132,7 +132,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * CPP extension APIs ``setMaxWorkspaceBytes`` and ``getMaxWorkspaceBytes``.
 * Feature to print logs (using ``HIPBLASLT_LOG_MASK=32``) for Grouped GEMM.
 * Support for swizzleA by using the hipblaslt-ext cpp API.
-* Support for hipBLASLt extop for gfx11xx and gfx12xx.
+* Support for hipBLASLt extop for gfx11XX and gfx12XX.
 
 #### Changed
 
@@ -211,7 +211,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Resolved issues
 
-* Updated error handling for several hipRAND unit tests to accomodate the new hipGetLastError behaviour that was introduced in ROCm 7.0.0. As of ROCm 7.0.0, the internal error state is cleared on each call to `hipGetLastError` rather than on every HIP API call.
+* Updated error handling for several hipRAND unit tests to accommodate the new `hipGetLastError` behavior that was introduced in ROCm 7.0.0. As of ROCm 7.0.0, the internal error state is cleared on each call to `hipGetLastError` rather than on every HIP API call.
 
 ### **hipSOLVER** (3.1.0)
 
@@ -294,7 +294,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * Removed redundant NOP instructions for GFX11/12 platforms.
 * Improved `Graphviz` output (node color and layout updates).
 * Optimized interdependency checking during compilation.
-* Skip hipBLASLt solutions requiring workspace size larger than 128 MB for efficient memory utilization.
+* Skip hipBLASLt solutions that require a workspace size larger than 128 MB for efficient memory utilization.
 
 #### Resolved issues
 
@@ -353,7 +353,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Known issues
 
-* Installation on CentOS/RedHat/SLES requires the manual installation of the `FFMPEG` &amp; `OpenCV` dev packages.
+* Installation on RedHat/SLES requires the manual installation of the `FFMPEG` &amp; `OpenCV` dev packages.
 
 #### Upcoming changes
 
@@ -397,7 +397,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Known issues
 * Package installation on SLES requires manually installing `TurboJPEG`.
-* Package installation on CentOS, RedHat, and SLES requires manually installing the `FFMPEG Dev` package.
+* Package installation on RedHat and SLES requires manually installing the `FFMPEG Dev` package.
 
 ### **rocALUTION** (4.0.1)
 
@@ -423,7 +423,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 #### Added
 
 * Sample for clients using OpenMP threads calling rocBLAS functions.
-* gfx1103, gfx1150, and gfx1151 enabled.
+* gfx1150 and gfx1151 enabled.
 
 #### Changed
 
@@ -505,7 +505,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 #### Changed
 
 * In the memory chart, long string of numbers are now displayed as scientific notation. It also solves the issue of overflow of displaying long number
-* When `--format-rocprof-output rocpd` is used, only `pmc_perf.csv` will be written to workload directory instead of mulitple csv files.
+* When `--format-rocprof-output rocpd` is used, only `pmc_perf.csv` will be written to workload directory instead of multiple CSV files.
 * CLI analysis mode baseline comparison will now only compare common metrics across workloads and will not show the Metric ID.
   * Removed metrics from analysis configuration files which are explicitly marked as empty or None.
 * Changed the basic (default) view of TUI from aggregated analysis data to individual kernel analysis data.
@@ -562,10 +562,10 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 #### Optimized
 
 * Improved `--time-unit` option in analyze mode to apply time unit conversion across all analysis sections, not just kernel top stats.
-* Improved logic to obtain rocprof supported counters which prevents unnecessary warnings.
+* Improved logic to obtain rocprof-supported counters, which prevents unnecessary warnings.
 * Improved post-analysis runtime performance by caching and multi-processing.
 * Improve analysis block based filtering to accept metric ID level filtering.
-  * This can be used to collect individual metrics from various sections of analysis config.
+  * This can be used to collect individual metrics from various sections of the analysis config.
 
 #### Resolved issues
 
@@ -601,7 +601,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Added
 
-* gfx1150 and gfx1151 enabled.
+* gfx1150 and gfx1151 support enabled.
 
 ### **ROCm Systems Profiler** (1.2.0)
 
@@ -611,7 +611,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 - Support for `rocpd` database output with the `ROCPROFSYS_USE_ROCPD` configuration setting.
 - Support for profiling PyTorch workloads using the `rocpd` output database.
 - Support for tracing OpenMP API in Fortran applications.
-- An error warning that is triggered if the profiler application fails due to SELinux enforcement being enabled. The warning includes steps to disable SELinux enforcement.
+- An error warning is triggered if the profiler application fails because SELinux enforcement is enabled. The warning includes steps to disable SELinux enforcement.
 
 #### Changed
 
@@ -654,15 +654,15 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Removed
 
-* `rocprofv2` doesn't support gfx12xx Series GPUs. For gfx12xx Series GPUs, use `rocprofv3` tool.
+* `rocprofv2` doesn't support gfx12XX Series GPUs. For gfx12XX Series GPUs, use `rocprofv3` tool.
 
 ### **ROCprofiler-SDK** (1.0.0)
 
 #### Added
-* Dynamic process attachment- ROCprofiler-SDK and `rocprofv3` now facilitate dynamic profiling of a running GPU applications by attaching to its process ID (PID), rather than launching the application through the profiler itself.
+* Dynamic process attachment- ROCprofiler-SDK and `rocprofv3` now facilitate dynamic profiling of a running GPU application by attaching to its process ID (PID), rather than launching the application through the profiler itself.
 * Scratch-memory trace information to the Perfetto output in `rocprofv3`.
 * New capabilities to the thread trace support in `rocprofv3`:
-    * Real-time clock support for thread trace alignment on gfx9 architecture. This enables high-resolution clock computation and better synchronization across shader engines. 
+    * Real-time clock support for thread trace alignment on gfx9XX architecture. This enables high-resolution clock computation and better synchronization across shader engines. 
     * `MultiKernelDispatch` thread trace support is now available across all ASICs.
 * Documentation for dynamic process attachment.
 * Documentation for `rocpd` summaries.
@@ -680,7 +680,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * rocDecode host - rocdecode host linking updates
 
 #### Resolved issues
-* rocJPEG Bindings - bugfixes
+* rocJPEG Bindings - bug fixes
 * Test package - find dependencies updated
 
 ### **rocRAND** (4.1.0)
@@ -735,7 +735,7 @@ Improved the performance of:
 #### Added
 
 * A new CMake option `-DSQLITE_USE_SYSTEM_PACKAGE` to allow SQLite to be provided by the system.
-* Introduced `libhipcxx` as a soft dependency. When `liphipcxx` can be included, rocThrust can use structs and methods defined in `libhipcxx`. This allows for a more complete behavior parity with CCCL and mirrors CCCL's thrust own dependency on `libcudacxx`.
+* Introduced `libhipcxx` as a soft dependency. When `libhipcxx` can be included, rocThrust can use structs and methods defined in `libhipcxx`. This allows for a more complete behavior parity with CCCL and mirrors CCCL's thrust own dependency on `libcudacxx`.
 * Added a new CMake option `-DUSE_SYSTEM_LIB` to allow tests to be built from `ROCm` libraries provided by the system.
 
 #### Changed
@@ -750,13 +750,13 @@ Improved the performance of:
 
 * `event` test is failing on CI and local runs on MI300, MI250 and MI210.
 
-* rocThrust, as well as its dependencies rocPRIM and rocRAND have been moved into the new `rocm-libraries` monorepo repository (https://github.com/ROCm/rocm-libraries). This repository contains a number of ROCm libraries that are frequently used together.
+* rocThrust, as well as its dependencies rocPRIM and rocRAND have been moved into the new `rocm-libraries` monorepo repository (https://github.com/ROCm/rocm-libraries). This repository contains several ROCm libraries that are frequently used together.
   * The repository migration requires a few changes to the way that rocThrust's ROCm library dependencies are fetched.
   * There are new cmake options for obtaining rocPRIM and (optionally, if BUILD_BENCHMARKS is enabled) rocRAND.
   * cmake build options `ROCPRIM_FETCH_METHOD` and `ROCRAND_FETCH_METHOD` may be set to one of the following:
-    * `PACKAGE` - (default) searches for a preinstalled packaged version of the dependency. If it is not found, the build will fall back using option `DOWNLOAD`, described below.
+    * `PACKAGE` - (default) searches for a preinstalled packaged version of the dependency. If it's not found, the build will fall back using option `DOWNLOAD`, described below.
     * `DOWNLOAD` - downloads the dependency from the rocm-libraries repository. If git >= 2.25 is present, this option uses a sparse checkout that avoids downloading more than it needs to. If not, the whole monorepo is downloaded (this may take some time).
-    * `MONOREPO` - this option is intended to be used if you are building rocThrust from within a copy of the rocm-libraries repository that you have cloned (and therefore already contains the dependencies rocPRIM and rocRAND). When selected, the build will try to find the dependency in the local repository tree. If it cannot be found, the build will attempt to add it to the local tree using a sparse-checkout. If that also fails, it will fall back to using the `DOWNLOAD` option.
+    * `MONOREPO` - this option is intended to be used if you are building rocThrust from within a copy of the rocm-libraries repository that you have cloned (and therefore already contains the dependencies rocPRIM and rocRAND). When selected, the build will try to find the dependency in the local repository tree. If it can't be found, the build will attempt to add it to the local tree using a sparse-checkout. If that also fails, it will fall back to using the `DOWNLOAD` option.
 
 ### **RPP** (2.1.0)
 
@@ -781,7 +781,7 @@ Improved the performance of:
 
 * Test Suite - Fixes for accuracy.
 * HIP Backend - Check return status warning fixes.
-* Bugfix - HIP vector types init.
+* Bug fix - HIP vector types init.
 
 ## ROCm 7.0.2
 
