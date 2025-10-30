@@ -44,7 +44,7 @@ The following are notable new features and improvements in ROCm 7.1.0. For chang
 
 ROCm 7.1.0 extends the operating system support for the following AMD hardware:
 
-* AMD Instinct MI355X and MI350X GPUs adds support for Debian 13.
+* AMD Instinct MI355X and MI350X GPUs add support for Debian 13.
 * AMD Instinct MI325X GPUs adds support for RHEL 10.0, SLES15 SP7, Debian 13, Debian 12, Oracle Linux 10, and Oracle Linux 9.
 * AMD Instinct MI100 adds support for SLES 15 SP7.
 
@@ -176,7 +176,7 @@ firmware, AMD GPU drivers, and the ROCm user space software.
 
 <p id="footnote1">[1]: PLDM bundle 01.25.05.00 will be available by November 2025.</p>
 
-#### AMD-SMI improvement: Set power cap
+#### AMD SMI improvement: Set power cap
 
 AMD Instinct MI300X is enabled to provide the capability to set power cap in 1VF. The system is designed to select the lowest power cap value from those provided by the host, VM, and Advanced Platform Management Link (APML). This feature allows you to have enhanced control over power management in virtualized environments, particularly in single VM configurations. By allowing the VM to set a power cap, you can optimize power usage and efficiency according to your specific needs. This feature requires PLDM bundle 01.25.05.00 (or later) firmware.
 
@@ -184,7 +184,7 @@ AMD Instinct MI300X is enabled to provide the capability to set power cap in 1VF
 
 * Enabled SPX/NPS1 support for multi-tenant (1VM, 2VM, 4VM, and 8VM). This feature depends on PLDM bundle 01.25.15.04.
 
-* Enabled CPX/NPS2 support (1VF/OAM). This feature depends on PLDM bundle 01.25.15.04.
+* Enabled CPX/NPS2 support (1VF/OAM). This feature depends on PLDM bundle 01.25.15.04. (Technical preview)
 
 * Enabled DPX/NPS2 support (1VF/OAM). This feature depends on PLDM bundle 01.25.15.04. 
 
@@ -208,14 +208,15 @@ For detailed enhancements and updates refer to the [HIP Changelog](#hip-7-1-0).
 
 ### hipBLASLt: Kernel optimizations and model support enhancements
 
-hipBLASlt introduces several performance and model compatibility improvements for AMD Instinct MI350 Series GPUs:
+hipBLASLt introduces several performance and model compatibility improvements for AMD Instinct GPUs:
 
-* TF32 kernel optimization for MI355X to enhance training and inference efficiency.
-* FP32 kernel optimization for MI350X, improving precision-based workloads.
-* Meta Model Optimization for MI350X, enabling better performance across transformer-based models.
-* Llama 2 70B model support fix: Removed incorrect kernel to ensure accurate and stable execution.
+* TF32 kernel optimization for AMD Instinct MI355X GPUs to enhance training and inference efficiency.
+* FP32 kernel optimization for AMD Instinct MI350X GPUs, improving precision-based workloads.
+* Meta model optimization for AMD Instinct MI350X GPUs, enabling better performance across transformer-based models.
+* Llama 2 70B model support fix for AMD Instinct MI350X GPUs: Removed incorrect kernel to ensure accurate and stable execution.
 * For AMD Instinct MI350X GPUs specific, added multiple high-performance kernels optimized for `FP16` and `BF16` data types, enhancing heuristic-based execution.
 * FP8 low-precision data type operations on AMD Instinct MI350X GPUs. This update adds FP8 support for MI350X using hipBLASLt’s low-precision data type functionality.
+* Mixtral-8x7b model optimization for AMD Instinct MI325X GPUs.
 
 ### hipSPARSELt: SpMM performance improvements
 
@@ -265,8 +266,8 @@ ROCm Systems Profiler has the following enhancements:
 ROCprofiler-SDK and `rocprofv3` include the following enhancements:
 
 * Dynamic process attachment feature has been added. This feature in ROCprofiler-SDK and `rocprofv3` allows dynamic profiling of a running GPU application by attaching to its process ID (PID), rather than launching the application through the profiler itself. This allows real-time data collection without interrupting execution, making it ideal for profiling long-running, containerized, or multiprocess workloads. For more details, refer to [Dynamic process attachment](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/develop/how-to/using-rocprofv3-process-attachment.html) documentation for `rocprofv3` and [Implementing Process Attachment Tools](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/api-reference/process_attachment.html) for `ROCprofiler-SDK`.
-* Scratch-memory trace information has been added to the Perfetto output in `rocprofv3`, enhancing visibility into memory usage during profiling. Additionally, derived metrics and the required counters have been successfully integrated for gfx12XX series GPUs, enabling users to collect performance counters through `rocprofv3` on these platforms.
-* Host-trap (software-based) PC sampling is now available on RDNA4 architecture-based gfx12xx series GPUs. It uses the kernel threads to interrupt GPU waves and capture PC states. For more details, see [Using PC sampling](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/how-to/using-pc-sampling.html).
+* Scratch-memory trace information has been added to the Perfetto output in `rocprofv3`, enhancing visibility into memory usage during profiling. Additionally, derived metrics and the required counters have been successfully integrated for gfx12XX Series GPUs, enabling users to collect performance counters through `rocprofv3` on these platforms.
+* Host-trap (software-based) PC sampling is now available on RDNA4 architecture-based gfx12XX Series GPUs. It uses the kernel threads to interrupt GPU waves and capture PC states. For more details, see [Using PC sampling](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/how-to/using-pc-sampling.html).
 * Real-time clock support has been added to the thread trace in `rocprofv3` for thread trace alignment on gfx9xx GPUs, enabling high-resolution clock computation and better synchronization across shader engines. 
 * `MultiKernelDispatch` thread trace support is now available across all ASICs, allowing users to profile multiple kernel dispatches within a single thread trace session. This enhances the timeline accuracy and enables deeper analysis of concurrent GPU workloads.
 * Stability and robustness of the `rocpd` output format for `rocprofv3` has been improved. For details, see [Using rocpd output format](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/how-to/using-rocpd-output-format.html).
@@ -274,7 +275,7 @@ ROCprofiler-SDK and `rocprofv3` include the following enhancements:
 
 ### ROCm Data Center tool: Enhanced CPU metrics
 
-ROCm Data Center tool (RDC) hardware monitoring capabilities has been expanded by integrating the new `AMDSMI` API. This enhancement enables more comprehensive visibility into CPU performance and topology. 
+ROCm Data Center tool (RDC) hardware monitoring capabilities have been expanded by integrating the new `AMDSMI` API. This enhancement enables more comprehensive visibility into CPU performance and topology. 
 
 ### RPP: New hue and saturation augmentations
 
@@ -305,6 +306,10 @@ ROCm 7.1.0 introduces two key compiler enhancements:
   override global compiler flags on a per-block basis, improving atomic operation
   efficiency on architectures like AMDGPU.
 
+### Model optimization for AMD Instinct MI300X GPUs
+
+Kernel optimization for Flash Attention and Paged Attention models on AMD Instinct MI300X GPUs.
+
 ### Deep learning and AI framework updates
 
 ROCm provides a comprehensive ecosystem for deep learning development. For more information, see [Deep learning frameworks for ROCm](https://rocm.docs.amd.com/en/docs-7.0.2/how-to/deep-learning-rocm.html) and the [Compatibility
@@ -312,7 +317,7 @@ matrix](../../docs/compatibility/compatibility-matrix.rst) for the complete list
 
 #### PyTorch
 
-Torch-MIGraphX integrates AMD's graph inference engine with the PyTorch ecosystem. It provides a `mgx_module` object that may be invoked in the same manner as any other torch module, but utilizes the MIGraphX inference engine internally. This feature has existed for a few releases but now Torch-MIGraphX has published installable WHL files.
+Torch-MIGraphX integrates AMD's graph inference engine with the PyTorch ecosystem. It provides a `mgx_module` object that may be invoked in the same manner as any other torch module, but utilizes the MIGraphX inference engine internally. Although Torch-MIGraphX has been available in previous releases, installable WHL files are now officially published.
 
 #### JAX
 
@@ -803,7 +808,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 #### Added
 
 * `--clients-only` build option to only build clients against a prebuilt library.
-* gfx1103, gfx1150, gfx1151, gfx1200, and gfx1201 support enabled.
+* gfx1150, gfx1151, gfx1200, and gfx1201 support enabled.
 * FORTRAN enabled for the Microsoft Windows build and tests.
 * Additional reference library fallback options added.
 
@@ -821,7 +826,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * CPP extension APIs ``setMaxWorkspaceBytes`` and ``getMaxWorkspaceBytes``.
 * Feature to print logs (using ``HIPBLASLT_LOG_MASK=32``) for Grouped GEMM.
 * Support for swizzleA by using the hipblaslt-ext cpp API.
-* Support for hipBLASLt extop for gfx11xx and gfx12xx.
+* Support for hipBLASLt extop for gfx11XX and gfx12XX.
 
 #### Changed
 
@@ -900,7 +905,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Resolved issues
 
-* Updated error handling for several hipRAND unit tests to accomodate the new hipGetLastError behaviour that was introduced in ROCm 7.0.0. As of ROCm 7.0.0, the internal error state is cleared on each call to `hipGetLastError` rather than on every HIP API call.
+* Updated error handling for several hipRAND unit tests to accommodate the new hipGetLastError behaviour that was introduced in ROCm 7.0.0. As of ROCm 7.0.0, the internal error state is cleared on each call to `hipGetLastError` rather than on every HIP API call.
 
 ### **hipSOLVER** (3.1.0)
 
@@ -1112,7 +1117,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 #### Added
 
 * Sample for clients using OpenMP threads calling rocBLAS functions.
-* gfx1103, gfx1150, and gfx1151 enabled.
+* gfx1150 and gfx1151 enabled.
 
 #### Changed
 
@@ -1194,7 +1199,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 #### Changed
 
 * In the memory chart, long string of numbers are now displayed as scientific notation. It also solves the issue of overflow of displaying long number
-* When `--format-rocprof-output rocpd` is used, only `pmc_perf.csv` will be written to workload directory instead of mulitple csv files.
+* When `--format-rocprof-output rocpd` is used, only `pmc_perf.csv` will be written to workload directory instead of multiple CSV files.
 * CLI analysis mode baseline comparison will now only compare common metrics across workloads and will not show the Metric ID.
   * Removed metrics from analysis configuration files which are explicitly marked as empty or None.
 * Changed the basic (default) view of TUI from aggregated analysis data to individual kernel analysis data.
@@ -1343,7 +1348,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 
 #### Removed
 
-* `rocprofv2` doesn't support gfx12xx Series GPUs. For gfx12xx Series GPUs, use `rocprofv3` tool.
+* `rocprofv2` doesn't support gfx12XX Series GPUs. For gfx12XX Series GPUs, use `rocprofv3` tool.
 
 ### **ROCprofiler-SDK** (1.0.0)
 
@@ -1424,7 +1429,7 @@ Improved the performance of:
 #### Added
 
 * A new CMake option `-DSQLITE_USE_SYSTEM_PACKAGE` to allow SQLite to be provided by the system.
-* Introduced `libhipcxx` as a soft dependency. When `liphipcxx` can be included, rocThrust can use structs and methods defined in `libhipcxx`. This allows for a more complete behavior parity with CCCL and mirrors CCCL's thrust own dependency on `libcudacxx`.
+* Introduced `libhipcxx` as a soft dependency. When `libhipcxx` can be included, rocThrust can use structs and methods defined in `libhipcxx`. This allows for a more complete behavior parity with CCCL and mirrors CCCL's thrust own dependency on `libcudacxx`.
 * Added a new CMake option `-DUSE_SYSTEM_LIB` to allow tests to be built from `ROCm` libraries provided by the system.
 
 #### Changed
@@ -1493,7 +1498,7 @@ individual components, review the [Detailed component changes](#detailed-compone
 
 ### Segmentation fault in ROCprofiler-SDK due to ABI mismatch affecting std::regex
 
-An issue of segmentation fault in ROCprofiler-SDK that uses `std::regex` has been resolved. Starting with GCC 5.1, GNU `libstdc++` introduced a dual Application Binary Interface (ABI) to adopt `C++11`, primarily affecting the `std::string` and its dependencies, including `std::regex`. The issue occured if your code was compiled against headers expecting one ABI but linked or run with the other, resulting problems with `std::string` and `std::regex`. See [GitHub issue #5343](https://github.com/ROCm/ROCm/issues/5343).
+A segmentation fault in ROCprofiler-SDK that uses `std::regex` has been resolved. Starting with GCC 5.1, GNU `libstdc++` introduced a dual Application Binary Interface (ABI) to adopt `C++11`, primarily affecting the `std::string` and its dependencies, including `std::regex`. The issue occured if your code was compiled against headers expecting one ABI but linked or run with the other, resulting problems with `std::string` and `std::regex`. See [GitHub issue #5343](https://github.com/ROCm/ROCm/issues/5343).
 
 ### Clang compilation failure might occur due to incorrectly installed GNU C++ runtime
 
