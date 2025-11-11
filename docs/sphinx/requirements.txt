@@ -163,7 +163,7 @@ pygments==2.19.2
     #   sphinx
 pyjwt[crypto]==2.10.1
     # via pygithub
-pynacl==1.6.0
+pynacl==1.6.1
     # via pygithub
 python-dateutil==2.9.0.post0
     # via jupyter-client
@@ -187,7 +187,7 @@ requests==2.32.5
     # via
     #   pygithub
     #   sphinx
-rocm-docs-core @ git+https://github.com/ROCm/rocm-docs-core.git@alexxu12/preview-banner
+rocm-docs-core==1.28.0
     # via -r requirements.in
 rpds-py==0.28.0
     # via
