@@ -68,6 +68,9 @@ parameters:
 - name: rocmDependencies
   type: object
   default:
+    - clr
+    - llvm-project
+    - ROCR-Runtime
     - rocprofiler-sdk
 - name: rocmTestDependencies
   type: object
