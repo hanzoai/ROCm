@@ -421,7 +421,7 @@ Key features and enhancements for PyTorch 2.9 with ROCm 7.1.1
 
 - Added stream graph capture status validation in memory copy synchronization functions
 
-Key features and enhancements for PyTorch 2.7/2.8 with ROCm 7.1.1
+Key features and enhancements for PyTorch 2.7/2.8 with ROCm 7.0
 ================================================================================
 
 - Enhanced TunableOp framework: Introduces ``tensorfloat32`` support for
