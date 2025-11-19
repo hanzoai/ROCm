@@ -421,6 +421,17 @@ Key features and enhancements for PyTorch 2.9 with ROCm 7.1.1
 
 - Added stream graph capture status validation in memory copy synchronization functions
 
+Key features and enhancements for PyTorch 2.8 with ROCm 7.1
+================================================================================
+
+- MIOpen deep learning optimizations: Further optimized NHWC BatchNorm feature.
+
+- Added float8 support for the DeepSpeed extension, allowing for decreased
+  memory footprint and increased throughput in training and inference workloads.
+
+- ``torch.nn.functional.scaled_dot_product_attention`` now calling optimized
+  flash attention kernel automatically.
+
 Key features and enhancements for PyTorch 2.7/2.8 with ROCm 7.0
 ================================================================================
 
