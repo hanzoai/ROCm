@@ -58,9 +58,7 @@ For more information on:
 
 #### Virtualization support
 
-ROCm 7.1.1 adds Ubuntu 24.04 as Guest OS in KVM SR-IOV for AMD Instinct MI300X GPUs.
-
-For more information, see  [Virtualization Support](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#virtualization-support).
+ROCm 7.1.1 adds Ubuntu 24.04 as a Guest OS in KVM SR-IOV for AMD Instinct MI300X GPUs. For more information, see  [Virtualization Support](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#virtualization-support).
 
 ### User space, driver, and firmware dependent changes
 
@@ -258,13 +256,23 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
     For more information about the changes, see the [Changelog for the AI Developer Hub](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/changelog.html).
 
 * The [ROCm examples repository](https://github.com/ROCm/rocm-examples) has been expanded with examples for the following ROCm components:
+
+    ::::{grid} 2
+    :margin: auto 0 auto auto
+    :::{grid}
+    :margin: auto 0 auto auto
     * [hipBLASLt](https://rocm.docs.amd.com/projects/hipBLASLt/en/latest/)
     * [hipSPARSE](https://rocm.docs.amd.com/projects/hipSPARSE/en/latest/)
     * [hipSPARSELt](https://rocm.docs.amd.com/projects/hipSPARSELt/en/latest/)
     * [hipTensor](https://rocm.docs.amd.com/projects/hipTensor/en/latest/)
+    :::
+    :::{grid}
+    :margin: auto 0 auto auto
     * [rocALUTION](https://rocm.docs.amd.com/projects/rocALUTION/en/latest/)
     * [ROCprofiler-SDK](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/)
     * [rocWMMA](https://rocm.docs.amd.com/projects/rocWMMA/en/latest/)
+    :::
+    ::::
 
     Usage examples are now available for the following performance analysis tools:
 
@@ -795,18 +803,22 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 ROCm known issues are noted on {fab}`github` [GitHub](https://github.com/ROCm/ROCm/labels/Verified%20Issue). For known
 issues related to individual components, review the [Detailed component changes](#detailed-component-changes).
 
+### RCCL performance degradation on AMD Instinct MI300X GPU with AMD Pollara AI NIC
+
+If you’re using RCCL with AMD Instinct MI300X GPUs and the AMD Pollara AI NIC, you might observe performance degradation for specific collectives and message sizes. The affected collectives are `Scatter`, `AllToAll`, and `AlltoAllv`. It's recommended to avoid using RCCL packaged with ROCm 7.1.1. As a workaround, use the {fab}`github`[RCCL `develop` branch](https://github.com/ROCm/rccl/tree/develop), which contains the fix and will be included in a future ROCm release.
+
 ## ROCm resolved issues
 
 The following are previously known issues resolved in this release. For resolved issues related to
 individual components, review the [Detailed component changes](#detailed-component-changes).
 
-### Issue uninstalling ROCm Bandwidth Test using amdgpu-install script
+### Issue uninstalling ROCm Bandwidth Test using the amdgpu-install script
 
-The issue of failing to make a clean uninstallation of ROCm Bandwidth Test using the `amdgpu-install` script, due to a missing `rocm-core` dependency has been resolved. See [GitHub issue #5611](https://github.com/ROCm/ROCm/issues/5611).
+The issue where ROCm Bandwidth Test could not be cleanly uninstalled using the `amdgpu-install` script due to a missing `rocm-core` dependency has been resolved. See [GitHub issue #5611](https://github.com/ROCm/ROCm/issues/5611).
 
 ### RCCL profiler plugin failure with AllToAll operations
 
-The issue of RCCL profiler plugin `librccl-profiler.so` failing with a segmentation fault during `AllToAll` collective operations due to improperly assigned point-to-point task function pointers has been resolved. The issue led to invalid memory access and prevented profiling of `AllToAll` performance. Other operations, like `AllReduce`, were unaffected. See [GitHub issue #5653](https://github.com/ROCm/ROCm/issues/5653).
+The issue where the RCCL profiler plugin `librccl-profiler.so` failed with a segmentation fault during `AllToAll` collective operations due to improperly assigned point-to-point task function pointers has been resolved. This issue resulted in invalid memory access and prevented the profiling of `AllToAll` performance. Other operations, such as `AllReduce`, were unaffected. See [GitHub issue #5653](https://github.com/ROCm/ROCm/issues/5653).
 
 ## ROCm upcoming changes
 
