@@ -79,6 +79,7 @@ CX
 Cavium
 CentOS
 ChatGPT
+Cholesky
 CoRR
 Codespaces
 Commitizen
@@ -322,6 +323,7 @@ Mooncake
 Mpops
 Multicore
 Multithreaded
+mx
 MXFP
 MyEnvironment
 MyST
