@@ -401,15 +401,25 @@ with ROCm.
 
 Key features and enhancements for PyTorch 2.9 with ROCm 7.1.1
 ================================================================================
-- Added OCP Micro-scaling Format (mx-fp8/mx-fp4) support for advanced precision training.
+- Scaled Dot Product Attention (SDPA) upgraded to use AOTriton version 0.11b
 
-- `torch.backends.miopen.immediate` flag to toggle MIOpen Immediate Mode independently of 
-  deterministic and benchmark settings, providing finer control over convolution execution.
+- Default hipBLASLt support enabled for gfx908 architecture on ROCm 6.3 and later
 
-- rocSOLVER now used for Cholesky inversion operations, providing improved numerical stability 
-  and performance for linear algebra workloads.
+- MIOpen now supports channels last memory format for 3D convolutions and batch normalization
 
-- MI355X GPU testing enabled in CI.
+- NHWC convolution operations in MIOpen optimized by eliminating unnecessary transpose operations
+
+- Improved tensor.item() performance by removing redundant synchronization
+
+- Enhanced performance for elementwise operations and reduction kernels
+
+- Added support for grouped GEMM operations through fbgemm_gpu generative AI components
+
+- Resolved device error in Inductor when using CUDA graph trees with HIP
+
+- Corrected logsumexp scaling in AOTriton-based SDPA implementation
+
+- Added stream graph capture status validation in memory copy synchronization functions
 
 Key features and enhancements for PyTorch 2.7/2.8 with ROCm 7.1.1
 ================================================================================
