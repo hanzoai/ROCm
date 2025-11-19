@@ -411,7 +411,7 @@ Key features and enhancements for PyTorch 2.9 with ROCm 7.1.1
 
 - Improved tensor.item() performance by removing redundant synchronization
 
-- Enhanced performance for elementwise operations and reduction kernels
+- Enhanced performance for element-wise operations and reduction kernels
 
 - Added support for grouped GEMM operations through fbgemm_gpu generative AI components
 
