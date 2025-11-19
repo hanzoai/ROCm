@@ -271,6 +271,7 @@ LLM
 LLMs
 LLVM
 LM
+logsumexp
 LRU
 LSAN
 LSan
