@@ -21,17 +21,17 @@ for a complete overview of this release.
   - Provides support for `xcp_metrics` v1.0 and extends support for v1.1 (dynamic metrics).
   - Added `amdsmi_get_gpu_partition_metrics_info`, which provides per XCP (partition) metrics.
 
-- Support for displaying newer VRAM memory types in `amd-smi static --vram`**.
+- Support for displaying newer VRAM memory types in `amd-smi static --vram`.
   - The `amdsmi_get_gpu_vram_info()` API now supports detecting DDR5, LPDDR4, LPDDR5, and HBM3E memory types.
 
 #### Changed
 
 - Updated `amd-smi static --numa` socket affinity data structure. It now displays CPU affinity information in both hexadecimal bitmask format and expanded CPU core ranges, replacing the previous simplified socket enumeration approach.
 
-#### Resolved Issues
+#### Resolved issues
 
 - Fixed incorrect topology weight calculations.  
-  - Out of bound writes caused corruption in the weights field
+  - Out-of-bound writes caused corruption in the weights field.
 
 - Fixed `amd-smi event` not respecting the Linux timeout command.  
 
@@ -56,7 +56,7 @@ for a complete overview of this release.
 #### Resolved issues
 
 * Incorrect Compute Unit (CU) mask in logging. HIP runtime now correctly sets the field width for the output print operation. When logging is enabled via the environment variable `AMD_LOG_LEVEL`, the runtime logs the accurate CU mask.
-* A segmentation fault occurred when the dynamic queue management mechanism was enabled. HIP runtime now ensures GPU queues aren't NULL during marker submission, preventing crashes and improving robustness.
+* A segmentation fault occurred when the dynamic queue management mechanism was enabled. HIP runtime now ensures GPU queues aren't `NULL` during marker submission, preventing crashes and improving robustness.
 * An error encountered on HIP tear-down after device reset in certain applications due to accessing stale memory objects. HIP runtime now properly releases memory associated with host calls, ensuring reliable device resets.
 * A race condition occurred in certain graph-related applications when pending asynchronous signal handlers referenced device memory that had already been released, leading to memory corruption. HIP runtime now uses a reference counting strategy to manage access to device objects in asynchronous event handlers, ensuring safe and reliable memory usage.
 
@@ -64,11 +64,11 @@ for a complete overview of this release.
 
 #### Resolved issues
 
-* Fixed an error that resulted when running `make check` on systems running on a gfx1201 GPU [(#4397)](https://github.com/ROCm/AMDMIGraphX/pull/4397).
+* Fixed an error that resulted when running `make check` on systems running on a gfx1201 GPU.
 
 ### **RCCL** (2.27.7)
 
-#### Resolved Issues
+#### Resolved issues
 
 * Fixed a single-node data corruption issue in MSCCL on the AMD Instinct MI350X and MI355X GPUs for the LL protocol. This previously affected about two percent of the runs for single-node `AllReduce` with inputs smaller than 512 KiB.
 
@@ -79,13 +79,13 @@ for a complete overview of this release.
 
 ### **ROCm Bandwidth Test** (2.6.0)
 
-#### Fixed
+#### Resolved issues
 
 - Test failure with error message `Cannot make canonical path`.
 - Healthcheck test failure with seg fault on gfx942.
 - Segmentation fault observed in `schmoo` and `one2all` when executed on `sgpu` setup.
 
-#### Known Issues
+#### Known issues
 
 - `rocm-bandwidth-test` folder fails to be removed after driver uninstallation:
     * After running `amdgpu-uninstall`, the `rocm-bandwidth-test` folder and package are still present.
@@ -130,12 +130,13 @@ for a complete overview of this release.
 
 #### Added
 
-* Support for different test levels with `-r` option for MI3XXx.
-* Set compute type for DGEMM operations in MI350X and MI355X.
+* Support for different test levels with `-r` option for AMD Instinct MI3XXx GPUs.
+* Set compute type for DGEMM operations on AMD Instinct MI350X and MI355X GPUs.
 
 ### **rocSHMEM** (3.0.0)
 
 #### Added
+
 * Allowed IPC, RO, and GDA backends to be selected at runtime.
 * GDA conduit for different NIC vendors:
    * Broadcom BNXT\_RE (Thor 2)
@@ -177,7 +178,7 @@ for a complete overview of this release.
 
 * Absolute paths from the `RPATH` of sample and test binary files.
 
-#### Resolved Issues
+#### Resolved issues
 
 * Fixed issues caused by HIP changes:
     * Removed the `.data` member from `HIP_vector_type`.

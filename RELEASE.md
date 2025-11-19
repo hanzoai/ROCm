@@ -208,7 +208,11 @@ matrix](../../docs/compatibility/compatibility-matrix.rst) for the complete list
 
 #### JAX
 
-User of the JAX deep learning framework can now efficiently use Llama-2. For more information, see [JAX compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/jax-compatibility.html).
+JAX deep learning framework users can now efficiently use Llama-2. For more information, see [JAX compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/jax-compatibility.html).
+
+#### PyTorch
+
+ROCm 7.1.1 enables support for PyTorch 2.9. For more information, see [PyTorch compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/pytorch-compatibility.html).
 
 #### Deep Graph Library (DGL)
 
@@ -237,6 +241,35 @@ The ROCm Runfile Installer 7.1.1 includes the following features and improvement
  
 For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.0/install/rocm-runfile-installer.html).
 
+### Expansion of the ROCm examples repository
+
+The [ROCm examples repository](https://github.com/ROCm/rocm-examples) has been expanded with examples for the following ROCm components:
+
+::::{grid} 2
+:margin: auto 0 auto auto
+:::{grid}
+:margin: auto 0 auto auto
+* [hipBLASLt](https://rocm.docs.amd.com/projects/hipBLASLt/en/latest/)
+* [hipSPARSE](https://rocm.docs.amd.com/projects/hipSPARSE/en/latest/)
+* [hipSPARSELt](https://rocm.docs.amd.com/projects/hipSPARSELt/en/latest/)
+* [hipTensor](https://rocm.docs.amd.com/projects/hipTensor/en/latest/)
+:::
+:::{grid}
+:margin: auto 0 auto auto
+* [rocALUTION](https://rocm.docs.amd.com/projects/rocALUTION/en/latest/)
+* [ROCprofiler-SDK](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/)
+* [rocWMMA](https://rocm.docs.amd.com/projects/rocWMMA/en/latest/)
+:::
+::::
+
+Usage examples are now available for the following performance analysis tools:
+
+* [ROCm Compute Profiler](https://rocm.docs.amd.com/projects/rocprofiler-compute/en/latest/index.html)
+* [ROCm Systems Profiler](https://rocm.docs.amd.com/projects/rocprofiler-systems/en/latest/index.html)
+* [rocprofv3](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/how-to/using-rocprofv3.html)
+
+The complete source code for the [HIP Graph Tutorial](https://rocm.docs.amd.com/projects/HIP/en/latest/tutorial/graph_api.html) is also available as part of the ROCm examples.
+
 ### ROCm documentation updates
 
 ROCm documentation continues to be updated to provide clearer and more comprehensive guidance for a wider variety of user needs and use cases.
@@ -255,32 +288,7 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
  
     For more information about the changes, see the [Changelog for the AI Developer Hub](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/changelog.html).
 
-* The [ROCm examples repository](https://github.com/ROCm/rocm-examples) has been expanded with examples for the following ROCm components:
-
-    ::::{grid} 2
-    :margin: auto 0 auto auto
-    :::{grid}
-    :margin: auto 0 auto auto
-    * [hipBLASLt](https://rocm.docs.amd.com/projects/hipBLASLt/en/latest/)
-    * [hipSPARSE](https://rocm.docs.amd.com/projects/hipSPARSE/en/latest/)
-    * [hipSPARSELt](https://rocm.docs.amd.com/projects/hipSPARSELt/en/latest/)
-    * [hipTensor](https://rocm.docs.amd.com/projects/hipTensor/en/latest/)
-    :::
-    :::{grid}
-    :margin: auto 0 auto auto
-    * [rocALUTION](https://rocm.docs.amd.com/projects/rocALUTION/en/latest/)
-    * [ROCprofiler-SDK](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/)
-    * [rocWMMA](https://rocm.docs.amd.com/projects/rocWMMA/en/latest/)
-    :::
-    ::::
-
-    Usage examples are now available for the following performance analysis tools:
-
-    * [ROCm Compute Profiler](https://rocm.docs.amd.com/projects/rocprofiler-compute/en/latest/index.html)
-    * [ROCm Systems Profiler](https://rocm.docs.amd.com/projects/rocprofiler-systems/en/latest/index.html)
-    * [rocprofv3](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/how-to/using-rocprofv3.html)
-
-    The complete source code for the [HIP Graph Tutorial](https://rocm.docs.amd.com/projects/HIP/en/latest/tutorial/graph_api.html) is also available as part of the ROCm examples.
+* ROCm environment variables are used to configure and optimize the development and runtime experience. These variables define key settings such as installation paths, platform selection, and runtime behavior for applications running on AMD GPUs. The new [ROCm environment variables](https://advanced-micro-devices-rocm-internal--395.com.readthedocs.build/en/395/reference/env-variables.html#environment-variables-in-rocm-libraries) topic summarizes HIP and ROCR-Runtime environment variables, and provides links to environment variable topics for other ROCm components.
 
 ## ROCm components
 
@@ -632,17 +640,17 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
   - Provides support for `xcp_metrics` v1.0 and extends support for v1.1 (dynamic metrics).
   - Added `amdsmi_get_gpu_partition_metrics_info`, which provides per XCP (partition) metrics.
 
-- Support for displaying newer VRAM memory types in `amd-smi static --vram`**.
+- Support for displaying newer VRAM memory types in `amd-smi static --vram`.
   - The `amdsmi_get_gpu_vram_info()` API now supports detecting DDR5, LPDDR4, LPDDR5, and HBM3E memory types.
 
 #### Changed
 
 - Updated `amd-smi static --numa` socket affinity data structure. It now displays CPU affinity information in both hexadecimal bitmask format and expanded CPU core ranges, replacing the previous simplified socket enumeration approach.
 
-#### Resolved Issues
+#### Resolved issues
 
 - Fixed incorrect topology weight calculations.  
-  - Out of bound writes caused corruption in the weights field
+  - Out-of-bound writes caused corruption in the weights field.
 
 - Fixed `amd-smi event` not respecting the Linux timeout command.  
 
@@ -667,7 +675,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 #### Resolved issues
 
 * Incorrect Compute Unit (CU) mask in logging. HIP runtime now correctly sets the field width for the output print operation. When logging is enabled via the environment variable `AMD_LOG_LEVEL`, the runtime logs the accurate CU mask.
-* A segmentation fault occurred when the dynamic queue management mechanism was enabled. HIP runtime now ensures GPU queues aren't NULL during marker submission, preventing crashes and improving robustness.
+* A segmentation fault occurred when the dynamic queue management mechanism was enabled. HIP runtime now ensures GPU queues aren't `NULL` during marker submission, preventing crashes and improving robustness.
 * An error encountered on HIP tear-down after device reset in certain applications due to accessing stale memory objects. HIP runtime now properly releases memory associated with host calls, ensuring reliable device resets.
 * A race condition occurred in certain graph-related applications when pending asynchronous signal handlers referenced device memory that had already been released, leading to memory corruption. HIP runtime now uses a reference counting strategy to manage access to device objects in asynchronous event handlers, ensuring safe and reliable memory usage.
 
@@ -675,11 +683,11 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 #### Resolved issues
 
-* Fixed an error that resulted when running `make check` on systems running on a gfx1201 GPU [(#4397)](https://github.com/ROCm/AMDMIGraphX/pull/4397).
+* Fixed an error that resulted when running `make check` on systems running on a gfx1201 GPU.
 
 ### **RCCL** (2.27.7)
 
-#### Resolved Issues
+#### Resolved issues
 
 * Fixed a single-node data corruption issue in MSCCL on the AMD Instinct MI350X and MI355X GPUs for the LL protocol. This previously affected about two percent of the runs for single-node `AllReduce` with inputs smaller than 512 KiB.
 
@@ -690,13 +698,13 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 ### **ROCm Bandwidth Test** (2.6.0)
 
-#### Fixed
+#### Resolved issues
 
 - Test failure with error message `Cannot make canonical path`.
 - Healthcheck test failure with seg fault on gfx942.
 - Segmentation fault observed in `schmoo` and `one2all` when executed on `sgpu` setup.
 
-#### Known Issues
+#### Known issues
 
 - `rocm-bandwidth-test` folder fails to be removed after driver uninstallation:
     * After running `amdgpu-uninstall`, the `rocm-bandwidth-test` folder and package are still present.
@@ -741,12 +749,13 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 #### Added
 
-* Support for different test levels with `-r` option for MI3XXx.
-* Set compute type for DGEMM operations in MI350X and MI355X.
+* Support for different test levels with `-r` option for AMD Instinct MI3XXx GPUs.
+* Set compute type for DGEMM operations on AMD Instinct MI350X and MI355X GPUs.
 
 ### **rocSHMEM** (3.0.0)
 
 #### Added
+
 * Allowed IPC, RO, and GDA backends to be selected at runtime.
 * GDA conduit for different NIC vendors:
    * Broadcom BNXT\_RE (Thor 2)
@@ -788,7 +797,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 * Absolute paths from the `RPATH` of sample and test binary files.
 
-#### Resolved Issues
+#### Resolved issues
 
 * Fixed issues caused by HIP changes:
     * Removed the `.data` member from `HIP_vector_type`.
@@ -839,8 +848,8 @@ SMI, see the [AMD SMI documentation](https://rocm.docs.amd.com/projects/amdsmi/e
 
 ### ROCTracer, ROCProfiler, rocprof, and rocprofv2 deprecation
 
-Development and support for ROCTracer, ROCProfiler, `rocprof`, and `rocprofv2` are being phased out in favor of ROCprofiler-SDK in upcoming ROCm releases. Starting with ROCm 6.4, only critical defect fixes will be addressed for older versions of the profiling tools and libraries. All users are encouraged to upgrade to the latest version of the ROCprofiler-SDK library and the (`rocprofv3`) tool to ensure continued support and access to new features. ROCprofiler-SDK is still in beta today and will be production-ready in a future ROCm release.
- 
+ROCTracer, ROCProfiler, `rocprof`, and `rocprofv2` are deprecated and only critical defect fixes will be addressed for older versions of the profiling tools and libraries. It's strongly recommended to upgrade to the latest version of the [ROCprofiler-SDK](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/) library and the (`rocprofv3`) tool to ensure continued support and access to new features. 
+
 It's anticipated that ROCTracer, ROCProfiler, `rocprof`, and `rocprofv2` will reach end-of-life by future releases, aligning with Q1 of 2026.
 
 ### AMDGPU wavefront size compiler macro deprecation
