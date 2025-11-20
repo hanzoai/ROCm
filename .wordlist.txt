@@ -79,6 +79,7 @@ CX
 Cavium
 CentOS
 ChatGPT
+Cholesky
 CoRR
 Codespaces
 Commitizen
@@ -270,6 +271,7 @@ LLM
 LLMs
 LLVM
 LM
+logsumexp
 LRU
 LSAN
 LSan
@@ -322,6 +324,7 @@ Mooncake
 Mpops
 Multicore
 Multithreaded
+mx
 MXFP
 MyEnvironment
 MyST
