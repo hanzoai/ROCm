@@ -206,10 +206,6 @@ This GA release marks a significant milestone for ROCm-DS as hipDF and hipMM tra
 ROCm provides a comprehensive ecosystem for deep learning development. For more information, see [Deep learning frameworks for ROCm](https://rocm.docs.amd.com/en/docs-7.1.0/how-to/deep-learning-rocm.html) and the [Compatibility
 matrix](../../docs/compatibility/compatibility-matrix.rst) for the complete list of Deep learning and AI framework versions tested for compatibility with ROCm. As of November 2025, AMD ROCm has officially updated support for the following Deep learning and AI frameworks:
 
-#### JAX
-
-JAX deep learning framework users can now efficiently use Llama-2. For more information, see [JAX compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/jax-compatibility.html).
-
 #### PyTorch
 
 ROCm 7.1.1 enables support for PyTorch 2.9. For more information, see [PyTorch compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/pytorch-compatibility.html).
