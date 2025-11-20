@@ -816,6 +816,37 @@ issues related to individual components, review the [Detailed component changes]
 
 If you’re using RCCL with AMD Instinct MI300X GPUs and the AMD Pollara AI NIC, you might observe performance degradation for specific collectives and message sizes. The affected collectives are `Scatter`, `AllToAll`, and `AlltoAllv`. It's recommended to avoid using RCCL packaged with ROCm 7.1.1. As a workaround, use the {fab}`github`[RCCL `develop` branch](https://github.com/ROCm/rccl/tree/develop), which contains the fix and will be included in a future ROCm release.
 
+### Segmentation fault in training models using TensorFlow 2.20.0 Docker images
+
+Training models `tf2_tfm_resnet50_fp16_train` and `tf2_tfm_resnet50_fp32_train`
+might fail with a segmentation fault when run on the TensorFlow 2.20.0 Docker
+image with ROCm 7.1.1. As a workaround, use TensorFlow 2.19.x Docker image for
+training the models in ROCm 7.1.1. This issue will be fixed in a future ROCm
+release.
+
+### AMD SMI CLI triggers repeated kernel errors on GPUs with partitioning support
+
+Running the `amd-smi` CLI on GPUs with partitioning support, such as the AMD
+Instinct MI300 series, might produce repeated kernel error messages in the
+system logs. This occurs when `amd-smi` attempts to open the GPU
+partition device nodes `/dev/dri/renderD*` during the permission checks. On
+GPUs with partitioning support, unconfigured partition devices are
+intentionally invalid until configured. As a result, the AMD GPU Driver (amdgpu)
+logs errors in `dmesg`, such as: 
+
+```
+amdgpu 0000:15:00.0: amdgpu: renderD153 partition 1 not valid!
+```
+
+These repeated kernel logs can clutter the system logs and may cause
+unnecessary concern about GPU health. However, this is a non-functional issue
+and does not affect AMD SMI functionality or GPU performance. This issue will
+be fixed in a future ROCm release.
+
+### Excessive bad page logs due to EEPROM data corruption and improper handling in AMD GPU Driver (amdgpu)
+
+Due to partial data corruption of Electrically Erasable Programmable Read-Only Memory (EEPROM) and limited error handling in the AMD GPU Driver(amdgpu), excessive log output might result when querying the reliability, availability, and serviceability (RAS) bad pages. The issue will be fixed in a future AMD GPU Driver(amdgpu) and ROCm release.
+
 ## ROCm resolved issues
 
 The following are previously known issues resolved in this release. For resolved issues related to
