@@ -77,9 +77,9 @@ ROCR-Runtime environment variables
 The following table lists the ROCR-Runtime environment variables:
 
 .. remote-content::
-   :repo: ROCm/ROCR-Runtime
-   :path: runtime/docs/data/env_variables.rst
-   :default_branch: amd-staging
+   :repo: ROCm/rocm-systems
+   :path: /projects/rocr-runtime/runtime/docs/data/env_variables.rst
+   :default_branch: develop
    :tag_prefix: docs/
 
 HIPCC environment variables
