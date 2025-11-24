@@ -174,9 +174,29 @@ firmware, AMD GPU drivers, and the ROCm user space software.
 <p id="footnote1">[1]: PLDM bundle 01.25.05.02 and 01.25.05.00 will be available by end of November 2025.</p>
 <p id="footnote2">[2]: For AMD Instinct MI325X KVM SR-IOV users, don't use AMD GPU Driver (amdgpu) 30.20.0.</p>
 
+#### AMD Instinct MI355X and MI350X metrics and telemetry enhancements
+
+AMD SMI now supports per-partition metrics and monitoring on AMD Instinct MI355X and MI350X
+GPUs -- depending on PLDM bundle minimum version 01.25.16.03, including
+reporting for thermal throttle limits and thermal alert thresholds. For AMD SMI
+on bare metal, metrics per GPU partition are available through the library API:
+``amdsmi_get_gpu_partition_metrics_info()``. See the [AMD SMI
+changelog](#amd-smi-26-2-0) for details.
+
 #### AMD Instinct MI355X GPU resiliency improvement
 
-Multimedia Engine Reset is now supported by AMD GPU Driver (amdgpu) 30.20.1 for AMD Instinct MI355X GPUs. This finer-grain GPU resiliency allows recovery from faults related to VCN or JPEG without requiring a full GPU reset, thereby improving system stability and fault tolerance. Note that VCN queue reset functionality requires PLDM Bundle 01.25.16.03 (or later) firmware.
+Multimedia Engine Reset is now supported by the AMD GPU Driver (amdgpu) 30.20.1 for
+AMD Instinct MI355X GPUs. This finer-grain GPU resiliency allows recovery from
+faults related to VCN or JPEG without requiring a full GPU reset, thereby
+improving system stability and fault tolerance. Note that VCN queue reset
+functionality requires PLDM Bundle 01.25.16.03 (or later) firmware.
+
+#### AMD Instinct MI325X SR-IOV Mode 1 reset issue fixed
+
+An issue affecting AMD Instinct MI325X GPUs in SR-IOV Mode 1 has been resolved
+in AMD GPU Driver (amdgpu) version 30.20.1. This fix enables seamless usage
+of KVM virtualization with SR-IOV configurations and allows users to proceed
+with ROCm and AMD GPU Driver updates without encountering reset-related failures.
 
 ### GEMM kernel selection improvement
 
