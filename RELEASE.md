@@ -876,6 +876,10 @@ The issue where ROCm Bandwidth Test could not be cleanly uninstalled using the `
 
 The issue where the RCCL profiler plugin `librccl-profiler.so` failed with a segmentation fault during `AllToAll` collective operations due to improperly assigned point-to-point task function pointers has been resolved. This issue resulted in invalid memory access and prevented the profiling of `AllToAll` performance. Other operations, such as `AllReduce`, were unaffected. See [GitHub issue #5653](https://github.com/ROCm/ROCm/issues/5653).
 
+### Reduced precision in gemm_ex operations for rocBLAS and hipBLAS
+
+An issue causing certain `gemm_ex` operations with `half` or `f32_r` data types to return 16-bit precision instead of the expected 32-bit precision when matrix dimensions were m=1 or n=1 has been resolved. The issue resulted from an optimization that enabled `_ex` APIs to use lower precision multiples. It limited the high-precision matrix operations performed in PyTorch with rocBLAS and hipBLAS. See [GitHub issue #5640](https://github.com/ROCm/ROCm/issues/5640).
+
 ## ROCm upcoming changes
 
 The following changes to the ROCm software stack are anticipated for future releases.
