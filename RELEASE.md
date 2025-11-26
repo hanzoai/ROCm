@@ -48,9 +48,9 @@ ROCm 7.1.1 adds support for the following operating systems and kernel versions:
 
 * RHEL 9.7 (kernel: 5.14.0-611)
 
-ROCm 7.1.1 extends the Debian 13 support for AMD Instinct MI355X and MI350X GPUs.
+ROCm 7.1.1 extends the Debian 13 support to AMD Instinct MI355X and MI350X GPUs.
 
-For more information on: 
+For more information about: 
 
 * AMD hardware, see [Supported GPUs (Linux)](https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.1/reference/system-requirements.html#supported-gpus). 
 
@@ -62,8 +62,8 @@ ROCm 7.1.1 adds Ubuntu 24.04 as a Guest OS in KVM SR-IOV for AMD Instinct MI300X
 
 ### User space, driver, and firmware dependent changes
 
-The software for AMD Data center GPU products requires maintaining a hardware
-and software stack with interdependencies between the GPU and baseboard
+The software for AMD Data Center GPU products requires maintaining a hardware
+and software stack with interdependencies among the GPU and baseboard
 firmware, AMD GPU drivers, and the ROCm user space software.
 
 <div class="pst-scrollable-table-container">
@@ -171,7 +171,7 @@ firmware, AMD GPU drivers, and the ROCm user space software.
   </table>
 </div>
 
-<p id="footnote1">[1]: PLDM bundle 01.25.05.02 and 01.25.05.00 will be available by end of November 2025.</p>
+<p id="footnote1">[1]: PLDM bundle 01.25.05.02 and 01.25.05.00 will be available by the end of November 2025.</p>
 <p id="footnote2">[2]: For AMD Instinct MI325X KVM SR-IOV users, don't use AMD GPU Driver (amdgpu) 30.20.0.</p>
 
 #### AMD Instinct MI355X and MI350X metrics and telemetry enhancements
@@ -186,10 +186,10 @@ changelog](#amd-smi-26-2-0) for details.
 #### AMD Instinct MI355X GPU resiliency improvement
 
 Multimedia Engine Reset is now supported by the AMD GPU Driver (amdgpu) 30.20.1 for
-AMD Instinct MI355X GPUs. This finer-grain GPU resiliency allows recovery from
+AMD Instinct MI355X GPUs. This finer-grain GPU resiliency enables recovery from
 faults related to VCN or JPEG without requiring a full GPU reset, thereby
 improving system stability and fault tolerance. Note that VCN queue reset
-functionality requires PLDM Bundle 01.25.16.03 (or later) firmware.
+functionality requires PLDM bundle 01.25.16.03 (or later) firmware.
 
 #### AMD Instinct MI325X SR-IOV Mode 1 reset issue fixed
 
@@ -200,11 +200,11 @@ with ROCm and AMD GPU Driver updates without encountering reset-related failures
 
 ### GEMM kernel selection improvement
 
-GEMM kernel selection efficiency has been improved using Origami. This results in improved out-of-the-box performance of GEMM functions for hipBLASLT and rocBLAS, as well as a reduced need for tuning. This change reduces selection time, increases selection accuracy, and adds Origami libraries for all GEMM problem types on the AMD Instinct MI350X GPUs.
+GEMM kernel selection efficiency has been improved using Origami. This results in improved out-of-the-box performance of GEMM functions for hipBLASLT and rocBLAS, as well as a reduced need for tuning. This improvement reduces selection time, increases selection accuracy, and adds Origami libraries for all GEMM problem types on AMD Instinct MI350X GPUs.
 
 ### Performance improvement in CK/AITER fused-attn
 
-Padding is now supported in native CK/AITER fused-attn mode, reducing the overall runtime. Previously, the Transformer Engine (TE) had to remove padding before processing and reapply it afterward as a workaround which added runtime overhead. With this update, TE can now pass padded input directly to CK/AITER and receive padded output, eliminating the need for that workaround.
+Padding is now supported in native CK/AITER fused-attn mode, reducing the overall runtime. Previously, the Transformer Engine (TE) had to remove padding before processing and reapply it afterward as a workaround, which added runtime overhead. With this update, TE can now pass padded input directly to CK/AITER and receive padded output, eliminating the need for that workaround.
 
 ### AI model support update
 
@@ -252,7 +252,7 @@ The ROCm Runfile Installer 7.1.1 includes the following features and improvement
  
 * Added support for RHEL 9.7 and 10.1.
 * Fixed an issue where, after dependency installation, some dependencies were still marked as uninstalled.
-* Fixed an issue where, the AMDGPU driver install would fail when multiple kernels were installed.
+* Fixed an issue where the AMDGPU driver install would fail when multiple kernels were installed.
 * Performance improvements for the RHEL/Oracle Linux dependency install.
  
 For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.1/install/rocm-runfile-installer.html).
@@ -386,8 +386,8 @@ Click {fab}`github` to go to the component's source code on GitHub.
                 <td><a href="https://github.com/ROCm/rccl"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
-            <td><a href="https://rocm.docs.amd.com/projects/rocSHMEM/en/docs-7.1.1/index.html">rocSHMEM</a></td>
-                <td>3.0.0&nbsp;&Rightarrow;&nbsp;<a href="#rocshmem-3-0-0">3.0.0</a></td>
+            <td><a href="https://rocm.docs.amd.com/projects/rocSHMEM/en/docs-7.1.0/index.html">rocSHMEM</a></td>
+                <td>3.0.0&nbsp;&Rightarrow;&nbsp;<a href="#rocshmem-3-1-0">3.1.0</a></td>
                 <td><a href="https://github.com/ROCm/rocSHMEM"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
         </tbody>
@@ -672,7 +672,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 - Fixed an issue where `amdsmi_get_power_info` returned `AMDSMI_STATUS_API_FAILED`.  
   - VMs were incorrectly reporting `AMDSMI_STATUS_API_FAILED` when unable to get the power cap within the `amdsmi_get_power_info`.
-  - The API now returns `N/A` or `UINT_MAX` for values that cannot be retrieved, instead of failing entirely.
+  - The API now returns `N/A` or `UINT_MAX` for values that can't be retrieved, instead of failing.
 
 - Fixed output for `amd-smi xgmi -l --json`.  
 
@@ -735,7 +735,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 * Support for PC sampling of multi-kernel applications.
   * PC Sampling output instructions are displayed with the name of the kernel to which the individual instruction belongs.
-  * Single kernel selection is supported so that the PC samples of selected kernel can be displayed.
+  * Single kernel selection is supported so that the PC samples of the selected kernel can be displayed.
 
 #### Changed
 
@@ -768,7 +768,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 * Support for different test levels with `-r` option for AMD Instinct MI3XXx GPUs.
 * Set compute type for DGEMM operations on AMD Instinct MI350X and MI355X GPUs.
 
-### **rocSHMEM** (3.0.0)
+### **rocSHMEM** (3.1.0)
 
 #### Added
 
@@ -830,7 +830,7 @@ issues related to individual components, review the [Detailed component changes]
 
 ### RCCL performance degradation on AMD Instinct MI300X GPU with AMD Pollara AI NIC
 
-If you’re using RCCL with AMD Instinct MI300X GPUs and the AMD Pollara AI NIC, you might observe performance degradation for specific collectives and message sizes. The affected collectives are `Scatter`, `AllToAll`, and `AlltoAllv`. It's recommended to avoid using RCCL packaged with ROCm 7.1.1. As a workaround, use the {fab}`github`[RCCL `develop` branch](https://github.com/ROCm/rccl/tree/develop), which contains the fix and will be included in a future ROCm release.
+If you’re using RCCL on AMD Instinct MI300X GPUs with AMD Pollara AI NIC, you might observe performance degradation for specific collectives and message sizes. The affected collectives are `Scatter`, `AllToAll`, and `AlltoAllv`. It's recommended to avoid using RCCL packaged with ROCm 7.1.1. As a workaround, use the {fab}`github`[RCCL `develop` branch](https://github.com/ROCm/rccl/tree/develop), which contains the fix and will be included in a future ROCm release.
 
 ### Segmentation fault in training models using TensorFlow 2.20.0 Docker images
 
@@ -859,9 +859,9 @@ unnecessary concern about GPU health. However, this is a non-functional issue
 and does not affect AMD SMI functionality or GPU performance. This issue will
 be fixed in a future ROCm release.
 
-### Excessive bad page logs due to EEPROM data corruption and improper handling in AMD GPU Driver (amdgpu)
+### Excessive bad page logs in AMD GPU Driver (amdgpu)
 
-Due to partial data corruption of Electrically Erasable Programmable Read-Only Memory (EEPROM) and limited error handling in the AMD GPU Driver(amdgpu), excessive log output might result when querying the reliability, availability, and serviceability (RAS) bad pages. The issue will be fixed in a future AMD GPU Driver(amdgpu) and ROCm release.
+Due to partial data corruption of Electrically Erasable Programmable Read-Only Memory (EEPROM) and limited error handling in the AMD GPU Driver(amdgpu), excessive log output might result when querying the reliability, availability, and serviceability (RAS) bad pages. This issue will be fixed in a future AMD GPU Driver(amdgpu) and ROCm release.
 
 ## ROCm resolved issues
 

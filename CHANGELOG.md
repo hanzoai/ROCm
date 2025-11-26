@@ -37,7 +37,7 @@ for a complete overview of this release.
 
 - Fixed an issue where `amdsmi_get_power_info` returned `AMDSMI_STATUS_API_FAILED`.  
   - VMs were incorrectly reporting `AMDSMI_STATUS_API_FAILED` when unable to get the power cap within the `amdsmi_get_power_info`.
-  - The API now returns `N/A` or `UINT_MAX` for values that cannot be retrieved, instead of failing entirely.
+  - The API now returns `N/A` or `UINT_MAX` for values that can't be retrieved, instead of failing.
 
 - Fixed output for `amd-smi xgmi -l --json`.  
 
@@ -100,7 +100,7 @@ for a complete overview of this release.
 
 * Support for PC sampling of multi-kernel applications.
   * PC Sampling output instructions are displayed with the name of the kernel to which the individual instruction belongs.
-  * Single kernel selection is supported so that the PC samples of selected kernel can be displayed.
+  * Single kernel selection is supported so that the PC samples of the selected kernel can be displayed.
 
 #### Changed
 
@@ -133,7 +133,7 @@ for a complete overview of this release.
 * Support for different test levels with `-r` option for AMD Instinct MI3XXx GPUs.
 * Set compute type for DGEMM operations on AMD Instinct MI350X and MI355X GPUs.
 
-### **rocSHMEM** (3.0.0)
+### **rocSHMEM** (3.1.0)
 
 #### Added
 
