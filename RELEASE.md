@@ -676,6 +676,10 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 - Fixed output for `amd-smi xgmi -l --json`.  
 
+```{note}
+See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/rocm-rel-7.1/CHANGELOG.md#amd_smi_lib-for-rocm-710) for details, examples, and in-depth descriptions.
+```
+
 ### **Composable Kernel** (1.1.0)
 
 #### Upcoming changes
@@ -862,6 +866,22 @@ be fixed in a future ROCm release.
 ### Excessive bad page logs in AMD GPU Driver (amdgpu)
 
 Due to partial data corruption of Electrically Erasable Programmable Read-Only Memory (EEPROM) and limited error handling in the AMD GPU Driver(amdgpu), excessive log output might result when querying the reliability, availability, and serviceability (RAS) bad pages. This issue will be fixed in a future AMD GPU Driver(amdgpu) and ROCm release.
+
+### OpenBLAS runtime dependency for hipblastlt-test and hipblaslt-bench
+
+Running `hipblaslt-test` or `hipblaslt-bench` without installing the OpenBLAS development package results in the following error:
+```
+libopenblas.so.0: cannot open shared object file: No such file or directory
+```
+As a workaround, first install `libopenblas-dev` or `libopenblas-deve`, depending on the package manager used. The issue will be fixed in a future ROCm release. See [GitHub issue #5639](https://github.com/ROCm/ROCm/issues/5639).
+
+### Reduced precision in gemm_ex operations for rocBLAS and hipBLAS
+
+Some `gemm_ex` operations with `half` or `f32_r` data types might yield 16-bit precision results instead of the expected 32-bit precision when matrix dimensions are m=1 or n=1. The issue results from the optimization that enables `_ex` APIs to use lower precision multiples. It limits the high-precision matrix operations performed in PyTorch with rocBLAS and hipBLAS. The issue will be fixed in a future ROCm release. See [GitHub issue #5640](https://github.com/ROCm/ROCm/issues/5640).
+
+### RCCL profiler plugin failure with AllToAll operations
+
+The RCCL profiler plugin `librccl-profiler.so` might fail with a segmentation fault during `AllToAll` collective operations due to improperly assigned point-to-point task function pointers. This leads to invalid memory access and prevents profiling of `AllToAll` performance. Other operations, like `AllReduce`, are unaffected. It's recommended to avoid using the RCCL profiler plugin with `AllToAll` operations until the fix is available. This issue is resolved in the {fab}`github`[RCCL `develop` branch](https://github.com/ROCm/rccl/tree/develop) and will be part of a future ROCm release. See [GitHub issue #5653](https://github.com/ROCm/ROCm/issues/5653).
 
 ## ROCm resolved issues
 
