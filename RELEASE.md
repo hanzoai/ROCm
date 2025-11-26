@@ -287,7 +287,7 @@ The complete source code for the [HIP Graph Tutorial](https://rocm.docs.amd.com/
 
 ROCm documentation continues to be updated to provide clearer and more comprehensive guidance for a wider variety of user needs and use cases.
 
-* The [HIP documentation](https://rocm.docs.amd.com/projects/HIP/en/latest/) has been enhanced with new [GPU programming pattern tutorials](https://advanced-micro-devices-demo--5.com.readthedocs.build/projects/hipbook-internal/en/5/tutorial/programming-patterns.html). These tutorials address common GPU challenges, including memory coherence, race conditions, and data transfer overhead. They provide practical, performance-oriented examples for real-world applications in machine learning, scientific computing, and image processing. The following tutorials have been added:
+* The [HIP documentation](https://rocm.docs.amd.com/projects/HIP/en/latest/) has been enhanced with new [GPU programming pattern tutorials](https://rocm.docs.amd.com/projects/HIP/en/latest/tutorial/programming-patterns.html). These tutorials address common GPU challenges, including memory coherence, race conditions, and data transfer overhead. They provide practical, performance-oriented examples for real-world applications in machine learning, scientific computing, and image processing. The following tutorials have been added:
 
     * **Two-dimensional kernels**: Efficient matrix and image processing with optimized thread mapping and memory access.
     * **Stencil operations**: Implementing spatially dependent computations for image filtering and physics simulations.
@@ -301,7 +301,7 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
  
     For more information about the changes, see the [Changelog for the AI Developer Hub](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/changelog.html).
 
-* ROCm environment variables are used to configure and optimize the development and runtime experience. These variables define key settings such as installation paths, platform selection, and runtime behavior for applications running on AMD GPUs. The new [ROCm environment variables](https://advanced-micro-devices-rocm-internal--395.com.readthedocs.build/en/395/reference/env-variables.html#environment-variables-in-rocm-libraries) topic summarizes HIP and ROCR-Runtime environment variables, and provides links to environment variable topics for other ROCm components.
+* ROCm environment variables are used to configure and optimize the development and runtime experience. These variables define key settings such as installation paths, platform selection, and runtime behavior for applications running on AMD GPUs. The new [ROCm environment variables](https://rocm.docs.amd.com/en/latest/reference/env-variables.html#environment-variables-in-rocm-libraries) topic summarizes HIP and ROCR-Runtime environment variables, and provides links to environment variable topics for other ROCm components.
 
 ## ROCm components
 
