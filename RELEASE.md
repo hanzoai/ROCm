@@ -97,7 +97,7 @@ firmware, AMD GPU drivers, and the ROCm user space software.
           <td rowspan="9" style="vertical-align: middle;">ROCm 7.1.1</td>
           <td>MI355X</td>
           <td>
-              01.25.16.03 (or later)<br>
+              01.25.16.03<br>
               01.25.15.04
           </td>
           <td rowspan="2" style="vertical-align: middle;">
@@ -111,18 +111,17 @@ firmware, AMD GPU drivers, and the ROCm user space software.
       <tr>
           <td>MI350X</td>
           <td>
-              01.25.16.03 (or later)<br>
+              01.25.16.03<br>
               01.25.15.04
           </td>
       </tr>
       <tr>
-          <td>MI325X<a href="#footnote2"><sup>[2]</sup></a></td>
+          <td>MI325X<a href="#footnote1"><sup>[1]</sup></a></td>
           <td>
-              01.25.05.02 (or later)<a href="#footnote1"><sup>[1]</sup></a><br>
               01.25.04.02
           </td>
           <td>30.20.1<br>
-              30.20.0<a href="#footnote2"><sup>[2]</sup></a><br>
+              30.20.0<a href="#footnote1"><sup>[1]</sup></a><br>
               30.10.2<br>
               30.10.1<br>
               30.10<br>
@@ -132,8 +131,7 @@ firmware, AMD GPU drivers, and the ROCm user space software.
       </tr>
       <tr>
           <td>MI300X</td>
-          <td>01.25.05.00 (or later)<a href="#footnote1"><sup>[1]</sup></a><br>
-              01.25.03.12</td>
+          <td>01.25.03.12</td>
           <td rowspan="6" style="vertical-align: middle;">
               30.20.1<br>
               30.20.0<br>
@@ -171,8 +169,7 @@ firmware, AMD GPU drivers, and the ROCm user space software.
   </table>
 </div>
 
-<p id="footnote1">[1]: PLDM bundle 01.25.05.02 and 01.25.05.00 will be available by the end of November 2025.</p>
-<p id="footnote2">[2]: For AMD Instinct MI325X KVM SR-IOV users, don't use AMD GPU Driver (amdgpu) 30.20.0.</p>
+<p id="footnote1">[1]: For AMD Instinct MI325X KVM SR-IOV users, don't use AMD GPU Driver (amdgpu) 30.20.0.</p>
 
 #### AMD Instinct MI355X and MI350X metrics and telemetry enhancements
 
