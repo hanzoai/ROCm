@@ -97,7 +97,7 @@ firmware, AMD GPU drivers, and the ROCm user space software.
           <td rowspan="9" style="vertical-align: middle;">ROCm 7.1.1</td>
           <td>MI355X</td>
           <td>
-              01.25.16.03 (or later)<br>
+              01.25.16.03<br>
               01.25.15.04
           </td>
           <td rowspan="2" style="vertical-align: middle;">
@@ -111,18 +111,17 @@ firmware, AMD GPU drivers, and the ROCm user space software.
       <tr>
           <td>MI350X</td>
           <td>
-              01.25.16.03 (or later)<br>
+              01.25.16.03<br>
               01.25.15.04
           </td>
       </tr>
       <tr>
-          <td>MI325X<a href="#footnote2"><sup>[2]</sup></a></td>
+          <td>MI325X<a href="#footnote1"><sup>[1]</sup></a></td>
           <td>
-              01.25.05.02 (or later)<a href="#footnote1"><sup>[1]</sup></a><br>
               01.25.04.02
           </td>
           <td>30.20.1<br>
-              30.20.0<a href="#footnote2"><sup>[2]</sup></a><br>
+              30.20.0<a href="#footnote1"><sup>[1]</sup></a><br>
               30.10.2<br>
               30.10.1<br>
               30.10<br>
@@ -132,8 +131,7 @@ firmware, AMD GPU drivers, and the ROCm user space software.
       </tr>
       <tr>
           <td>MI300X</td>
-          <td>01.25.05.00 (or later)<a href="#footnote1"><sup>[1]</sup></a><br>
-              01.25.03.12</td>
+          <td>01.25.03.12</td>
           <td rowspan="6" style="vertical-align: middle;">
               30.20.1<br>
               30.20.0<br>
@@ -171,8 +169,7 @@ firmware, AMD GPU drivers, and the ROCm user space software.
   </table>
 </div>
 
-<p id="footnote1">[1]: PLDM bundle 01.25.05.02 and 01.25.05.00 will be available by the end of November 2025.</p>
-<p id="footnote2">[2]: For AMD Instinct MI325X KVM SR-IOV users, don't use AMD GPU Driver (amdgpu) 30.20.0.</p>
+<p id="footnote1">[1]: For AMD Instinct MI325X KVM SR-IOV users, don't use AMD GPU Driver (amdgpu) 30.20.0.</p>
 
 #### AMD Instinct MI355X and MI350X metrics and telemetry enhancements
 
@@ -290,7 +287,7 @@ The complete source code for the [HIP Graph Tutorial](https://rocm.docs.amd.com/
 
 ROCm documentation continues to be updated to provide clearer and more comprehensive guidance for a wider variety of user needs and use cases.
 
-* The [HIP documentation](https://rocm.docs.amd.com/projects/HIP/en/latest/) has been enhanced with new [GPU programming pattern tutorials](https://advanced-micro-devices-demo--5.com.readthedocs.build/projects/hipbook-internal/en/5/tutorial/programming-patterns.html). These tutorials address common GPU challenges, including memory coherence, race conditions, and data transfer overhead. They provide practical, performance-oriented examples for real-world applications in machine learning, scientific computing, and image processing. The following tutorials have been added:
+* The [HIP documentation](https://rocm.docs.amd.com/projects/HIP/en/latest/) has been enhanced with new [GPU programming pattern tutorials](https://rocm.docs.amd.com/projects/HIP/en/latest/tutorial/programming-patterns.html). These tutorials address common GPU challenges, including memory coherence, race conditions, and data transfer overhead. They provide practical, performance-oriented examples for real-world applications in machine learning, scientific computing, and image processing. The following tutorials have been added:
 
     * **Two-dimensional kernels**: Efficient matrix and image processing with optimized thread mapping and memory access.
     * **Stencil operations**: Implementing spatially dependent computations for image filtering and physics simulations.
@@ -304,7 +301,7 @@ ROCm documentation continues to be updated to provide clearer and more comprehen
  
     For more information about the changes, see the [Changelog for the AI Developer Hub](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/changelog.html).
 
-* ROCm environment variables are used to configure and optimize the development and runtime experience. These variables define key settings such as installation paths, platform selection, and runtime behavior for applications running on AMD GPUs. The new [ROCm environment variables](https://advanced-micro-devices-rocm-internal--395.com.readthedocs.build/en/395/reference/env-variables.html#environment-variables-in-rocm-libraries) topic summarizes HIP and ROCR-Runtime environment variables, and provides links to environment variable topics for other ROCm components.
+* ROCm environment variables are used to configure and optimize the development and runtime experience. These variables define key settings such as installation paths, platform selection, and runtime behavior for applications running on AMD GPUs. The new [ROCm environment variables](https://rocm.docs.amd.com/en/latest/reference/env-variables.html#environment-variables-in-rocm-libraries) topic summarizes HIP and ROCR-Runtime environment variables, and provides links to environment variable topics for other ROCm components.
 
 ## ROCm components
 
