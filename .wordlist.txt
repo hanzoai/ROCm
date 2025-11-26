@@ -140,6 +140,7 @@ EoS
 etcd
 fas
 FBGEMM
+FiLM
 FIFOs
 FFT
 FFTs
@@ -160,10 +161,12 @@ Fortran
 Fuyu
 GALB
 GAT
+GATNE
 GCC
 GCD
 GCDs
 GCN
+GCNN
 GDB
 GDDR
 GDR
@@ -182,6 +185,8 @@ Glibc
 GLXT
 Gloo
 GMI
+GNN
+GNNs
 GPG
 GPR
 GPT
