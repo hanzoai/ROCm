@@ -117,7 +117,7 @@ for a complete overview of this release.
     - `hipOccupancyAvailableDynamicSMemPerBlock` returns dynamic shared memory available per block when launching numBlocks blocks on CU.
 * New HIP flags
    - `hipMemLocationTypeHost` enables handling virtual memory management in host memory location, in addition to device memory.
-   - Support for flags in `hipGetProcAddress`, enables searching for the per-thread version symbols:
+   - Support for flags in `hipGetProcAddress` enables searching for the per-thread version symbols:
      - `HIP_GET_PROC_ADDRESS_DEFAULT`
      - `HIP_GET_PROC_ADDRESS_LEGACY_STREAM`
      - `HIP_GET_PROC_ADDRESS_PER_THREAD_DEFAULT_STREAM`
@@ -153,6 +153,8 @@ for a complete overview of this release.
 
 * Support for the `BF16` input data type with an `FP32` output data type for gfx90a.
 * Support for hipBLASLtExt operation APIs on gfx11XX and gfx12XX.
+* `HIPBLASLT_OVERRIDE_COMPUTE_TYPE_XF32` to override the compute type from `xf32` to other compute types.
+* Support for the Sigmoid Activation function.
 
 ### **hipCUB** (4.2.0)
  
@@ -379,7 +381,7 @@ for a complete overview of this release.
 
 #### Added
 
-* `--list-blocks <arch>` option to general options. It lists the available IP blocks on the specified arch (similar to `--list-metrics`).However cannot be used with `--block`.
+* `--list-blocks <arch>` option to general options. It lists the available IP blocks on the specified arch (similar to `--list-metrics`). However, cannot be used with `--block`.
 
 * `config_delta/gfx950_diff.yaml` to analysis config YAMLs to track the revision between the gfx9xx GPUs against the latest supported gfx950 GPUs.
 
@@ -1248,7 +1250,7 @@ See the full [AMD SMI changelog](https://github.com/ROCm/amdsmi/blob/release/roc
 * `Compute Throughput` panel to TUI's `High Level Analysis` category with the following metrics: VALU FLOPs, VALU IOPs, MFMA FLOPs (F8), MFMA FLOPs (BF16), MFMA FLOPs (F16), MFMA FLOPs (F32), MFMA FLOPs (F64), MFMA FLOPs (F6F4) (in gfx950), MFMA IOPs (Int8), SALU Utilization, VALU Utilization, MFMA Utilization, VMEM Utilization, Branch Utilization, IPC
 
 * `Memory Throughput` panel to TUI's `High Level Analysis` category with the following metrics: vL1D Cache BW, vL1D Cache Utilization, Theoretical LDS Bandwidth, LDS Utilization, L2 Cache BW, L2 Cache Utilization, L2-Fabric Read BW, L2-Fabric Write BW, sL1D Cache BW, L1I BW, Address Processing Unit Busy, Data-Return Busy, L1I-L2 Bandwidth, sL1D-L2 BW
-* Roofline support for Debian 12 and Azure Linux 3.0.
+* Roofline support for Debian 12.
 * Notice for change in default output format to `rocpd` in a future release
   * This is displayed when `--format-rocprof-output rocpd` is not used in profile mode
 

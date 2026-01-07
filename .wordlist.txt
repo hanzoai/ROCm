@@ -521,8 +521,6 @@ TPS
 TPU
 TPUs
 TSME
-Taichi
-Taichi's
 Tagram
 TensileLite
 TensorBoard

@@ -32,7 +32,7 @@ compatibility and system requirements.
       ,SLES 15 SP7,SLES 15 SP7,SLES 15 SP6
       ,"Oracle Linux 10, 9, 8","Oracle Linux 10, 9, 8","Oracle Linux 9, 8"
       ,"Debian 13, 12","Debian 13, 12",Debian 12
-      ,Azure Linux 3.0,Azure Linux 3.0,Azure Linux 3.0
+      ,,,Azure Linux 3.0
       ,Rocky Linux 9,Rocky Linux 9,
       ,.. _architecture-support-compatibility-matrix:,,
       :doc:`Architecture <rocm-install-on-linux:reference/system-requirements>`,CDNA4,CDNA4,
@@ -56,7 +56,7 @@ compatibility and system requirements.
       FRAMEWORK SUPPORT,.. _framework-support-compatibility-matrix:,,
       :doc:`PyTorch <../compatibility/ml-compatibility/pytorch-compatibility>`,"2.9, 2.8, 2.7","2.9, 2.8, 2.7","2.6, 2.5, 2.4, 2.3"
       :doc:`TensorFlow <../compatibility/ml-compatibility/tensorflow-compatibility>`,"2.20.0, 2.19.1, 2.18.1","2.20.0, 2.19.1, 2.18.1","2.18.1, 2.17.1, 2.16.2"
-      :doc:`JAX <../compatibility/ml-compatibility/jax-compatibility>`,0.7.1,0.7.1,0.4.35
+      :doc:`JAX <../compatibility/ml-compatibility/jax-compatibility>`,0.8.0,0.7.1,0.4.35
       :doc:`DGL <../compatibility/ml-compatibility/dgl-compatibility>` [#dgl_compat]_,N/A,N/A,2.4.0
       :doc:`llama.cpp <../compatibility/ml-compatibility/llama-cpp-compatibility>` [#llama-cpp_compat]_,N/A,N/A,b5997
       `ONNX Runtime <https://onnxruntime.ai/docs/build/eps.html#amd-migraphx>`_,1.23.2,1.23.1,1.20.0
@@ -170,45 +170,7 @@ compatibility and system requirements.
 Operating systems, kernel and Glibc versions
 *********************************************
 
-Use this lookup table to confirm which operating system and kernel versions are supported with ROCm.
-
-.. csv-table::
-   :header: "OS", "Version", "Kernel", "Glibc"
-   :widths: 40, 20, 30, 20
-   :stub-columns: 1
-
-   `Ubuntu <https://ubuntu.com/about/release-cycle#ubuntu-kernel-release-cycle>`_, 24.04.3, "6.8 [GA], 6.14 [HWE]", 2.39
-   ,,
-   `Ubuntu <https://ubuntu.com/about/release-cycle#ubuntu-kernel-release-cycle>`_, 24.04.2, "6.8 [GA], 6.11 [HWE]", 2.39
-   ,,
-   `Ubuntu <https://ubuntu.com/about/release-cycle#ubuntu-kernel-release-cycle>`_, 22.04.5, "5.15 [GA], 6.8 [HWE]", 2.35
-   ,,
-   `Red Hat Enterprise Linux (RHEL 10) <https://access.redhat.com/articles/3078#RHEL9>`_, 10.1, 6.12.0-124, 2.39
-   ,10.0, 6.12.0-55, 2.39
-   ,,
-   `Red Hat Enterprise Linux (RHEL 9) <https://access.redhat.com/articles/3078#RHEL9>`_, 9.7, 5.14.0-611, 2.34
-   ,9.6, 5.14.0-570, 2.34
-   ,9.5, 5.14+, 2.34
-   ,9.4, 5.14.0-427, 2.34
-   ,,
-   `Red Hat Enterprise Linux (RHEL 8) <https://access.redhat.com/articles/3078#RHEL8>`_, 8.10, 4.18.0-553, 2.28
-   ,,
-   `SUSE Linux Enterprise Server (SLES) <https://www.suse.com/support/kb/doc/?id=000019587#SLE15SP4>`_, 15 SP7, 6.40-150700.51, 2.38
-   ,15 SP6, "6.5.0+, 6.4.0", 2.38
-   ,15 SP5, 5.14.21, 2.31
-   ,,
-   `Rocky Linux <https://wiki.rockylinux.org/rocky/version/>`_, 9, 5.14.0-570, 2.34
-   ,,
-   `Oracle Linux <https://blogs.oracle.com/scoter/post/oracle-linux-and-unbreakable-enterprise-kernel-uek-releases>`_, 10, 6.12.0 (UEK), 2.39
-   ,9, 6.12.0 (UEK), 2.34
-   ,8, 5.15.0 (UEK), 2.28
-   ,,
-   `Debian <https://www.debian.org/download>`_,13, 6.12, 2.35
-   ,12, 6.1.0, 2.36
-   ,,
-   `Azure Linux <https://techcommunity.microsoft.com/blog/linuxandopensourceblog/azure-linux-3-0-now-in-preview-on-azure-kubernetes-service-v1-31/4287229>`_,3.0, 6.6.92, 2.38
-   ,,
-
+For detailed information on operating system supported on ROCm 7.2.0 and associated Kernel and Glibc version, see the latest :ref:`supported_distributions`. For version specific information, see `ROCm 7.1.1 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.1/reference/system-requirements.html#supported-operating-systems>`__, and `ROCm 6.4.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-6.4.0/reference/system-requirements.html#supported-operating-systems>`__.
 .. note::
 
   * See `Red Hat Enterprise Linux Release Dates <https://access.redhat.com/articles/3078>`_ to learn about the specific kernel versions supported on Red Hat Enterprise Linux (RHEL).
@@ -239,14 +201,13 @@ Expand for full historical view of:
 
    .. rubric:: Footnotes
 
-   .. [#os-compatibility-past-60] Some operating systems are supported on limited GPUs. For detailed information, see :ref:`supported_distributions` and select the required ROCm version for version specific support.
-   .. [#gpu-compatibility-past-60] Some GPUs have limited operating system support. For detailed information, see :ref:`supported_GPUs` and select the required ROCm version for version specific support.
+   .. [#os-compatibility-past-60] Some operating systems are supported on specific GPUs. For detailed information, see the latest :ref:`supported_distributions`. For version specific information, see `ROCm 7.1.1 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.1/reference/system-requirements.html#supported-operating-systems>`_, `ROCm 7.1.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.0/reference/system-requirements.html#supported-operating-systems>`_, and `ROCm 6.4.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-6.4.0/reference/system-requirements.html#supported-operating-systems>`_.
+   .. [#gpu-compatibility-past-60] Some GPUs have limited operating system support. For detailed information, see the latest :ref:`supported_GPUs`. For version specific information, see `ROCm 7.1.1 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.1/reference/system-requirements.html#supported-gpus>`_, `ROCm 7.1.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.0/reference/system-requirements.html#supported-gpus>`_, and `ROCm 6.4.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-6.4.0/reference/system-requirements.html#supported-gpus>`_.
    .. [#tf-mi350-past-60] TensorFlow 2.17.1 is not supported on AMD Instinct MI350 Series GPUs. Use TensorFlow 2.19.1 or 2.18.1 with MI350 Series GPUs instead.
    .. [#verl_compat-past-60] verl is supported only on ROCm 6.2.0.
    .. [#stanford-megatron-lm_compat-past-60] Stanford Megatron-LM is supported only on ROCm 6.3.0.
    .. [#dgl_compat-past-60] DGL is supported only on ROCm 7.0.0, ROCm 6.4.3 and ROCm 6.4.0.
    .. [#megablocks_compat-past-60] Megablocks is supported only on ROCm 6.3.0.
-   .. [#taichi_compat-past-60] Taichi is supported only on ROCm 6.3.2.
    .. [#ray_compat-past-60] Ray is supported only on ROCm 6.4.1.
    .. [#llama-cpp_compat-past-60] llama.cpp is supported only on ROCm 7.0.0 and 6.4.x.
    .. [#flashinfer_compat-past-60] FlashInfer is supported only on ROCm 6.4.1.

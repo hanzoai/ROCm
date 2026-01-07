@@ -101,7 +101,7 @@ all_article_info_author = ""
 
 # pages with specific settings
 article_pages = [
-    {"file": "about/release-notes", "os": ["linux"], "date": "2025-01-09"},
+    {"file": "about/release-notes", "os": ["linux"], "date": "2026-01-16"},
     {"file": "release/changelog", "os": ["linux"],},
     {"file": "compatibility/compatibility-matrix", "os": ["linux"]},
     {"file": "compatibility/ml-compatibility/pytorch-compatibility", "os": ["linux"]},
@@ -111,7 +111,6 @@ article_pages = [
     {"file": "compatibility/ml-compatibility/stanford-megatron-lm-compatibility", "os": ["linux"]},
     {"file": "compatibility/ml-compatibility/dgl-compatibility", "os": ["linux"]},
     {"file": "compatibility/ml-compatibility/megablocks-compatibility", "os": ["linux"]},
-    {"file": "compatibility/ml-compatibility/taichi-compatibility", "os": ["linux"]},
     {"file": "compatibility/ml-compatibility/ray-compatibility", "os": ["linux"]},
     {"file": "compatibility/ml-compatibility/llama-cpp-compatibility", "os": ["linux"]},
     {"file": "compatibility/ml-compatibility/flashinfer-compatibility", "os": ["linux"]},

@@ -56,6 +56,9 @@ between JAX Plugin–PJRT and JAX/JAXLIB.
     * - JAX Plugin-PJRT
       - JAX/JAXLIB
       - ROCm
+    * - 0.8.0
+      - 0.8.0
+      - 7.2.0
     * - 0.7.1
       - 0.7.1
       - 7.1.1, 7.1.0

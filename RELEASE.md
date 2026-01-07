@@ -40,10 +40,9 @@ The following are notable new features and improvements in ROCm 7.2.0. For chang
 
 ### Supported hardware, operating system, and virtualization changes
 
-ROCm 7.2.0 extends the operating system support for the following AMD hardware:
+ROCm 7.2.0 adds support for RDNA4 architecture-based [AMD Radeon AI PRO R9600D](https://www.amd.com/en/products/graphics/workstations/radeon-ai-pro/ai-9000-series/amd-radeon-ai-pro-r9600d.html) and [AMD Radeon RX 9060 XT LP](https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9060xt-lp.html), and RDNA3 architecture-based [AMD Radeon RX 7700](https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/amd-radeon-rx-7700.html) GPUs.
 
-* AMD Instinct MI355X and MI350X adds support for SLES 15 SP7.
-* AMD Instinct MI210 adds support for Azure Linux 3.0.
+ROCm 7.2.0 extends the SLES 15 SP7 operating system support to AMD Instinct MI355X and MI350X GPUs.
 
 For more information about: 
 
@@ -186,9 +185,11 @@ Node power management for AMD Instinct MI355X and MI350X GPUs optimizes power al
 
 #### GPU resiliency improvement
 
-This finer-grain GPU resiliency feature enables recovery from faults related to VCN or JPEG without requiring a full GPU reset, thereby improving system stability and fault tolerance. This feature requires PLDM bundle [TBD].
+The finer-grain GPU resiliency feature enables recovery from faults related to VCN or JPEG without requiring a full GPU reset, thereby improving system stability and fault tolerance. This feature requires PLDM bundle [TBD].
 
 ### Model optimization for AMD Instinct MI350 Series GPUs
+
+The following models have been optimized for AMD Instinct MI350 Series GPUs:
 
 * Significant performance optimization is achieved for the Llama 3.1 405B model on AMD Instinct MI355X GPUs, delivering enhanced throughput and reduced latency through kernel-level tuning and memory bandwidth improvements. These changes leverage MI355X’s advanced architecture to maximize efficiency for large-scale inference workloads.
 * Optimized Llama 3.1 405B model performance on AMD Instinct MI355X GPUs.
@@ -196,8 +197,10 @@ This finer-grain GPU resiliency feature enables recovery from faults related to 
 
 ### Model optimization for AMD Instinct MI300X GPUs
 
-* GEMM-level optimization is achieved for the GLM-4.6 model on AMD Instinct MI300X GPUs.
-* DeepEP performance improvements on AMD Instinct MI300X GPUs. 
+The following models have been optimized for AMD Instinct MI300X GPUs:
+
+* GEMM-level optimization for the GLM-4.6 model.
+* DeepEP performance improvements.
 
 ### HIP runtime performance improvements
 
@@ -209,7 +212,7 @@ HIP also adds a new performance test for HIP graphs with programmable topologies
 
 #### Back memory set (`memset`) optimization
 
-HIP runtime now implements a back memory set (memset) optimization to improve how `memset` nodes are processed during graph execution. This enhancement specifically handles varying number of AQL (Architected Queue Language) packets for `memset` graph node due to graph node set params for AQL batch submission approach.
+HIP runtime now implements a back memory set (memset) optimization to improve how `memset` nodes are processed during graph execution. This enhancement specifically handles varying numbers of AQL (Architected Queue Language) packets for `memset` graph node due to graph node set params for AQL batch submission approach.
 
 #### Async handler performance improvement
 
@@ -219,7 +222,9 @@ HIP runtime has removed the lock contention in async handler enqueue path. This 
 
 To simplify cross-platform programming and improve code portability between AMD ROCm and other programming models, new HIP APIs have been added in ROCm 7.2.0.
 
-#### HIP Library Management APIs
+#### HIP library management APIs
+
+The following new HIP library management APIs have been added:
 
 * `hipLibraryGetKernel`, gets a kernel from library. 
 * `hipLibraryGetKernelCount`, gets kernel count in library. 
@@ -265,15 +270,21 @@ hipCUB, rocRAND, and rocThrust support building with target-agonistic Standard P
 
 ### hipBLASLT updates
 
+hipBLASLT has the following enhancements: 
+
 * Enabled support for hipBLASLtExt operation APIs on gfx11XX and gfx12XX LLVM target.
 * Expanded GEMM initialization with added support for uniform [0, 1] initialization for hipBLASLt GEMM operations.
 
 ### rocWMMA updates
 
+rocWMMA has the following enhancements: 
+
 * Support for gfx1150 LLVM target has been added.
 * `perf_i8gemm` sample has been added to demonstrate `int8_t` as matrix input data type.
 
 ### MIGraphX updates
+
+MIGraphX has the following enhancements:
 
 * rocMLIR has implemented support to generate MXFP8 and MXFP4 kernels.
 * MIGraphX now supports MXFP8 and MXFP4 operations.
@@ -314,6 +325,10 @@ The ROCm-LS GA release is marked with the transition of hipCIM from EA to produc
 ROCm provides a comprehensive ecosystem for deep learning development. For more information, see [Deep learning frameworks for ROCm](https://rocm.docs.amd.com/en/docs-7.1.1/how-to/deep-learning-rocm.html) and the [Compatibility
 matrix](../../docs/compatibility/compatibility-matrix.rst) for the complete list of Deep learning and AI framework versions tested for compatibility with ROCm. AMD ROCm has officially updated support for the following Deep learning and AI frameworks:
 
+#### JAX
+
+ROCm 7.2.0 enables support for JAX 0.8.0.
+
 #### ONNX
 
 ROCm 7.2.0 enables support for ONNX 1.23.2.
@@ -328,6 +343,7 @@ The ROCm Offline Installer Creator 7.2.0 includes the following features and imp
 
 * Changes to the AMDGPU driver version selection in the Driver Options menu. For drivers based on ROCm 7.0 and later, the AMDGPU version is now selected based on the driver versioning, such as 3x.yy.zz, and not the ROCm version.
 * Fixes for Oracle Linux 10.0 ROCm and driver minimum mode installer creation.
+* Added support for creating an offline installer for Oracle Linux 8, 9, and 10, where the kernel version of the target OS differs from the host OS creating the installer.
  
 See [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.1/install/rocm-offline-installer.html) for more information.
  
@@ -800,7 +816,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
     - `hipOccupancyAvailableDynamicSMemPerBlock` returns dynamic shared memory available per block when launching numBlocks blocks on CU.
 * New HIP flags
    - `hipMemLocationTypeHost` enables handling virtual memory management in host memory location, in addition to device memory.
-   - Support for flags in `hipGetProcAddress`, enables searching for the per-thread version symbols:
+   - Support for flags in `hipGetProcAddress` enables searching for the per-thread version symbols:
      - `HIP_GET_PROC_ADDRESS_DEFAULT`
      - `HIP_GET_PROC_ADDRESS_LEGACY_STREAM`
      - `HIP_GET_PROC_ADDRESS_PER_THREAD_DEFAULT_STREAM`
@@ -836,6 +852,8 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 * Support for the `BF16` input data type with an `FP32` output data type for gfx90a.
 * Support for hipBLASLtExt operation APIs on gfx11XX and gfx12XX.
+* `HIPBLASLT_OVERRIDE_COMPUTE_TYPE_XF32` to override the compute type from `xf32` to other compute types.
+* Support for the Sigmoid Activation function.
 
 ### **hipCUB** (4.2.0)
  
@@ -1062,7 +1080,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 #### Added
 
-* `--list-blocks <arch>` option to general options. It lists the available IP blocks on the specified arch (similar to `--list-metrics`).However cannot be used with `--block`.
+* `--list-blocks <arch>` option to general options. It lists the available IP blocks on the specified arch (similar to `--list-metrics`). However, cannot be used with `--block`.
 
 * `config_delta/gfx950_diff.yaml` to analysis config YAMLs to track the revision between the gfx9xx GPUs against the latest supported gfx950 GPUs.
 
