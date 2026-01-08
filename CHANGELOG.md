@@ -13,6 +13,22 @@ for a complete overview of this release.
 
 #### Added
 
+- GPU and baseboard temperature options to `amd-smi monitor` CLI.
+  - `amd-smi monitor --gpu-board-temps` for GPU board temperature sensors.
+  - `amd-smi monitor --base-board-temps` for base board temperature sensors.
+
+(amdsmi-npm-changelog)=
+- New Node Power Management (NPM) APIs and CLI options for node monitoring.
+  - C++ API functions:
+    - `amdsmi_get_node_handle()` gets the handle for a node device.
+    - `amdsmi_get_npm_info()` retrieves Node Power Management information.
+  - C++ types:
+    - `amdsmi_npm_status_t` indicates whether NPM is enabled or disabled.
+    - `amdsmi_npm_info_t` contains the status and node-level power limit in watts.
+  - Added Python API wrappers for new node device functions.
+  - Added `amd-smi node` subcommand for NPM operations via CLI.
+  - Currently supported for `OAM_ID 0` only.
+
 - The following C APIs are added to `amdsmi_interface.py`:  
   - `amdsmi_get_cpu_handle()`
   - `amdsmi_get_esmi_err_msg()`

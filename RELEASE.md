@@ -58,7 +58,9 @@ Virtualization support remains unchanged in this release. For more information, 
 
 The software for AMD Data Center GPU products requires maintaining a hardware
 and software stack with interdependencies among the GPU and baseboard
-firmware, AMD GPU drivers, and the ROCm user space software.
+firmware, AMD GPU drivers, and the ROCm user space software. While AMD publishes drivers and ROCm user space components, your server or infrastructure provider publishes the GPU and baseboard firmware by bundling AMD’s firmware releases via AMD’s Platform Level Data Model (PLDM) bundle, which includes the Integrated Firmware Image (IFWI).
+
+GPU and baseboard firmware versioning might differ across GPU families.
 
 <div class="pst-scrollable-table-container">
   <table class="table table--middle-left">
@@ -181,11 +183,11 @@ firmware, AMD GPU drivers, and the ROCm user space software.
 
 #### Node power management added
 
-Node power management for AMD Instinct MI355X and MI350X GPUs optimizes power allocation and frequency across multiple GPUs within a node. It leverages built-in telemetry and advanced control algorithms to orchestrate dynamic frequency scaling, keeping total node power within limits.
+Node Power Management (NPM) optimizes power allocation and GPU frequency across multiple GPUs within a node using built-in telemetry and advanced control algorithms. It dynamically scales GPU frequencies to keep total node power within limits. Use AMD SMI to verify whether NPM is enabled and to check the node’s power allocation. This feature is supported on AMD Instinct MI355X and MI350X GPUs in both bare-metal and KVM SR-IOV virtual environments when paired with PLDM bundle 01.25.17.02. See the [AMD SMI changelog](#amdsmi-npm-changelog) for details.
 
 #### GPU resiliency improvement
 
-The finer-grain GPU resiliency feature enables recovery from faults related to VCN or JPEG without requiring a full GPU reset, thereby improving system stability and fault tolerance. This feature requires PLDM bundle [TBD].
+AMD GPU Driver now supports Multimedia Engine Reset for AMD Instinct MI325X GPUs. The finer-grain GPU resiliency feature enables recovery from faults related to VCN or JPEG without requiring a full GPU reset, thereby improving system stability and fault tolerance. This feature requires PLDM bundle 01.25.06.02.
 
 ### Model optimization for AMD Instinct MI350 Series GPUs
 
@@ -327,7 +329,7 @@ matrix](../../docs/compatibility/compatibility-matrix.rst) for the complete list
 
 #### JAX
 
-ROCm 7.2.0 enables support for JAX 0.8.0.
+ROCm 7.2.0 enables support for JAX 0.8.0. For more information, see [JAX compatibility](../../docs/compatibility/ml-compatibility/jax-compatibility.rst).
 
 #### ONNX
 
@@ -335,7 +337,11 @@ ROCm 7.2.0 enables support for ONNX 1.23.2.
 
 #### verl
 
-Volcano Engine Reinforcement Learning (verl) is a reinforcement learning framework designed for large language models (LLMs). verl offers a scalable, open-source fine-tuning solution by using a hybrid programming model that makes it easy to define and run complex post-training dataflows efficiently. It is now supported on ROCm 7.0.0. For more information, see [verl compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/verl-compatibility.html).
+Volcano Engine Reinforcement Learning (verl) is a reinforcement learning framework designed for large language models (LLMs). verl offers a scalable, open-source fine-tuning solution by using a hybrid programming model that makes it easy to define and run complex post-training dataflows efficiently. It is currently supported on ROCm 7.0.0. and ROCm 6.2.0. For more information, see [verl compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/verl-compatibility.html).
+
+#### Ray
+
+Ray is a unified framework for scaling AI and Python applications from your laptop to a full cluster, without changing your code. Ray consists of [a core distributed runtime](https://docs.ray.io/en/latest/ray-core/walkthrough.html) and a set of [AI libraries](https://docs.ray.io/en/latest/ray-air/getting-started.html) for simplifying machine learning computations. It is currently supported on ROCm 7.0.0 and ROCm 6.4.1. For more information, see [Ray compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/ray-compatibility.html).
 
 ### ROCm Offline Installer Creator updates
  
@@ -708,9 +714,26 @@ The following sections describe key changes to ROCm components.
 ```{note}
 For a historical overview of ROCm component updates, see the {doc}`ROCm consolidated changelog </release/changelog>`.
 ```
+
 ### **AMD SMI** (26.2.1)
 
 #### Added
+
+- GPU and baseboard temperature options to `amd-smi monitor` CLI.
+  - `amd-smi monitor --gpu-board-temps` for GPU board temperature sensors.
+  - `amd-smi monitor --base-board-temps` for base board temperature sensors.
+
+(amdsmi-npm-changelog)=
+- New Node Power Management (NPM) APIs and CLI options for node monitoring.
+  - C++ API functions:
+    - `amdsmi_get_node_handle()` gets the handle for a node device.
+    - `amdsmi_get_npm_info()` retrieves Node Power Management information.
+  - C++ types:
+    - `amdsmi_npm_status_t` indicates whether NPM is enabled or disabled.
+    - `amdsmi_npm_info_t` contains the status and node-level power limit in watts.
+  - Added Python API wrappers for new node device functions.
+  - Added `amd-smi node` subcommand for NPM operations via CLI.
+  - Currently supported for `OAM_ID 0` only.
 
 - The following C APIs are added to `amdsmi_interface.py`:  
   - `amdsmi_get_cpu_handle()`
