@@ -9,7 +9,425 @@ different versions of the ROCm software stack and its components.
 See the [ROCm 7.2.0 release notes](https://rocm-stg.amd.com/en/latest/about/release-notes.html#rocm-7-2-0-release-notes)
 for a complete overview of this release.
 
- Resolved issues
+### **AMD SMI** (26.2.1)
+
+#### Added
+
+- GPU and baseboard temperature options to `amd-smi monitor` CLI.
+  - `amd-smi monitor --gpu-board-temps` for GPU board temperature sensors.
+  - `amd-smi monitor --base-board-temps` for base board temperature sensors.
+  
+(amdsmi-npm-changelog)=
+- New Node Power Management (NPM) APIs and CLI options for node monitoring.
+  - C++ API functions:
+    - `amdsmi_get_node_handle()` gets the handle for a node device.
+    - `amdsmi_get_npm_info()` retrieves Node Power Management information.
+  - C++ types:
+    - `amdsmi_npm_status_t` indicates whether NPM is enabled or disabled.
+    - `amdsmi_npm_info_t` contains the status and node-level power limit in watts.
+  - Added Python API wrappers for new node device functions.
+  - Added `amd-smi node` subcommand for NPM operations via CLI.
+  - Currently supported for `OAM_ID 0` only.
+
+- The following C APIs are added to `amdsmi_interface.py`:  
+  - `amdsmi_get_cpu_handle()`
+  - `amdsmi_get_esmi_err_msg()`
+  - `amdsmi_get_gpu_event_notification()`
+  - `amdsmi_get_processor_count_from_handles()`
+  - `amdsmi_get_processor_handles_by_type()`
+  - `amdsmi_gpu_validate_ras_eeprom()`
+  - `amdsmi_init_gpu_event_notification()`
+  - `amdsmi_set_gpu_event_notification_mask()`
+  - `amdsmi_stop_gpu_event_notification()`
+  - `amdsmi_get_gpu_busy_percent()`
+
+- Additional return value to `amdsmi_get_xgmi_plpd()` API:  
+  - The entry `policies` is added to the end of the dictionary to match API definition.
+  - The entry `plpds` is marked for deprecation as it has the same information as `policies`.
+
+- PCIe levels to `amd-smi static --bus` command.  
+  - The static `--bus` option has been updated to include the range of PCIe levels that you can set for a device.
+  - Levels are a 2-tuple composed of the PCIe speed and bandwidth.
+
+- `evicted_time` metric for KFD processes.  
+  - Time that queues are evicted on a GPU in milliseconds.
+  - Added to CLI in `amd-smi monitor -q` and `amd-smi process`.
+  - Added to C APIs and Python APIs: `amdsmi_get_gpu_process_list()`, `amdsmi_get_gpu_compute_process_info()`
+, and `amdsmi_get_gpu_compute_process_info_by_pid()`.
+
+- New VRAM types to `amdsmi_vram_type_t`.
+  - `amd-smi static --vram` and `amdsmi_get_gpu_vram_info()` now support the following types: `DDR5`, `LPDDR4`, `LPDDR5`, and `HBM3E`.
+
+- Support for PPT1 power limit information.  
+  - Support has been added for querying and setting the PPT (Package Power Tracking) limits
+    - There are two PPT limits. PPT0 has lower limit and tracks a filtered version of the input power. PPT1 has higher limit but tracks the raw input power. This is to catch spikes in the raw data.
+  - New API added:
+    - `amdsmi_get_supported_power_cap()`: Returns power cap types supported on the device (PPT0, PPT1). This will allow you to know which power cap types you can get/set.
+    - Original APIs remain the same but now can get/set both PPT0 and PPT1 limits (on supported hardware): `amdsmi_get_power_cap_info()` and `amdsmi_set_power_cap()`.
+  - See the Changed section for changes made to the `set` and `static` commands regarding support for PPT1.  
+
+#### Changed
+
+- The `amd-smi` command now shows `hsmp` rather than `amd_hsmp`.  
+  - The `hsmp` driver version can be shown without the `amdgpu` version using `amd-smi version -c`.
+
+- The `amd-smi set --power-cap` command now requires specification of the power cap type.  
+  - Command now takes the form: `amd-smi set --power-cap <power-cap-type> <new-cap>`
+  - Acceptable power cap types are "ppt0" and "ppt1".
+
+- The `amd-smi reset --power-cap` command will now attempt to reset both `PPT0` and `PPT1` power caps to their default values. If a device only has `PPT0`, then only `PPT0` will be reset.  
+
+- The `amd-smi static --limit` command now has a `PPT1` section when PPT1 is available. The `static --limit` command has been updated to include `PPT1` power limit information when available on the device.
+
+#### Resolved Issues
+
+- Fixed an issue where `amdsmi_get_gpu_od_volt_info()` returned a reference to a Python object. The returned dictionary was changed to return values in all fields.
+
+### **Composable Kernel** (1.2.0)
+
+#### Added
+* Support for mixed precision fp8 x bf8 universal GEMM and weight preshuffle GEMM.
+* Compute async pipeline in the CK Tile universal GEMM on gfx950.
+* Support for B Tensor type `pk_int4_t` in the CK Tile weight preshuffle GEMM.
+* New call to load different memory sizes to SGPR.
+* Support for B Tensor Preshuffle in CK Tile Grouped GEMM.
+* Basic copy kernel example and supporting documentation for new CK Tile developers.
+* Support for `grouped_gemm` kernels to perform `multi_d` elementwise operation.
+* Support for Multiple ABD GEMM.
+* Benchmarking support for tile engine GEMM Multi D.
+* Block scaling support in CK Tile GEMM, allowing flexible use of quantization matrices from either A or B operands.
+* Row-wise and column-wise quantization for CK Tile GEMM and grouped GEMM.
+* Support for `f32` to FMHA (fwd/bwd).
+* Tensor-wise quantization for CK Tile GEMM.
+* Support for batched contraction kernel.
+* WMMA (gfx12) support for FMHA.
+* Pooling kernel in CK Tile.
+* Top-k sigmoid kernel in CK Tile.
+* Blockscale 2D support for CK Tile GEMM.
+* An optional template parameter, `Arch`, to `make_kernel` to support linking multiple object files that have the same kernel compiled for different architectures.
+
+#### Changed
+
+* Removed `BlockSize` in `make_kernel` and `CShuffleEpilogueProblem` to support Wave32 in CK Tile.
+* FMHA examples and tests can be built for multiple architectures (gfx9, gfx950, gfx12) at the same time.
+
+#### Upcoming changes
+
+* Composable Kernel will be adopting C++20 features in an upcoming ROCm release, updating the minimum compiler requirement to C++20. Ensure that your development environment complies with this requirement to facilitate a seamless transition.
+* In an upcoming major ROCm release, Composable Kernel will transition to a header-only library. Neither ckProfiler nor the static libraries will be packaged with Composable Kernel. They will also no longer be built by default. ckProfiler can be built independently from Composable Kernel as a standalone binary, and the static Composable Kernel libraries can be built from source.
+
+### **HIP** (7.2.0)
+
+#### Added
+
+* New HIP APIs
+    - `hipLibraryEnumerateKernels` returns kernel handles within a library.
+    - `hipKernelGetLibrary` returns library handle for a hipKernel_t handle.
+    - `hipKernelGetName` returns function name for a hipKernel_t handle.
+    - `hipLibraryLoadData` creates library object from code.
+    - `hipLibraryLoadFromFile` creates library object from file.
+    - `hipLibraryUnload` unloads library.
+    - `hipLibraryGetKernel` gets a kernel from the library.
+    - `hipLibraryGetKernelCount` gets kernel count in library.
+    - `hipStreamCopyAttributes` copies attributes from source stream to destination stream.
+    - `hipOccupancyAvailableDynamicSMemPerBlock` returns dynamic shared memory available per block when launching numBlocks blocks on CU.
+* New HIP flags
+   - `hipMemLocationTypeHost` enables handling virtual memory management in host memory location, in addition to device memory.
+   - Support for flags in `hipGetProcAddress` enables searching for the per-thread version symbols:
+     - `HIP_GET_PROC_ADDRESS_DEFAULT`
+     - `HIP_GET_PROC_ADDRESS_LEGACY_STREAM`
+     - `HIP_GET_PROC_ADDRESS_PER_THREAD_DEFAULT_STREAM`
+
+#### Optimized
+
+* Graph node scaling:
+    -  HIP runtime implements an optimized doorbell ring mechanism for certain topologies of graph execution. It enables efficient batching of graph nodes.
+    - The enhancement provides better alignment with CUDA Graph optimizations.
+    - HIP also adds a new performance test for HIP graphs with programmable topologies to measure graph performance across different structures. 
+    - The test evaluates graph instantiation time, first launch time, repeat launch times, and end-to-end execution for various graph topologies. 
+    - The test implements comprehensive timing measurements including CPU overhead and device execution time.
+* Back memory set (memset) optimization:
+    - HIP runtime now implements a back memory set (memset) optimization to improve how memset nodes are processed during graph execution. 
+    - The enhancement specifically handles varying number of Architected Queue Language (AQL) packets for memset graph node due to graph node set params for AQL batch submission approach.
+* Async handler performance improvement:
+    - HIP runtime has removed the lock contention in async handler enqueue path. 
+    - - The enhancement reduces runtime overhead and maximizes GPU throughput for asynchronous kernel execution, especially in multi-threaded applications.
+
+#### Resolved issues
+
+* Corrected the calculation of the value of maximum shared memory per multiprocessor, in HIP device properties.
+
+### **hipBLAS** (3.2.0)
+
+#### Resolved issues
+* Corrected client memory use counts for the `HIPBLAS_CLIENT_RAM_GB_LIMIT` environment variable.
+* Fixed false Clang static analysis warnings.
+
+### **hipBLASLt** (1.2.0)
+
+#### Added
+
+* Support for the `BF16` input data type with an `FP32` output data type for gfx90a.
+* Support for hipBLASLtExt operation APIs on gfx11XX and gfx12XX.
+* `HIPBLASLT_OVERRIDE_COMPUTE_TYPE_XF32` to override the compute type from `xf32` to other compute types.
+* Support for the Sigmoid Activation function.
+
+### **hipCUB** (4.2.0)
+ 
+#### Added
+* Experimental SPIR-V support.
+
+#### Resolved issues
+ 
+* Fixed memory leak issues with some unit tests.
+
+### **hipFFT** (1.0.22)
+
+#### Added
+
+* hipFFTW execution functions, where input and output data buffers differ from the
+  buffers specified at plan creation:
+
+  * fftw_execute_dft
+  * fftwf_execute_dft
+  * fftw_execute_dft_r2c
+  * fftwf_execute_dft_r2c
+  * fftw_execute_dft_c2r
+  * fftwf_execute_dft_c2r
+
+### **HIPIFY** (22.2.0)
+
+#### Added
+
+* Partial support for CUDA 13.0.0 support.
+* cuDNN 9.14.0 support.
+* cuTENSOR 2.3.1.0 support.
+* LLVM 21.1.6 support.
+* Full `hipFFTw` support.
+* [#2062](https://github.com/ROCm/HIPIFY/issues/2062) Partial hipification support for a particular CUDA API.
+* [#2073](https://github.com/ROCm/HIPIFY/issues/2073) Detect CUDA version before hipification.
+* New options:
+  * `--local-headers` to enable hipification of quoted local headers (non-recursive).
+  * `--local-headers-recursive` to enable hipification of quoted local headers recursively.
+
+#### Resolved issues
+
+* [#2088](https://github.com/ROCm/HIPIFY/issues/2088) Missing support of `cuda_bf16.h` import in hipification.
+
+### **hipSOLVER** (3.2.0)
+
+#### Added
+
+* Ability to control rocSOLVER logging using the environment variables `ROCSOLVER_LEVELS` and `ROCSOLVER_LAYER`.
+
+### **hipSPARSE** (4.2.0)
+
+#### Added
+
+* `--clients-only` option to the `install.sh` and `rmake.py` scripts for building only the clients when using a version of hipSPARSE that is already installed.
+
+#### Optimized
+
+* Improved the user documentation.
+
+#### Resolved Issues
+
+* Fixed a memory leak in the `hipsparseCreate` functions.
+
+### **hipSPARSELt** (0.2.6)
+
+#### Optimized
+
+* Provided more kernels for the `FP16` and `FP8(E4M3)` data types.
+
+### **hipTensor** (2.2.0)
+
+#### Added
+
+* Software-managed plan cache support.
+* `hiptensorHandleWritePlanCacheToFile` to write the plan cache of a hipTensor handle to a file.
+* `hiptensorHandleReadPlanCacheFromFile` to read a plan cache from a file into a hipTensor handle.
+* `simple_contraction_plan_cache` to demonstrate plan cache usages.
+* `plan_cache_test` to test the plan cache across various tensor ranks.
+* C API headers to enable compatibility with C programs.
+* A CMake function to allow projects to query architecture support.
+* An option to configure the memory layout for tests and benchmarks.
+
+#### Changed
+
+* Updated C++ standard from C++17 to C++20.
+* Include files `hiptensor/hiptensor.hpp` and `hiptensor/hiptensor_types.hpp` are now deprecated. Use `hiptensor/hiptensor.h` and `hiptensor/hiptensor_types.h` instead.
+* Converted include guards from #ifndef/#define/#endif to #pragma once.
+
+#### Resolved issues
+
+* Removed large tensor sizes causing problem in benchmarks.
+
+### **llvm-project** (22.0.0)
+
+#### Added 
+
+* Enabled ThinLTO for ROCm compilers using `-foffload-lto=thin`. For more information, see [ROCm compiler reference](https://rocm.docs.amd.com/projects/llvm-project/en/develop/reference/rocmcc.html#amd-gpu-compilation). 
+
+#### Changed
+
+* Updated clang/llvm to AMD clang version 22.0.0 (equivalent to LLVM 22.0.0 with additional out-of-tree patches).
+
+### **MIGraphX** (2.15.0) 
+
+#### Added
+
+* MXFP4 support for Quark and Brevitas quantized models.
+* Dynamic shape support for `DepthToSpace Op`.
+* `bias` and `key_mask_padding` inputs for the `MultiHeadAttention` operator.
+* GEMM+GEMM fusions.
+* `dim_params` input parameter to the `parse_onnx` Python call.
+* Created an API to query supported ONNX Operators `get_onnx_operators()`.
+* Right pad masking mode for Multihead Attention.
+* Support for Flash Decoding.
+* Torch-MIGraphX installation instructions.
+* Operator Builders with supporting documentation.
+* Index range check to the Gather operator.
+
+#### Changed
+
+* Updated the Resize operator to support linear mode for Dynamic shapes.
+* Switched to `--input-dim` instead of `--batch`  to set any dynamic dimensions when using `migraphx-driver`.
+* Different stride sizes are now supported in ONNX `if` branches.
+* ONNX version change to 1.18.0 to support PyTorch 2.9.
+* Refactored `GroupQueryAttention`.
+* Enabled `PipelineRepoRef` parameter in CI.
+* Hide LLVM symbols that come from ROCmlir and provide option for stripping in release mode.
+* Model compilation failures now produce an mxr file for debugging the failure.
+* Bumped SQlite3 to 3.50.4.
+
+#### Optimized
+
+* Converted the `LRN` operator to an optimized `pooling` operator.
+* Streamlined the `find_matches` function.
+* Reduced the number of splits used for `split_reduce`.
+* Improved layout propagation in pointwise fusion when using broadcasted inputs.
+
+#### Resolved issues
+
+* Quiet nrvo and noreturn warnings.
+* Fixed `pointwise: Wrong number of arguments` error when quantizing certain models to `int8`.
+* TopK exception bugfix.
+* Updated SD3 example for change in optimum-onnx[onnxruntime].
+* Fixed an issue with Torch-MIGraphX where the model compilation would fail.
+* Fixed an issue where a reduction was broadcast with different dimensions than the input.
+* Resolved a path name issue stopping some files being created on Windows for debugging.
+* Fixed "reduce_sum: axes: value out of range" error in `simplify_reshapes`.
+* Updated README `rbuild` installation instructions to use Python venv to avoid warning.
+* Ensured directories exist when generating files for debugging.
+* Resolved a compilation hang issue.
+
+### **MIOpen** (3.5.1)
+
+#### Added
+* 3D heuristics for gfx950.
+* Optional timestamps to MIOpen logging.
+* Option to log when MIOpen starts and finishes tuning.
+* Winograd Fury 4.6.0 for gfx12 for improved convolution performance.
+
+#### Changed
+* Ported several OCL kernels to HIP.
+
+#### Optimized
+* Improved Composable Kernel (CK) kernel selection during tuning.
+* Improved user DB file locking to better handle network storage.
+* Improved performance for MIOpen check numerics capabilities
+
+#### Resolved issues
+* Addressed an issue in the stride adjustment logic for ASM (MISA) kernels when the output dimension is one.
+* Fixed an issue with the CK bwd solver applicability checks when deterministic is set.
+* [BatchNorm] Fixed issue where batchnorm tuning would give incorrect results.
+* Fixed issue where generic search was not providing sufficient warm-up for some kernels.
+
+### **MIVisionX** (3.5.0)
+
+#### Changed
+
+* AMD Clang++ location updated to `${ROCM_PATH}/lib/llvm/bin`.
+* Required RPP version updated to RPP V2.2.1.
+
+#### Resolved issues
+
+* Memory leaks in OpenVX core, vx_nn, & vx_opencv.
+
+#### Known issues
+
+* Installation on RedHat and SLES requires the manual installation of the FFmpeg and OpenCV dev packages.
+
+#### Upcoming changes
+
+* VX_AMD_MEDIA - `rocDecode` and `rocJPEG` support for hardware decode.
+
+### **RCCL** (2.27.7)
+
+#### Changed
+
+* RCCL error messages have been made more verbose in several cases. RCCL now prints out fatal error messages by default. Fatal error messages can be suppressed by setting `NCCL_DEBUG=NONE`.
+* Disabled `reduceCopyPacks` pipelining for `gfx950`.
+
+### **rocAL** (2.5.0)
+
+#### Added
+
+* `EnumRegistry` to register all the enums present in rocAL.
+* `Argument` class which stores the value and type of each argument in the Node.
+* `PipelineOperator` class to represent operators in the pipeline with metadata.
+* Support to track operators in MasterGraph with unique naming.
+
+#### Changed
+
+* OpenCL backend support is deprecated.
+* CXX Compiler: Use AMDClang++ compiler core location `${ROCM_PATH}/lib/llvm/bin`.
+* Refactored external enum usage in rocAL to maintain separation between external and internal enums.
+* Introduced the following enums `ResizeScalingMode`, `ResizeInterpolationType`, `MelScaleFormula`, `AudioBorderType`, and `OutOfBoundsPolicy` in `commons.h`.
+
+#### Resolved issues
+
+* Use HIP memory for fused crop rocJPEG decoder.
+* Issue in numpy loader where ROI is updated incorrectly.
+* Issue in CropResize node where `crop_w` and `crop_h` values were not correctly updated.
+
+#### Known issues
+
+* Package installation on SLES requires manually installing `TurboJPEG`.
+* Package installation on RedHat and SLES requires manually installing the FFmpeg dev package.
+
+### **rocALUTION** (4.1.0)
+
+#### Added
+
+* `--clients-only` option to the `install.sh` and `rmake.py` scripts to allow building only the clients while using an already installed version of rocALUTION.
+
+### **rocBLAS** (5.2.0)
+
+#### Added
+* Level 3 `syrk_ex` function for both C and FORTRAN, without API support for the ILP64 format.
+
+#### Optimized
+
+* Level 2 `tpmv` and `sbmv` functions.
+
+#### Resolved issues
+
+* Corrected client memory use counts for the `ROCBLAS_CLIENT_RAM_GB_LIMIT` environment variable.
+* Fixed false Clang static analysis warnings.
+
+### **rocDecode** (1.5.0)
+
+#### Added
+* Logging control. Message output from the core components is now controlled by the logging level threshold, which can be set by an environment variable or other methods.
+* The new `rocdecode-host` package must be installed to use the FFmpeg decoder.
+
+#### Changed
+
+* Updated `libdrm` path configuration and `libva` version requirements for ROCm and TheRock platforms.
+
+#### Resolved issues
 
 * Fixed the build error with videodecodepicfiles sample.
 * Added error handling of sample app command option combination of memory type OUT_SURFACE_MEM_NOT_MAPPED and MD5 generation.
