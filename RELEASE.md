@@ -52,7 +52,7 @@ For more information about:
 
 #### Virtualization support
 
-Virtualization support remains unchanged in this release. For more information, see  [Virtualization Support](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#virtualization-support).
+Virtualization support remains unchanged in this release. For more information, see  [Virtualization support](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/reference/system-requirements.html#virtualization-support).
 
 ### User space, driver, and firmware dependent changes
 
@@ -179,21 +179,21 @@ GPU and baseboard firmware versioning might differ across GPU families.
   </table>
 </div>
 
-<p id="footnote1">[1]: For AMD Instinct MI325X KVM SR-IOV users, don't use AMD GPU Driver (amdgpu) 30.20.0.</p>
+<p id="footnote1">[1]: For AMD Instinct MI325X KVM SR-IOV users, don't use AMD GPU driver (amdgpu) 30.20.0.</p>
 
-#### Node power management added
+#### Node power management for multi-GPU nodes added
 
 Node Power Management (NPM) optimizes power allocation and GPU frequency across multiple GPUs within a node using built-in telemetry and advanced control algorithms. It dynamically scales GPU frequencies to keep total node power within limits. Use AMD SMI to verify whether NPM is enabled and to check the node’s power allocation. This feature is supported on AMD Instinct MI355X and MI350X GPUs in both bare-metal and KVM SR-IOV virtual environments when paired with PLDM bundle 01.25.17.02. See the [AMD SMI changelog](#amdsmi-npm-changelog) for details.
 
 #### GPU resiliency improvement
 
-AMD GPU Driver now supports Multimedia Engine Reset for AMD Instinct MI325X GPUs. The finer-grain GPU resiliency feature enables recovery from faults related to VCN or JPEG without requiring a full GPU reset, thereby improving system stability and fault tolerance. This feature requires PLDM bundle 01.25.06.02.
+AMD GPU driver now supports Multimedia Engine Reset for AMD Instinct MI325X GPUs. The finer-grain GPU resiliency feature enables recovery from faults related to VCN or JPEG without requiring a full GPU reset, thereby improving system stability and fault tolerance. This feature requires PLDM bundle 01.25.06.02.
 
 ### Model optimization for AMD Instinct MI350 Series GPUs
 
 The following models have been optimized for AMD Instinct MI350 Series GPUs:
 
-* Significant performance optimization is achieved for the Llama 3.1 405B model on AMD Instinct MI355X GPUs, delivering enhanced throughput and reduced latency through kernel-level tuning and memory bandwidth improvements. These changes leverage MI355X’s advanced architecture to maximize efficiency for large-scale inference workloads.
+* Significant performance optimization has been achieved for the Llama 3.1 405B model on AMD Instinct MI355X GPUs, delivering enhanced throughput and reduced latency through kernel-level tuning and memory bandwidth improvements. These changes leverage MI355X’s advanced architecture to maximize efficiency for large-scale inference workloads.
 * Optimized Llama 3.1 405B model performance on AMD Instinct MI355X GPUs.
 * Optimized Llama 3 70B and Llama 2 70B model performance on AMD Instinct MI355X and MI350X GPUs.
 
@@ -208,11 +208,11 @@ The following models have been optimized for AMD Instinct MI300X GPUs:
 
 #### Graph node scaling
   
-HIP runtime implements an optimized doorbell ring mechanism for certain graph execution topologies. It enables efficient batching of graph nodes. This enhancement provides better alignment with NVIDIA CUDA Graph optimizations. 
+HIP runtime now implements an optimized doorbell ring mechanism for certain graph execution topologies. It enables efficient batching of graph nodes. This enhancement provides better alignment with NVIDIA CUDA Graph optimizations. 
 
 HIP also adds a new performance test for HIP graphs with programmable topologies to measure graph performance across different structures. The test evaluates graph instantiation time, first-launch time, repeat launch times, and end-to-end execution for various graph topologies. The test implements comprehensive timing measurements, including CPU overhead and device execution time.
 
-#### Back memory set (`memset`) optimization
+#### Back memory set (memset) optimization
 
 HIP runtime now implements a back memory set (memset) optimization to improve how `memset` nodes are processed during graph execution. This enhancement specifically handles varying numbers of AQL (Architected Queue Language) packets for `memset` graph node due to graph node set params for AQL batch submission approach.
 
@@ -243,7 +243,7 @@ The following new HIP library management APIs have been added:
 
 #### Stream management API
 
-New Stream Management API `hipStreamCopyAttributes` is implemented for NVIDIA CUDA Parity improvement.
+New Stream Management API `hipStreamCopyAttributes` is implemented for CUDA Parity improvement.
 
 ### New rocSHMEM communication GPUDirect Async (GDA) backend conduit
 
@@ -303,12 +303,12 @@ For cases where compile-time evaluation of the wavefront size cannot be avoided,
 #define MY_MACRO_FOR_WAVEFRONT_SIZE 32
 #endif
 ```
-### AMD ROCm Simulation toolkit
+### AMD ROCm Simulation introduced
 
 AMD ROCm Simulation is an open-source toolkit on the ROCm platform for high-performance, physics-based and numerical simulation on AMD GPUs. It brings scientific computing, computer graphics, robotics, and AI-driven simulation to AMD Instinct GPUs by unifying the HIP runtime, optimized math libraries, and PyTorch integration for high-throughput real-time and offline workloads.
 
 The libraries span physics kernels, numerical solvers, rendering, and multi-GPU scaling, with Python-friendly APIs that plug into existing research and production pipelines. By using ROCm’s open-source GPU stack on AMD Instinct products, you gain optimized performance, flexible integration with Python and machine learning frameworks, and scalability across multi-GPU clusters and high-performance computing (HPC) environments.
-For more information, see the [ROCm-Simulation documentation](https://rocm.docs.amd.com/projects/rocm-simulation/en/latest/index.html).
+For more information, see the [ROCm Simulation documentation](https://rocm.docs.amd.com/projects/rocm-simulation/en/latest/index.html).
 
 The release in December 2025 introduced support for [ROCm 7.0.0](https://rocm.docs.amd.com/en/docs-7.0.0/) for the two components:
 
@@ -316,15 +316,15 @@ The release in December 2025 introduced support for [ROCm 7.0.0](https://rocm.do
 
 * [GSplat (Gaussian splatting)](https://rocm.docs.amd.com/projects/gsplat/en/docs-25.11/) is a highly efficient technique for real-time rendering of 3D scenes trained from a collection of multiview 2D images of the scene. It has emerged as an alternative to neural radiance fields (NeRFs), offering significant advantages in rendering speed while maintaining visual quality.
 
-### ROCm Life Science updates
+### AMD ROCm Life Science updates
 
-The AMD ROCm™ Life Science (ROCm-LS) toolkit is a GPU-accelerated library suite developed for life science and healthcare applications, offering a robust set of tools optimized for AMD hardware. In December 2025, ROCm-LS transitioned from early access (EA) to general availability (GA).
+The AMD ROCm Life Science (ROCm-LS) toolkit is a GPU-accelerated library suite developed for life science and healthcare applications, offering a robust set of tools optimized for AMD hardware. In December 2025, ROCm-LS transitioned from early access (EA) to general availability (GA).
 
-The ROCm-LS GA release is marked with the transition of hipCIM from EA to production-ready and support for ROCm 7.0. For more information, see [ROCm-LS 25.11 release notes](https://rocm.docs.amd.com/projects/rocm-ls/en/latest/about/release-notes.html).
+The ROCm-LS GA release is marked with the transition of hipCIM from EA to production-ready and support for ROCm 7.0.x. For more information, see [ROCm-LS 25.11 release notes](https://rocm.docs.amd.com/projects/rocm-ls/en/latest/about/release-notes.html).
 
 ### Deep learning and AI framework updates
 
-ROCm provides a comprehensive ecosystem for deep learning development. For more information, see [Deep learning frameworks for ROCm](https://rocm.docs.amd.com/en/docs-7.1.1/how-to/deep-learning-rocm.html) and the [Compatibility
+ROCm provides a comprehensive ecosystem for deep learning development. For more information, see [Deep learning frameworks for ROCm](../../docs/how-to/deep-learning-rocm.rst) and the [Compatibility
 matrix](../../docs/compatibility/compatibility-matrix.rst) for the complete list of Deep learning and AI framework versions tested for compatibility with ROCm. AMD ROCm has officially updated support for the following Deep learning and AI frameworks:
 
 #### JAX
@@ -347,27 +347,29 @@ Ray is a unified framework for scaling AI and Python applications from your lapt
  
 The ROCm Offline Installer Creator 7.2.0 includes the following features and improvements:
 
-* Changes to the AMDGPU driver version selection in the Driver Options menu. For drivers based on ROCm 7.0 and later, the AMDGPU version is now selected based on the driver versioning, such as 3x.yy.zz, and not the ROCm version.
+* Changes to the AMDGPU driver version selection in the Driver Options menu. For drivers based on ROCm 7.0.0 and later, the AMDGPU version is now selected based on the driver versioning, such as 3x.yy.zz, and not the ROCm version.
 * Fixes for Oracle Linux 10.0 ROCm and driver minimum mode installer creation.
 * Added support for creating an offline installer for Oracle Linux 8, 9, and 10, where the kernel version of the target OS differs from the host OS creating the installer.
  
-See [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.1/install/rocm-offline-installer.html) for more information.
+See [ROCm Offline Installer Creator](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/install/rocm-offline-installer.html) for more information.
  
 ### ROCm Runfile Installer updates
  
 The ROCm Runfile Installer 7.2.0 includes fixes for rocm-examples test script build issues.
  
-For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.1/install/rocm-runfile-installer.html).
+For more information, see [ROCm Runfile Installer](https://rocm.docs.amd.com/projects/install-on-linux-internal/en/latest/install/rocm-runfile-installer.html).
 
 ### Expansion of the ROCm examples repository
 
 The [ROCm examples repository](https://github.com/ROCm/rocm-examples) has been expanded with examples for the following ROCm components:
 
-* [MIGraphX](https://rocm.docs.amd.com/projects/AMDMIGraphX/en/latest/)
-* [MIVisionX](https://rocm.docs.amd.com/projects/MIVisionX/en/latest/)
-* [RCCL](https://rocm.docs.amd.com/projects/rccl/en/latest/)
-* [rocJPEG](https://rocm.docs.amd.com/projects/rocJPEG/en/latest/)
-* [RPP](https://rocm.docs.amd.com/projects/rpp/en/latest/)
+* [MIGraphX](https://github.com/ROCm/rocm-examples/tree/amd-staging/Libraries/MIGraphX)
+* [MIVisionX](https://github.com/ROCm/rocm-examples/tree/amd-staging/Libraries/MIVisionX)
+* [RCCL](https://github.com/ROCm/rocm-examples/tree/amd-staging/Libraries/RCCL)
+* [rocCV](https://github.com/ROCm/rocm-examples/tree/amd-staging/Libraries/rocCV)
+* [rocDecode](https://github.com/ROCm/rocm-examples/tree/amd-staging/Libraries/rocDecode)
+* [rocJPEG](https://github.com/ROCm/rocm-examples/tree/amd-staging/Libraries/rocJPEG)
+* [RPP](https://github.com/ROCm/rocm-examples/tree/amd-staging/Libraries/RPP)
 
 Usage examples are now available for the [ROCgdb](https://github.com/ROCm/rocm-examples/tree/amd-staging/Tools/ROCgdb) debugger.
 
@@ -793,28 +795,28 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 #### Added
 * Support for mixed precision fp8 x bf8 universal GEMM and weight preshuffle GEMM.
-* Compute async pipeline in the CK TILE universal GEMM on gfx950.
-* Support for B Tensor type `pk_int4_t` in the CK TILE weight preshuffle GEMM.
-* New api to load different memory sizes to SGPR.
-* Support for B Tensor Preshuffle in CK TILE Grouped GEMM.
+* Compute async pipeline in the CK Tile universal GEMM on gfx950.
+* Support for B Tensor type `pk_int4_t` in the CK Tile weight preshuffle GEMM.
+* New call to load different memory sizes to SGPR.
+* Support for B Tensor Preshuffle in CK Tile Grouped GEMM.
 * Basic copy kernel example and supporting documentation for new CK Tile developers.
 * Support for `grouped_gemm` kernels to perform `multi_d` elementwise operation.
 * Support for Multiple ABD GEMM.
 * Benchmarking support for tile engine GEMM Multi D.
-* Block scaling support in CK_TILE GEMM, allowing flexible use of quantization matrices from either A or B operands.
-* Row-wise and column-wise quantization for `CK_TILE` GEMM and `CK_TILE` Grouped GEMM.
+* Block scaling support in CK Tile GEMM, allowing flexible use of quantization matrices from either A or B operands.
+* Row-wise and column-wise quantization for CK Tile GEMM and grouped GEMM.
 * Support for `f32` to FMHA (fwd/bwd).
-* Tensor-wise quantization for `CK_TILE` GEMM.
+* Tensor-wise quantization for CK Tile GEMM.
 * Support for batched contraction kernel.
 * WMMA (gfx12) support for FMHA.
-* Pooling kernel in `CK_TILE`.
-* Top-k sigmoid kernel in `CK_TILE`.
-* Blockscale 2D support for `CK_TILE` GEMM.
-* An optional template parameter `Arch` (example:`gfx9_t` or `gfx12_t`) to `make_kernel` to support linking multiple object files that have the same kernel compiled for different architectures.
+* Pooling kernel in CK Tile.
+* Top-k sigmoid kernel in CK Tile.
+* Blockscale 2D support for CK Tile GEMM.
+* An optional template parameter, `Arch`, to `make_kernel` to support linking multiple object files that have the same kernel compiled for different architectures.
 
 #### Changed
 
-* Removed `BlockSize` in `make_kernel` and `CShuffleEpilogueProblem` to support Wave32 in `CK_TILE`.
+* Removed `BlockSize` in `make_kernel` and `CShuffleEpilogueProblem` to support Wave32 in CK Tile.
 * FMHA examples and tests can be built for multiple architectures (gfx9, gfx950, gfx12) at the same time.
 
 #### Upcoming changes
@@ -979,6 +981,55 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 * Updated clang/llvm to AMD clang version 22.0.0 (equivalent to LLVM 22.0.0 with additional out-of-tree patches).
 
+### **MIGraphX** (2.15.0) 
+
+#### Added
+
+* MXFP4 support for Quark and Brevitas quantized models.
+* Dynamic shape support for `DepthToSpace Op`.
+* `bias` and `key_mask_padding` inputs for the `MultiHeadAttention` operator.
+* GEMM+GEMM fusions.
+* `dim_params` input parameter to the `parse_onnx` Python call.
+* Created an API to query supported ONNX Operators `get_onnx_operators()`.
+* Right pad masking mode for Multihead Attention.
+* Support for Flash Decoding.
+* Torch-MIGraphX installation instructions.
+* Operator Builders with supporting documentation.
+* Index range check to the Gather operator.
+
+#### Changed
+
+* Updated the Resize operator to support linear mode for Dynamic shapes.
+* Switched to `--input-dim` instead of `--batch`  to set any dynamic dimensions when using `migraphx-driver`.
+* Different stride sizes are now supported in ONNX `if` branches.
+* ONNX version change to 1.18.0 to support PyTorch 2.9.
+* Refactored `GroupQueryAttention`.
+* Enabled `PipelineRepoRef` parameter in CI.
+* Hide LLVM symbols that come from ROCmlir and provide option for stripping in release mode.
+* Model compilation failures now produce an mxr file for debugging the failure.
+* Bumped SQlite3 to 3.50.4.
+
+#### Optimized
+
+* Converted the `LRN` operator to an optimized `pooling` operator.
+* Streamlined the `find_matches` function.
+* Reduced the number of splits used for `split_reduce`.
+* Improved layout propagation in pointwise fusion when using broadcasted inputs.
+
+#### Resolved issues
+
+* Quiet nrvo and noreturn warnings.
+* Fixed `pointwise: Wrong number of arguments` error when quantizing certain models to `int8`.
+* TopK exception bugfix.
+* Updated SD3 example for change in optimum-onnx[onnxruntime].
+* Fixed an issue with Torch-MIGraphX where the model compilation would fail.
+* Fixed an issue where a reduction was broadcast with different dimensions than the input.
+* Resolved a path name issue stopping some files being created on Windows for debugging.
+* Fixed "reduce_sum: axes: value out of range" error in `simplify_reshapes`.
+* Updated README `rbuild` installation instructions to use Python venv to avoid warning.
+* Ensured directories exist when generating files for debugging.
+* Resolved a compilation hang issue.
+
 ### **MIOpen** (3.5.1)
 
 #### Added
@@ -1005,11 +1056,16 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 #### Changed
 
-* AMD Clang++ - Location updated `${ROCM_PATH}/lib/llvm/bin`.
+* AMD Clang++ location updated to `${ROCM_PATH}/lib/llvm/bin`.
+* Required RPP version updated to RPP V2.2.1.
+
+#### Resolved issues
+
+* Memory leaks in OpenVX core, vx_nn, & vx_opencv.
 
 #### Known issues
 
-* Installation on RedHat/SLES requires the manual installation of the `FFMPEG` and `OpenCV` dev packages.
+* Installation on RedHat and SLES requires the manual installation of the FFmpeg and OpenCV dev packages.
 
 #### Upcoming changes
 
@@ -1025,28 +1081,29 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 ### **rocAL** (2.5.0)
 
 #### Added
+
 * `EnumRegistry` to register all the enums present in rocAL.
 * `Argument` class which stores the value and type of each argument in the Node.
-* Support to store the arguments in the Node class.
 * `PipelineOperator` class to represent operators in the pipeline with metadata.
 * Support to track operators in MasterGraph with unique naming.
 
 #### Changed
+
 * OpenCL backend support is deprecated.
-* CXX Compiler: AMDClang++ - Use compiler core location `${ROCM_PATH}/lib/llvm/bin`
+* CXX Compiler: Use AMDClang++ compiler core location `${ROCM_PATH}/lib/llvm/bin`.
 * Refactored external enum usage in rocAL to maintain separation between external and internal enums.
 * Introduced the following enums `ResizeScalingMode`, `ResizeInterpolationType`, `MelScaleFormula`, `AudioBorderType`, and `OutOfBoundsPolicy` in `commons.h`.
 
 #### Resolved issues
 
-* Use HIP memory for fused crop rocjpeg decoder
+* Use HIP memory for fused crop rocJPEG decoder.
 * Issue in numpy loader where ROI is updated incorrectly.
-* Issue in CropResize node where crop_w and crop_h values were not correctly updated
+* Issue in CropResize node where `crop_w` and `crop_h` values were not correctly updated.
 
 #### Known issues
 
 * Package installation on SLES requires manually installing `TurboJPEG`.
-* Package installation on RedHat and SLES requires manually installing the `FFMPEG Dev` package.
+* Package installation on RedHat and SLES requires manually installing the FFmpeg dev package.
 
 ### **rocALUTION** (4.1.0)
 
@@ -1070,9 +1127,18 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 ### **rocDecode** (1.5.0)
 
+#### Added
+* Logging control. Message output from the core components is now controlled by the logging level threshold, which can be set by an environment variable or other methods.
+* The new `rocdecode-host` package must be installed to use the FFmpeg decoder.
+
 #### Changed
 
 * Updated `libdrm` path configuration and `libva` version requirements for ROCm and TheRock platforms.
+
+### Resolved issues
+
+* Fixed the build error with videodecodepicfiles sample.
+* Added error handling of sample app command option combination of memory type OUT_SURFACE_MEM_NOT_MAPPED and MD5 generation.
 
 ### **rocFFT** (1.0.36)
 
@@ -1092,6 +1158,8 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 #### Changed
 
 * Updated `libdrm` path configuration and `libva` version requirements for ROCm and TheRock platforms.
+* RHEL now uses `libva-devel` instead of `libva-amdgpu`/`libva-amdgpu-devel`
+* Use ROCm clang++ from `${ROCM_PATH}/lib/llvm/bin` location.
 
 ### **ROCm Bandwidth Test** (2.6.0)
 
@@ -1266,6 +1334,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 * `thrust::unique_ptr` - a smart pointer for managing device memory with automatic cleanup.
 * A new cmake option, `BUILD_OFFLOAD_COMPRESS`. When rocThrust is built with this option enabled, the `--offload-compress` switch is passed to the compiler. This causes the compiler to compress the binary that it generates. Compression can be useful when compiling for a large number of targets, because it often results in a larger binary. Without compression, in some cases, the generated binary may become so large symbols are placed out of range, resulting in linking errors. The new `BUILD_OFFLOAD_COMPRESS` option is set to `ON` by default.
+* Experimental SPIR-V support.
 
 ### **rocWMMA** (2.2.0)
 
@@ -1288,8 +1357,20 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 ### **RPP** (2.2.0)
 
+#### Added
+
+* Pinned buffer API support for HOST and HIP.
+
 #### Changed
-* CXX Compiler: AMDClang++ - Use compiler core location `${ROCM_PATH}/lib/llvm/bin`.
+
+* AMDClag++ compiler has moved to `${ROCM_PATH}/lib/llvm/bin`.
+
+#### Removed
+
+* The `copy_param_float()` and `copy_param_uint()` mem copy helper functions have been removed as buffers now consistently use pinned/HIP memory.
+
+#### Resolved issues
+* Test Suite - Error Code Capture updates.
 
 ## ROCm known issues
 
