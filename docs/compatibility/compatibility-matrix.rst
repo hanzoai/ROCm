@@ -90,7 +90,7 @@ compatibility and system requirements.
       MATH LIBS,.. _mathlibs-support-compatibility-matrix:,,
       `half <https://github.com/ROCm/half>`_ ,1.12.0,1.12.0,1.12.0
       :doc:`hipBLAS <hipblas:index>`,3.2.0,3.1.0,2.4.0
-      :doc:`hipBLASLt <hipblaslt:index>`,1.2.0,1.1.0,0.12.0
+      :doc:`hipBLASLt <hipblaslt:index>`,1.2.1,1.1.0,0.12.0
       :doc:`hipFFT <hipfft:index>`,1.0.22,1.0.21,1.0.18
       :doc:`hipfort <hipfort:index>`,0.7.1,0.7.1,0.6.0
       :doc:`hipRAND <hiprand:index>`,3.1.0,3.1.0,2.12.0
@@ -113,7 +113,7 @@ compatibility and system requirements.
       :doc:`rocThrust <rocthrust:index>`,4.2.0,4.1.0,3.3.0
       ,,,
       SUPPORT LIBS,,,
-      `hipother <https://github.com/ROCm/hipother>`_,7.2.25493,7.1.52802,6.4.43482
+      `hipother <https://github.com/ROCm/hipother>`_,7.2.26013,7.1.52802,6.4.43482
       `rocm-core <https://github.com/ROCm/rocm-core>`_,7.2.0,7.1.1,6.4.0
       `ROCT-Thunk-Interface <https://github.com/ROCm/ROCT-Thunk-Interface>`_,N/A [#ROCT-rocr]_,N/A [#ROCT-rocr]_,N/A [#ROCT-rocr]_
       ,,,
@@ -148,16 +148,16 @@ compatibility and system requirements.
       `OpenMP <https://github.com/ROCm/llvm-project/tree/amd-staging/openmp>`_,22.0.0.25492,20.0.025444,19.0.0.25133
       ,,,
       RUNTIMES,.. _runtime-support-compatibility-matrix:,,
-      :doc:`AMD CLR <hip:understand/amd_clr>`,7.2.25493,7.1.52802,6.4.43482
-      :doc:`HIP <hip:index>`,7.2.25493,7.1.52802,6.4.43482
+      :doc:`AMD CLR <hip:understand/amd_clr>`,7.2.26013,7.1.52802,6.4.43482
+      :doc:`HIP <hip:index>`,7.2.26013,7.1.52802,6.4.43482
       `OpenCL Runtime <https://github.com/ROCm/clr/tree/develop/opencl>`_,2.0.0,2.0.0,2.0.0
       :doc:`ROCr Runtime <rocr-runtime:index>`,1.18.0,1.18.0,1.15.0
 
 
 .. rubric:: Footnotes
 
-.. [#os-compatibility] Some operating systems are supported on limited GPUs. For detailed information, see the latest :ref:`supported_distributions`. For version specific information, see `ROCm 7.1.1 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.1/reference/system-requirements.html#supported-operating-systems>`__, `ROCm 7.1.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.0/reference/system-requirements.html#supported-operating-systems>`__, and `ROCm 6.4.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-6.4.0/reference/system-requirements.html#supported-operating-systems>`__.
-.. [#gpu-compatibility] Some GPUs have limited operating system support. For detailed information, see the latest :ref:`supported_GPUs`. For version specific information, see `ROCm 7.1.1 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.1/reference/system-requirements.html#supported-gpus>`__, `ROCm 7.1.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.0/reference/system-requirements.html#supported-gpus>`__, and `ROCm 6.4.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-6.4.0/reference/system-requirements.html#supported-gpus>`__.
+.. [#os-compatibility] Some operating systems are supported on specific GPUs. For detailed information about operating systems supported on ROCm 7.2.0, see the latest :ref:`supported_distributions`. For version specific information, see `ROCm 7.1.1 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.1/reference/system-requirements.html#supported-operating-systems>`__, and `ROCm 6.4.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-6.4.0/reference/system-requirements.html#supported-operating-systems>`__.
+.. [#gpu-compatibility] Some GPUs have limited operating system support. For detailed information about GPUs supporting ROCm 7.2.0, see the latest :ref:`supported_GPUs`. For version specific information, see `ROCm 7.1.1 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.1/reference/system-requirements.html#supported-gpus>`__, `ROCm 7.1.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.0/reference/system-requirements.html#supported-gpus>`__, and `ROCm 6.4.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-6.4.0/reference/system-requirements.html#supported-gpus>`__.
 .. [#dgl_compat] DGL is supported only on ROCm 7.0.0, ROCm 6.4.3 and ROCm 6.4.0.
 .. [#llama-cpp_compat] llama.cpp is supported only on ROCm 7.0.0 and ROCm 6.4.x.
 .. [#mi325x_KVM] For AMD Instinct MI325X KVM SR-IOV users, do not use AMD GPU Driver (amdgpu) 30.20.0.
@@ -201,8 +201,8 @@ Expand for full historical view of:
 
    .. rubric:: Footnotes
 
-   .. [#os-compatibility-past-60] Some operating systems are supported on specific GPUs. For detailed information, see the latest :ref:`supported_distributions`. For version specific information, see `ROCm 7.1.1 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.1/reference/system-requirements.html#supported-operating-systems>`_, `ROCm 7.1.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.0/reference/system-requirements.html#supported-operating-systems>`_, and `ROCm 6.4.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-6.4.0/reference/system-requirements.html#supported-operating-systems>`_.
-   .. [#gpu-compatibility-past-60] Some GPUs have limited operating system support. For detailed information, see the latest :ref:`supported_GPUs`. For version specific information, see `ROCm 7.1.1 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.1/reference/system-requirements.html#supported-gpus>`_, `ROCm 7.1.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.1.0/reference/system-requirements.html#supported-gpus>`_, and `ROCm 6.4.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-6.4.0/reference/system-requirements.html#supported-gpus>`_.
+   .. [#os-compatibility-past-60] Some operating systems are supported on specific GPUs. For detailed information, see :ref:`supported_distributions` and select the required ROCm version for version specific support.
+   .. [#gpu-compatibility-past-60] Some GPUs have limited operating system support. For detailed information, see :ref:`supported_GPUs` and select the required ROCm version for version specific support.
    .. [#tf-mi350-past-60] TensorFlow 2.17.1 is not supported on AMD Instinct MI350 Series GPUs. Use TensorFlow 2.19.1 or 2.18.1 with MI350 Series GPUs instead.
    .. [#verl_compat-past-60] verl is supported only on ROCm 6.2.0.
    .. [#stanford-megatron-lm_compat-past-60] Stanford Megatron-LM is supported only on ROCm 6.3.0.

@@ -16,7 +16,7 @@ for a complete overview of this release.
 - GPU and baseboard temperature options to `amd-smi monitor` CLI.
   - `amd-smi monitor --gpu-board-temps` for GPU board temperature sensors.
   - `amd-smi monitor --base-board-temps` for base board temperature sensors.
-  
+
 (amdsmi-npm-changelog)=
 - New Node Power Management (NPM) APIs and CLI options for node monitoring.
   - C++ API functions:
@@ -163,7 +163,7 @@ for a complete overview of this release.
 * Corrected client memory use counts for the `HIPBLAS_CLIENT_RAM_GB_LIMIT` environment variable.
 * Fixed false Clang static analysis warnings.
 
-### **hipBLASLt** (1.2.0)
+### **hipBLASLt** (1.2.1)
 
 #### Added
 
@@ -171,6 +171,10 @@ for a complete overview of this release.
 * Support for hipBLASLtExt operation APIs on gfx11XX and gfx12XX.
 * `HIPBLASLT_OVERRIDE_COMPUTE_TYPE_XF32` to override the compute type from `xf32` to other compute types.
 * Support for the Sigmoid Activation function.
+
+#### Resolved issues
+
+* Fixed the `HIPBLAS_STATUS_INTERNAL_ERROR` issue that could occur with various sizes in CPX mode.
 
 ### **hipCUB** (4.2.0)
  
@@ -255,6 +259,8 @@ for a complete overview of this release.
 
 #### Changed
 
+* hipTensor has been moved into the new rocm-libraries "monorepo" repository (https://github.com/ROCm/rocm-libraries). This repository consolidates a number of separate ROCm libraries and shared components.
+  * The repository migration requires a few changes to the CMake configuration of hipTensor.
 * Updated C++ standard from C++17 to C++20.
 * Include files `hiptensor/hiptensor.hpp` and `hiptensor/hiptensor_types.hpp` are now deprecated. Use `hiptensor/hiptensor.h` and `hiptensor/hiptensor_types.h` instead.
 * Converted include guards from #ifndef/#define/#endif to #pragma once.
@@ -550,7 +556,24 @@ for a complete overview of this release.
 ### **ROCprofiler-SDK** (1.1.0)
 
 #### Added
-* Strix halo support for counter collection.
+- Peak Tops Limiter (PTL) unified control for AMD Instinct MI300 Series GPUs.
+- Counter collection support for gfx1150 and gfx1151 (Strix Halo).
+- HSA Extension API v8 support.
+- `hipStreamCopyAttributes` API implementation.
+
+#### Optimized
+
+- Improved the process attachment and updated the corresponding documentation.
+- Improved [Quick reference guide for rocprofv3](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/quick_guide.html).
+- Updated the [installation documentation](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/install/installation.html) with the links to the latest repository.
+
+#### Resolved issues
+
+- Fixed multi-GPU dimension mismatch.
+- Fixed device lock issue for dispatch counters.
+- Addressed OpenMP Tools task scheduling null pointer exception.
+- Fixed stream ID errors arising during process attachment.
+- Fixed issues arising during dynamic code object loading.
 
 ### **rocPyDecode** (0.8.0)
 

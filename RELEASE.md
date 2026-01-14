@@ -26,6 +26,8 @@ The release notes provide a summary of notable changes since the previous ROCm r
 
 - [ROCm known issues](#rocm-known-issues)
 
+- [ROCm resolved issues](#rocm-resolved-issues)
+
 - [ROCm upcoming changes](#rocm-upcoming-changes)
 
 ```{note}
@@ -337,11 +339,11 @@ ROCm 7.2.0 enables support for ONNX 1.23.2.
 
 #### verl
 
-Volcano Engine Reinforcement Learning (verl) is a reinforcement learning framework designed for large language models (LLMs). verl offers a scalable, open-source fine-tuning solution by using a hybrid programming model that makes it easy to define and run complex post-training dataflows efficiently. It is currently supported on ROCm 7.0.0. and ROCm 6.2.0. For more information, see [verl compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/verl-compatibility.html).
+Volcano Engine Reinforcement Learning (verl) is a reinforcement learning framework designed for large language models (LLMs). verl offers a scalable, open-source fine-tuning solution by using a hybrid programming model that makes it easy to define and run complex post-training dataflows efficiently. It is now supported on ROCm 7.0.0 (previously only supported on ROCm 6.2.0). For more information, see [verl compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/verl-compatibility.html).
 
 #### Ray
 
-Ray is a unified framework for scaling AI and Python applications from your laptop to a full cluster, without changing your code. Ray consists of [a core distributed runtime](https://docs.ray.io/en/latest/ray-core/walkthrough.html) and a set of [AI libraries](https://docs.ray.io/en/latest/ray-air/getting-started.html) for simplifying machine learning computations. It is currently supported on ROCm 7.0.0 and ROCm 6.4.1. For more information, see [Ray compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/ray-compatibility.html).
+Ray is a unified framework for scaling AI and Python applications from your laptop to a full cluster, without changing your code. Ray consists of [a core distributed runtime](https://docs.ray.io/en/latest/ray-core/walkthrough.html) and a set of [AI libraries](https://docs.ray.io/en/latest/ray-air/getting-started.html) for simplifying machine learning computations. It is now supported on ROCm 7.0.0 (previously only supported on ROCm 6.4.1). For more information, see [Ray compatibility](https://rocm.docs.amd.com/en/latest/compatibility/ml-compatibility/ray-compatibility.html).
 
 ### ROCm Offline Installer Creator updates
  
@@ -377,7 +379,15 @@ Usage examples are now available for the [ROCgdb](https://github.com/ROCm/rocm-e
 
 ROCm documentation continues to be updated to provide clearer and more comprehensive guidance for a wider variety of user needs and use cases.
 
+* The newest resource for ROCm and HIP developers is the [AMD ROCm Programming Guide](https://rocm-handbook.amd.com/projects/amd-rocm-programming-guide/en/latest/). This guide introduces the core concepts, APIs, and best practices for programming with ROCm and the HIP programming language. It provides hands-on guidance for writing GPU kernels, managing memory, optimizing performance, and integrating HIP with the broader AMD ROCm ecosystem of tools and libraries. The [HIP documentation](https://rocm.docs.amd.com/projects/HIP/en/latest/index.html) set continues to provide detailed information, tutorials, and reference content.
+
 * The HIP Programming Guide section includes a new topic titled [“Understanding GPU performance”](https://rocm.docs.amd.com/projects/HIP/en/develop/understand/performance_optimization.html). It explains the theoretical foundations of GPU performance on AMD hardware. Understanding these concepts helps you analyze performance characteristics, identify bottlenecks, and make informed optimization decisions. Two other topics in this guide have been enhanced: [Performance guidelines](https://rocm.docs.amd.com/projects/HIP/en/develop/how-to/performance_guidelines.html) and [Hardware implementation](https://rocm.docs.amd.com/projects/HIP/en/develop/understand/hardware_implementation.html).
+
+* [Tutorials for AI developers](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/) have been expanded with the following two new tutorials:
+    * Fine-tuning tutorial: [Customize Qwen-Image with DiffSynth-Studio](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/fine_tune/qwen_image.html)
+    * GPU development and optimization tutorial: [GPU kernel development and assessment with Helion](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/gpu_dev_optimize/helion_gpu_kernel_dev.html)
+    
+    For more information about the changes, see the [Changelog for the AI Developer Hub](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/changelog.html).
 
 ## ROCm components
 
@@ -474,7 +484,7 @@ Click {fab}`github` to go to the component's source code on GitHub.
             </tr>
             <tr>
                 <td><a href="https://rocm.docs.amd.com/projects/hipBLASLt/en/docs-7.1.1/index.html">hipBLASLt</a></td>
-                <td>1.1.0&nbsp;&Rightarrow;&nbsp;<a href="#hipblaslt-1-2-0">1.2.0</a></td>
+                <td>1.1.0&nbsp;&Rightarrow;&nbsp;<a href="#hipblaslt-1-2-1">1.2.1</a></td>
                 <td><a href="https://github.com/ROCm/rocm-libraries/tree/develop/projects/hipblaslt"><i class="fab fa-github fa-lg"></i></a></td>
             </tr>
             <tr>
@@ -871,7 +881,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 * Corrected client memory use counts for the `HIPBLAS_CLIENT_RAM_GB_LIMIT` environment variable.
 * Fixed false Clang static analysis warnings.
 
-### **hipBLASLt** (1.2.0)
+### **hipBLASLt** (1.2.1)
 
 #### Added
 
@@ -879,6 +889,10 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 * Support for hipBLASLtExt operation APIs on gfx11XX and gfx12XX.
 * `HIPBLASLT_OVERRIDE_COMPUTE_TYPE_XF32` to override the compute type from `xf32` to other compute types.
 * Support for the Sigmoid Activation function.
+
+#### Resolved issues
+
+* Fixed the `HIPBLAS_STATUS_INTERNAL_ERROR` issue that could occur with various sizes in CPX mode.
 
 ### **hipCUB** (4.2.0)
  
@@ -963,6 +977,8 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 #### Changed
 
+* hipTensor has been moved into the new rocm-libraries "monorepo" repository (https://github.com/ROCm/rocm-libraries). This repository consolidates a number of separate ROCm libraries and shared components.
+  * The repository migration requires a few changes to the CMake configuration of hipTensor.
 * Updated C++ standard from C++17 to C++20.
 * Include files `hiptensor/hiptensor.hpp` and `hiptensor/hiptensor_types.hpp` are now deprecated. Use `hiptensor/hiptensor.h` and `hiptensor/hiptensor_types.h` instead.
 * Converted include guards from #ifndef/#define/#endif to #pragma once.
@@ -1135,7 +1151,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 * Updated `libdrm` path configuration and `libva` version requirements for ROCm and TheRock platforms.
 
-### Resolved issues
+#### Resolved issues
 
 * Fixed the build error with videodecodepicfiles sample.
 * Added error handling of sample app command option combination of memory type OUT_SURFACE_MEM_NOT_MAPPED and MD5 generation.
@@ -1258,7 +1274,24 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 ### **ROCprofiler-SDK** (1.1.0)
 
 #### Added
-* Strix halo support for counter collection.
+- Peak Tops Limiter (PTL) unified control for AMD Instinct MI300 Series GPUs.
+- Counter collection support for gfx1150 and gfx1151 (Strix Halo).
+- HSA Extension API v8 support.
+- `hipStreamCopyAttributes` API implementation.
+
+#### Optimized
+
+- Improved the process attachment and updated the corresponding documentation.
+- Improved [Quick reference guide for rocprofv3](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/quick_guide.html).
+- Updated the [installation documentation](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/install/installation.html) with the links to the latest repository.
+
+#### Resolved issues
+
+- Fixed multi-GPU dimension mismatch.
+- Fixed device lock issue for dispatch counters.
+- Addressed OpenMP Tools task scheduling null pointer exception.
+- Fixed stream ID errors arising during process attachment.
+- Fixed issues arising during dynamic code object loading.
 
 ### **rocPyDecode** (0.8.0)
 
@@ -1376,6 +1409,39 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 ROCm known issues are noted on {fab}`github` [GitHub](https://github.com/ROCm/ROCm/labels/Verified%20Issue). For known
 issues related to individual components, review the [Detailed component changes](#detailed-component-changes).
+
+## ROCm resolved issues
+
+The following are previously known issues resolved in this release. For resolved issues related to
+individual components, review the [Detailed component changes](#detailed-component-changes).
+
+### RCCL performance degradation on AMD Instinct MI300X GPU with AMD Pollara AI NIC
+
+The RCCL performance degradation issue affecting AMD Instinct MI300X GPUs with AMD Pollara AI NIC for specific collectives and message sizes has been resolved. The impacted collectives included `Scatter`, `AllToAll`, and `AlltoAllv`. See [GitHub issue #5717](https://github.com/ROCm/ROCm/issues/5717).
+
+### rocprofv3 fails on RPM-based OS with Python 3.10 (and later)
+
+The issue where `rocprofv3` tool failed on RPM-based operating systems (such as RHEL 8) with Python 3.10 (and later) due to missing ROCPD bindings has been resolved. See [GitHub issue #5606](https://github.com/ROCm/ROCm/issues/5606).
+
+### Applications using OpenCV might fail due to package incompatibility between the OS
+
+An issue where applications using OpenCV packages failed due to package incompatibility between OpenCV built on Ubuntu 24.04 and Debian 13 has been resolved. See [GitHub issue #5501](https://github.com/ROCm/ROCm/issues/5501).
+
+### AMD SMI CLI triggers repeated kernel errors on GPUs with partitioning support
+
+An issue where running the `amd-smi` CLI on GPUs with partitioning support, such as the AMD
+Instinct MI300 Series, which produced repeated kernel error messages in the
+system logs, has been resolved. The issue occurred when `amd-smi` attempted to open invalid partition device nodes during device permission checks. As a result, the AMD GPU Driver (amdgpu) logged errors in `dmesg`, such as: 
+
+```
+amdgpu 0000:15:00.0: amdgpu: renderD153 partition 1 not valid!
+```
+These repeated kernel logs could clutter the system logs and cause
+unnecessary concern about GPU health. See [GitHub issue #5720](https://github.com/ROCm/ROCm/issues/5720).
+
+### Incorrect results in gemm_ex operations for rocBLAS and hipBLAS
+
+An issue where some `gemm_ex` operations with 8-bit input data types (`int8`, `float8`, `bfloat8`) for specific matrix dimensions (K = 1 and number of workgroups > 1) yield incorrect results has been resolved. The root cause was incorrect tailloop code that ignored workgroup index when calculating valid element size. See [GitHub issue #5722](https://github.com/ROCm/ROCm/issues/5722).
 
 ## ROCm upcoming changes
 
