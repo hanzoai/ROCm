@@ -126,7 +126,8 @@ GPU and baseboard firmware versioning might differ across GPU families.
       <tr>
           <td>MI325X<a href="#footnote1"><sup>[1]</sup></a></td>
           <td>
-              01.25.06.02
+              01.25.06.02<br>
+              01.25.04.02
           </td>
           <td>30.30.0<br>
               30.20.1<br>
@@ -140,7 +141,7 @@ GPU and baseboard firmware versioning might differ across GPU families.
       </tr>
       <tr>
           <td>MI300X</td>
-          <td>Not Applicable</td>
+          <td>01.25.03.12</td>
           <td rowspan="6" style="vertical-align: middle;">
               30.30.0<br>
               30.20.1<br>
