@@ -126,8 +126,7 @@ GPU and baseboard firmware versioning might differ across GPU families.
       <tr>
           <td>MI325X<a href="#footnote1"><sup>[1]</sup></a></td>
           <td>
-              01.25.06.02<br>
-              01.25.04.02
+              01.25.06.02
           </td>
           <td>30.30.0<br>
               30.20.1<br>
@@ -141,8 +140,7 @@ GPU and baseboard firmware versioning might differ across GPU families.
       </tr>
       <tr>
           <td>MI300X</td>
-          <td>01.25.06.00<br>
-              01.25.03.12</td>
+          <td>Not Applicable</td>
           <td rowspan="6" style="vertical-align: middle;">
               30.30.0<br>
               30.20.1<br>
@@ -977,7 +975,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 #### Changed
 
-* hipTensor has been moved into the new rocm-libraries "monorepo" repository (https://github.com/ROCm/rocm-libraries). This repository consolidates a number of separate ROCm libraries and shared components.
+* hipTensor has been moved into the new rocm-libraries "monorepo" repository {fab}`github` [rocm-libraries](https://github.com/ROCm/rocm-libraries). This repository consolidates a number of separate ROCm libraries and shared components.
   * The repository migration requires a few changes to the CMake configuration of hipTensor.
 * Updated C++ standard from C++17 to C++20.
 * Include files `hiptensor/hiptensor.hpp` and `hiptensor/hiptensor_types.hpp` are now deprecated. Use `hiptensor/hiptensor.h` and `hiptensor/hiptensor_types.h` instead.
@@ -1274,14 +1272,14 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 ### **ROCprofiler-SDK** (1.1.0)
 
 #### Added
-- Peak Tops Limiter (PTL) unified control for AMD Instinct MI300 Series GPUs.
+
 - Counter collection support for gfx1150 and gfx1151 (Strix Halo).
 - HSA Extension API v8 support.
 - `hipStreamCopyAttributes` API implementation.
 
 #### Optimized
 
-- Improved the process attachment and updated the corresponding documentation.
+- Improved process attachment and updated the corresponding [documentation](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/how-to/using-rocprofv3-process-attachment.html).
 - Improved [Quick reference guide for rocprofv3](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/quick_guide.html).
 - Updated the [installation documentation](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/install/installation.html) with the links to the latest repository.
 

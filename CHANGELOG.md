@@ -259,7 +259,7 @@ for a complete overview of this release.
 
 #### Changed
 
-* hipTensor has been moved into the new rocm-libraries "monorepo" repository (https://github.com/ROCm/rocm-libraries). This repository consolidates a number of separate ROCm libraries and shared components.
+* hipTensor has been moved into the new rocm-libraries "monorepo" repository {fab}`github` [rocm-libraries](https://github.com/ROCm/rocm-libraries). This repository consolidates a number of separate ROCm libraries and shared components.
   * The repository migration requires a few changes to the CMake configuration of hipTensor.
 * Updated C++ standard from C++17 to C++20.
 * Include files `hiptensor/hiptensor.hpp` and `hiptensor/hiptensor_types.hpp` are now deprecated. Use `hiptensor/hiptensor.h` and `hiptensor/hiptensor_types.h` instead.
@@ -556,14 +556,14 @@ for a complete overview of this release.
 ### **ROCprofiler-SDK** (1.1.0)
 
 #### Added
-- Peak Tops Limiter (PTL) unified control for AMD Instinct MI300 Series GPUs.
+
 - Counter collection support for gfx1150 and gfx1151 (Strix Halo).
 - HSA Extension API v8 support.
 - `hipStreamCopyAttributes` API implementation.
 
 #### Optimized
 
-- Improved the process attachment and updated the corresponding documentation.
+- Improved process attachment and updated the corresponding [documentation](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/how-to/using-rocprofv3-process-attachment.html).
 - Improved [Quick reference guide for rocprofv3](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/quick_guide.html).
 - Updated the [installation documentation](https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/install/installation.html) with the links to the latest repository.
 
