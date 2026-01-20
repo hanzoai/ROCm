@@ -95,7 +95,7 @@ GPU and baseboard firmware versioning might differ across GPU families.
           <td rowspan="9" style="vertical-align: middle;">ROCm 7.2.0</td>
           <td>MI355X</td>
           <td>
-              01.25.17.02<br>
+              01.25.17.07<br>
               01.25.16.03
           </td>
           <td>
@@ -111,7 +111,7 @@ GPU and baseboard firmware versioning might differ across GPU families.
       <tr>
           <td>MI350X</td>
           <td>
-              01.25.17.02<br>
+              01.25.17.07<br>
               01.25.16.03
           </td>
           <td>
@@ -126,7 +126,7 @@ GPU and baseboard firmware versioning might differ across GPU families.
       <tr>
           <td>MI325X<a href="#footnote1"><sup>[1]</sup></a></td>
           <td>
-              01.25.06.02<br>
+              01.25.06.03<a href="#footnote2"><sup>[2]</sup></a><br>
               01.25.04.02
           </td>
           <td>30.30.0<br>
@@ -136,7 +136,7 @@ GPU and baseboard firmware versioning might differ across GPU families.
               30.10.1<br>
               30.10<br>
               6.4.z where z (0-3)<br>
-              6.3.y where y (1-3)
+              6.3.y where y (2-3)
           </td>
       </tr>
       <tr>
@@ -150,7 +150,7 @@ GPU and baseboard firmware versioning might differ across GPU families.
               30.10.1<br>
               30.10<br>
               6.4.z where z (0–3)<br>
-              6.3.y where y (1–3)<br>
+              6.3.y where y (2–3)<br>
           </td>
           <td>8.7.0.K</td>
       </tr>
@@ -181,6 +181,7 @@ GPU and baseboard firmware versioning might differ across GPU families.
 </div>
 
 <p id="footnote1">[1]: For AMD Instinct MI325X KVM SR-IOV users, don't use AMD GPU driver (amdgpu) 30.20.0.</p>
+<p id="footnote2">[2]: PLDM bundle 01.25.06.03 will be available by end of January 2026.</p>
 
 #### Node power management for multi-GPU nodes added
 
@@ -317,6 +318,12 @@ The release in December 2025 introduced support for [ROCm 7.0.0](https://rocm.do
 
 * [GSplat (Gaussian splatting)](https://rocm.docs.amd.com/projects/gsplat/en/docs-25.11/) is a highly efficient technique for real-time rendering of 3D scenes trained from a collection of multiview 2D images of the scene. It has emerged as an alternative to neural radiance fields (NeRFs), offering significant advantages in rendering speed while maintaining visual quality.
 
+### ROCm Optiq introduced
+
+ROCm Optiq (Beta) is AMD’s next‑generation visualization platform designed to bring clarity to performance analysis. You can use the ROCm Optiq GUI to view trace files captured with the ROCm Systems Profiler on any supported Microsoft Windows or Linux system.
+ 
+With ROCm Optiq, developers can pinpoint performance bottlenecks — from pipeline stalls and memory bandwidth limitations to suboptimal kernel launches. ROCm Optiq delivers a comprehensive, end‑to‑end view of system behavior, empowering teams to optimize their workflows by correlating GPU workloads with in‑application CPU events and hardware resource utilization. For more information, see the [ROCm Optiq documentation](https://rocm.docs.amd.com/projects/roc-optiq/en/latest/).
+
 ### AMD ROCm Life Science updates
 
 The AMD ROCm Life Science (ROCm-LS) toolkit is a GPU-accelerated library suite developed for life science and healthcare applications, offering a robust set of tools optimized for AMD hardware. In December 2025, ROCm-LS transitioned from early access (EA) to general availability (GA).
@@ -332,9 +339,9 @@ matrix](../../docs/compatibility/compatibility-matrix.rst) for the complete list
 
 ROCm 7.2.0 enables support for JAX 0.8.0. For more information, see [JAX compatibility](../../docs/compatibility/ml-compatibility/jax-compatibility.rst).
 
-#### ONNX
+#### ONNX Runtime
 
-ROCm 7.2.0 enables support for ONNX 1.23.2.
+ROCm 7.2.0 enables support for ONNX Runtime 1.23.2.
 
 #### verl
 
@@ -1408,6 +1415,30 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 ROCm known issues are noted on {fab}`github` [GitHub](https://github.com/ROCm/ROCm/labels/Verified%20Issue). For known
 issues related to individual components, review the [Detailed component changes](#detailed-component-changes).
+
+### ROCm multi-version installation might cause amd-smi CLI failure
+
+Installing multiple versions of ROCm on the same system might result in the `amd-smi` CLI functioning incorrectly.
+As a workaround, follow any of the preferred options:
+
+**Option 1:** If only the CLI or C++ library are needed, uninstall the `amdsmi` Python package:
+```bash
+python3 -m pip uninstall amdsmi
+```
+**Option 2:** Reinstall the Python library from your target ROCm version:
+```bash
+# Remove previous installation
+python3 -m pip uninstall amdsmi
+
+# Install from target ROCm instance
+cd /opt/rocm/share/amd_smi
+python3 -m pip install --user .
+```
+```{note}
+`sudo` might be required. Use flag `--break-system-packages` if `pip un/installation` fails.
+```
+
+For detailed instructions, see [Install the Python library for multiple ROCm instances](https://rocm.docs.amd.com/projects/amdsmi/en/latest/install/install.html#install-the-python-library-for-multiple-rocm-instances). The issue will be fixed in a future ROCm release.
 
 ## ROCm resolved issues
 
