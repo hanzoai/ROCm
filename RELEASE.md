@@ -181,15 +181,11 @@ GPU and baseboard firmware versioning might differ across GPU families.
 </div>
 
 <p id="footnote1">[1]: For AMD Instinct MI325X KVM SR-IOV users, don't use AMD GPU driver (amdgpu) 30.20.0.</p>
-<p id="footnote2">[2]: PLDM bundle 01.25.06.03 will be available by end of January 2026.</p>
+<p id="footnote2">[2]: PLDM bundle 01.25.06.03 is planned to be available by the end of January 2026.</p>
 
 #### Node power management for multi-GPU nodes added
 
-Node Power Management (NPM) optimizes power allocation and GPU frequency across multiple GPUs within a node using built-in telemetry and advanced control algorithms. It dynamically scales GPU frequencies to keep total node power within limits. Use AMD SMI to verify whether NPM is enabled and to check the node’s power allocation. This feature is supported on AMD Instinct MI355X and MI350X GPUs in both bare-metal and KVM SR-IOV virtual environments when paired with PLDM bundle 01.25.17.02. See the [AMD SMI changelog](#amdsmi-npm-changelog) for details.
-
-#### GPU resiliency improvement
-
-AMD GPU driver now supports Multimedia Engine Reset for AMD Instinct MI325X GPUs. The finer-grain GPU resiliency feature enables recovery from faults related to VCN or JPEG without requiring a full GPU reset, thereby improving system stability and fault tolerance. This feature requires PLDM bundle 01.25.06.02.
+Node Power Management (NPM) optimizes power allocation and GPU frequency across multiple GPUs within a node using built-in telemetry and advanced control algorithms. It dynamically scales GPU frequencies to keep total node power within limits. Use AMD SMI to verify whether NPM is enabled and to check the node’s power allocation. This feature is supported on AMD Instinct MI355X and MI350X GPUs in both bare-metal and KVM SR-IOV virtual environments when paired with PLDM bundle 01.25.17.07. See the [AMD SMI changelog](#amdsmi-npm-changelog) for details.
 
 ### Model optimization for AMD Instinct MI350 Series GPUs
 
@@ -263,10 +259,6 @@ Implemented software-managed plan cache. The Plan Cache main features include:
 hipTensor has also been enhanced with:
 * Addition of C API headers to enable compatibility with C programs.
 * Upgrade of C++ standard from `C++17` to `C++20`.
-
-### ROCm Systems Profiler support for VLLM V1
-
-ROCm Systems Profiler now supports VLLM V1 for AI model profiling. You will be able to do the performance profiling and trace collection for AI inference workloads running on VLLM's latest architecture. You can also collect comprehensive performance traces across all GPUs in multi-GPU configurations. The tracing workflow remains consistent with VLLM V0, ensuring a smooth transition for existing users. No changes to existing profiling scripts or configurations are required.
 
 ### SPIR-V support added to hipCUB and rocThrust 
 
@@ -783,7 +775,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
   - `amd-smi static --vram` and `amdsmi_get_gpu_vram_info()` now support the following types: `DDR5`, `LPDDR4`, `LPDDR5`, and `HBM3E`.
 
 - Support for PPT1 power limit information.  
-  - Support has been added for querying and setting the PPT (Package Power Tracking) limits
+  - Support has been added for querying and setting the PPT (Package Power Tracking) limits.
     - There are two PPT limits. PPT0 has lower limit and tracks a filtered version of the input power. PPT1 has higher limit but tracks the raw input power. This is to catch spikes in the raw data.
   - New API added:
     - `amdsmi_get_supported_power_cap()`: Returns power cap types supported on the device (PPT0, PPT1). This will allow you to know which power cap types you can get/set.
@@ -796,7 +788,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
   - The `hsmp` driver version can be shown without the `amdgpu` version using `amd-smi version -c`.
 
 - The `amd-smi set --power-cap` command now requires specification of the power cap type.  
-  - Command now takes the form: `amd-smi set --power-cap <power-cap-type> <new-cap>`
+  - Command now takes the form: `amd-smi set --power-cap <power-cap-type> <new-cap>`.
   - Acceptable power cap types are "ppt0" and "ppt1".
 
 - The `amd-smi reset --power-cap` command will now attempt to reset both `PPT0` and `PPT1` power caps to their default values. If a device only has `PPT0`, then only `PPT0` will be reset.  
@@ -1066,7 +1058,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 #### Optimized
 * Improved Composable Kernel (CK) kernel selection during tuning.
 * Improved user DB file locking to better handle network storage.
-* Improved performance for MIOpen check numerics capabilities
+* Improved performance for MIOpen check numerics capabilities.
 
 #### Resolved issues
 * Addressed an issue in the stride adjustment logic for ASM (MISA) kernels when the output dimension is one.
@@ -1180,7 +1172,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 #### Changed
 
 * Updated `libdrm` path configuration and `libva` version requirements for ROCm and TheRock platforms.
-* RHEL now uses `libva-devel` instead of `libva-amdgpu`/`libva-amdgpu-devel`
+* RHEL now uses `libva-devel` instead of `libva-amdgpu`/`libva-amdgpu-devel`.
 * Use ROCm clang++ from `${ROCM_PATH}/lib/llvm/bin` location.
 
 ### **ROCm Bandwidth Test** (2.6.0)
@@ -1219,8 +1211,8 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 #### Removed
 
 * Removed `database` mode from ROCm Compute Profiler in favor of other visualization methods, rather than Grafana and MongoDB integration, such as the upcoming Analysis DB-based Visualizer.
-  * Plotly server based standalone GUI
-  * Commandline based Textual User Interface
+  * Plotly server based standalone GUI.
+  * Commandline based Textual User Interface.
 
 #### Resolved issues
 
@@ -1235,7 +1227,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 #### Added
 
 - `ROCPROFSYS_PERFETTO_FLUSH_PERIOD_MS` configuration setting to set the flush period for Perfetto traces. The default value is 10000 ms (10 seconds).
-- Fetching of the `rocpd` schema from rocprofiler-sdk-rocpd
+- Fetching of the `rocpd` schema from rocprofiler-sdk-rocpd.
 
 #### Changed
 
@@ -1281,7 +1273,7 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 
 #### Added
 
-- Counter collection support for gfx1150 and gfx1151 (Strix Halo).
+- Counter collection support for gfx1150 and gfx1151.
 - HSA Extension API v8 support.
 - `hipStreamCopyAttributes` API implementation.
 

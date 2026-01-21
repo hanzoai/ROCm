@@ -59,7 +59,7 @@ for a complete overview of this release.
   - `amd-smi static --vram` and `amdsmi_get_gpu_vram_info()` now support the following types: `DDR5`, `LPDDR4`, `LPDDR5`, and `HBM3E`.
 
 - Support for PPT1 power limit information.  
-  - Support has been added for querying and setting the PPT (Package Power Tracking) limits
+  - Support has been added for querying and setting the PPT (Package Power Tracking) limits.
     - There are two PPT limits. PPT0 has lower limit and tracks a filtered version of the input power. PPT1 has higher limit but tracks the raw input power. This is to catch spikes in the raw data.
   - New API added:
     - `amdsmi_get_supported_power_cap()`: Returns power cap types supported on the device (PPT0, PPT1). This will allow you to know which power cap types you can get/set.
@@ -72,7 +72,7 @@ for a complete overview of this release.
   - The `hsmp` driver version can be shown without the `amdgpu` version using `amd-smi version -c`.
 
 - The `amd-smi set --power-cap` command now requires specification of the power cap type.  
-  - Command now takes the form: `amd-smi set --power-cap <power-cap-type> <new-cap>`
+  - Command now takes the form: `amd-smi set --power-cap <power-cap-type> <new-cap>`.
   - Acceptable power cap types are "ppt0" and "ppt1".
 
 - The `amd-smi reset --power-cap` command will now attempt to reset both `PPT0` and `PPT1` power caps to their default values. If a device only has `PPT0`, then only `PPT0` will be reset.  
@@ -342,7 +342,7 @@ for a complete overview of this release.
 #### Optimized
 * Improved Composable Kernel (CK) kernel selection during tuning.
 * Improved user DB file locking to better handle network storage.
-* Improved performance for MIOpen check numerics capabilities
+* Improved performance for MIOpen check numerics capabilities.
 
 #### Resolved issues
 * Addressed an issue in the stride adjustment logic for ASM (MISA) kernels when the output dimension is one.
@@ -456,7 +456,7 @@ for a complete overview of this release.
 #### Changed
 
 * Updated `libdrm` path configuration and `libva` version requirements for ROCm and TheRock platforms.
-* RHEL now uses `libva-devel` instead of `libva-amdgpu`/`libva-amdgpu-devel`
+* RHEL now uses `libva-devel` instead of `libva-amdgpu`/`libva-amdgpu-devel`.
 * Use ROCm clang++ from `${ROCM_PATH}/lib/llvm/bin` location.
 
 ### **ROCm Bandwidth Test** (2.6.0)
@@ -495,8 +495,8 @@ for a complete overview of this release.
 #### Removed
 
 * Removed `database` mode from ROCm Compute Profiler in favor of other visualization methods, rather than Grafana and MongoDB integration, such as the upcoming Analysis DB-based Visualizer.
-  * Plotly server based standalone GUI
-  * Commandline based Textual User Interface
+  * Plotly server based standalone GUI.
+  * Commandline based Textual User Interface.
 
 #### Resolved issues
 
@@ -511,7 +511,7 @@ for a complete overview of this release.
 #### Added
 
 - `ROCPROFSYS_PERFETTO_FLUSH_PERIOD_MS` configuration setting to set the flush period for Perfetto traces. The default value is 10000 ms (10 seconds).
-- Fetching of the `rocpd` schema from rocprofiler-sdk-rocpd
+- Fetching of the `rocpd` schema from rocprofiler-sdk-rocpd.
 
 #### Changed
 
@@ -557,7 +557,7 @@ for a complete overview of this release.
 
 #### Added
 
-- Counter collection support for gfx1150 and gfx1151 (Strix Halo).
+- Counter collection support for gfx1150 and gfx1151.
 - HSA Extension API v8 support.
 - `hipStreamCopyAttributes` API implementation.
 
