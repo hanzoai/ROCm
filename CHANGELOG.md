@@ -6,7 +6,7 @@ different versions of the ROCm software stack and its components.
 
 ## ROCm 7.2.0
 
-See the [ROCm 7.2.0 release notes](https://rocm-stg.amd.com/en/latest/about/release-notes.html#rocm-7-2-0-release-notes)
+See the [ROCm 7.2.0 release notes](https://rocm.docs.amd.com/en/docs-7.2.0/about/release-notes.html#rocm-7-2-0-release-notes)
 for a complete overview of this release.
 
 ### **AMD SMI** (26.2.1)
@@ -273,7 +273,7 @@ for a complete overview of this release.
 
 #### Added 
 
-* Enabled ThinLTO for ROCm compilers using `-foffload-lto=thin`. For more information, see [ROCm compiler reference](https://rocm.docs.amd.com/projects/llvm-project/en/develop/reference/rocmcc.html#amd-gpu-compilation). 
+* Enabled ThinLTO for ROCm compilers using `-foffload-lto=thin`. For more information, see [ROCm compiler reference](https://rocm.docs.amd.com/projects/llvm-project/en/docs-7.2.0/reference/rocmcc.html#amd-gpu-compilation). 
 
 #### Changed
 
@@ -300,7 +300,7 @@ for a complete overview of this release.
 * Updated the Resize operator to support linear mode for Dynamic shapes.
 * Switched to `--input-dim` instead of `--batch`  to set any dynamic dimensions when using `migraphx-driver`.
 * Different stride sizes are now supported in ONNX `if` branches.
-* ONNX version change to 1.18.0 to support PyTorch 2.9.
+* ONNX version change to 1.18.0 to support PyTorch 2.9.1.
 * Refactored `GroupQueryAttention`.
 * Enabled `PipelineRepoRef` parameter in CI.
 * Hide LLVM symbols that come from ROCmlir and provide option for stripping in release mode.
