@@ -1471,6 +1471,10 @@ An issue where some `gemm_ex` operations with 8-bit input data types (`int8`, `f
 
 The following changes to the ROCm software stack are anticipated for future releases.
 
+###  ROCm Offline Installer Creator deprecation
+
+The ROCm Offline Installer Creator is deprecated with the ROCm 7.2.0 release. Equivalent installation capabilities are available through the ROCm Runfile Installer, a self-extracting installer that is not based on OS package managers. This installer will be removed in a future release.
+
 ### ROCm SMI deprecation
 
 [ROCm SMI](https://github.com/ROCm/rocm_smi_lib) will be phased out in an
