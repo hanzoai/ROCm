@@ -25,7 +25,7 @@ subtrees:
     title: HIP SDK on Windows
   - url: https://rocm.docs.amd.com/projects/radeon-ryzen/en/latest/index.html
     title: ROCm on Radeon and Ryzen
-  - file: how-to/deep-learning-rocm.md
+  - file: how-to/deep-learning-rocm
     title: Deep learning frameworks
     subtrees:
     - entries:
@@ -75,8 +75,14 @@ subtrees:
         - entries:
           - file: how-to/rocm-for-ai/training/benchmark-docker/primus-megatron.rst
             title: Train a model with Primus and Megatron-LM
+            entries:
+            - file: how-to/rocm-for-ai/training/benchmark-docker/megatron-lm.rst
+              title: Train a model with Megatron-LM
           - file: how-to/rocm-for-ai/training/benchmark-docker/primus-pytorch.rst
             title: Train a model with Primus and PyTorch
+            entries:
+            - file: how-to/rocm-for-ai/training/benchmark-docker/pytorch-training.rst
+              title: Train a model with PyTorch
           - file: how-to/rocm-for-ai/training/benchmark-docker/jax-maxtext.rst
             title: Train a model with JAX MaxText
           - file: how-to/rocm-for-ai/training/benchmark-docker/mpt-llm-foundry
@@ -115,6 +121,8 @@ subtrees:
             title: SGLang inference performance testing
           - file: how-to/rocm-for-ai/inference/benchmark-docker/sglang-distributed.rst
             title: SGLang distributed inference with Mooncake
+          - file: how-to/rocm-for-ai/inference/xdit-diffusion-inference.rst
+            title: xDiT diffusion inference
           - file: how-to/rocm-for-ai/inference/deploy-your-model.rst
             title: Deploy your model
 

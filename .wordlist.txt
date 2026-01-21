@@ -139,6 +139,7 @@ ESXi
 EP
 EoS
 etcd
+equalto
 fas
 FBGEMM
 FiLM
@@ -229,6 +230,8 @@ href
 Hyperparameters
 HybridEngine
 Huggingface
+Hunyuan
+HunyuanVideo
 IB
 ICD
 ICT
@@ -261,6 +264,7 @@ Ioffe
 JAX's
 JAXLIB
 Jinja
+js
 JSON
 Jupyter
 KFD
@@ -526,6 +530,7 @@ TensileLite
 TensorBoard
 TensorFlow
 TensorParallel
+TheRock
 ToC
 TorchAudio
 torchaudio
@@ -543,6 +548,7 @@ UAC
 UC
 UCC
 UCX
+ud
 UE
 UIF
 UMC
@@ -854,6 +860,7 @@ pallas
 parallelization
 parallelizing
 param
+params
 parameterization
 passthrough
 pe
@@ -900,6 +907,7 @@ querySelectorAll
 queueing
 qwen
 radeon
+rc
 rccl
 rdc
 rdma
@@ -961,6 +969,7 @@ scalability
 scalable
 scipy
 seealso
+selectattr
 selectedTag
 sendmsg
 seqs
@@ -1065,6 +1074,8 @@ writebacks
 wrreq
 wzo
 xargs
+xdit
+xDiT
 xGMI
 xPacked
 xz
