@@ -283,7 +283,7 @@ MIGraphX has the following enhancements:
 * rocMLIR has implemented support to generate MXFP8 and MXFP4 kernels.
 * MIGraphX now supports MXFP8 and MXFP4 operations.
 
-### AMDGPU wavefront size compiler macro removal
+### AMDGPU wavefront size macro removal
 
 The `__AMDGCN_WAVEFRONT_SIZE` and `__AMDGCN_WAVEFRONT_SIZE__` macros, which provided a compile-time-constant wavefront size, are removed. Where required, the wavefront size should instead be queried using the warpSize variable in device code, or using `hipGetDeviceProperties` in host code. Neither of these will result in a compile-time constant. For more information, see [warpSize](https://rocm.docs.amd.com/projects/HIP/en/latest/how-to/hip_cpp_language_extensions.html#warpsize).
 For cases where compile-time evaluation of the wavefront size cannot be avoided, uses of `__AMDGCN_WAVEFRONT_SIZE` or `__AMDGCN_WAVEFRONT_SIZE__` can be replaced with a user-defined macro or `constexpr` variable with the wavefront size(s) for the target hardware. For example:
@@ -992,6 +992,10 @@ For a historical overview of ROCm component updates, see the {doc}`ROCm consolid
 #### Changed
 
 * Updated clang/llvm to AMD clang version 22.0.0 (equivalent to LLVM 22.0.0 with additional out-of-tree patches).
+
+#### Upcoming changes
+
+* As of ROCm 7.2.0, the [HIPCC](https://rocm.docs.amd.com/projects/HIPCC/en/latest/index.html) compiler is deprecated. HIPCC now invokes [AMD Clang](https://rocm.docs.amd.com/projects/llvm-project/en/latest/index.html). It’s recommended that you now invoke AMD Clang directly rather than using HIPCC. There isn’t any expected impact on usability, functionality, or performance when invoking AMD Clang directly. In a future ROCm release, HIPCC will become a symbolic link to AMD Clang.
 
 ### **MIGraphX** (2.15.0) 
 
