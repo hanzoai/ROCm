@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/hero.svg" alt="ROCm" width="880"></p>
+
 <div align="center">
 <img src="docs/data/amd-rocm-logo.png" width="200px" alt="ROCm logo">
 
