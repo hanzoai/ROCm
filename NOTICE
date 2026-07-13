@@ -6,9 +6,14 @@ licensed under the MIT License:
 
     Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 
+Forked from https://github.com/ROCm/ROCm — the manifest (default.xml) tracks
+revision refs/heads/amd-mainline.
+
 This repository is the AMD ROCm meta/manifest repository: documentation, build
-tooling, and the repo manifest (default.xml). This meta-repository is MIT-licensed
-and its upstream MIT license is retained in LICENSE.
+tooling, and the repo manifest (default.xml). Hanzo carries it as a downstream
+mirror for Hanzo gfx builds; apart from this NOTICE, the sources are unmodified
+relative to upstream. This meta-repository is MIT-licensed and its upstream MIT
+license is retained in LICENSE.
 
 The individual ROCm components referenced by the manifest and built by the tooling
 carry their own upstream licenses, including the MIT License, the Apache License 2.0,
