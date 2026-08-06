@@ -1,0 +1,25 @@
+# The ROCm meta-repo: it ships no binaries. It ships two things, and both are
+# gated here.
+#
+#   default.xml + tools/autotag/components.xml — the repo manifests that pin
+#     every ROCm component. Malformed XML means `repo sync` cannot start, so
+#     they must parse.
+#   docs/ — the readthedocs site, which IS this repo's product. The full sphinx
+#     build is the gate: a broken myst directive, a missing conf.py extension,
+#     an unreadable image or a dead include fails it. Verified green here
+#     (build succeeded, 17 pre-existing warnings), so a NEW break is visible.
+#
+# Not -W: those 17 warnings predate this pipeline, and a gate that is red before
+# anyone touches it reports nothing. Not markdownlint either — the repo's own
+# .markdownlint-cli2.yaml flags thousands of existing lines, which is the same
+# problem one level down.
+test:
+  - name: docs
+    run: |
+      set -e
+      python3 -c "import xml.etree.ElementTree as E; [E.parse(f) for f in ['default.xml','tools/autotag/components.xml']]; print('manifests parse')"
+      command -v uv >/dev/null 2>&1 || curl -LsSf https://astral.sh/uv/install.sh | sh
+      export PATH="$HOME/.local/bin:$PATH"
+      uv venv --python 3.12
+      uv pip install -q -r docs/sphinx/requirements.txt
+      uv run python -m sphinx -b html docs docs/_build/html
