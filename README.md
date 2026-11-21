@@ -1,5 +1,7 @@
 # AMD ROCm Software
 
+[![Open in Hanzo](https://hanzo.app/badges/open-in-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/ROCm&ref=main&action=open) [![Edit with Hanzo](https://hanzo.app/badges/edit-with-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/ROCm&ref=main&action=edit) [![Deploy with Hanzo](https://hanzo.app/badges/deploy-with-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/ROCm&ref=main&action=deploy)
+
 ROCm is an open-source stack, composed primarily of open-source software, designed for graphics
 processing unit (GPU) computation. ROCm consists of a collection of drivers, development tools, and
 APIs that enable GPU programming from low-level kernel to end-user applications.
